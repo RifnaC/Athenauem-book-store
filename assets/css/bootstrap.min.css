@@ -338,8 +338,27 @@ button:not(:disabled),[type="button"]:not(:disabled),[type="reset"]:not(:disable
 }
 
 textarea {
-    resize: vertical
+    resize: none;
+    
 }
+
+textarea::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+textarea::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+textarea::-webkit-scrollbar-thumb
+{
+	background-color: #71868a;
+}
+
 
 fieldset {
     min-width: 0;
@@ -1250,7 +1269,7 @@ progress {
 
     .row-cols-lg-4>* {
         flex: 0 0 auto;
-        width: 25%
+        width: 30%
     }
 
     .row-cols-lg-5>* {
@@ -2076,7 +2095,7 @@ progress {
     background-clip: padding-box;
     border: 1px solid #000;
     appearance: none;
-    border-radius: 5px;
+    border-radius: 0px;
     transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out
 }
 
@@ -2095,8 +2114,8 @@ progress {
 }
 
 .form-control:focus {
-    color: #6C7293;
-    background-color: #000;
+    color: #0a0b0c;
+    background-color: #fcfcfc;
     border-color: #f58b8b;
     outline: 0;
     box-shadow: 0 0 0 .25rem rgba(235,22,22,0.25)
@@ -2253,20 +2272,20 @@ textarea.form-control-lg {
     font-weight: 400;
     line-height: 1.5;
     color: #6C7293;
-    background-color: #000;
+    background-color: #fcfcfc;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right .75rem center;
     background-size: 16px 12px;
     border: 1px solid #000;
-    border-radius: 5px;
+    border-radius: 0px;
     appearance: none
 }
 
 .form-select:focus {
-    border-color: #f58b8b;
+    border-color: #52a8a017;
     outline: 0;
-    box-shadow: 0 0 0 .25rem rgba(235,22,22,0.25)
+    box-shadow: 0 0 0 .25rem #52a8a017
 }
 
 .form-select[multiple],.form-select[size]:not([size="1"]) {
@@ -2331,14 +2350,21 @@ textarea.form-control-lg {
     border-radius: 50%
 }
 
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 .form-check-input:active {
     filter: brightness(90%)
 }
 
-.form-check-input:focus {
-    border-color: #f58b8b;
+.form-check-input:focus,.form-control:focus{
+    border-color: #52a8a017;
     outline: 0;
-    box-shadow: 0 0 0 .25rem rgba(235,22,22,0.25)
+    box-shadow: 0 0 0 .25rem #52a8a017
 }
 
 .form-check-input:checked {
@@ -2826,7 +2852,7 @@ textarea.form-control-lg {
     border: 1px solid transparent;
     padding: .375rem .75rem;
     font-size: 1rem;
-    border-radius: 5px;
+    border-radius: 0px;
     transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out
 }
 
@@ -2857,8 +2883,8 @@ textarea.form-control-lg {
 }
 
 .btn-primary:hover {
-    color: #fff;
-    background-color: #15877C;
+    color: #000;
+    background-color: #fcfcfc;
     border-color: #15877C
 }
 
@@ -2871,8 +2897,8 @@ textarea.form-control-lg {
 
 .btn-check:checked+.btn-primary,.btn-check:active+.btn-primary,.btn-primary:active,.btn-primary.active,.show>.btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: #bc1212;
-    border-color: #b01111
+    background-color: #15877C;
+    border-color: #15877C;
 }
 
 .btn-check:checked+.btn-primary:focus,.btn-check:active+.btn-primary:focus,.btn-primary:active:focus,.btn-primary.active:focus,.show>.btn-primary.dropdown-toggle:focus {
@@ -4335,7 +4361,7 @@ textarea.form-control-lg {
     background-color: #fff;
     background-clip: border-box;
     border: 1px solid #FCFCFC;;
-    border-radius: 5px
+    border-radius: 0px
 }
 
 .card>hr {
@@ -4439,7 +4465,8 @@ textarea.form-control-lg {
 }
 
 .card-img,.card-img-top,.card-img-bottom {
-    width: 100%
+    width: 100%;
+    box-shadow: 2px 2px 40px 2px rgb(88, 119, 119);
 }
 
 .card-img,.card-img-top {
@@ -7626,7 +7653,7 @@ textarea.form-control-lg {
 }
 
 .fs-6 {
-    font-size: 1rem !important
+    font-size: .9rem !important
 }
 
 .fst-italic {
@@ -7779,7 +7806,10 @@ textarea.form-control-lg {
 }
 
 .bg-primary {
-    background-color: #EB1616 !important
+    background-color: #15877C !important
+}
+.bg-primaryLight {
+    background-color: #CCEBD7 !important
 }
 
 .bg-secondary {
@@ -7847,7 +7877,7 @@ textarea.form-control-lg {
 }
 
 .rounded {
-    border-radius: 5px !important
+    border-radius: 0px !important
 }
 
 .rounded-0 {
@@ -7900,6 +7930,11 @@ textarea.form-control-lg {
 
 .invisible {
     visibility: hidden !important
+}
+.product-img img{
+    width: auto;
+    height: 2.4rem;
+
 }
 
 @media (min-width: 576px) {

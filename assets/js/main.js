@@ -32,6 +32,83 @@
         return false;
     });
 
+    // // alert of inserting new admin
+    // $("#upload_user").submit(function(event) {
+       
+    //     alert("new admin data is inserted Successfully");
+    // })
+
+
+
+    // Function to validate the form
+    function validateForm() {
+      var name = document.forms["upload_user"]["name"].value;
+      var email = document.forms["upload_user"]["email"].value;
+      var password = document.forms["upload_user"]["password"].value;
+      var confirmPassword = document.forms["upload_user"]["confirmPassword"].value;
+  
+      // Check if name, email, password, and confirmPassword are not empty
+      if (name === "" || email === "" || password === "" || confirmPassword === "") {
+        alert("All fields must be filled out");
+        return false;
+      }
+  
+      if (name.length < 4 ) {
+        alert("Name should have at least 3 characters");
+        return false;
+      }
+      if (email  ) {
+        alert("Name should have at least 3 characters");
+        return false;
+      }
+      // Check if the password and confirmPassword match
+      if (password !== confirmPassword) {
+        alert("Passwords do not match");
+        return false;
+      }
+  
+      // You can add more specific validation rules here, like checking the email format.
+  
+      return true; // Form is valid
+    }
+  
+    // Add a submit event listener to the form
+    document.getElementById("upload_user").addEventListener("submit", function (event) {
+      if (!validateForm()) {
+        event.preventDefault(); // Prevent form submission if validation fails
+      }
+    });
+
+  
+
+
+
+
+    
+    $("#edit_admin").submit(function(event) {
+        event.preventDefault();
+        let unindexed_array= $(this).serializeArray();
+        // console.log(unindexed_array);
+        // alert("new admin data is inserted Successfully");
+    })
+    if(window.location.pathname=="/"){
+        $ondelete=$('.table tbody td a.delete');
+        $ondelete.click(function(){
+            const id= $(this).attr('data-id')
+
+            const request = {
+                "url":`http://localhost:3000/api/admins/${id}`,
+                "method":"DELETE"
+            }
+            if(confirm("DO you really want to delete this admin?")){
+                $.ajax(request).done(function(response){
+                    alert("Data deleted Successfully");
+                    location.reload()
+                })
+            }
+        })
+
+    }
 
     // Progress Bar
     $('.pg-bar').waypoint(function () {
@@ -167,7 +244,7 @@
             responsive: true
         }
     });
-
-    
+   
 })(jQuery);
+
 
