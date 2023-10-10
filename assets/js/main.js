@@ -140,29 +140,29 @@
     });
     
 
- // Add a submit event listener to the change password form
-$("#change_pswd").submit(function(event) {
-    event.preventDefault();
+//  // Add a submit event listener to the change password form
+// $("#change_pswd").submit(function(event) {
+//     event.preventDefault();
 
-    // Serialize the form data
-    let formData = $(this).serialize();
+//     // Serialize the form data
+//     let formData = $(this).serialize();
 
-    // Send an AJAX request to update the password using PUT method
-    $.ajax({
-        url: "http://localhost:3000/updatePassword",
-        method: "PUT",
-        data: formData,
-        success: function(response) {
-            // Handle the response (e.g., show a success message)
-            alert("Password updated successfully");
-        },
-        error: function(error) {
-            // Handle any errors (e.g., display an error message)
-            console.error(error);
-            alert("Error updating password");
-        }
-    });
-});
+//     // Send an AJAX request to update the password using PUT method
+//     $.ajax({
+//         url: "http://localhost:3000/updatePassword",
+//         method: "PUT",
+//         data: formData,
+//         success: function(response) {
+//             // Handle the response (e.g., show a success message)
+//             alert("Password updated successfully");
+//         },
+//         error: function(error) {
+//             // Handle any errors (e.g., display an error message)
+//             console.error(error);
+//             alert("Error updating password");
+//         }
+//     });
+// });
 
     
   
@@ -188,6 +188,18 @@ let $ondelete;
         })
 
     }
+
+
+
+    $("#add_shop").submit(function(event) {
+        if (!validateForm()) {
+            event.preventDefault();
+        }else{
+            
+            alert("new shop data is inserted Successfully"); 
+        }
+             
+    })
 
     // // Progress Bar
     // $('.pg-bar').waypoint(function () {

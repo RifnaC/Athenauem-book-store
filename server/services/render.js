@@ -13,7 +13,6 @@ exports.admin= (req, res)=>{
         res.render('admin',{admins: response.data});
     })
     .catch(err =>{
-       
         res.send(err);
     } )
 

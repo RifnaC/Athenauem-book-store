@@ -5,6 +5,7 @@ const path = require('path')
 const dotenv = require('dotenv').config({path:'config.env'})
 const morgan = require('morgan')
 const bodyParser = require('body-parser');
+const session = require('express-session');
 
 const connectDB = require('./server/database/connection');
 
@@ -32,6 +33,20 @@ app.use('/scss', express.static(path.resolve(__dirname,"assets/scss")))
 // load routers
 app.use('/',require('./server/routes/router'))
 
+
+// load sessions
+// app.use(session({
+//     secret: "my secret key",
+//     // saveUnintialized: true,
+//     resave: false,
+// })
+// );
+
+app.use((req, res, next) => {
+    res.locals.message = req.session.message;
+    delete req.session.message;
+    next();
+});
 
 
 app.listen(port , ()=> {

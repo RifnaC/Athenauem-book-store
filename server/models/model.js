@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+// admin collection 
 const schema = new mongoose.Schema({
     name:{
         type:String,
@@ -17,5 +17,5 @@ const schema = new mongoose.Schema({
 })
 
 const Admindb = mongoose.model('Admin', schema);
-
 module.exports = Admindb;
+

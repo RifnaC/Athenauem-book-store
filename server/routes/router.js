@@ -3,6 +3,8 @@ const route = express.Router();
 
 const services = require('../services/render');
 const controller = require('../controller/controller')
+const shopController = require('../controller/shopController');
+const store = require('../middlewares/multer');
 
 // ***********************Admin Management********************************
 /** 
@@ -39,7 +41,7 @@ route.get("/changePswd" , services.change_pswd)
 route.post('/api/admins',controller.create);
 route.get('/api/admins',controller.find);
 route.put('/api/admins/:id',controller.update);
-route.put('/updatePassword', controller.update_password);
+// route.put('/updatePassword', controller.update_password);
 route.delete('/api/admins/:id',controller.delete)
 
 
@@ -62,6 +64,12 @@ route.get("/addShop", services.add_Shop)
  * @method GET/
 */
 route.get("/editShop", services.edit_Shop)
+
+// API
+route.post('/api/shops',store.upload, shopController.create);
+// route.get('/api/shops',shopController.find);
+// route.put('/api/shops/:id',shopController.update);
+// route.delete('/api/shops/:id',shopController.delete)
 
 
 // ***********************Product Management********************************
