@@ -56,18 +56,18 @@
                         <a href="index" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
 
                         <a href="shop" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Shops</a>
-                        <a href="form.html" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-                        <a href="table.html" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
-                        <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+                        <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
+                        <a href="orders" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
+                        <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
 
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                     class="bi bi-gear"></i>Settings</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="admin" class="dropdown-item">Admin </a>
-                                <a href="typography.html" class="dropdown-item">Coupon</a>
-                                <a href="element.html" class="dropdown-item">Banner </a>
-                                <a href="element.html" class="dropdown-item">Profile</a>
+                                <a href="coupon" class="dropdown-item">Coupon</a>
+                                <a href="banner" class="dropdown-item">Banner </a>
+                                <a href="profile" class="dropdown-item">Profile</a>
                             </div>
                         </div>
                     </div>
@@ -83,7 +83,6 @@
     </div>
     <!-- Sidebar End -->
 
-
     <!-- Content Start -->
     <div class="content">
         <!-- Navbar Start -->
@@ -96,15 +95,11 @@
                 </h5>
 
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link ">
+                    <a href="profile" class="nav-link ">
                         <h3><i class=" bi-person text-dark"></i>
                         </h3>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                        <a href="#" class="dropdown-item">My Profile</a>
-                        <a href="#" class="dropdown-item">Settings</a>
-                        <a href="#" class="dropdown-item">Log Out</a>
-                    </div>
+                   
                 </div>
             </div>
         </nav>
@@ -115,65 +110,36 @@
         <div class="container-fluid pt-4 px-4 mb-5">
             <div class="bg-secondary border rounded">
                 <div class="row no-gutters">
-                    {{!-- <div class="col-lg-4 col-xl-3">
-                        <div class="profile-content-left profile-left-spacing pt-5 pb-3 px-3 px-xl-5">
-                            <div class="card text-center widget-profile px-0 border-0">
-                                <div class="card-body">
-                                    <h4 class="py-2 text-dark">Albrecht Straub</h4>
-                                </div>
-                            </div>
-
-                            <hr class="w-100">
-
-                            <div class="contact-info pt-4">
-                                <h5 class="text-dark mb-1">Contact Information</h5>
-                                <p class="text-dark font-weight-medium pt-4 mb-2">Email address</p>
-                                <p>Albrecht.straub@gmail.com</p>
-                                <p class="text-dark font-weight-medium pt-4 mb-2">Phone Number</p>
-                                <p>+99 9539 2641 31</p>
-                            </div>
-                        </div>
-                    </div> --}}
+              
 
                     <div class="col-lg-12 col-xl-12">
                         <div class="profile-content-right profile-right-spacing py-5">
                             <ul class="nav nav-tabs px-0 px-xl-5 nav-style-border" id="myTab" role="tablist">
-
-
                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
                                     aria-controls="profile" aria-selected="false">Edit Profile</a>
-
                             </ul>
-
                             <div class="tab-content px-3 px-xl-5" id="myTabContent">
-
-
-
                                 <div class="tab-pane fade show active" id="profile" role="tabpanel"
                                     aria-labelledby="settings-tab">
                                     <div class="tab-pane-content my-5">
                                         <form method="POST" id="edit_admin" >
                                             <div class="row mb-2">
-
                                                 <div class="form-group">
                                                     <label for="name">Name</label>
-                                                    <input type="text" class="form-control" id="name" value="{{admin.name}}">
+                                                     <input type="hidden" name="id" value="{{admin._id}}">
+                                                    <input type="text" name="name" class="form-control" id="name" pattern="[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])" value="{{admin.name}}">
                                                 </div>
                                             </div>
                                             <div class="form-group mb-4">
                                                 <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email" value="{{admin.email}}">
+                                                <input type="email" name="email" class="form-control" id="email" value="{{admin.email}}">
                                             </div>
-
-                                            <a href="changePswd">Change password</a>
-                                
-
+                                            <a href="changePswd">Reset password</a>                        
                                             <div class="d-flex justify-content-start mt-5">
-                                                <button type="submit" class="btn btn-primary mb-2 btn-pill">Update
-                                                    Profile</button>
+                                                <a href="admin" class="btn btn-outline-dark mx-3 ">Cancel</a>
+                                                <button type="submit" class="btn btn-primary mb-2 btn-pill">Save</button>
                                             </div>
                                         </form>
-
                                     </div>
                                 </div>
                             </div>
@@ -181,16 +147,7 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
         </div>
-
-
-
 
     </div>
     <!-- Content End -->

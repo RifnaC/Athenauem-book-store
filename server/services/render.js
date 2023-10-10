@@ -18,9 +18,8 @@ exports.admin= (req, res)=>{
     } )
 
 }
-exports.add_admin= (req, res)=>{
-    res.render('addAdmin');
-}
+exports.add_admin= (req, res)=> res.render('addAdmin');
+
 
 exports.edit_admin= (req, res)=>{
     axios.get('http://localhost:3000/api/admins',{params: {id:req.query.id}})

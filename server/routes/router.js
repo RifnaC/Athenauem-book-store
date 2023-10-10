@@ -39,6 +39,7 @@ route.get("/changePswd" , services.change_pswd)
 route.post('/api/admins',controller.create);
 route.get('/api/admins',controller.find);
 route.put('/api/admins/:id',controller.update);
+route.put('/updatePassword', controller.update_password);
 route.delete('/api/admins/:id',controller.delete)
 
 
