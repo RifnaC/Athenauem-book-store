@@ -50,26 +50,16 @@
                 <a href="index" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary">Atheneuam</h3>
                 </a>
-
                 <div class="navbar-nav w-100 d-flex ">
                     <div>
                         <a href="index" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
-
                         <a href="shop" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Shops</a>
                         <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-                        <a href="orders" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
+                        <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
                         <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
-                                    class="bi bi-gear"></i>Settings</a>
-                            <div class="dropdown-menu bg-transparent border-0">
-                                <a href="admin" class="dropdown-item">Admin </a>
-                                <a href="coupon" class="dropdown-item">Coupon</a>
-                                <a href="banner" class="dropdown-item">Banner </a>
-                                <a href="profile" class="dropdown-item">Profile</a>
-                            </div>
-                        </div>
+                        <a href="admin" class="nav-item nav-link active"><i class="bi bi-person"></i>Admin</a>
+                        <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
+                        <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
                     </div>
                     <div>
                         <a href="#" class="nav-link" data-bs-toggle="dropdown"><i
@@ -79,67 +69,70 @@
                 </div>
             </nav>
         </div>
-        </nav>
-    </div>
-    <!-- Sidebar End -->
+        <!-- Sidebar End -->
 
-    <!-- Content Start -->
-    <div class="content">
-        <!-- Navbar Start -->
-        <nav class="navbar navbar-expand bg-secondary navbar-dark  px-4 py-0">
-            <div class="navbar-nav align-items-center ms-auto">
-                <h5>
-                    <a href="#" class="sidebar-toggler flex-shrink-0">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                </h5>
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-secondary navbar-dark  px-4 py-0">
+                <div class="navbar-nav align-items-center ms-auto">
+                    <h5>
+                        <a href="#" class="sidebar-toggler flex-shrink-0">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </h5>
 
-                <div class="nav-item dropdown">
-                    <a href="profile" class="nav-link ">
-                        <h3><i class=" bi-person text-dark"></i>
-                        </h3>
-                    </a>
-                   
+                    <div class="nav-item dropdown">
+                        <a href="profile" class="nav-link ">
+                            <h3><i class=" bi-person text-dark"></i>
+                            </h3>
+                        </a>
+
+                    </div>
                 </div>
-            </div>
-        </nav>
-        <!-- Navbar End -->
+            </nav>
+            <!-- Navbar End -->
 
 
-        <!-- Button Start -->
-        <div class="container-fluid pt-4 px-4 mb-5">
-            <div class="bg-secondary border rounded">
-                <div class="row no-gutters">
-              
+            <!-- Button Start -->
+            <div class="container-fluid pt-4 px-4 mb-5">
+                <div class="bg-secondary border rounded">
+                    <div class="row no-gutters">
 
-                    <div class="col-lg-12 col-xl-12">
-                        <div class="profile-content-right profile-right-spacing py-5">
-                            <ul class="nav nav-tabs px-0 px-xl-5 nav-style-border" id="myTab" role="tablist">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                                    aria-controls="profile" aria-selected="false">Edit Profile</a>
-                            </ul>
-                            <div class="tab-content px-3 px-xl-5" id="myTabContent">
-                                <div class="tab-pane fade show active" id="profile" role="tabpanel"
-                                    aria-labelledby="settings-tab">
-                                    <div class="tab-pane-content my-5">
-                                        <form method="POST" id="edit_admin" >
-                                            <div class="row mb-2">
-                                                <div class="form-group">
-                                                    <label for="name">Name</label>
-                                                     <input type="hidden" name="id" value="{{admin._id}}">
-                                                    <input type="text" name="name" class="form-control" id="name" pattern="[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])" value="{{admin.name}}">
+
+                        <div class="col-lg-12 col-xl-12">
+                            <div class="profile-content-right profile-right-spacing py-5">
+                                <ul class="nav nav-tabs px-0 px-xl-5 nav-style-border" id="myTab" role="tablist">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                        aria-controls="profile" aria-selected="false">Edit Profile</a>
+                                </ul>
+                                <div class="tab-content px-3 px-xl-5" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="profile" role="tabpanel"
+                                        aria-labelledby="settings-tab">
+                                        <div class="tab-pane-content my-5">
+                                            <form method="POST" id="edit_admin">
+                                                <div class="row mb-2">
+                                                    <div class="form-group">
+                                                        <label for="name">Name</label>
+                                                        <input type="hidden" name="id" value="{{admin._id}}">
+                                                        <input type="text" name="name" class="form-control" id="name"
+                                                            pattern="[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])"
+                                                            value="{{admin.name}}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label for="email">Email</label>
-                                                <input type="email" name="email" class="form-control" id="email" value="{{admin.email}}">
-                                            </div>
-                                            <a href="changePswd">Reset password</a>                        
-                                            <div class="d-flex justify-content-start mt-5">
-                                                <a href="admin" class="btn btn-outline-dark mx-3 ">Cancel</a>
-                                                <button type="submit" class="btn btn-primary mb-2 btn-pill">Save</button>
-                                            </div>
-                                        </form>
+                                                <div class="form-group mb-4">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" name="email" class="form-control" id="email"
+                                                        value="{{admin.email}}">
+                                                </div>
+                                                {{!-- <a href="changePswd">Reset password</a> --}}
+                                                <div class="d-flex justify-content-start mt-5">
+                                                    <a href="admin" class="btn btn-outline-dark mx-3 ">Cancel</a>
+                                                    <button type="submit"
+                                                        class="btn btn-primary  btn-pill">Save</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -147,14 +140,13 @@
                     </div>
                 </div>
             </div>
+
         </div>
-
-    </div>
-    <!-- Content End -->
+        <!-- Content End -->
 
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->

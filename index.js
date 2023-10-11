@@ -29,26 +29,11 @@ app.use('/css', express.static(path.resolve(__dirname,"assets/css")))
 app.use('/img', express.static(path.resolve(__dirname,"assets/img")))
 app.use('/js', express.static(path.resolve(__dirname,"assets/js")))
 app.use('/scss', express.static(path.resolve(__dirname,"assets/scss")))
+app.use('/lib', express.static(path.resolve(__dirname,"assets/lib")))
 
 // load routers
 app.use('/',require('./server/routes/router'))
 
 
-// load sessions
-// app.use(session({
-//     secret: "my secret key",
-//     // saveUnintialized: true,
-//     resave: false,
-// })
-// );
-
-app.use((req, res, next) => {
-    res.locals.message = req.session.message;
-    delete req.session.message;
-    next();
-});
-
-
 app.listen(port , ()=> {
-    console.log('> Server is up and running on port : ' + port)}
-    )
+    console.log('> Server is up and running on port : ' + port)})

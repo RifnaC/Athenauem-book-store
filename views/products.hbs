@@ -51,25 +51,16 @@
           <h3 class="text-primary">Atheneuam</h3>
         </a>
 
-        <div class="navbar-nav w-100 d-flex ">
+       <div class="navbar-nav w-100 d-flex ">
           <div>
             <a href="index" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
-
             <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
-            <a href="form.html" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-            <a href="table.html" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
-            <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-
-            <div class="nav-item dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                  class="bi bi-gear"></i>Settings</a>
-              <div class="dropdown-menu bg-transparent border-0">
-                <a href="admin" class="dropdown-item">Admin </a>
-                <a href="typography.html" class="dropdown-item">Coupon</a>
-                <a href="element.html" class="dropdown-item">Banner </a>
-                <a href="element.html" class="dropdown-item">Profile</a>
-              </div>
-            </div>
+            <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
+            <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
+            <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+            <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
+            <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
+            <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
           </div>
           <div>
             <a href="#" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
@@ -104,11 +95,6 @@
             <h3><i class=" bi-person text-primary"></i>
             </h3>
           </a>
-          <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-            <a href="#" class="dropdown-item">My Profile</a>
-            <a href="#" class="dropdown-item">Settings</a>
-            <a href="#" class="dropdown-item">Log Out</a>
-          </div>
         </div>
       </div>
     </nav>
@@ -119,7 +105,7 @@
     <div class="container-fluid pt-4 px-4">
       <div class="bg-secondary border rounded">
         <div class="row no-gutters">
-           <h2 class="text-primary text-center mt-5">Products</h2>
+           <h2 class="text-primary text-center mt-5">{{shop.name}}</h2>
           <div class="col-lg-12 col-xl-12">
            
              
@@ -133,29 +119,36 @@
                         <th>Book Name</th>
                         <th>Genre</th>                       
                         <th>Author</th>
-                        <th>Quantity</th>
+                        {{!-- <th>publisher</th> --}}
                         <th>Price</th>
+                        <th>Quantity</th>
+                        
                         <th>Action</th>
                       </tr>
                     </thead>
 
-                    <tbody class="">
+                    <tbody>
                     
-                      <tr>
+                     {{#each books}}
+                         <tr>
                         <td>
-                          <a class="text-dark" href="">100</a>
+                          <a class="text-dark" href="">{{this._id}}</a>
                         </td>
-                        <td class="text-dark product-img"><img src="/img/sins of the father.jpg" alt=""></td>
-                        <td class="text-dark">The Sins of the Father</td>
-                        <td class="text-dark">Novel</td>
-                        <td class="text-dark">Jeffrey Archer</td>
-                        <td class="text-dark">5</td>
-                        <td class="text-dark">&#8377 540</td>
+                        {{!-- <td class="text-dark product-img"><img src="{{this.bookImage}}" alt="{{this.bookName}}"></td> --}}
+                        <td class="text-dark">{{this.bookName}}</td>
+                        <td class="text-dark">{{this.genre}}</td>
+                        <td class="text-dark">{{this.author}}</td>
+                        {{!-- <td class="text-dark">{{this.publisher}}</td> --}}
+                        <td class="text-dark">&#8377 {{this.price}}</td>
+                        <td class="text-dark">{{this.quantity}}</td>
+                        <td class="text-dark">{{this.description}}</td>
+                      
                         <td class="text-dark">
                           <a href="editProduct"><i class="bi bi-pencil-square mx-3"></i></a>
                           <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
                         </td>
                       </tr>
+                     {{/each}}
                       <tr>
                         <td>
                           <a class="text-dark" href="">101</a>
@@ -164,8 +157,9 @@
                         <td class="text-dark">Your Brain Is Playing Tricks On You</td>
                         <td class="text-dark">Psychology</td>
                         <td class="text-dark">Albert Moukheiber</td>
-                        <td class="text-dark">8</td>
+                        {{!-- <td class="text-dark">New York</td> --}}
                         <td class="text-dark">&#8377 380</td>
+                        <td class="text-dark">8</td>
                         <td class="text-dark">
                           <a href="editAdmin?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
                           <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>

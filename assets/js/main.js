@@ -138,36 +138,6 @@
             });
         }
     });
-    
-
-//  // Add a submit event listener to the change password form
-// $("#change_pswd").submit(function(event) {
-//     event.preventDefault();
-
-//     // Serialize the form data
-//     let formData = $(this).serialize();
-
-//     // Send an AJAX request to update the password using PUT method
-//     $.ajax({
-//         url: "http://localhost:3000/updatePassword",
-//         method: "PUT",
-//         data: formData,
-//         success: function(response) {
-//             // Handle the response (e.g., show a success message)
-//             alert("Password updated successfully");
-//         },
-//         error: function(error) {
-//             // Handle any errors (e.g., display an error message)
-//             console.error(error);
-//             alert("Error updating password");
-//         }
-//     });
-// });
-
-    
-  
-    
-
 let $ondelete;
 
     if(window.location.pathname=="/admin"){
@@ -188,11 +158,44 @@ let $ondelete;
         })
 
     }
+    // Function to validate the form
+    function shopValidation() {
+      let name = document.forms["add_shop"]["name"].value;
+      let address = document.forms["add_shop"]["address"].value;
+      let openingTime = document.forms["add_shop"]["openingTime"].value;
+      let closingTime = document.forms["add_shop"]["closingTime"].value;
+  
+      // Check if name, email, password, and confirmPassword are not empty
+      if (name === "" ) {
+        alert("Name field must be filled out");
+        return false;
+      }
+      if (name.length < 3 ) {
+        alert("Name should have at least 3 characters");
+        return false;
+      }
+      if (address === "" ) {
+        alert("Address field must be filled out");
+        return false;    
+      }
+      if ( openingTime === "") {
+        alert("Address field must be filled out");
+        return false;
+      } 
 
-
+      if (closingTime === "" ) {
+        alert("Address field must be filled out");
+        return false;
+      }
+      if (openingTime === closingTime) {
+        alert("Provide valid Working hours ");
+        return false;
+      }
+      return true;
+    }
 
     $("#add_shop").submit(function(event) {
-        if (!validateForm()) {
+        if (!shopValidation()) {
             event.preventDefault();
         }else{
             
@@ -200,6 +203,100 @@ let $ondelete;
         }
              
     })
+
+
+
+    $("#edit_shop").submit(function(event) {
+        event.preventDefault();
+    
+        let unindexed_array = $(this).serializeArray();
+        let data = {};
+    
+        $.map(unindexed_array, function(n, i) {
+            data[n['name']] = n['value'];
+        });
+    
+        // console.log(data);
+    
+        // Extract the shop's ID from the form data
+        const shopId = data.id;
+    
+        // Validation
+        if (!data.name ) {
+            alert("Name field is required.");
+            return;
+        }
+
+        if (!data.address ) {
+            alert("Address field is required.");
+            return;
+        }
+        if (!data.openingTime || !data.closingTime) {
+            alert("Time fields are required.");
+            return;
+        }
+            // If no new password is provided, update without hashing
+            let request = {
+                "url": `http://localhost:3000/api/shops/${shopId}`,
+                "method": "PUT",
+                "data": data
+            };
+            console.log(shopId)
+            // Send the PUT request
+            $.ajax(request).done(function(response) {
+                alert("Shop data updated successfully");
+            });
+    
+    });
+
+
+    let $ondeleteShop;
+
+    if(window.location.pathname=="/shop"){
+        $ondeleteShop = $(".shopCard a.delete");
+        $ondeleteShop.click(function(){
+            const id= $(this).attr('data-id')
+
+            const request = {
+                "url":`http://localhost:3000/api/shops/${id}`,
+                "method":"DELETE"
+            }
+            if(confirm("DO you really want to delete this record?")){
+                $.ajax(request).done(function(response){
+                    alert("Data deleted Successfully");
+                    location.reload()
+                })
+            }
+        })
+    }
+
+
+
+    $("#add_product").submit(function(event) {
+        // if (!shopValidation()) {
+        //     event.preventDefault();
+        // }else{
+            
+            alert("new shop data is inserted Successfully"); 
+        // }
+             
+    })
+    // $(document).ready(function() {
+    //     const x = $("#address");
+  
+    //     $("#getLocation").click(function() {
+    //       if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(showPosition);
+    //       } else {
+    //         alert("Geolocation is not supported by this browser.");
+    //       }
+    //     });
+  
+    //     function showPosition(position) {
+    //       alert("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
+    //     }
+    //   });
+
 
     // // Progress Bar
     // $('.pg-bar').waypoint(function () {
@@ -228,23 +325,23 @@ let $ondelete;
     // Chart.defaults.borderColor = "#000000";
 
 
-    // // Worldwide Sales Chart
-    // var ctx1 = $("#worldwide-sales").get(0).getContext("2d");
-    // var myChart1 = new Chart(ctx1, {
-    //     type: "bar",
-    //     data: {
-    //         labels: ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    //         datasets: [{
-    //                 label: "Sales",
-    //                 data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80],
-    //                 backgroundColor: "rgba(21, 135, 124, .7)"
-    //             }
-    //         ]
-    //         },
-    //     options: {
-    //         responsive: true
-    //     }
-    // });
+    // Worldwide Sales Chart
+    let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
+    let myChart1 = new Chart(ctx1, {
+        type: "bar",
+        data: {
+            labels: ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [{
+                    label: "Sales",
+                    data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80],
+                    backgroundColor: "rgba(21, 135, 124, .7)"
+                }
+            ]
+            },
+        options: {
+            responsive: true
+        }
+    });
 
 
    

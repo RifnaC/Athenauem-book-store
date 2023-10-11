@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Athenaeum - Book Collection</title>
@@ -13,7 +14,8 @@
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
+    rel="stylesheet">
 
   <!-- Icon Font Stylesheet -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -29,9 +31,11 @@
   <!-- Template Stylesheet -->
   <link href="/css/style.css" rel="stylesheet">
 </head>
+
 <body>
   <!-- Spinner Start -->
-  <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+  <div id="spinner"
+    class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
       <span class="sr-only">Loading...</span>
     </div>
@@ -44,28 +48,25 @@
       <a href="index" class="navbar-brand mx-4 mb-3">
         <h3 class="text-primary">Athenaeum</h3>
       </a>
-      <div class="navbar-nav w-100 d-flex">
+      <div class="navbar-nav w-100 d-flex ">
         <div>
           <a href="index" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
-          <a href="shop" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Shops</a>
+          <a href="shop" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Shops</a>
           <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-          <a href="orders" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
+          <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
           <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-          <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="bi bi-gear"></i>Settings</a>
-            <div class="dropdown-menu bg-transparent border-0">
-              <a href="admin" class="dropdown-item">Admin</a>
-              <a href="coupon" class="dropdown-item">Coupon</a>
-              <a href="banner" class="dropdown-item">Banner</a>
-              <a href="profile" class="dropdown-item">Profile</a>
-            </div>
-          </div>
+          <a href="admin" class="nav-item nav-link active"><i class="bi bi-person"></i>Admin</a>
+          <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
+          <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
         </div>
         <div>
-          <a href="login" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
+          <a href="#" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
+
         </div>
       </div>
-    </nav>
+
+  </div>
+  </nav>
   </div>
   <!-- Sidebar End -->
 
@@ -110,23 +111,24 @@
                             <th>Action</th>
                           </tr>
                         </thead>
-                        <tbody>  
+                        <tbody>
                           {{#each admins}}
                           <tr>
                             <td>
                               <a class="text-dark" href="">{{name}}</a>
                             </td>
                             <td class="text-dark">{{email}}</td>
-                            <td class="text-dark"> 
+                            <td class="text-dark">
                               <a href="editAdmin?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
                               <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
                             </td>
                           </tr>
-                          {{/each}}                        
+                          {{/each}}
                         </tbody>
                       </table>
                     </div>
-                    <div class="d-flex justify-content-center"> <a href="addAdmin" class="btn btn-4 btn-outline-primary">add</a></div>
+                    <div class="d-flex justify-content-center"> <a href="addAdmin"
+                        class="btn btn-4 btn-outline-primary">add</a></div>
                   </div>
                 </div>
               </div>
@@ -152,4 +154,5 @@
   <!-- Template Javascript -->
   <script src="/js/main.js"></script>
 </body>
+
 </html>

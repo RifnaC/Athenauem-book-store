@@ -4,7 +4,7 @@ const route = express.Router();
 const services = require('../services/render');
 const controller = require('../controller/controller')
 const shopController = require('../controller/shopController');
-const store = require('../middlewares/multer');
+const productController = require('../controller/productController');
 
 // ***********************Admin Management********************************
 /** 
@@ -31,17 +31,16 @@ route.get("/addAdmin" , services.add_admin)
 */
 route.get("/editAdmin" , services.edit_admin)
 
-/** 
- * @description Update Admin Password
- * @method GET/
-*/
-route.get("/changePswd" , services.change_pswd)
+// /** 
+//  * @description Update Admin Password
+//  * @method GET/
+// */
+// route.get("/changePswd" , services.change_pswd)
 
 // API
 route.post('/api/admins',controller.create);
 route.get('/api/admins',controller.find);
 route.put('/api/admins/:id',controller.update);
-// route.put('/updatePassword', controller.update_password);
 route.delete('/api/admins/:id',controller.delete)
 
 
@@ -51,7 +50,7 @@ route.delete('/api/admins/:id',controller.delete)
  * @description shop Route
  * @method GET/
 */
-route.get("/shop", services.shopRoute)
+route.get('/shop', services.shop)
 
 /** 
  * @description Add shop
@@ -66,10 +65,11 @@ route.get("/addShop", services.add_Shop)
 route.get("/editShop", services.edit_Shop)
 
 // API
-route.post('/api/shops',store.upload, shopController.create);
-// route.get('/api/shops',shopController.find);
-// route.put('/api/shops/:id',shopController.update);
-// route.delete('/api/shops/:id',shopController.delete)
+route.post('/api/shops',shopController.create);
+route.get('/api/shops',shopController.find);
+// route.get('/api/shops/:id',shopController.findProducts);
+route.put('/api/shops/:id',shopController.update);
+route.delete('/api/shops/:id',shopController.delete)
 
 
 // ***********************Product Management********************************
@@ -77,7 +77,9 @@ route.post('/api/shops',store.upload, shopController.create);
  * @description product Route
  * @method GET/
 */
-route.get("/products", services.product)
+route.get("/products", productController.renderShopDetails);
+// router.get('/shop-details', shopController.);
+route.get('/products', productController.renderProducts);
 
 /** 
  * @description Add product 
@@ -91,6 +93,13 @@ route.get("/addProduct", services.add_product)
  * @method GET/
 */
 route.get("/editProduct", services.edit_product)
+
+
+route.post('/api/products',productController.create);
+route.get('/api/products',productController.find);
+// // route.get('/api/shops/:id',shopController.findProducts);
+// route.put('/api/products/:id',productController.update);
+// route.delete('/api/products/:id',productController.delete)
 
 
 // ***********************Category Management********************************

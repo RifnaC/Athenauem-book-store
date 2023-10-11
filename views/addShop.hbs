@@ -50,26 +50,16 @@
                 <a href="index" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary">Atheneuam</h3>
                 </a>
-
-                <div class="navbar-nav w-100 d-flex ">
+                 <div class="navbar-nav w-100 d-flex ">
                     <div>
-                        <a href="index" class="nav-item nav-link active"><i class="bi bi-stack"></i>Dashboard</a>
-
+                        <a href="index" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
                         <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
                         <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-                        <a href="orders" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
+                        <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
                         <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="bi bi-gear"></i>Settings</a>
-                            <div class="dropdown-menu bg-transparent border-0">
-                                <a href="admin" class="dropdown-item">Admin </a>
-                                <a href="coupon" class="dropdown-item">Coupon</a>
-                                <a href="banner" class="dropdown-item">Banner </a>
-                                <a href="profile" class="dropdown-item">Profile</a>
-                            </div>
-                        </div>
+                        <a href="admin" class="nav-item nav-link "><i class="bi bi-person"></i>Admin</a>
+                        <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
+                        <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
                     </div>
                     <div>
                         <a href="#" class="nav-link" data-bs-toggle="dropdown"><i
@@ -110,29 +100,34 @@
         <!-- Button Start -->
 
         <div class="container-fluid pt-4 px-4">
-            <h2 class="text-primary text-center">Add Shop</h2>
+            <h2 class="text-primary text-center mb-3">Add Shop</h2>
             <div class="bg-secondary border rounded">
-                <form action="/api/shops" method="POST" id="add_shop" >
+                <form action="/api/shops" method="POST" id="add_shop" onsubmit="return shopValidation" >
                     <div class="row m-2">
                         <div class="form-group m-2">
                             <input type="hidden" name="id" value="">
                             <input type="text" class="form-control" id="name" name="name" value="" placeholder="Enter the shop name">
                         </div>
-                        <div class="form-group m-2">
-                            <label for="opens">Opening Time:</label>
-                            <input type="time" class="" id="OpenTime" name="openingTime" value="">
-                            <label  class="ms-5" for="closes">Closing Time:</label>
-                            <input type="time" id="closeTime" name="closingTime" value="">
-                            <input type="file" id="shopImg" class="ms-5" name="shopImg">
-                        </div>
                         <div class="input-group m-2">
                             <input type="text" class="form-control" id="address"  name="address" value=""
                                 placeholder="Enter the address of Shop">
-                                <button class="btn btn-outline-dark">Get Current location</button>
+                                {{!-- <button class="btn btn-outline-dark" onclick="return getLocation()">Get Current location</button> --}}
                         </div>
+                        <div class="form-group m-2 d-flex  justify-content-between">
+                           <div>
+                             <label for="opens">Opening Time:</label>
+                            <input type="time" class="" id="OpenTime" name="openingTime" value="">
+                           </div>
+                           <div>
+                             <label  class="ms-5" for="closes">Closing Time:</label>
+                            <input type="time" id="closeTime" name="closingTime" value="">
+                           </div>
+                            <input type="file" id="shopImg" class="ms-5" name="shopImg">
+                        </div>
+                        
                     </div>
                     <div class="d-flex justify-content-center mb-3">
-                        {{!-- <a href="" class="btn btn-4 btn-outline-primary ">save</a> --}}
+                        <a href="shop" class="btn btn-4 btn-outline-dark me-3">Cancel</a>
                           <button type="submit" value="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
