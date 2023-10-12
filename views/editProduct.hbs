@@ -54,22 +54,13 @@
                 <div class="navbar-nav w-100 d-flex ">
                     <div>
                         <a href="index" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
-
                         <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
-                        <a href="form.html" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-                        <a href="table.html" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
-                        <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="bi bi-gear"></i>Settings</a>
-                            <div class="dropdown-menu bg-transparent border-0">
-                                <a href="admin" class="dropdown-item">Admin </a>
-                                <a href="typography.html" class="dropdown-item">Coupon</a>
-                                <a href="element.html" class="dropdown-item">Banner </a>
-                                <a href="element.html" class="dropdown-item">Profile</a>
-                            </div>
-                        </div>
+                        <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
+                        <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
+                        <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+                        <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
+                        <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
+                        <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
                     </div>
                     <div>
                         <a href="#" class="nav-link" data-bs-toggle="dropdown"><i
@@ -100,11 +91,6 @@
                         <h3><i class=" bi-person text-dark"></i>
                         </h3>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                        <a href="#" class="dropdown-item">My Profile</a>
-                        <a href="#" class="dropdown-item">Settings</a>
-                        <a href="#" class="dropdown-item">Log Out</a>
-                    </div>
                 </div>
             </div>
         </nav>
@@ -114,80 +100,67 @@
         <!-- Button Start -->
 
         <div class="container-fluid pt-4 px-4">
-            <h2 class="text-primary text-center">Edit Product</h2>
+            <h2 class="text-primary text-center">Edit Books</h2>
             <div class="bg-secondary border rounded">
-                <form method="POST" id="add_product">
+                <form method="POST" id="edit_product">
                     <div class="row m-2 ">
+                         <input type="hidden" name="id" value="{{book._id}}">
                         <div class="form-group col-lg-6 my-2">
                             <label for="category">Category</label>
-                            <select class="form-select" aria-label="Default select example">
-  <option selected>Fiction</option>
-  <option value="Science">Science Fiction</option>
-  <option value="Thriller">Thriller</option>
-  <option value="romance">Romance</option>
-  <option value="Adventure">Adventure</option>
-  <option value="Self-help">Self-help</option>
-  <option value="Fantasy">Fantasy</option>
-</select>
-                          
+                            <select name="genre" class="form-select" aria-label="Default select example" aria-selected="{{book.genre}}">
+                                <option selected>Fiction</option>
+                                <option value="Science">Science Fiction</option>
+                                <option value="Thriller">Thriller</option>
+                                <option value="romance">Romance</option>
+                                <option value="Adventure">Adventure</option>
+                                <option value="Self-help">Self-help</option>
+                                <option value="Fantasy">Fantasy</option>
+                            </select>
+
                         </div>
                         <div class="form-group col-lg-6  my-2">
                             <label for="bookName">Book Name</label>
-                            <input type="text" class="form-control" id="bookName" value="" {{required}}>
+                            <input type="text" class="form-control" id="bookName" name="bookName" value="{{book.bookName}}" >
                         </div>
                         <div class="form-group col-lg-6  my-2">
                             <label for="Author">Author</label>
-                            <input type="text" class="form-control" id="author" value="" {{required}}>
+                            <input type="text" class="form-control" id="author" name="author" value="{{book.author}}">
                         </div>
                         <div class="form-group col-lg-6 my-2">
                             <label for="category">Quantity</label>
-                            <select class="form-select" aria-label="Default select example">
-  <option selected>10</option>
-  <option value="20">20</option>
-  <option value="40">40</option>
-  <option value="80">80</option>
-  <option value="160">160</option>
-  <option value="320">320</option>
-  <option value="640">640</option>
-</select>
-                          
+                            <select class="form-select" aria-label="Default select example" name="quantity" aria-valuetext="{{book.quantity}}">
+                                <option selected>10</option>
+                                <option value="20">20</option>
+                                <option value="40">40</option>
+                                <option value="80">80</option>
+                                <option value="160">160</option>
+                                <option value="320">320</option>
+                                <option value="640">640</option>
+                            </select>
+
                         </div>
                         <div class="mb-3">
-  <label for="description" class="form-label">Description</label>
-  <textarea class="form-control" id="description" rows="3"></textarea>
-</div>
-<div class="mb-3 col-lg-6 my-2">
-  <label for="uploadImg">Upload Image</label>
-  <input type="file" class="form-control" id="uploadProduct">
-</div>
-<div class="form-group col-lg-6  my-2">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" aria-valuetext="{{book.description}}"></textarea>
+                        </div>
+                        <div class="mb-3 col-lg-6 my-2">
+                            <label for="uploadImg">Upload Image</label>
+                            <input type="file" class="form-control" id="uploadProduct">
+                        </div>
+                        <div class="form-group col-lg-6  my-2">
                             <label for="price">Price</label>
-                            <input type="number" class="form-control" id="price" value="" {{required}}>
+                            <input type="number" name="price" class="form-control" id="price" value="{{book.price}}">
                         </div>
                     </div>
 
 
                     <div class="d-flex justify-content-center mb-3">
-                         <a href="products" class="btn btn-4 btn-outline-dark mx-3 ">Cancel</a>
-                        <a href="" class="btn btn-4 btn-primary ">save</a>
+                        <a href="products" class="btn btn-4 btn-outline-dark mx-3 ">Cancel</a>
+                        <button href="" class="btn btn-4 btn-primary">save</button>
                     </div>
                 </form>
-
-
-
-
             </div>
-
-
-
-
-
-
         </div>
-
-
-
-
     </div>
     <!-- Content End -->
 

@@ -135,6 +135,7 @@
             // Send the PUT request
             $.ajax(request).done(function(response) {
                 alert("Data updated successfully");
+                window.location.href='/admin';
             });
         }
     });
@@ -245,6 +246,7 @@ let $ondelete;
             // Send the PUT request
             $.ajax(request).done(function(response) {
                 alert("Shop data updated successfully");
+                window.location.href='/shop';
             });
     
     });
@@ -271,16 +273,228 @@ let $ondelete;
     }
 
 
+    
+    function productValidation() {
+        let genre = document.forms["add_product"]["genre"].value;
+        let bookName = document.forms["add_product"]["bookName"].value;
+        let author = document.forms["add_product"]["author"].value;
+        let quantity = document.forms["add_product"]["quantity"].value;
+        let description = document.forms["add_product"]["description"].value;
+        let price = document.forms["add_product"]["price"].value;
+    
+        // Check if name, email, password, and confirmPassword are not empty
+        if (genre === "" ) {
+          alert("Category field must be filled out");
+          return false;
+        }
+        if (bookName === "") {
+          alert("Book name field must be filled out");
+          return false;
+        }
+        if (author === "" ) {
+          alert("Author field must be filled out");
+          return false;    
+        }
+        if (quantity === "") {
+          alert("Quantity field must be filled out");
+          return false;
+        } 
+  
+        if (description === "" ) {
+          alert("Description field must be filled out");
+          return false;
+        }
+        if (price === "") {
+          alert("Price field must be filled out");
+          return false;
+        }
+        return true;
+      }
+
 
     $("#add_product").submit(function(event) {
-        // if (!shopValidation()) {
-        //     event.preventDefault();
-        // }else{
+        if (!productValidation()) {
+            event.preventDefault();
+        }else{
             
-            alert("new shop data is inserted Successfully"); 
-        // }
+            alert("new book data is inserted Successfully"); 
+        }
              
     })
+
+
+    $("#edit_product").submit(function(event) {
+        event.preventDefault();
+    
+        let unindexed_array = $(this).serializeArray();
+        let data = {};
+    
+        $.map(unindexed_array, function(n, i) {
+            data[n['name']] = n['value'];
+        });
+    
+        // console.log(data);
+    
+        // Extract the book's ID from the form data
+        const bookId = data.id;
+    
+        // Validation
+        if (!data.genre === "" ) {
+            alert("Category field is required");
+            return;
+          }
+          if (!data.bookName === "") {
+            alert("Book name field is required.");
+            return;
+          }
+          if (!data.author === "" ) {
+            alert("Author field is required.");
+            return;    
+          }
+          if (!data.quantity === "") {
+            alert("Quantity field is required.");
+            return;
+          } 
+    
+          if (!data.description === "" ) {
+            alert("Description field is required.");
+            return;
+          }
+          if (!data.price === "") {
+            alert("Price field is required.");
+            return;
+          }
+
+            let request = {
+                "url": `http://localhost:3000/api/products/${bookId}`,
+                "method": "PUT",
+                "data": data
+            };
+            // console.log(shopId)
+            // Send the PUT request
+            $.ajax(request).done(function(response) {
+                alert("Book data updated successfully");
+                window.location.href='/products';
+            });
+    
+    });
+
+
+    let $ondeleteProduct;
+
+    if(window.location.pathname=="/products"){
+        $ondeleteProduct = $(".table tbody td a.delete");
+        $ondeleteProduct.click(function(){
+            const id= $(this).attr('data-id')
+
+            const request = {
+                "url":`http://localhost:3000/api/products/${id}`,
+                "method":"DELETE"
+            }
+            if(confirm("DO you really want to delete this record?")){
+                $.ajax(request).done(function(response){
+                    alert("Data deleted Successfully");
+                    location.reload()
+                })
+            }
+        })
+    }
+
+function categoryValidation(){
+        let genre = document.forms["add_cat"]["genre"].value;
+        let totalBooks = document.forms["add_cat"]["totalBooks"].value;
+        let totalEarnings = document.forms["add_cat"]["totalEarnings"].value;
+        // Check if name, email, password, and confirmPassword are not empty
+        if (genre === "" ) {
+          alert("Genre field must be filled out");
+          return false;
+        }
+        if (totalBooks === "") {
+          alert("Total Books field must be filled out");
+          return false;
+        }
+        if (totalEarnings === "" ) {
+          alert("Total earnings field must be filled out");
+          return false;    
+        }
+        return true;
+      }
+    $("#add_cat").submit(function(event) {
+        if (!categoryValidation()) {
+            event.preventDefault();
+        }else{
+            alert("new book data is inserted Successfully"); 
+        }
+             
+    })
+
+
+    $("#edit_cat").submit(function(event) {
+        event.preventDefault();
+    
+        let unindexed_array = $(this).serializeArray();
+        let data = {};
+    
+        $.map(unindexed_array, function(n, i) {
+            data[n['name']] = n['value'];
+        });
+    
+        // console.log(data);
+    
+        // Extract the genre's ID from the form data
+        const genreId = data.id;
+        console.log(genreId);
+    
+        // Validation
+        if (!data.genre === "" ) {
+            alert("Genre field is required");
+            return;
+          }
+          if (!data.totalBooks === "") {
+            alert("Provide total books available.");
+            return;
+          }
+          if (!data.totalEarnings === "" ) {
+            alert("Provide the total earnings of the books.");
+            return;    
+          }
+            let request = {
+                "url": `http://localhost:3000/api/categories/${genreId}`,
+                "method": "PUT",
+                "data": data
+            };
+            // console.log(shopId)
+            // Send the PUT request
+            $.ajax(request).done(function(response) {
+                alert("Genre data updated successfully");
+                window.location.href='/category';
+            });
+    
+    });
+
+
+    let $ondeleteCategory;
+
+    if(window.location.pathname=="/category"){
+        $ondeleteCategory = $(".table tbody td a.delete");
+        $ondeleteCategory.click(function(){
+            const id= $(this).attr('data-id')
+
+            const request = {
+                "url":`http://localhost:3000/api/categories/${id}`,
+                "method":"DELETE"
+            }
+            if(confirm("DO you really want to delete this record?")){
+                $.ajax(request).done(function(response){
+                    alert("Data deleted Successfully");
+                    location.reload()
+                })
+            }
+        })
+    }
+
+
+
     // $(document).ready(function() {
     //     const x = $("#address");
   

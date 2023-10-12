@@ -105,7 +105,7 @@
     <div class="container-fluid pt-4 px-4">
       <div class="bg-secondary border rounded">
         <div class="row no-gutters">
-           <h2 class="text-primary text-center mt-5">{{shop.name}}</h2>
+           <h2 class="text-primary text-center mt-5">Products{{shop.name}}</h2>
           <div class="col-lg-12 col-xl-12">
            
              
@@ -114,15 +114,15 @@
                   <table class="table card-table table-responsive table-responsive-large text-center" style="width:100%">
                     <thead>
                       <tr>
-                        <th>Id</th>
-                        <th>Image</th>
+                        {{!-- <th>Id</th>
+                        <th>Image</th> --}}
                         <th>Book Name</th>
                         <th>Genre</th>                       
                         <th>Author</th>
                         {{!-- <th>publisher</th> --}}
                         <th>Price</th>
                         <th>Quantity</th>
-                        
+                        <th>Description</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -131,9 +131,9 @@
                     
                      {{#each books}}
                          <tr>
-                        <td>
+                        {{!-- <td>
                           <a class="text-dark" href="">{{this._id}}</a>
-                        </td>
+                        </td> --}}
                         {{!-- <td class="text-dark product-img"><img src="{{this.bookImage}}" alt="{{this.bookName}}"></td> --}}
                         <td class="text-dark">{{this.bookName}}</td>
                         <td class="text-dark">{{this.genre}}</td>
@@ -144,27 +144,11 @@
                         <td class="text-dark">{{this.description}}</td>
                       
                         <td class="text-dark">
-                          <a href="editProduct"><i class="bi bi-pencil-square mx-3"></i></a>
+                          <a href="editProduct?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
                           <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
                         </td>
                       </tr>
                      {{/each}}
-                      <tr>
-                        <td>
-                          <a class="text-dark" href="">101</a>
-                        </td>
-                        <td class="text-dark product-img"><img src="/img/ur brain play trick on u.jpg" alt=""></td>
-                        <td class="text-dark">Your Brain Is Playing Tricks On You</td>
-                        <td class="text-dark">Psychology</td>
-                        <td class="text-dark">Albert Moukheiber</td>
-                        {{!-- <td class="text-dark">New York</td> --}}
-                        <td class="text-dark">&#8377 380</td>
-                        <td class="text-dark">8</td>
-                        <td class="text-dark">
-                          <a href="editAdmin?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
-                          <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
-                        </td>
-                      </tr>
                     </tbody>
                   </table>
 

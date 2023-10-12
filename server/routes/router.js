@@ -5,6 +5,7 @@ const services = require('../services/render');
 const controller = require('../controller/controller')
 const shopController = require('../controller/shopController');
 const productController = require('../controller/productController');
+const categoryController = require('../controller/categoryController');
 
 // ***********************Admin Management********************************
 /** 
@@ -77,8 +78,9 @@ route.delete('/api/shops/:id',shopController.delete)
  * @description product Route
  * @method GET/
 */
-route.get("/products", productController.renderShopDetails);
-// router.get('/shop-details', shopController.);
+
+route.get('/products', services.product)
+route.get('/products', productController.renderShopDetails);
 route.get('/products', productController.renderProducts);
 
 /** 
@@ -97,9 +99,8 @@ route.get("/editProduct", services.edit_product)
 
 route.post('/api/products',productController.create);
 route.get('/api/products',productController.find);
-// // route.get('/api/shops/:id',shopController.findProducts);
-// route.put('/api/products/:id',productController.update);
-// route.delete('/api/products/:id',productController.delete)
+route.put('/api/products/:id',productController.update);
+route.delete('/api/products/:id',productController.delete)
 
 
 // ***********************Category Management********************************
@@ -114,5 +115,19 @@ route.get("/category", services.category)
  * @method GET/
 */
 route.get("/addCategory", services.add_category)
+
+/** 
+ * @description Edit category 
+ * @method GET/
+*/
+route.get("/editCategory", services.edit_category)
+
+
+
+route.post('/api/categories',categoryController.create);
+route.get('/api/categories',categoryController.find);
+route.put('/api/categories/:id',categoryController.update);
+route.delete('/api/categories/:id',categoryController.delete)
+
 
 module.exports = route

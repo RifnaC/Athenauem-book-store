@@ -76,7 +76,6 @@ exports.product=(req, res)=>{
         // console.error("An error occurred:", error);
         res.status(500).send("<script>alert('Something Went Wrong'); window.location.href ='/addProduct';</script>");
     });
-    // res.render('products', {shop: product});
 }
 
 exports.add_product=(req, res)=>{
@@ -84,14 +83,41 @@ exports.add_product=(req, res)=>{
 }
 
 exports.edit_product=(req, res)=>{
-    res.render('editProduct');
+    axios.get('http://localhost:3000/api/products',{params: {id:req.query.id}})
+    .then(function(bookData){
+        res.render('editproduct',{book:bookData.data});
+    })
+    .catch(err => {
+        res.send(err);
+    })
+    // res.render('editProduct');
 }
 
 // ***********************Category Management********************************
 exports.category=(req, res)=>{
-    res.render('category');
+    axios.get('http://localhost:3000/api/categories')
+    // console.log(response.data);
+    .then(function (response) {
+        res.render('category', {categories: response.data});
+    })
+    .catch(error=>{
+        // console.error("An error occurred:", error);
+        res.status(500).send("<script>alert('Something Went Wrong'); window.location.href ='/addCategory';</script>");
+    });
+    // res.render('category');
 }
 
 exports.add_category=(req, res)=>{
     res.render('addCategory');
+}
+
+exports.edit_category=(req, res)=>{
+    axios.get('http://localhost:3000/api/categories',{params: {id:req.query.id}})
+    .then(function(genreData){
+        res.render('editCategory',{category:genreData.data});
+    })
+    .catch(err => {
+        res.send(err);
+    })
+    // res.render('editCategory');
 }
