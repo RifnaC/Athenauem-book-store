@@ -30,310 +30,7 @@
         return false;
     });
 
-    // Chart Global Color
-    Chart.defaults.color = "#6C7293";
-    Chart.defaults.borderColor = "#ffffffff";    
-    
-    // Worldwide Sales Chart
-    let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
-    let myChart1 = new Chart(ctx1, {
-        type: "bar",
-        data: {
-            labels: ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                    label: "Sales",
-                    data: [0, 20, 35, 55, 50, 70, 75, 55, 20, 45, 45, 40, 60],
-                    backgroundColor: "#CCEBD7"
-                },
-                {
-                    label: "Target",
-                    data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80],
-                    backgroundColor: "#15877C"
-                }]
-        },
-        options: {
-            responsive: true
-        }        
-    });
-    
-    // Date range picker
-    let start = moment().subtract(29, 'days');
-    let end = moment();
-
-    function cb(start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-    }
-
-    $('#reportrange').daterangepicker({
-        startDate: start,
-        endDate: end,
-        ranges: {
-           'Today': [moment(), moment()],
-           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-           'This Month': [moment().startOf('month'), moment().endOf('month')],
-           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        }
-    }, cb);
-
-    cb(start, end);
-
-    
-
-    // let customerChart = $("#customerChart").get(0).getContext("2d");   
-    // var cust1 = new Chart(customerChart, {
-    //     type: "doughnut",
-    //     data: {
-    //         labels: [],
-    //         datasets: [{
-    //             backgroundColor: [
-    //                 "rgba(21, 135, 124, .7)",
-    //                 "rgba(21, 135, 124, .6)",
-    //                 "rgba(21, 135, 124, .5)",
-    //                 "rgba(21, 135, 124, .4)",
-    //                 "rgba(21, 135, 124, .3)"
-    //             ],
-    //             data: [0, 0, 0, 45, 0]
-    //         }]
-    //     },
-    //     options: {
-    //         responsive: true,
-    //         aspectRatio: 4.0,
-    //         // cutoutPercentage: 90,
-    //         // cutoutPercentage: 400
-    //         // percentageInnerCutout: 40
-    //     },
-    //     centerText: {
-    //         display: true,
-    //         text: "280"
-    //     }
-    // });
-
-// current customer chart
-    const currentData = {
-        datasets: [{
-          data: [85, 15],
-          backgroundColor: [
-            '#15877C',
-            '#E2E2E2'
-          ],
-          hoverOffset: 0
-        }],
-      };
-
-      const centerTextPlugin = {
-        beforeDraw: function (chart) {
-          if (chart.config.options.centerText) {
-            const ctx = chart.ctx;
-            const chartArea = chart.chartArea;
-            const centerX = (chartArea.left + chartArea.right) / 2;
-            const centerY = (chartArea.top + chartArea.bottom) / 2;
-      
-            ctx.save();
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.font = chart.config.options.centerText.font || '16px roboto';
-            ctx.fillStyle = chart.config.options.centerText.color || '#000';
-            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
-            ctx.restore();
-          }
-        }
-      };
-    const config = {
-        type: 'doughnut',
-        data: currentData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            centerText: {
-                text: '85%', 
-                font: '16px Roboto', 
-                color: '#000'
-              },
-            borderWidth: 0,
-            cutout: '80%',
-            rotation: 70
-        },plugins: [centerTextPlugin],
-    };
-      const myChart = new Chart(
-        document.getElementById('doughnut'),
-        config
-      );
-    
-      
-    // New customers chart
-    const newData = {
-        datasets: [{
-          data: [66, 34],
-          backgroundColor: [
-            '#0E5A6A',
-            '#E2E2E2'
-          ],
-          hoverOffset: 0
-        }],
-      };
-
-      const centerText66 = {
-        beforeDraw: function (chart) {
-          if (chart.config.options.centerText) {
-            const ctx = chart.ctx;
-            const chartArea = chart.chartArea;
-            const centerX = (chartArea.left + chartArea.right) / 2;
-            const centerY = (chartArea.top + chartArea.bottom) / 2;
-      
-            ctx.save();
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.font = chart.config.options.centerText.font || '16px roboto';
-            ctx.fillStyle = chart.config.options.centerText.color || '#000';
-            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
-            ctx.restore();
-          }
-        }
-      };
-    const configNew = {
-        type: 'doughnut',
-        data: newData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            centerText: {
-                text: '66%', 
-                font: '16px Roboto', 
-                color: '#000'
-              },
-            borderWidth: 0,
-            cutout: '80%',
-            rotation: 70
-        },plugins: [centerTextPlugin],
-    };
-      const newChart = new Chart(
-        document.getElementById('doughnut2'),
-        configNew
-      );
-    
-
-      // target customers chart
-    const targetData = {
-        datasets: [{
-          data: [90, 10],
-          backgroundColor: [
-            '#0E5A6A',
-            '#E2E2E2'
-          ],
-          hoverOffset: 0
-        }],
-      };
-
-      const centerText90 = {
-        beforeDraw: function (chart) {
-          if (chart.config.options.centerText) {
-            const ctx = chart.ctx;
-            const chartArea = chart.chartArea;
-            const centerX = (chartArea.left + chartArea.right) / 2;
-            const centerY = (chartArea.top + chartArea.bottom) / 2;
-      
-            ctx.save();
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.font = chart.config.options.centerText.font || '16px roboto';
-            ctx.fillStyle = chart.config.options.centerText.color || '#000';
-            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
-            ctx.restore();
-          }
-        }
-      };
-    const target = {
-        type: 'doughnut',
-        data: targetData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            centerText: {
-                text: '90%', 
-                font: '16px Roboto', 
-                color: '#000'
-              },
-            borderWidth: 0,
-            cutout: '80%',
-            rotation: 70
-        },plugins: [centerTextPlugin],
-    };
-      const targetChart = new Chart(
-        document.getElementById('doughnut3'),
-        target
-      );
-    
-    // Retarget customers chart
-    const retargetData = {
-        datasets: [{
-          data: [30, 70],
-          backgroundColor: [
-            '#6CCCC3',
-            '#E2E2E2'
-          ],
-          hoverOffset: 0
-        }],
-      };
-
-      const centerText30 = {
-        beforeDraw: function (chart) {
-          if (chart.config.options.centerText) {
-            const ctx = chart.ctx;
-            const chartArea = chart.chartArea;
-            const centerX = (chartArea.left + chartArea.right) / 2;
-            const centerY = (chartArea.top + chartArea.bottom) / 2;
-      
-            ctx.save();
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.font = chart.config.options.centerText.font || '16px roboto';
-            ctx.fillStyle = chart.config.options.centerText.color || '#000';
-            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
-            ctx.restore();
-          }
-        }
-      };
-    const Retarget = {
-        type: 'doughnut',
-        data: retargetData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            centerText: {
-                text: '30%', 
-                font: '16px Roboto', 
-                color: '#000'
-              },
-            borderWidth: 0,
-            cutout: '80%',
-            rotation: 70
-        },plugins: [centerTextPlugin],
-    };
-      const retargetChart = new Chart(
-        document.getElementById('doughnut4'),
-        Retarget
-      );
-
-
-    // Function to validate the form
+    // Function to validate the add admin form
     function validateForm() {
       let name = document.forms["upload_user"]["name"].value;
       let email = document.forms["upload_user"]["email"].value;
@@ -341,21 +38,60 @@
       let confirmPassword = document.forms["upload_user"]["confirmPassword"].value;
   
       // Check if name, email, password, and confirmPassword are not empty
-      if (name === "" || email === "" || password === "" || confirmPassword === "") {
-        alert("All fields must be filled out");
+      if (name === "") {
+        Swal.fire({
+            title: 'Athenauem',
+            text: 'Please enter your name!',
+            confirmButtonColor: '#15877C',
+          })
         return false;
       }
-
       if (name.length < 3 ) {
-        alert("Name should have at least 3 characters");
+        Swal.fire({
+            title: 'Athenauem',
+            text: 'Name should have at least 3 characters!',
+            confirmButtonColor: '#15877C',
+          })
+        return false;
+      }
+      if (email === "") {
+        Swal.fire({
+            title: 'Athenauem',
+            text: 'Please enter your email!',
+            confirmButtonColor: '#15877C',
+        })
+        return false;
+      }
+      if (passwrod === "") {
+        Swal.fire({
+            title: 'Athenauem',
+            text: 'Please enter your password!',
+            confirmButtonColor: '#15877C',
+        })
+        return false;
+      }
+      if (confirmPassword === "") {
+        Swal.fire({
+            title: 'Athenauem',
+            text: 'Please enter your  confirm password!',
+            confirmButtonColor: '#15877C',
+        })
         return false;
       }
       if (password.length < 6) {
-        alert("Passwords should have at least 6 characters");
+        Swal.fire({
+            title: 'Athenauem',
+            text: 'Passwords should have at least 6 characters!',
+            confirmButtonColor: '#15877C',
+        })
         return false;
       }
       if (password !== confirmPassword) {
-        alert("Passwords do not match");
+        Swal.fire({
+            title: 'Athenauem',
+            text: 'Password and the confirm password should be same!',
+            confirmButtonColor: '#15877C',
+        })
         return false;
       }
       return true;
@@ -373,6 +109,8 @@
             //     showConfirmButton: false,
             //     timer: 1500
             //   })
+
+            
         }
              
     })
@@ -387,7 +125,7 @@
             data[n['name']] = n['value'];
         });
     
-        console.log(data);
+        // console.log(data);
     
         // Extract the admin's ID from the form data
         const adminId = data.id;
@@ -447,8 +185,8 @@
             });
         }
     });
-let $ondelete;
 
+    let $ondelete;
     if(window.location.pathname=="/admin"){
         $ondelete = $(".table tbody td a.delete");
         $ondelete.click(function(){
@@ -458,9 +196,10 @@ let $ondelete;
                 "url":`http://localhost:3000/api/admins/${id}`,
                 "method":"DELETE"
             }
-            if(confirm("DO you really want to delete this record?")){
+            if(confirm("Do you really want to delete this record?")){
                 $.ajax(request).done(function(response){
                     alert("Data deleted Successfully");
+                    console.log('hide');
                     location.reload()
                 })
             }
@@ -708,7 +447,7 @@ let $ondelete;
         })
     }
 
-function categoryValidation(){
+    function categoryValidation(){
         let genre = document.forms["add_cat"]["genre"].value;
         let totalBooks = document.forms["add_cat"]["totalBooks"].value;
         let totalEarnings = document.forms["add_cat"]["totalEarnings"].value;
@@ -802,6 +541,313 @@ function categoryValidation(){
     }
 
 
+
+
+    // Chart Global Color
+    Chart.defaults.color = "#6C7293";
+    Chart.defaults.borderColor = "#ffffffff";    
+    
+    // Worldwide Sales Chart
+    let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
+    let myChart1 = new Chart(ctx1, {
+        type: "bar",
+        data: {
+            labels: ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [{
+                    label: "Sales",
+                    data: [0, 20, 35, 55, 50, 70, 75, 55, 20, 45, 45, 40, 60],
+                    backgroundColor: "#CCEBD7"
+                },
+                {
+                    label: "Target",
+                    data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80],
+                    backgroundColor: "#15877C"
+                }]
+        },
+        options: {
+            responsive: true
+        }        
+    });
+    
+    // Date range picker
+    let start = moment().subtract(29, 'days');
+    let end = moment();
+
+    function cb(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+
+    
+
+    // let customerChart = $("#customerChart").get(0).getContext("2d");   
+    // var cust1 = new Chart(customerChart, {
+    //     type: "doughnut",
+    //     data: {
+    //         labels: [],
+    //         datasets: [{
+    //             backgroundColor: [
+    //                 "rgba(21, 135, 124, .7)",
+    //                 "rgba(21, 135, 124, .6)",
+    //                 "rgba(21, 135, 124, .5)",
+    //                 "rgba(21, 135, 124, .4)",
+    //                 "rgba(21, 135, 124, .3)"
+    //             ],
+    //             data: [0, 0, 0, 45, 0]
+    //         }]
+    //     },
+    //     options: {
+    //         responsive: true,
+    //         aspectRatio: 4.0,
+    //         // cutoutPercentage: 90,
+    //         // cutoutPercentage: 400
+    //         // percentageInnerCutout: 40
+    //     },
+    //     centerText: {
+    //         display: true,
+    //         text: "280"
+    //     }
+    // });
+
+    // current customer chart
+    const currentData = {
+        datasets: [{
+          data: [85, 15],
+          backgroundColor: [
+            '#15877C',
+            '#E2E2E2'
+          ],
+          hoverOffset: 0
+        }],
+      };
+
+      const centerTextPlugin = {
+        beforeDraw: function (chart) {
+          if (chart.config.options.centerText) {
+            const ctx = chart.ctx;
+            const chartArea = chart.chartArea;
+            const centerX = (chartArea.left + chartArea.right) / 2;
+            const centerY = (chartArea.top + chartArea.bottom) / 2;
+      
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = chart.config.options.centerText.font || '16px roboto';
+            ctx.fillStyle = chart.config.options.centerText.color || '#000';
+            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
+            ctx.restore();
+          }
+        }
+      };
+    const config = {
+        type: 'doughnut',
+        data: currentData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            centerText: {
+                text: '85%', 
+                font: '16px Roboto', 
+                color: '#000'
+              },
+            borderWidth: 0,
+            cutout: '80%',
+            rotation: 70
+        },plugins: [centerTextPlugin],
+    };
+      const myChart = new Chart(
+        document.getElementById('doughnut'),
+        config
+      );
+    
+      
+    // New customers chart
+    const newData = {
+        datasets: [{
+          data: [66, 34],
+          backgroundColor: [
+            '#0E5A6A',
+            '#E2E2E2'
+          ],
+          hoverOffset: 0
+        }],
+      };
+
+      const centerText66 = {
+        beforeDraw: function (chart) {
+          if (chart.config.options.centerText) {
+            const ctx = chart.ctx;
+            const chartArea = chart.chartArea;
+            const centerX = (chartArea.left + chartArea.right) / 2;
+            const centerY = (chartArea.top + chartArea.bottom) / 2;
+      
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = chart.config.options.centerText.font || '16px roboto';
+            ctx.fillStyle = chart.config.options.centerText.color || '#000';
+            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
+            ctx.restore();
+          }
+        }
+      };
+    const configNew = {
+        type: 'doughnut',
+        data: newData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            centerText: {
+                text: '66%', 
+                font: '16px Roboto', 
+                color: '#000'
+              },
+            borderWidth: 0,
+            cutout: '80%',
+            rotation: 70
+        },plugins: [centerTextPlugin],
+    };
+      const newChart = new Chart(
+        document.getElementById('doughnut2'),
+        configNew
+      );
+    
+
+      // target customers chart
+    const targetData = {
+        datasets: [{
+          data: [90, 10],
+          backgroundColor: [
+            '#0E5A6A',
+            '#E2E2E2'
+          ],
+          hoverOffset: 0
+        }],
+      };
+
+      const centerText90 = {
+        beforeDraw: function (chart) {
+          if (chart.config.options.centerText) {
+            const ctx = chart.ctx;
+            const chartArea = chart.chartArea;
+            const centerX = (chartArea.left + chartArea.right) / 2;
+            const centerY = (chartArea.top + chartArea.bottom) / 2;
+      
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = chart.config.options.centerText.font || '16px roboto';
+            ctx.fillStyle = chart.config.options.centerText.color || '#000';
+            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
+            ctx.restore();
+          }
+        }
+      };
+    const target = {
+        type: 'doughnut',
+        data: targetData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            centerText: {
+                text: '90%', 
+                font: '16px Roboto', 
+                color: '#000'
+              },
+            borderWidth: 0,
+            cutout: '80%',
+            rotation: 70
+        },plugins: [centerTextPlugin],
+    };
+      const targetChart = new Chart(
+        document.getElementById('doughnut3'),
+        target
+      );
+    
+    // Retarget customers chart
+    const retargetData = {
+        datasets: [{
+          data: [30, 70],
+          backgroundColor: [
+            '#6CCCC3',
+            '#E2E2E2'
+          ],
+          hoverOffset: 0
+        }],
+      };
+
+      const centerText30 = {
+        beforeDraw: function (chart) {
+          if (chart.config.options.centerText) {
+            const ctx = chart.ctx;
+            const chartArea = chart.chartArea;
+            const centerX = (chartArea.left + chartArea.right) / 2;
+            const centerY = (chartArea.top + chartArea.bottom) / 2;
+      
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = chart.config.options.centerText.font || '16px roboto';
+            ctx.fillStyle = chart.config.options.centerText.color || '#000';
+            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
+            ctx.restore();
+          }
+        }
+      };
+    const Retarget = {
+        type: 'doughnut',
+        data: retargetData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            centerText: {
+                text: '30%', 
+                font: '16px Roboto', 
+                color: '#000'
+              },
+            borderWidth: 0,
+            cutout: '80%',
+            rotation: 70
+        },plugins: [centerTextPlugin],
+    };
+      const retargetChart = new Chart(
+        document.getElementById('doughnut4'),
+        Retarget
+      );
+
+
+
+      
 
     // $(document).ready(function() {
     //     const x = $("#address");

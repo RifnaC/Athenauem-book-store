@@ -20,7 +20,7 @@
     --bs-white: #fff;
     --bs-gray: #6c757d;
     --bs-gray-dark: #343a40;
-    --bs-primary: #15877C;
+    --bs-primary: #15877C !important;
     --bs-secondary: #191C24;
     --bs-success: #198754;
     --bs-info: #0dcaf0;
@@ -1932,7 +1932,7 @@ progress {
 }
 
 .table-primary {
-    --bs-table-bg: #fbd0d0;
+    --bs-table-bg: #15877C;
     --bs-table-striped-bg: #eec6c6;
     --bs-table-striped-color: #FCFCFC;
     --bs-table-active-bg: #e2bbbb;

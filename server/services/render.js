@@ -3,7 +3,7 @@ const axios = require('axios');
 
 // ***********************Admin Management********************************
 exports.homeRoutes = (req, res)=>{
-    res.render('index');
+    res.render('dashboard');
 }
 
 exports.admin= (req, res)=>{
@@ -17,11 +17,11 @@ exports.admin= (req, res)=>{
     } )
 
 }
-exports.add_admin= (req, res)=> res.render('addAdmin');
+exports.addedAdmin= (req, res)=> res.render('addAdmin');
 
 
 exports.edit_admin= (req, res)=>{
-    axios.get('http://localhost:3000/api/admins',{params: {id:req.query.id}})
+    axios.get('http://localhost:3000/api/admins',{params:{id:req.query.id}})
     .then(function(AdminData){
         res.render('editAdmin',{admin:AdminData.data});
     })

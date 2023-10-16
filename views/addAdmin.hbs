@@ -34,12 +34,15 @@
     <!-- Sidebar -->
     <div class="sidebar pe-4 pb-3">
       <nav class="navbar bg-secondary navbar-dark">
-        <a href="index" class="navbar-brand mx-4 mb-3">
-          <h3 class="text-primary">Atheneum</h3>
+        <a href="dashboard" class="navbar-brand mx-4 mb-3">
+          <div class="d-flex justify-content-between">
+            <img src="/img/book collection 0.png" alt="logo" style="width: 40px; height: 40px; border-radius: 50%;">
+            <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+          </div>
         </a>
         <div class="navbar-nav w-100 d-flex ">
           <div>
-            <a href="index" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
+            <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
             <a href="shop" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Shops</a>
             <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
             <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
@@ -74,7 +77,7 @@
       <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary border rounded">
           <div class="m-4">
-            <form action="/api/admins" method="POST" id="upload_user" onsubmit="return validateForm()">
+            <form action="/api/admins" method="POST" id="upload_ser" onsubmit="return validateForm()">
               <div class="new_user">
                 <div class="form-group m-2">
                   <label for="name" class="text-light m-1">Name</label>
@@ -115,6 +118,9 @@
   <script src="lib/easing/easing.min.js"></script>
   <script src="lib/waypoints/waypoints.min.js"></script>
   <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- Template Javascript -->
   <script src="/js/main.js"></script>

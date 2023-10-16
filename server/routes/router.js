@@ -12,7 +12,7 @@ const categoryController = require('../controller/categoryController');
  * @description Root Route
  * @method GET/
 */
-route.get("/index", services.homeRoutes)
+route.get("/dashboard", services.homeRoutes)
 
 /** 
  * @description Admin Route
@@ -24,7 +24,7 @@ route.get("/admin" , services.admin)
  * @description Add Admin
  * @method GET/
 */
-route.get("/addAdmin" , services.add_admin)
+route.get("/addAdmin" , services.addedAdmin)
 
 /** 
  * @description Update Admin

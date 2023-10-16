@@ -28,6 +28,9 @@
   <!-- Customized Bootstrap Stylesheet -->
   <link href="/css/bootstrap.min.css" rel="stylesheet">
 
+
+
+
   <!-- Template Stylesheet -->
   <link href="/css/style.css" rel="stylesheet">
 </head>
@@ -45,12 +48,15 @@
   <!-- Sidebar Start -->
   <div class="sidebar pe-4 pb-3">
     <nav class="navbar bg-secondary navbar-dark">
-      <a href="index" class="navbar-brand mx-4 mb-3">
-        <h3 class="text-primary">Athenaeum</h3>
+      <a href="dashboard" class="navbar-brand mx-4 mb-3">
+        <div class="d-flex justify-content-between">
+          <img src="/img/book collection 0.png" alt="logo" style="width: 40px; height: 40px; border-radius: 50%;">
+          <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+        </div>
       </a>
       <div class="navbar-nav w-100 d-flex ">
         <div>
-          <a href="index" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
+          <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
           <a href="shop" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Shops</a>
           <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
           <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
@@ -98,11 +104,12 @@
               <div class="tab-content px-3 px-xl-5" id="myTabContent">
                 <div class="tab-pane fade show active" id="profile-list" role="tabpanel" aria-labelledby="settings-tab">
                   <div class="card card-table-border-none" id="recent-orders">
-                    <h2 class="text-primary text-center">Admins</h2>
-                    <div class="card-body pt-0 pb-5">
-                      <table class="table-bordered card-table table-responsive table-responsive-large" style="width:100%">
+                    <h2 class="text-primary text-center mb-3">Admins</h2>
+                    <div class="card-body pt-0 pb-3">
+                      <table class="table table-bordered text-center card-table table-responsive table-responsive-large"
+                        style="width:100%">
                         <thead>
-                          <tr>
+                          <tr class="table-primary">
                             <th>Name</th>
                             <th>Email</th>
                             <th>Action</th>
@@ -147,7 +154,9 @@
   <script src="/lib/tempusdominus/js/moment.min.js"></script>
   <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
   <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
 
   <!-- Template Javascript -->
   <script src="/js/main.js"></script>
