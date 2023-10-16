@@ -115,17 +115,28 @@
                         <div class="bg-secondary rounded p-4">
                             <h5 class="mb-0 text-primary">Customers</h5>
                             <p class="fs-6">Information About Customers</p>
-                            {{!-- <canvas id="customerChart" ></canvas> --}}
-                            <div class="panel">
-                                <div class="chart">
-    <div class="percentage" data-percent="75">
-      <span></span><sup>%</sup>
-    </div>
-  </div>
+                            {{!-- <canvas id="customerChart"></canvas> --}}
+                            <div class="row">
+                                <div class="col">
+                                    <canvas id="doughnut"></canvas>
+                                    <p class="mt-2 chart-text">Current Customers</p>
+                                </div>
+                                <div class="col">
+                                    <canvas id="doughnut2"></canvas>
+                                    <p class="mt-2 chart-text">New Customers</p>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col">
+                                    <canvas id="doughnut3"></canvas>
+                                    <p class="mt-2 chart-text">Target Customers</p>
+                                </div>
+                                <div class="col">
+                                    <canvas id="doughnut4"></canvas>
+                                    <p class="mt-2 chart-text">Retarget Customers</p>
+                                </div>
                             </div>
                         </div>
-                        
-
                     </div>
                 </div>
             </div>
@@ -173,22 +184,16 @@
                 </div>
             </div>
             <!-- Sale & Revenue End -->
-
         </div>
-        <!-- Content End -->
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+    <!-- Content End -->
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/chart/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

@@ -99,45 +99,239 @@
     //     },
     //     options: {
     //         responsive: true,
-    //         // aspectRatio: 4.0,
+    //         aspectRatio: 4.0,
+    //         // cutoutPercentage: 90,
     //         // cutoutPercentage: 400
-    //         percentageInnerCutout: 40
+    //         // percentageInnerCutout: 40
     //     },
     //     centerText: {
     //         display: true,
     //         text: "280"
     //     }
     // });
-  
-        
 
-    // function color(percent) {
-    //     var color = '#F44336';
+// current customer chart
+    const currentData = {
+        datasets: [{
+          data: [85, 15],
+          backgroundColor: [
+            '#15877C',
+            '#E2E2E2'
+          ],
+          hoverOffset: 0
+        }],
+      };
+
+      const centerTextPlugin = {
+        beforeDraw: function (chart) {
+          if (chart.config.options.centerText) {
+            const ctx = chart.ctx;
+            const chartArea = chart.chartArea;
+            const centerX = (chartArea.left + chartArea.right) / 2;
+            const centerY = (chartArea.top + chartArea.bottom) / 2;
+      
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = chart.config.options.centerText.font || '16px roboto';
+            ctx.fillStyle = chart.config.options.centerText.color || '#000';
+            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
+            ctx.restore();
+          }
+        }
+      };
+    const config = {
+        type: 'doughnut',
+        data: currentData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            centerText: {
+                text: '85%', 
+                font: '16px Roboto', 
+                color: '#000'
+              },
+            borderWidth: 0,
+            cutout: '80%',
+            rotation: 70
+        },plugins: [centerTextPlugin],
+    };
+      const myChart = new Chart(
+        document.getElementById('doughnut'),
+        config
+      );
     
-    //     if (percent > 50) {
-    //         color = '#8bc34a'; //green
-    //     } else {
-    //         color = '#F44336'; //red
-    //     }
-    //     return color;
-    // }
+      
+    // New customers chart
+    const newData = {
+        datasets: [{
+          data: [66, 34],
+          backgroundColor: [
+            '#0E5A6A',
+            '#E2E2E2'
+          ],
+          hoverOffset: 0
+        }],
+      };
+
+      const centerText66 = {
+        beforeDraw: function (chart) {
+          if (chart.config.options.centerText) {
+            const ctx = chart.ctx;
+            const chartArea = chart.chartArea;
+            const centerX = (chartArea.left + chartArea.right) / 2;
+            const centerY = (chartArea.top + chartArea.bottom) / 2;
+      
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = chart.config.options.centerText.font || '16px roboto';
+            ctx.fillStyle = chart.config.options.centerText.color || '#000';
+            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
+            ctx.restore();
+          }
+        }
+      };
+    const configNew = {
+        type: 'doughnut',
+        data: newData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            centerText: {
+                text: '66%', 
+                font: '16px Roboto', 
+                color: '#000'
+              },
+            borderWidth: 0,
+            cutout: '80%',
+            rotation: 70
+        },plugins: [centerTextPlugin],
+    };
+      const newChart = new Chart(
+        document.getElementById('doughnut2'),
+        configNew
+      );
     
+
+      // target customers chart
+    const targetData = {
+        datasets: [{
+          data: [90, 10],
+          backgroundColor: [
+            '#0E5A6A',
+            '#E2E2E2'
+          ],
+          hoverOffset: 0
+        }],
+      };
+
+      const centerText90 = {
+        beforeDraw: function (chart) {
+          if (chart.config.options.centerText) {
+            const ctx = chart.ctx;
+            const chartArea = chart.chartArea;
+            const centerX = (chartArea.left + chartArea.right) / 2;
+            const centerY = (chartArea.top + chartArea.bottom) / 2;
+      
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = chart.config.options.centerText.font || '16px roboto';
+            ctx.fillStyle = chart.config.options.centerText.color || '#000';
+            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
+            ctx.restore();
+          }
+        }
+      };
+    const target = {
+        type: 'doughnut',
+        data: targetData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            centerText: {
+                text: '90%', 
+                font: '16px Roboto', 
+                color: '#000'
+              },
+            borderWidth: 0,
+            cutout: '80%',
+            rotation: 70
+        },plugins: [centerTextPlugin],
+    };
+      const targetChart = new Chart(
+        document.getElementById('doughnut3'),
+        target
+      );
     
-    // 
-    
-    $('.percentage').easyPieChart({
-        animate: 1000,
-        lineWidth: 5,
-        scaleColor: false,
-        size: 124,
-        onStep: function(value) {
-            this.$el.find('span').text(Math.round(value));
-        },
-        onStop: function(value, to) {
-            this.$el.find('span').text(Math.round(to));
-        },
-        barColor: color
-    });
+    // Retarget customers chart
+    const retargetData = {
+        datasets: [{
+          data: [30, 70],
+          backgroundColor: [
+            '#6CCCC3',
+            '#E2E2E2'
+          ],
+          hoverOffset: 0
+        }],
+      };
+
+      const centerText30 = {
+        beforeDraw: function (chart) {
+          if (chart.config.options.centerText) {
+            const ctx = chart.ctx;
+            const chartArea = chart.chartArea;
+            const centerX = (chartArea.left + chartArea.right) / 2;
+            const centerY = (chartArea.top + chartArea.bottom) / 2;
+      
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = chart.config.options.centerText.font || '16px roboto';
+            ctx.fillStyle = chart.config.options.centerText.color || '#000';
+            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
+            ctx.restore();
+          }
+        }
+      };
+    const Retarget = {
+        type: 'doughnut',
+        data: retargetData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            centerText: {
+                text: '30%', 
+                font: '16px Roboto', 
+                color: '#000'
+              },
+            borderWidth: 0,
+            cutout: '80%',
+            rotation: 70
+        },plugins: [centerTextPlugin],
+    };
+      const retargetChart = new Chart(
+        document.getElementById('doughnut4'),
+        Retarget
+      );
+
 
     // Function to validate the form
     function validateForm() {
@@ -171,14 +365,14 @@
         if (!validateForm()) {
             event.preventDefault();
         }else{
-            // alert("new admin data is inserted Successfully"); 
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Your work has been saved',
-                showConfirmButton: false,
-                timer: 1500
-              })
+            alert("new admin data is inserted Successfully"); 
+            // Swal.fire({
+            //     position: 'top-end',
+            //     icon: 'success',
+            //     title: 'Your work has been saved',
+            //     showConfirmButton: false,
+            //     timer: 1500
+            //   })
         }
              
     })

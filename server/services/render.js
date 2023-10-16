@@ -30,9 +30,9 @@ exports.edit_admin= (req, res)=>{
     })
 }
 
-exports.change_pswd= (req, res)=>{
-    res.render('changePswd')
-}
+// exports.change_pswd= (req, res)=>{
+//     res.render('changePswd')
+// }
 
 
 // ***********************Shop Management********************************
