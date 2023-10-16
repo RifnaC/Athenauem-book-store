@@ -1,145 +1,157 @@
 (function ($) {
-    "use strict";
+  "use strict";
 
-    // Spinner
-    var spinner = function () {
-        setTimeout(function () {
-            if ($('#spinner').length > 0) {
-                $('#spinner').removeClass('show');
-            }
-        }, 1);
-    };
-    spinner();
-    
-    // Back to top button
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) {
-            $('.back-to-top').fadeIn('slow');
-        } else {
-            $('.back-to-top').fadeOut('slow');
-        }
-    });
-    $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
-        return false;
-    });
-
-    // Sidebar Toggler
-    $('.sidebar-toggler').click(function () {
-        $('.sidebar, .content').toggleClass("open");
-        return false;
-    });
-
-    // Function to validate the add admin form
-    function validateForm() {
-      let name = document.forms["upload_user"]["name"].value;
-      let email = document.forms["upload_user"]["email"].value;
-      let password = document.forms["upload_user"]["password"].value;
-      let confirmPassword = document.forms["upload_user"]["confirmPassword"].value;
+  // Spinner
+  var spinner = function () {
+    setTimeout(function () {      
+      if ($('#spinner').length > 0) {
+        $('#spinner').removeClass('show');
+      }
+    }, 1);
+  };
+  spinner();
   
-      // Check if name, email, password, and confirmPassword are not empty
-      if (name === "") {
-        Swal.fire({
-            title: 'Athenauem',
-            text: 'Please enter your name!',
-            confirmButtonColor: '#15877C',
-          })
-        return false;
-      }
-      if (name.length < 3 ) {
-        Swal.fire({
-            title: 'Athenauem',
-            text: 'Name should have at least 3 characters!',
-            confirmButtonColor: '#15877C',
-          })
-        return false;
-      }
-      if (email === "") {
-        Swal.fire({
-            title: 'Athenauem',
-            text: 'Please enter your email!',
-            confirmButtonColor: '#15877C',
-        })
-        return false;
-      }
-      if (passwrod === "") {
-        Swal.fire({
-            title: 'Athenauem',
-            text: 'Please enter your password!',
-            confirmButtonColor: '#15877C',
-        })
-        return false;
-      }
-      if (confirmPassword === "") {
-        Swal.fire({
-            title: 'Athenauem',
-            text: 'Please enter your  confirm password!',
-            confirmButtonColor: '#15877C',
-        })
-        return false;
-      }
-      if (password.length < 6) {
-        Swal.fire({
-            title: 'Athenauem',
-            text: 'Passwords should have at least 6 characters!',
-            confirmButtonColor: '#15877C',
-        })
-        return false;
-      }
-      if (password !== confirmPassword) {
-        Swal.fire({
-            title: 'Athenauem',
-            text: 'Password and the confirm password should be same!',
-            confirmButtonColor: '#15877C',
-        })
-        return false;
-      }
-      return true;
+  // Back to top button
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > 300) {
+      $('.back-to-top').fadeIn('slow');
+    } else {
+      $('.back-to-top').fadeOut('slow');
     }
+  });
+  $('.back-to-top').click(function () {
+    $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+      return false;
+  });
+
+  // Sidebar Toggler
+  $('.sidebar-toggler').click(function () {
+    $('.sidebar, .content').toggleClass("open");
+    return false;
+  });
+
+  // Function to validate the add admin form
+  function validateForm() {
+    let name = document.forms["uploadUser"]["name"].value;
+    let email = document.forms["uploadUser"]["email"].value;
+    let password = document.forms["uploadUser"]["password"].value;
+    let confirmPassword = document.forms["uploadUser"]["confirmPassword"].value;
   
-    $("#upload_user").submit(function(event) {
-        if (!validateForm()) {
-            event.preventDefault();
-        }else{
-            alert("new admin data is inserted Successfully"); 
-            // Swal.fire({
-            //     position: 'top-end',
-            //     icon: 'success',
-            //     title: 'Your work has been saved',
-            //     showConfirmButton: false,
-            //     timer: 1500
-            //   })
-
-            
-        }
-             
+    // Check if name, email, password, and confirmPassword are not empty
+    if (name === "") {
+      Swal.fire({
+        title: 'Athenauem',
+        text: 'Please enter your name!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (name.length < 3 ) {
+      Swal.fire({
+      title: 'Athenauem',            
+      text: 'Name should have at least 3 characters!',
+      confirmButtonColor: '#15877C',
     })
+    return false;
+    }
+    if (email === "") {
+      Swal.fire({
+        title: 'Athenauem',
+        text: 'Please enter your email!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (password === "") {
+      Swal.fire({
+        title: 'Athenauem',
+        text: 'Please enter your password!',
+        confirmButtonColor: '#15877C',
+      })
+        return false;
+    }
+    if (confirmPassword === "") {
+      Swal.fire({
+        title: 'Athenauem',
+        text: 'Please enter your  confirm password!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (password.length < 6) {
+      Swal.fire({
+        title: 'Athenauem',
+        text: 'Passwords should have at least 6 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (password !== confirmPassword) {
+      Swal.fire({
+        title: 'Athenauem',
+        text: 'Password and the confirm password should be same!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    return true;
+  }
+  
+  $("#uploadUser").submit(function(event) {
+    if (!validateForm()) {
+      event.preventDefault();
+    }else{
+      Swal.fire({
+        icon: 'success',
+        title: 'New admin data is inserted Successfully',
+        showConfirmButton: false,
+        timer: 5000
+      })
+    }
+  })
 
-    $("#edit_admin").submit(function(event) {
-        event.preventDefault();
+  $("#edit_admin").submit(function(event) {
+    event.preventDefault();
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
     
-        let unindexed_array = $(this).serializeArray();
-        let data = {};
+    $.map(unindexed_array, function(n, i) {
+      data[n['name']] = n['value'];
+    });
+
+    // Extract the admin's ID from the form data
+    const adminId = data.id;
     
-        $.map(unindexed_array, function(n, i) {
-            data[n['name']] = n['value'];
-        });
-    
-        // console.log(data);
-    
-        // Extract the admin's ID from the form data
-        const adminId = data.id;
-    
-        // Validation: Check if the name and email fields are empty
-        if (!data.name || !data.email) {
-            alert("Name and email fields are required.");
+    // Validation: Check if the name and email fields are empty
+    if (!data.name || !data.email) {
+      Swal.fire({
+        title: 'Athenauem',
+        text: 'Please enter the name!',
+        confirmButtonColor: '#15877C',
+      })
+      // alert("Name and email fields are required.");
             return;
         }
         if (data.name.length < 4) {
-            alert("Name and email fields are required.");
+          Swal.fire({
+            title: 'Athenauem',
+            text: 'Name should be at least 4 characters',
+            confirmButtonColor: '#15877C',
+          })
+            // alert("Name and email fields are required.");
             return;
         }
     
+
+        if (!data.email) {
+          Swal.fire({
+            title: 'Athenauem',
+            text: 'Password and the confirm password should be same!',
+            confirmButtonColor: '#15877C',
+          })
+          // alert("Name and email fields are required.");
+                return;
+            }
         // Validation: Check if the new password and confirm password match
         if (data.newPassword !== data.confirmPassword) {
             alert("New password and confirm password must match.");
