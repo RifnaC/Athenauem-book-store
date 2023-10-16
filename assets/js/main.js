@@ -11,7 +11,6 @@
     };
     spinner();
     
-    
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
@@ -25,11 +24,119 @@
         return false;
     });
 
-
     // Sidebar Toggler
     $('.sidebar-toggler').click(function () {
         $('.sidebar, .content').toggleClass("open");
         return false;
+    });
+
+    // Chart Global Color
+    Chart.defaults.color = "#6C7293";
+    Chart.defaults.borderColor = "#ffffffff";    
+    
+    // Worldwide Sales Chart
+    let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
+    let myChart1 = new Chart(ctx1, {
+        type: "bar",
+        data: {
+            labels: ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [{
+                    label: "Sales",
+                    data: [0, 20, 35, 55, 50, 70, 75, 55, 20, 45, 45, 40, 60],
+                    backgroundColor: "#CCEBD7"
+                },
+                {
+                    label: "Target",
+                    data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80],
+                    backgroundColor: "#15877C"
+                }]
+        },
+        options: {
+            responsive: true
+        }        
+    });
+    
+    // Date range picker
+    let start = moment().subtract(29, 'days');
+    let end = moment();
+
+    function cb(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+
+    
+
+    // let customerChart = $("#customerChart").get(0).getContext("2d");   
+    // var cust1 = new Chart(customerChart, {
+    //     type: "doughnut",
+    //     data: {
+    //         labels: [],
+    //         datasets: [{
+    //             backgroundColor: [
+    //                 "rgba(21, 135, 124, .7)",
+    //                 "rgba(21, 135, 124, .6)",
+    //                 "rgba(21, 135, 124, .5)",
+    //                 "rgba(21, 135, 124, .4)",
+    //                 "rgba(21, 135, 124, .3)"
+    //             ],
+    //             data: [0, 0, 0, 45, 0]
+    //         }]
+    //     },
+    //     options: {
+    //         responsive: true,
+    //         // aspectRatio: 4.0,
+    //         // cutoutPercentage: 400
+    //         percentageInnerCutout: 40
+    //     },
+    //     centerText: {
+    //         display: true,
+    //         text: "280"
+    //     }
+    // });
+  
+        
+
+    // function color(percent) {
+    //     var color = '#F44336';
+    
+    //     if (percent > 50) {
+    //         color = '#8bc34a'; //green
+    //     } else {
+    //         color = '#F44336'; //red
+    //     }
+    //     return color;
+    // }
+    
+    
+    // 
+    
+    $('.percentage').easyPieChart({
+        animate: 1000,
+        lineWidth: 5,
+        scaleColor: false,
+        size: 124,
+        onStep: function(value) {
+            this.$el.find('span').text(Math.round(value));
+        },
+        onStop: function(value, to) {
+            this.$el.find('span').text(Math.round(to));
+        },
+        barColor: color
     });
 
     // Function to validate the form
@@ -64,7 +171,14 @@
         if (!validateForm()) {
             event.preventDefault();
         }else{
-            alert("new admin data is inserted Successfully"); 
+            // alert("new admin data is inserted Successfully"); 
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+              })
         }
              
     })
@@ -534,29 +648,75 @@ function categoryValidation(){
     // });
 
 
-    // // Chart Global Color
-    // Chart.defaults.color = "#6C7293";
-    // Chart.defaults.borderColor = "#000000";
 
 
-    // Worldwide Sales Chart
-    let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
-    let myChart1 = new Chart(ctx1, {
-        type: "bar",
-        data: {
-            labels: ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                    label: "Sales",
-                    data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80],
-                    backgroundColor: "rgba(21, 135, 124, .7)"
-                }
-            ]
-            },
-        options: {
-            responsive: true
-        }
-    });
 
+        // $(document).ready(function() {
+        //     var ctx = document.getElementById("worldwide-sales").getContext("2d");
+          
+        //     // Create the chart data
+        //     var data = {
+        //       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        //       datasets: [{
+        //         label: "Total Revenue",
+        //         data: [10000, 12000, 11000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000],
+        //         borderColor: "#3366cc",
+        //         backgroundColor: "#3366cc",
+        //         fill: false
+        //       }]
+        //     };
+          
+        //     // Create the chart options
+        //     var options = {
+        //       title: {
+        //         text: "Total Revenue"
+        //       },
+        //       legend: {
+        //         display: false
+        //       },
+        //       scales: {
+        //         yAxes: [{
+        //           ticks: {
+        //             stepSize: 1000
+        //           }
+        //         }]
+        //       }
+        //     };
+          
+        //     // Create the chart
+        //     var chart = new Chart(ctx, {
+        //       type: "bar",
+        //       data: data,
+        //       options: options
+        //     });
+        //   });
+          
+
+      
+            
+      
+
+    //    // bar chart data
+    //    let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
+    // let myChart1 = new Chart(ctx1,  {
+    //     labels : ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    //     datasets : [
+    //         {
+    //             fillColor : "#15877C",
+    //             strokeColor : "#48A4D1",
+    //             data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80]
+    //         },
+    //         {
+    //             fillColor : "rgba(73,188,170,0.4)",
+    //             strokeColor : "rgba(72,174,209,0.4)",
+    //             data : [364,504,605,400,345,320]
+    //         }
+    //     ]
+    // })
+    // // get bar chart canvas
+    // // var income = document.getElementById("income").getContext("2d");
+    // // // draw bar chart
+    // // new Chart(income).Bar(barData);
 
    
 

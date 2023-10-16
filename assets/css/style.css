@@ -69,6 +69,25 @@
     font-weight: normal;
     border-radius: 50px;
 }
+body::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #15877C;
+}
 
 
 /*** Layout ***/
@@ -236,6 +255,117 @@
         margin-left: 15px;
     }
 }
+
+/* Ragnge Date Picker */
+.date-range-report span {
+    cursor: pointer;
+    color: #6c8e93;
+    font-size: 0.9rem;
+  }
+  
+  .date-range-report span:after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 1em;
+    content: "";
+    border-right: 5px solid transparent;
+    border-bottom: 0px;
+    border-top: 6px solid;
+    border-left: 5px solid transparent;
+    vertical-align: middle;
+}
+ 
+/* doughnut chart */
+/* .donut-inner {
+    margin-top: -100px;
+    margin-bottom: 100px;
+ }
+ .donut-inner h5 {
+    margin-bottom: 5px;
+    margin-top: 0;
+ }
+ .donut-inner span {
+    font-size: 12px;
+ } */
+
+ .panel {
+    display: flex;
+    position: relative;
+    background: #fff;
+    width: 300px;
+    padding: 0 35px;
+    text-align: center;
+    @include border-radius(4px);
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+  }
+  .chart{
+    display: inline-block;
+    width: 120px;
+    margin: 40px auto 20px;
+    padding: 0 10px;
+  }
+  .easyPieChart {
+    position: relative;
+    text-align: center;
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+  .percentage,
+  .label {
+      margin-bottom: 0.5em;
+      text-align: center;
+      font-weight: 100;
+  }
+  .percentage{
+    font-size: 31px;
+  }
+  sup{
+    top: -11px;
+    margin-left: 1px;
+    font-size: 14px;
+    position: relative;
+  }
+  .ctrl{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    color: #c4cdcc;
+    word-spacing: 5px;
+    span{   
+      cursor: pointer;
+      @include transition(color .5s ease-in-out);
+      &:hover{
+        color: #000;
+      }
+    }
+  }
+  
+  .meta{
+    margin: auto;
+    max-width: 280px;
+    border-top: 1px solid rgba(155,155,155,0.2);
+    text-align: center;
+  }
+  
+  p{
+    margin: 0;
+    padding: 20px;
+    color: lighten(#a1a7a6, 15%);
+    a{
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+    }
+    +p{
+      padding-top: 5px;
+      padding-bottom: 20px;
+    }
+  }
+
 /*** shop list ***/
 .card-box{
     margin-left: 2rem !important;
