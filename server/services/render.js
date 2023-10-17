@@ -1,6 +1,5 @@
 const axios = require('axios');
 
-
 // ***********************Admin Management********************************
 exports.homeRoutes = (req, res)=>{
     res.render('dashboard');
@@ -15,10 +14,8 @@ exports.admin= (req, res)=>{
     .catch(err =>{
         res.send(err);
     } )
-
 }
 exports.addedAdmin= (req, res)=> res.render('addAdmin');
-
 
 exports.edit_admin= (req, res)=>{
     axios.get('http://localhost:3000/api/admins',{params:{id:req.query.id}})
@@ -29,11 +26,6 @@ exports.edit_admin= (req, res)=>{
         res.send(err);
     })
 }
-
-// exports.change_pswd= (req, res)=>{
-//     res.render('changePswd')
-// }
-
 
 // ***********************Shop Management********************************
 

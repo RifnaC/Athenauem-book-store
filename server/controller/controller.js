@@ -2,7 +2,6 @@ const { log } = require('handlebars');
 const Admindb = require('../models/model');
 const bcrypt = require('bcrypt');
 const saltRounds = 10; 
-
 // ***********************Admin Management********************************
 // create and save new admin
 exports.create = async(req, res) => {
@@ -17,20 +16,19 @@ exports.create = async(req, res) => {
             // Display an alert when email is already taken.
             res.status(200).send(
                 "<script>alert('Email already exists'); window.location.href ='/addAdmin';</script>"
-              );
-              return;
+            );
+            return;
         }
-         // Hash the password
-         const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-
-            const admin = new Admindb({
-                name: req.body.name,
-                email: req.body.email,
-                password:  hashedPassword
-            });
-            // save admin in database
-            const savedAdmin = await admin.save();
-            res.redirect('/admin');
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+        const admin = new Admindb({
+            name: req.body.name,
+            email: req.body.email,                
+            password:  hashedPassword
+        });
+        // save admin in database
+        const savedAdmin = await admin.save();
+        res.redirect('/admin');
     }catch(err){
         res.status(500).send({
             message:err.message || "Some error occured while creating a create operation"
@@ -55,14 +53,13 @@ exports.find = (req, res) => {
         })
     }else{
         Admindb.find()
-    .then(admin => {
-        res.send(admin)
-    })
-    .catch(err => {
-        res.status(500).send({message:err.message ||"Some error occured while retriving admin information" })
-    })
+        .then(admin => {
+            res.send(admin)
+        })
+        .catch(err => {
+            res.status(500).send({message:err.message ||"Some error occured while retriving admin information" })
+        })
     }
-
 }
 
 // Update a new identified admin by  admin id
@@ -86,7 +83,6 @@ exports.update = (req, res) => {
 //Delete a admin with specified admin id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
-
     Admindb.findByIdAndDelete(id)
     .then(data => { 
         if(!data){
@@ -102,7 +98,4 @@ exports.delete = (req, res) => {
             message:"Could not delete admin with id "+ id
         })
     })
-    
 }
-
-

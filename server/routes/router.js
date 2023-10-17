@@ -1,6 +1,5 @@
 const express = require('express')
 const route = express.Router();
-
 const services = require('../services/render');
 const controller = require('../controller/controller')
 const shopController = require('../controller/shopController');
@@ -32,21 +31,13 @@ route.get("/addAdmin" , services.addedAdmin)
 */
 route.get("/editAdmin" , services.edit_admin)
 
-// /** 
-//  * @description Update Admin Password
-//  * @method GET/
-// */
-// route.get("/changePswd" , services.change_pswd)
-
 // API
 route.post('/api/admins',controller.create);
 route.get('/api/admins',controller.find);
 route.put('/api/admins/:id',controller.update);
 route.delete('/api/admins/:id',controller.delete)
 
-
 // ***********************Shop Management********************************
-
 /** 
  * @description shop Route
  * @method GET/

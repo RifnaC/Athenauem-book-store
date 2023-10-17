@@ -29,7 +29,7 @@
     $('.sidebar, .content').toggleClass("open");
     return false;
   });
-
+  //Admin alerts
   // Function to validate the add admin form
   function validateForm() {
     let name = document.forms["uploadUser"]["name"].value;
@@ -40,56 +40,49 @@
     // Check if name, email, password, and confirmPassword are not empty
     if (name === "") {
       Swal.fire({
-        title: 'Athenauem',
-        text: 'Please enter your name!',
+        title:'Please enter your name!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
     if (name.length < 3 ) {
       Swal.fire({
-      title: 'Athenauem',            
-      text: 'Name should have at least 3 characters!',
+      title: 'Name should have at least 3 characters!',
       confirmButtonColor: '#15877C',
     })
     return false;
     }
     if (email === "") {
       Swal.fire({
-        title: 'Athenauem',
-        text: 'Please enter your email!',
+        title: 'Please enter your email!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
     if (password === "") {
       Swal.fire({
-        title: 'Athenauem',
-        text: 'Please enter your password!',
+        title: 'Please enter your password!',
         confirmButtonColor: '#15877C',
       })
         return false;
     }
     if (confirmPassword === "") {
       Swal.fire({
-        title: 'Athenauem',
-        text: 'Please enter your  confirm password!',
+        title: 'Please enter your  confirm password!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
     if (password.length < 6) {
       Swal.fire({
-        title: 'Athenauem',
-        text: 'Passwords should have at least 6 characters!',
+        title: 'Passwords should have at least 6 characters!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
     if (password !== confirmPassword) {
       Swal.fire({
-        title: 'Athenauem',
-        text: 'Password and the confirm password should be same!',
+        title: 'Password and the confirm password should be same!',
         confirmButtonColor: '#15877C',
       })
       return false;
@@ -105,7 +98,7 @@
         icon: 'success',
         title: 'New admin data is inserted Successfully',
         showConfirmButton: false,
-        timer: 5000
+        timer: 6000
       })
     }
   })
@@ -118,141 +111,151 @@
     $.map(unindexed_array, function(n, i) {
       data[n['name']] = n['value'];
     });
-
     // Extract the admin's ID from the form data
     const adminId = data.id;
-    
     // Validation: Check if the name and email fields are empty
-    if (!data.name || !data.email) {
+    if (!data.name) {
       Swal.fire({
-        title: 'Athenauem',
-        text: 'Please enter the name!',
+        title: 'Please enter the name!',
         confirmButtonColor: '#15877C',
       })
-      // alert("Name and email fields are required.");
-            return;
-        }
-        if (data.name.length < 4) {
-          Swal.fire({
-            title: 'Athenauem',
-            text: 'Name should be at least 4 characters',
-            confirmButtonColor: '#15877C',
+      return;
+    }
+    if (data.name.length < 4) {
+      Swal.fire({
+        title: 'Name should be at least 4 characters',
+        confirmButtonColor: '#15877C',
+      });
+      return;
+    }
+    if (!data.email) {
+      Swal.fire({            
+        title: 'Please enter the name!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    
+    let request = {
+      "url": `http://localhost:3000/api/admins/${adminId}`,
+      "method": "PUT",
+      "data": data
+    };
+    // Send the PUT request
+    $.ajax(request).done(function(response) {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#15877C'
+      })
+      .then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire('Saved!', 'Data updated successfully', 'success')
+          .then((result) => {
+            window.location.href='/admin';
           })
-            // alert("Name and email fields are required.");
-            return;
-        }
-    
-
-        if (!data.email) {
-          Swal.fire({
-            title: 'Athenauem',
-            text: 'Password and the confirm password should be same!',
-            confirmButtonColor: '#15877C',
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+          .then((result) => {
+            window.location.href='/admin';
           })
-          // alert("Name and email fields are required.");
-                return;
-            }
-        // Validation: Check if the new password and confirm password match
-        if (data.newPassword !== data.confirmPassword) {
-            alert("New password and confirm password must match.");
-            return;
         }
-    
-        // Check if a new password is provided
-        if (data.newPassword) {
-            // Hash the new password with bcrypt
-            bcrypt.hash(data.newPassword, saltRounds, function(err, hashedPassword) {
-                if (err) {
-                    console.error(err);
-                    alert("Error hashing the new password");
-                } else {
-                    // Update the 'password' field with the hashed password
-                    data.password = hashedPassword;
-    
-                    // Create the AJAX request
-                    let request = {
-                        "url": `http://localhost:3000/api/admins/${adminId}`,
-                        "method": "PUT",
-                        "data": data
-                    };
-    
-                    // Send the PUT request
-                    $.ajax(request).done(function(response) {
-                        alert("Admin data updated successfully");
-                    });
-                }
-            });
-        } else {
-            // If no new password is provided, update without hashing
-            let request = {
-                "url": `http://localhost:3000/api/admins/${adminId}`,
-                "method": "PUT",
-                "data": data
-            };
-    
-            // Send the PUT request
-            $.ajax(request).done(function(response) {
-                alert("Data updated successfully");
-                window.location.href='/admin';
-            });
-        }
+      })
     });
-
-    let $ondelete;
-    if(window.location.pathname=="/admin"){
-        $ondelete = $(".table tbody td a.delete");
-        $ondelete.click(function(){
-            const id= $(this).attr('data-id')
-
-            const request = {
-                "url":`http://localhost:3000/api/admins/${id}`,
-                "method":"DELETE"
-            }
-            if(confirm("Do you really want to delete this record?")){
-                $.ajax(request).done(function(response){
-                    alert("Data deleted Successfully");
-                    console.log('hide');
-                    location.reload()
-                })
-            }
-        })
-
-    }
-    // Function to validate the form
-    function shopValidation() {
-      let name = document.forms["add_shop"]["name"].value;
-      let address = document.forms["add_shop"]["address"].value;
-      let openingTime = document.forms["add_shop"]["openingTime"].value;
-      let closingTime = document.forms["add_shop"]["closingTime"].value;
+  });
   
-      // Check if name, email, password, and confirmPassword are not empty
-      if (name === "" ) {
-        alert("Name field must be filled out");
-        return false;
-      }
-      if (name.length < 3 ) {
-        alert("Name should have at least 3 characters");
-        return false;
-      }
-      if (address === "" ) {
-        alert("Address field must be filled out");
-        return false;    
-      }
-      if ( openingTime === "") {
-        alert("Address field must be filled out");
-        return false;
-      } 
+  if(window.location.pathname==="/admin"){      
+    $(document).on("click", ".table tbody td a.delete", function (event) {
+      event.preventDefault();
+      const id = $(this).attr('data-id');
+      const request = {
+        "url": `http://localhost:3000/api/admins/${id}`,
+        "method": "DELETE"
+      };
+      Swal.fire({
+        title: 'Do you really want to delete this record?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it',
+        cancelButtonText: 'cancel',
+        confirmButtonColor: '#d33',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // The user clicked the "Yes, delete it" button
+          $.ajax(request).done(function (response) {
+            Swal.fire('Data deleted Successfully', '', 'success').then(() => {
+              location.reload();
+            });
+          });
+        } else {
+          // The user clicked the "cancel" button or closed the dialog
+          Swal.fire('Action canceled', '', 'info');
+        }
+      });
+    })
+  }
 
-      if (closingTime === "" ) {
-        alert("Address field must be filled out");
-        return false;
-      }
-      if (openingTime === closingTime) {
-        alert("Provide valid Working hours ");
-        return false;
-      }
-      return true;
+
+
+
+  // shop alerts
+  // Function to validate the form
+  function shopValidation() {
+    let name = document.forms["add_shop"]["name"].value;
+    let address = document.forms["add_shop"]["address"].value;
+    let openingTime = document.forms["add_shop"]["openingTime"].value;
+    let closingTime = document.forms["add_shop"]["closingTime"].value;
+    
+    // Check if name, email, password, and confirmPassword are not empty
+    if (name === "" ) {
+      Swal.fire({
+        title:'Please enter the shop name!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
     }
+    if (name.length < 3 ) {
+      Swal.fire({
+        title: 'Shop name should have at least 3 characters!',
+        confirmButtonColor: '#15877C'
+      })
+      return false;
+    }
+    if (address === "" ) {
+      Swal.fire({
+        title:'Please enter the address of shop!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;    
+    }
+    if (openingTime === "") {
+      Swal.fire({
+        title:'Please enter opening time of the shop!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    } 
+    if (closingTime === "" ) {
+      Swal.fire({
+        title:'Please enter closing time of the shop!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (openingTime === closingTime) {
+      Swal.fire({
+        title: 'Opening time and closing time should not be same!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    return true;
+  }
 
     $("#add_shop").submit(function(event) {
         if (!shopValidation()) {
