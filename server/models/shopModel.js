@@ -13,10 +13,10 @@ const shopSchema = new mongoose.Schema({
         type: String,
         required:true,
     },
-    shopImg:{
-        type: String,
-        required: true,
-    },
+    // shopImg:{
+    //     type: String,
+    //     required: true,
+    // },
     address:{
         type: String,
         required: true,

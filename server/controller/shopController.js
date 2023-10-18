@@ -68,11 +68,11 @@ exports.create = async (req, res) => {
     name: req.body.name,
     openingTime: req.body.openingTime,
     closingTime: req.body.closingTime,
-    shopImg: "file:///D:/Rifna/Self%20stack/website/projects/Athenauem-book-store/uploads/"+req.body.shopImg,
+    // shopImg: "file:///D:/Rifna/Self%20stack/website/projects/Athenauem-book-store/uploads/"+req.body.shopImg,
     address: req.body.address,
   });
 
-console.log(shopImg)
+// console.log(shopImg)
 
   const savedShop = await shop.save(); 
   console.log(savedShop);
