@@ -1,5 +1,3 @@
-// const { log } = require('handlebars');
-// const shopdb = require('../models/shopModel');
 
 // const multer = require('multer');
 // // const GridFsStorage = require("multer-gridfs-storage");
@@ -55,25 +53,51 @@
 // }
 const { log } = require('handlebars');
 const Shopdb = require('../models/shopModel')
-// const multer = require('../middlewares/multer');
+const multer = require('multer');
+const ImageKit = require("imagekit");
+
+const imagekit = new ImageKit({
+    publicKey : "public_teItC6qo5n5DBnqgiUYMTGkJsw4=",
+    privateKey : "private_4EM7YUXTdsli80LYr3HrODxOqUY=",
+    urlEndpoint : "https://ik.imagekit.io/hurcsz3tg/shop/"
+});
+
+const uploadImage = async(imageBuffer, originalName) => {
+  try {
+    const imgUrl = await imagekit.upload({
+      file: imageBuffer,
+      fileName: originalName,
+    })
+    return imgUrl;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Image upload failed');
+  }
+}
 
 // create and save new shop
 exports.create = async (req, res) => {
     if(!req.body){
-        res.status(400).send({message: 'Content can not be empty'})
-        return;
+      res.status(400).send({message: 'Content can not be empty'})
+      return;
     }
-    // console.log(req.body);
+    const { name, openingTime, closingTime, shopImg, address} = req.body;
+    let imgUrl = '';
+    if (req.file) {
+      try {
+        imgUrl = await uploadImage(req.file.buffer, req.file.originalname);
+      } catch (error) {
+        res.status(500).json({ error: 'Image upload failed' });
+        return;
+      }
+    }
     const shop = new Shopdb({
-    name: req.body.name,
-    openingTime: req.body.openingTime,
-    closingTime: req.body.closingTime,
-    // shopImg: "file:///D:/Rifna/Self%20stack/website/projects/Athenauem-book-store/uploads/"+req.body.shopImg,
-    address: req.body.address,
+    name,
+    openingTime,
+    closingTime,
+    shopImg: imgUrl,
+    address,
   });
-
-// console.log(shopImg)
-
   const savedShop = await shop.save(); 
   console.log(savedShop);
   res.redirect('/shop');

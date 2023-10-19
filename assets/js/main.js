@@ -210,6 +210,7 @@
     let address = document.forms["add_shop"]["address"].value;
     let openingTime = document.forms["add_shop"]["openingTime"].value;
     let closingTime = document.forms["add_shop"]["closingTime"].value;
+    let shopImg = document.forms["add_shop"]["shopImg"].value;
     // Check if name, email, password, and confirmPassword are not empty
     if (name === "" ) {
       Swal.fire({
@@ -263,7 +264,7 @@
         icon: 'success',
         title: 'New shop is added Successfully',
         showConfirmButton: false,
-        timer: 60000,
+        timer: 8000,
       })
     }           
   })
@@ -365,24 +366,6 @@
       });
     })
   }
-  // let $ondeleteShop;
-  // if(window.location.pathname=="/shop"){
-  //       $ondeleteShop = $(".shopCard a.delete");
-  //       $ondeleteShop.click(function(){
-  //           const id= $(this).attr('data-id')
-
-  //           const request = {
-  //               "url":`http://localhost:3000/api/shops/${id}`,
-  //               "method":"DELETE"
-  //           }
-  //           if(confirm("DO you really want to delete this record?")){
-  //               $.ajax(request).done(function(response){
-  //                   alert("Data deleted Successfully");
-  //                   location.reload()
-  //               })
-  //           }
-  //       })
-  //   }
 
 
     

@@ -104,10 +104,10 @@
                 <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 m-1 ">
                     {{#each shops}}
                     <div class="col p-3 bg-primaryLight m-3">
-                        {{!-- <div class="card">
-                            <img src="/uploads/{{shopImg}}" id="shopImg" name="shopImg" class="card-img-top"
+                        <div class="card">
+                            <img src="{{shop.shopImg}}" id="shopImg" name="shopImg" class="card-img-top"
                                 alt="{{name}}">
-                        </div> --}}
+                        </div>
                         <h5 class="text-primary my-3 text-center">{{name}}</h5>
                         <div class="text-secondary text-center fs-6">Opens: {{ openingTime}}</div>
                         <div class="text-secondary text-center fs-6">Closes: {{ closingTime}}</div>
