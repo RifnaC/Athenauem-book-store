@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="img/book collection 0.png" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +46,11 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="dashboard" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary">Atheneuam</h3>
+                    <div class="d-flex justify-content-between">
+                        <img src="/img/book collection 0.png" alt="logo"
+                            style="width: 40px; height: 40px; border-radius: 50%;">
+                        <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+                    </div>
                 </a>
                 <div class="navbar-nav w-100 d-flex ">
                     <div>
@@ -60,7 +64,8 @@
                         <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
                     </div>
                     <div>
-                        <a href="#" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
+                        <a href="#" class="nav-link" data-bs-toggle="dropdown"><i
+                                class="bi bi-box-arrow-right"></i>Logout</a>
                     </div>
                 </div>
             </nav>
@@ -89,27 +94,28 @@
         <div class="container-fluid pt-4 px-4">
             <h2 class="text-primary text-center mb-3">Add Shop</h2>
             <div class="bg-secondary border rounded">
-                <form action="/api/shops" method="POST" id="add_shop" onsubmit="return shopValidation" >
+                <form action="/api/shops" method="POST" id="add_shop" onsubmit="return shopValidation" enctype="multipart/form-data">
                     <div class="row m-2">
                         <div class="form-group m-2">
                             <input type="hidden" name="id" value="">
-                            <input type="text" class="form-control" id="name" name="name" value="" placeholder="Enter the shop name">
+                            <input type="text" class="form-control" id="name" name="name" value=""
+                                placeholder="Enter the shop name">
                         </div>
                         <div class="input-group m-2">
-                            <input type="text" class="form-control" id="address"  name="address" value=""
+                            <input type="text" class="form-control" id="address" name="address" value=""
                                 placeholder="Enter the address of Shop">
                         </div>
                         <div class="form-group m-2 d-flex  justify-content-between">
-                           <div>
+                            <div>
                                 <label for="opens">Opening Time:</label>
                                 <input type="time" class="" id="OpenTime" name="openingTime" value="">
-                           </div>
-                           <div>
-                                <label  class="ms-5" for="closes">Closing Time:</label>
+                            </div>
+                            <div>
+                                <label class="ms-5" for="closes">Closing Time:</label>
                                 <input type="time" id="closeTime" name="closingTime" value="">
-                           </div>
-                            <input type="file" id="shopImg" class="ms-5" name="shopImg">
-                        </div>   
+                            </div>
+                            <input type="file" name="shopImg" id="shopImg" class="ms-5" >
+                        </div>
                     </div>
                     <div class="d-flex justify-content-center mb-3">
                         <a href="shop" class="btn btn-4 btn-outline-dark me-3">Cancel</a>
@@ -120,8 +126,6 @@
         </div>
     </div>
     <!-- Content End -->
-    <!-- Back to Top -->
-    <!-- <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a> -->
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

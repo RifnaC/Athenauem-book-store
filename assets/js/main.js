@@ -19,6 +19,8 @@
       $('.back-to-top').fadeOut('slow');
     }
   });
+
+  // back to top button
   $('.back-to-top').click(function () {
     $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
       return false;
@@ -29,6 +31,7 @@
     $('.sidebar, .content').toggleClass("open");
     return false;
   });
+
   //Admin alerts
   // Function to validate the add admin form
   function validateForm() {
@@ -47,9 +50,9 @@
     }
     if (name.length < 3 ) {
       Swal.fire({
-      title: 'Name should have at least 3 characters!',
-      confirmButtonColor: '#15877C',
-    })
+        title: 'Name should have at least 3 characters!',
+        confirmButtonColor: '#15877C',
+      })
     return false;
     }
     if (email === "") {
@@ -168,6 +171,7 @@
     });
   });
   
+  //delete admin
   if(window.location.pathname==="/admin"){      
     $(document).on("click", ".table tbody td a.delete", function (event) {
       event.preventDefault();
@@ -199,18 +203,14 @@
       });
     })
   }
-
-
-
-
   // shop alerts
-  // Function to validate the form
+  // Function to validate the shop form
   function shopValidation() {
     let name = document.forms["add_shop"]["name"].value;
     let address = document.forms["add_shop"]["address"].value;
     let openingTime = document.forms["add_shop"]["openingTime"].value;
     let closingTime = document.forms["add_shop"]["closingTime"].value;
-    
+    let shopImg = document.forms["add_shop"]["shopImg"].value;
     // Check if name, email, password, and confirmPassword are not empty
     if (name === "" ) {
       Swal.fire({
@@ -257,82 +257,118 @@
     return true;
   }
 
-    $("#add_shop").submit(function(event) {
-        if (!shopValidation()) {
-            event.preventDefault();
-        }else{
-            
-            alert("new shop data is inserted Successfully"); 
-        }
-             
-    })
+  $("#add_shop").submit(function(event) {
+    if (!shopValidation()) {
+      event.preventDefault();
+    }else{
+      Swal.fire({
+        icon: 'success',
+        title: 'New shop is added Successfully',
+        showConfirmButton: false,
+        timer: 8000,
+      })
+    }           
+  })
+  
 
 
-
-    $("#edit_shop").submit(function(event) {
-        event.preventDefault();
+  //update shop details
+  $("#edit_shop").submit(function(event) {
+    event.preventDefault();
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
     
-        let unindexed_array = $(this).serializeArray();
-        let data = {};
-    
-        $.map(unindexed_array, function(n, i) {
-            data[n['name']] = n['value'];
-        });
-    
-        // console.log(data);
-    
-        // Extract the shop's ID from the form data
-        const shopId = data.id;
-    
-        // Validation
-        if (!data.name ) {
-            alert("Name field is required.");
-            return;
-        }
-
-        if (!data.address ) {
-            alert("Address field is required.");
-            return;
-        }
-        if (!data.openingTime || !data.closingTime) {
-            alert("Time fields are required.");
-            return;
-        }
-            // If no new password is provided, update without hashing
-            let request = {
-                "url": `http://localhost:3000/api/shops/${shopId}`,
-                "method": "PUT",
-                "data": data
-            };
-            console.log(shopId)
-            // Send the PUT request
-            $.ajax(request).done(function(response) {
-                alert("Shop data updated successfully");
-                window.location.href='/shop';
-            });
-    
+    $.map(unindexed_array, function(n, i) {
+      data[n['name']] = n['value'];
     });
-
-
-    let $ondeleteShop;
-
-    if(window.location.pathname=="/shop"){
-        $ondeleteShop = $(".shopCard a.delete");
-        $ondeleteShop.click(function(){
-            const id= $(this).attr('data-id')
-
-            const request = {
-                "url":`http://localhost:3000/api/shops/${id}`,
-                "method":"DELETE"
-            }
-            if(confirm("DO you really want to delete this record?")){
-                $.ajax(request).done(function(response){
-                    alert("Data deleted Successfully");
-                    location.reload()
-                })
-            }
-        })
+    // Extract the shop's ID from the form data
+    const shopId = data.id;
+    // Validation
+    if (!data.name ) {
+      Swal.fire({
+        title: 'Please enter the shop name!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }  
+    if (!data.address) {
+      Swal.fire({
+        title: 'Please enter the address of shop!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
     }
+    if (!data.openingTime || !data.closingTime) {
+      Swal.fire({
+        title: 'Please enter opening time and closing time of the shop!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    // If no new password is provided, update without hashing
+    let request = {
+      "url": `http://localhost:3000/api/shops/${shopId}`,
+      "method": "PUT",          
+      "data": data
+    };
+    // Send the PUT request
+    $.ajax(request).done(function(response) {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#15877C'
+      })
+      .then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire('Saved!', 'Data updated successfully', 'success')
+          .then(() => {
+            window.location.href='/shop';
+          })
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+          .then(() => {
+            window.location.href='/shop';
+          })
+        }
+      })
+    });
+  });
+
+  if(window.location.pathname==="/shop"){      
+    $(document).on("click", ".shopCard a.delete", function (event) {
+      event.preventDefault();
+      const id = $(this).attr('data-id');
+      const request = {
+        "url": `http://localhost:3000/api/shops/${id}`,
+        "method": "DELETE"
+      };
+      Swal.fire({
+        title: 'Do you really want to delete this record?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it',
+        cancelButtonText: 'cancel',
+        confirmButtonColor: '#d33',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // The user clicked the "Yes, delete it" button
+          $.ajax(request).done(function (response) {
+            Swal.fire('Data deleted Successfully', '', 'success').then(() => {
+              location.reload();
+            });
+          });
+        } else {
+          // The user clicked the "cancel" button or closed the dialog
+          Swal.fire('Action canceled', '', 'info');
+        }
+      });
+    })
+  }
 
 
     

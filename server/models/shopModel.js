@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 // shop collection
 const shopSchema = new mongoose.Schema({
     name:{
@@ -13,10 +14,7 @@ const shopSchema = new mongoose.Schema({
         type: String,
         required:true,
     },
-    shopImg:{
-        type: String,
-        required: true,
-    },
+    shopImg:String,
     address:{
         type: String,
         required: true,

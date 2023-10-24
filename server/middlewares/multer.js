@@ -1,19 +1,13 @@
 const multer = require('multer');
-// const GridFsStorage = require("multer-gridfs-storage");
 
 
-// // set storage
-let storage = multer.diskStorage({
-    destination:function(req, file, cb){
-        cb(null,'./uploads')
-    },
-    filename:function(req,file,cb){
-        cb(null,file.fieldname + '_'+ Date.now() + "_"+file.originalname);
-    },
+const storage = multer.diskStorage({
+    filename: (req, file, cb) => {
+        console.log('hhhh',file);
+        cb(null, '../uploads')
+    }
 })
 
-exports.upload = multer({
-    storage:storage,
-}).single('shopImg');
+const upload = multer({storage: storage});
 
-module.exports = multer({storage})
+
