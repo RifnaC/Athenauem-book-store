@@ -6,12 +6,15 @@ const dotenv = require('dotenv').config({path:'config.env'})
 const morgan = require('morgan')
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const cloudinary = require('cloudinary').v2;
 
 const connectDB = require('./server/database/connection');
 
 const app = express();
 
 const port = process.env.PORT || 5000
+
+
 
 //log request
 app.use(morgan('tiny'));

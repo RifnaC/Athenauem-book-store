@@ -256,6 +256,7 @@
     }
     return true;
   }
+
   $("#add_shop").submit(function(event) {
     if (!shopValidation()) {
       event.preventDefault();
@@ -268,6 +269,8 @@
       })
     }           
   })
+  
+
 
   //update shop details
   $("#edit_shop").submit(function(event) {

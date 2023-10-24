@@ -14,10 +14,7 @@ const shopSchema = new mongoose.Schema({
         type: String,
         required:true,
     },
-    shopImg: {
-        type: String,
-        default: 'default-image-url.jpg' // Provide a default image URL here
-      },
+    shopImg:String,
     address:{
         type: String,
         required: true,
