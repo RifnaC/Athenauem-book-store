@@ -7,6 +7,7 @@ const multer = require('multer');
 const { request } = require('http');
 const { response } = require('express');
 
+
 // access multer middleware storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -32,13 +33,11 @@ exports.create = async (req, res) => {
     }
     const { name, openingTime, closingTime, address } = req.body;
     const shopImg = req.file.path;
-
     cloudinary.uploader.upload(shopImg, (cloudinaryErr, result) => {
       if (cloudinaryErr) {
         res.status(500).send({ message: cloudinaryErr.message });
         return;
       }
-      // console.log(result);
       const shop = new Shopdb({
         name,
         openingTime,
@@ -49,18 +48,14 @@ exports.create = async (req, res) => {
       });
       shop.save()
       .then(savedShop => {
-        // console.log(savedShop);
         res.redirect('/shop');
        })
       .catch(saveErr => {
-        // console.log('hi')
         res.status(500).send({ message: saveErr.message });
       });
     });
   });
 };
-
-
 // retrieve and return all shop or  retrieve and return a single shop 
 exports.find = (req, res) => {
   if (req.query.id) {
@@ -93,7 +88,6 @@ exports.find = (req, res) => {
   }
 }
 
-
 // Update a new identified shop by  shop id
 // exports.update = async (req, res) => {
 //   if (!req.body) {
@@ -113,10 +107,8 @@ exports.find = (req, res) => {
 //     })
 // }
 
-
-
-exports.update = (req, res) => {
-  upload.single('shopImg')(req, res, async (err) => {
+exports.update = async(req, res) => {
+  upload.single('shopImg', {name:"shopImg"})(req, res, async (err) => {
     if (err) {
       res.status(500).send({ message: err.message });
       return;
@@ -128,7 +120,6 @@ exports.update = (req, res) => {
     if (!shop) {
       return res.status(404).json({ message: 'Shop not found' });
     }
-
     console.log(req.file)
     // Check if a new file is being uploaded
     if (req.file) {
@@ -151,7 +142,6 @@ exports.update = (req, res) => {
 
     // Save the shop changes to the database
     await shop.save();
-
     // Return the updated shop data
     return res.status(200).json(shop);
   } catch (error) {
@@ -194,22 +184,3 @@ exports.delete = (req, res) => {
     });
   });
 }
-
-
-// Shopdb.findByIdAndDelete(id)
-  //   .then(data => {
-  //     if (!data) {
-  //       res.status(404).send({ message: `Shop with ${id} is not found` })
-  //     } else {
-  //       res.send({
-  //         message: "Shop is deleted successfully"
-  //       })
-  //     }
-  //   })
-  //   .catch(err => {
-  //     res.status(500).send({
-  //       message: "Could not delete shop with id " + id
-  //     })
-  //   })
-
-

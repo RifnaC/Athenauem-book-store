@@ -269,7 +269,6 @@
       })
     }           
   })
-  
 
   //update shop details
   $("#edit_shop").submit(function(event) {
@@ -369,55 +368,78 @@
     })
   }
 
-
-    
-    function productValidation() {
-        let genre = document.forms["add_product"]["genre"].value;
-        let bookName = document.forms["add_product"]["bookName"].value;
-        let author = document.forms["add_product"]["author"].value;
-        let quantity = document.forms["add_product"]["quantity"].value;
-        let description = document.forms["add_product"]["description"].value;
-        let price = document.forms["add_product"]["price"].value;
-    
-        // Check if name, email, password, and confirmPassword are not empty
-        if (genre === "" ) {
-          alert("Category field must be filled out");
-          return false;
-        }
-        if (bookName === "") {
-          alert("Book name field must be filled out");
-          return false;
-        }
-        if (author === "" ) {
-          alert("Author field must be filled out");
-          return false;    
-        }
-        if (quantity === "") {
-          alert("Quantity field must be filled out");
-          return false;
-        } 
-  
-        if (description === "" ) {
-          alert("Description field must be filled out");
-          return false;
-        }
-        if (price === "") {
-          alert("Price field must be filled out");
-          return false;
-        }
-        return true;
-      }
-
-
-    $("#add_product").submit(function(event) {
-        if (!productValidation()) {
-            event.preventDefault();
-        }else{
-            
-            alert("new book data is inserted Successfully"); 
-        }
-             
-    })
+  function productValidation() {
+    let genre = document.forms["add_product"]["genre"].value;
+    let bookName = document.forms["add_product"]["bookName"].value;
+    let author = document.forms["add_product"]["author"].value;
+    let quantity = document.forms["add_product"]["quantity"].value;
+    let description = document.forms["add_product"]["description"].value;
+    let price = document.forms["add_product"]["price"].value;    
+    // Check if book details are not empty
+    if (bookName === "") {
+      Swal.fire({
+        title:'Please enter book name!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (bookName.length < 4 ) {
+      Swal.fire({
+        title: 'Book Name should have at least 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+    return false;
+    }
+    if (author === "" ) {
+      Swal.fire({
+        title:'Please enter Author field!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;    
+    }
+    if (author.length < 4 ) {
+      Swal.fire({
+        title: 'Author should have at least 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+    return false;
+    }
+    if (description === "" ) {
+      Swal.fire({
+        title:'Please provide the decription of the book!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (description.length < 4 ) {
+      Swal.fire({
+        title: 'Description should have at least 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+    return false;
+    }
+    if (price === "") {
+      Swal.fire({
+        title:'Please enter the price of the Book!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    return true;
+  }
+  // Add new book
+  $("#add_product").submit(function(event) {
+      if (!productValidation()) {
+        event.preventDefault();
+      }else{
+        Swal.fire({
+          icon: 'success',
+          title: 'New Book is added Successfully',
+          showConfirmButton: false,
+          timer: 6000,
+        })
+      }        
+  })
 
 
     $("#edit_product").submit(function(event) {

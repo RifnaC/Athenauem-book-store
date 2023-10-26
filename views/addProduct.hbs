@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="img/book collection 0.png" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,7 +48,11 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="dashboard" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary">Atheneuam</h3>
+                    <div class="d-flex justify-content-between">
+                        <img src="/img/book collection 0.png" alt="logo"
+                            style="width: 40px; height: 40px; border-radius: 50%;">
+                        <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+                    </div>
                 </a>
                 <div class="navbar-nav w-100 d-flex ">
                     <div>
@@ -62,9 +66,7 @@
                         <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
                     </div>
                     <div>
-                        <a href="#" class="nav-link" data-bs-toggle="dropdown"><i
-                                class="bi bi-box-arrow-right"></i>Logout</a>
-
+                        <a href="#" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
                     </div>
                 </div>
             </nav>
@@ -74,8 +76,6 @@
     </nav>
     </div>
     <!-- Sidebar End -->
-
-
     <!-- Content Start -->
     <div class="content">
         <!-- Navbar Start -->
@@ -96,14 +96,11 @@
             </div>
         </nav>
         <!-- Navbar End -->
-
-
         <!-- Button Start -->
-
         <div class="container-fluid pt-4 px-4">
             <h2 class="text-primary text-center">Add Products</h2>
             <div class="bg-secondary border rounded">
-                <form action="/api/products" method="POST" id="add_product" onsubmit="return productValidation">
+                <form action="/api/products" method="POST" id="add_product" onsubmit="return productValidation" enctype="multipart/form-data">
                     <div class="row m-2 ">
                         <div class="form-group col-lg-6 my-2">
                             <label for="category">Genre</label>
@@ -119,7 +116,7 @@
                         </div>
                         <div class="form-group col-lg-6  my-2">
                             <label for="bookName">Book Name</label>
-                            <input type="text" class="form-control" id="bookName" name="bookName" value="" >
+                            <input type="text" class="form-control" id="bookName" name="bookName" value="">
                         </div>
                         <div class="form-group col-lg-6  my-2">
                             <label for="Author">Author</label>
@@ -135,8 +132,8 @@
                                 <option value="160">160</option>
                                 <option value="320">320</option>
                                 <option value="640">640</option>
+                                <option value="1280">1280</option>
                             </select>
-
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
@@ -148,11 +145,9 @@
                         </div>
                         <div class="form-group col-lg-6  my-2">
                             <label for="price">Price</label>
-                            <input type="number" class="form-control" id="price" value="" name="price" >
+                            <input type="number" class="form-control" id="price" value="" name="price">
                         </div>
                     </div>
-
-
                     <div class="d-flex justify-content-center mb-3">
                         <a href="products" class="btn btn-4 btn-outline-dark mx-3 ">Cancel</a>
                         <button href="" class="btn btn-4 btn-primary ">save</button>
@@ -178,6 +173,7 @@
     <script src="/lib/tempusdominus/js/moment.min.js"></script>
     <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>

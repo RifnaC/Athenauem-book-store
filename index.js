@@ -14,10 +14,6 @@ const app = express();
 
 const port = process.env.PORT || 5000
 
-// Body parsing middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 //log request
 app.use(morgan('tiny'));
 

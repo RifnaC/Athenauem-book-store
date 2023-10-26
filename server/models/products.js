@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
-    // shopId: {
-    //     type: String,
-    //     required: true,
-    // },
     bookName:{
         type: String,
         required: true,
@@ -29,11 +25,8 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    // productImg:{
-    //     type: String,
-    //     required: true,
-    // }
-
+    productImg:String,
+    cloudinaryId:String,
 });
 
 const Book = mongoose.model('Book', bookSchema);

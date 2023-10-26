@@ -6,8 +6,6 @@ const shopController = require('../controller/shopController');
 const productController = require('../controller/productController');
 const categoryController = require('../controller/categoryController');
 
-const upload = require ('../middlewares/multer')
-
 
 // ***********************Admin Management********************************
 /** 
