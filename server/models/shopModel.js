@@ -15,6 +15,7 @@ const shopSchema = new mongoose.Schema({
         required:true,
     },
     shopImg:String,
+    cloudinaryId:String,
     address:{
         type: String,
         required: true,

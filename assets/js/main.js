@@ -265,12 +265,11 @@
         icon: 'success',
         title: 'New shop is added Successfully',
         showConfirmButton: false,
-        timer: 8000,
+        timer: 6000,
       })
     }           
   })
   
-
 
   //update shop details
   $("#edit_shop").submit(function(event) {
