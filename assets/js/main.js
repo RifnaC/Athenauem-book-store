@@ -92,7 +92,7 @@
     }
     return true;
   }
-  
+  // Add new admin
   $("#uploadUser").submit(function(event) {
     if (!validateForm()) {
       event.preventDefault();
@@ -105,7 +105,7 @@
       })
     }
   })
-
+  // update admin
   $("#edit_admin").submit(function(event) {
     event.preventDefault();
     let unindexed_array = $(this).serializeArray();
@@ -335,7 +335,7 @@
       })
     });
   });
-
+  // Delete the shop
   if(window.location.pathname==="/shop"){      
     $(document).on("click", ".shopCard a.delete", function (event) {
       event.preventDefault();
@@ -367,7 +367,7 @@
       });
     })
   }
-
+  // Validation for adding new book
   function productValidation() {
     let genre = document.forms["add_product"]["genre"].value;
     let bookName = document.forms["add_product"]["bookName"].value;
@@ -440,84 +440,122 @@
         })
       }        
   })
-
-
-    $("#edit_product").submit(function(event) {
-        event.preventDefault();
-    
-        let unindexed_array = $(this).serializeArray();
-        let data = {};
-    
-        $.map(unindexed_array, function(n, i) {
-            data[n['name']] = n['value'];
-        });
-    
-        // console.log(data);
-    
-        // Extract the book's ID from the form data
-        const bookId = data.id;
-    
-        // Validation
-        if (!data.genre === "" ) {
-            alert("Category field is required");
-            return;
-          }
-          if (!data.bookName === "") {
-            alert("Book name field is required.");
-            return;
-          }
-          if (!data.author === "" ) {
-            alert("Author field is required.");
-            return;    
-          }
-          if (!data.quantity === "") {
-            alert("Quantity field is required.");
-            return;
-          } 
-    
-          if (!data.description === "" ) {
-            alert("Description field is required.");
-            return;
-          }
-          if (!data.price === "") {
-            alert("Price field is required.");
-            return;
-          }
-
-            let request = {
-                "url": `http://localhost:3000/api/products/${bookId}`,
-                "method": "PUT",
-                "data": data
-            };
-            // console.log(shopId)
-            // Send the PUT request
-            $.ajax(request).done(function(response) {
-                alert("Book data updated successfully");
-                window.location.href='/products';
-            });
-    
+  // Update product
+  $("#edit_product").submit(function(event) {
+    event.preventDefault();
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
+    $.map(unindexed_array, function(n, i) {
+      data[n['name']] = n['value'];
     });
-
-
-    let $ondeleteProduct;
-
-    if(window.location.pathname=="/products"){
-        $ondeleteProduct = $(".table tbody td a.delete");
-        $ondeleteProduct.click(function(){
-            const id= $(this).attr('data-id')
-
-            const request = {
-                "url":`http://localhost:3000/api/products/${id}`,
-                "method":"DELETE"
-            }
-            if(confirm("DO you really want to delete this record?")){
-                $.ajax(request).done(function(response){
-                    alert("Data deleted Successfully");
-                    location.reload()
-                })
-            }
-        })
+    // Extract the book's ID from the form data
+    const bookId = data.id;
+    // Validation
+    if (!data.bookName) {
+      Swal.fire({
+        title:'Please enter the book name',
+        confirmButtonColor: '#15877C'
+      })
+      return;
     }
+    if (data.bookName.length < 4) {
+      Swal.fire({
+        title:'The book name should be at least 4 characters',
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    if (!data.author) {
+      Swal.fire({
+        title: 'Please enter Author of the book!',
+        confirmButtonColor: '#15877C'
+      })
+      return;    
+    } 
+    if (data.author.length < 4) {
+      Swal.fire({
+        title:'The Author should be at least 4 characters',
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    if (!data.description) {
+      Swal.fire({
+        title: "Please enter the description of the book",
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    if (!data.price) {
+      Swal.fire({
+        title: "Please enter the price of the book!",
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    let request = {
+      "url": `http://localhost:3000/api/products/${bookId}`,          
+      "method": "PUT",
+      "data": data
+    };
+    // Send the PUT request        
+    $.ajax(request).done(function(response) {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#15877C'
+      })
+      .then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire('Saved!', 'Data updated successfully', 'success')
+          .then(() => {
+            window.location.href='/products';
+          })
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+          .then(() => {
+            window.location.href='/products';
+          })
+        }
+      })
+    });
+  });
+  // Delete the product
+  let $ondeleteProduct;
+  if(window.location.pathname=="/products"){
+    $ondeleteProduct = $(".table tbody td a.delete");
+    $ondeleteProduct.click(function(){
+      const id= $(this).attr('data-id')
+      const request = {          
+        "url":`http://localhost:3000/api/products/${id}`,
+        "method":"DELETE"
+      }
+      Swal.fire({
+        title: "Do you really want to delete this book?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#d33',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          $.ajax(request).done(function (result) {
+            Swal.fire('Book deleted successfully', '', 'success')
+            .then(() => {
+              location.reload();
+            });
+          })
+        } else {
+          Swal.fire('Action cancelled', '', 'info');
+        }
+      });
+    })
+  }
 
     function categoryValidation(){
         let genre = document.forms["add_cat"]["genre"].value;

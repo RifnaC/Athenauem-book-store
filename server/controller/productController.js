@@ -2,30 +2,13 @@ const { log } = require('handlebars');
 const Shopdb = require('../models/shopModel')
 const Productdb = require('../models/products');
 const { product } = require('../services/render');
-const cloudinary = require('../services/cloudinary');
-const path = require('path')
-const multer = require('multer');
-// const upload  = require('../middlewares/multer')
-
-
-// access multer middleware storage
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + file.originalname.split('.').pop())
-  },
-}); 
-
-const upload = multer({ storage: storage });
 
 exports.fetchShopDetails = async(shopId) => {
     try {
       const shop = await Shopdb.findById(shopId);
       return shop;
     } catch (error) {
-      console.error('Error fetching shop details:', error);
+          console.error('Error fetching shop details:', error);
             throw error;
         }
 };
@@ -54,58 +37,26 @@ exports.renderProducts = async (req, res) => {
   res.render('products');
 };
 
-  // create and save new book
+  // create and save new product
 exports.create = async (req, res) => {
-  upload.single('productImg')(req, res, async (err) => {
-      if (err) {
-        res.status(500).send({ message: err.message });
+    if(!req.body){
+        res.status(400).send({message: 'Content can not be empty'})
         return;
-      }
-      if (!req.body) {
-        res.status(400).send({ message: 'Content can not be empty' });
-        return;
-      }
-      const { bookName, genre, author, price, quantity, description} = req.body;
-      const productImg = req.file.path;
-      cloudinary.uploader.upload(productImg, (cloudinaryErr, result) => {
-        if (cloudinaryErr) {
-          res.status(500).send({ message: cloudinaryErr.message });
-          return;
-        }
-        const book = new Productdb({
-          bookName, 
-          genre, 
-          author, 
-          price, 
-          quantity, 
-          description,
-          productImg: result.secure_url,
-          cloudinaryId: result.public_id,
-        });
-        book.save()
-        .then(savedBook => {
-          res.redirect('/products');
-         })
-        .catch(saveErr => {
-          res.status(500).send({ message: saveErr.message });
-        });
-      });
-    });
-  };
-//     // console.log(req.body);
-//     const product = new Productdb({
-//     bookName:req.body.bookName,
-//     genre: req.body.genre,
-//     author: req.body.author,
-//     price: req.body.price,
-//     quantity: req.body.quantity,
-//     description: req.body.description,
-//     // productImg: req.body.productImg,
-// });
-//   const savedProduct = await product.save(); 
-//   console.log(savedProduct);
-//   res.redirect('/products');
-// };
+    }
+    // console.log(req.body);
+    const product = new Productdb({
+    bookName:req.body.bookName,
+    genre: req.body.genre,
+    author: req.body.author,
+    price: req.body.price,
+    quantity: req.body.quantity,
+    description: req.body.description,
+    // productImg: req.body.productImg,
+});
+  const savedProduct = await product.save(); 
+  console.log(savedProduct);
+  res.redirect('/products');
+};
 
 
 // retrieve and return all product or  retrieve and return a single  product
