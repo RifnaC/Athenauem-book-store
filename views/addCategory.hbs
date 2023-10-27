@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="img/book collection 0.png" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,15 +42,17 @@
             </div>
         </div>
         <!-- Spinner End -->
-
-
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="dashboard" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary">Atheneuam</h3>
+                    <div class="d-flex justify-content-between">
+                        <img src="/img/book collection 0.png" alt="logo"
+                            style="width: 40px; height: 40px; border-radius: 50%;">
+                        <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+                    </div>
                 </a>
-                 <div class="navbar-nav w-100 d-flex ">
+                <div class="navbar-nav w-100 d-flex ">
                     <div>
                         <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
                         <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
@@ -62,9 +64,8 @@
                         <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
                     </div>
                     <div>
-                        <a href="#" class="nav-link" data-bs-toggle="dropdown"><i
-                                class="bi bi-box-arrow-right"></i>Logout</a>
-
+                        <a href="#" class="nav-link" data-bs-toggle="dropdown">
+                            <i class="bi bi-box-arrow-right"></i>Logout</a>
                     </div>
                 </div>
             </nav>
@@ -72,8 +73,6 @@
         </nav>
     </div>
     <!-- Sidebar End -->
-
-
     <!-- Content Start -->
     <div class="content">
         <!-- Navbar Start -->
@@ -89,44 +88,36 @@
                     <a href="#" class="nav-link ">
                         <h3><i class=" bi-person text-dark"></i>
                         </h3>
-                    </a>                     
+                    </a>
                 </div>
             </div>
         </nav>
         <!-- Navbar End -->
-
-
-        <!-- Button Start -->
-
         <div class="container-fluid pt-4 px-4">
             <h2 class="text-primary text-center">Add Category</h2>
             <div class="bg-secondary border rounded">
                 <form action="/api/categories" method="POST" id="add_cat" onsubmit="return categoryValidation()">
                     <div class="row m-2">
                         <div class="form-group m-2">
-                            <input type="text" class="form-control" id="name" name="genre" value="" placeholder="Category" >
+                            <input type="text" class="form-control" id="name" name="genre" value=""
+                                placeholder="Category">
                         </div>
                         <div class="m-2 ">
-                            <input type="number" class="form-control" id="category_list" placeholder="Total Books" name="totalBooks">
+                            <input type="number" class="form-control" id="category_list" placeholder="Total Books"
+                                name="totalBooks">
                         </div>
 
                         <div class="form-group m-2">
-                            <input type="number" class="form-control" placeholder="Total Earning"  name="totalEarnings">
+                            <input type="text" class="form-control" placeholder="Description" name="description">
                         </div>
                     </div>
                     <div class="d-flex m-4">
 
-                         <a href="category" class="btn btn-4 btn-outline-dark mx-2">Cancel</a>
+                        <a href="category" class="btn btn-4 btn-outline-dark mx-2">Cancel</a>
                         <button class="btn btn-4 btn-primary">save</button>
                     </div>
                 </form>
             </div>
-
-
-
-
-
-
         </div>
 
 
@@ -150,7 +141,8 @@
     <script src="/lib/tempusdominus/js/moment.min.js"></script>
     <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
 </body>

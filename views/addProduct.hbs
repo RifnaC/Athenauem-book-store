@@ -93,10 +93,10 @@
         </nav>
         <!-- Navbar End -->
         <!-- Button Start -->
-        <div class="container-fluid pt-4 px-4">
+        <div class="container-fluid pt-4 px-4"> 
             <h2 class="text-primary text-center">Add Products</h2>
             <div class="bg-secondary border rounded">
-                <form action="/api/products" method="POST" id="add_product" onsubmit="return productValidation" enctype="multipart/form-data">
+                <form action="/api/products" method="POST" id="add_product" onsubmit="return productValidation">
                     <div class="row m-2 ">
                         <div class="form-group col-lg-6 my-2">
                             <label for="category">Genre</label>
@@ -146,7 +146,7 @@
                     </div>
                     <div class="d-flex justify-content-center mb-3">
                         <a href="products" class="btn btn-4 btn-outline-dark mx-3 ">Cancel</a>
-                        <button href="" class="btn btn-4 btn-primary ">save</button>
+                        <button href="" class="btn btn-4 btn-primary">save</button>
                     </div>
                 </form>
             </div>

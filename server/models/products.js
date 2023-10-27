@@ -24,9 +24,10 @@ const bookSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true,
-    },
-    productImg:String,
-    cloudinaryId:String,
+    }
+    // productImg:String,
+    // cloudinaryId:String
+
 });
 
 const Book = mongoose.model('Book', bookSchema);

@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="img/book collection 0.png" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,7 +48,10 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="dashboard" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary">Atheneuam</h3>
+                    <div class="d-flex justify-content-between">
+            <img src="/img/book collection 0.png" alt="logo" style="width: 40px; height: 40px; border-radius: 50%;">
+            <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+          </div>
                 </a>
                 <div class="navbar-nav w-100 d-flex ">
                     <div>
@@ -114,8 +117,7 @@
                         </div>
 
                         <div class="form-group m-2">
-                            <input type="number" class="form-control" value="{{category.totalEarnings}}" placeholder="Total Earning"
-                                name="totalEarnings">
+                            <input type="text" class="form-control" value="{{category.description}}" placeholder="Description" name="description">
                         </div>
                     </div>
                     <div class="d-flex m-4">
@@ -125,23 +127,9 @@
                     </div>
                 </form>
             </div>
-
-
-
-
-
-
         </div>
-
-
-
-
     </div>
     <!-- Content End -->
-
-
-    <!-- Back to Top -->
-    <!-- <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a> -->
     </div>
 
     <!-- JavaScript Libraries -->
@@ -154,7 +142,7 @@
     <script src="/lib/tempusdominus/js/moment.min.js"></script>
     <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
 </body>

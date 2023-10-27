@@ -9,7 +9,7 @@ const genreSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    totalEarnings: {
+    description: {
         type: String,
         required: true,
     }
