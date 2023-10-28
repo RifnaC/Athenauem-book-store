@@ -111,3 +111,8 @@ exports.edit_category=(req, res)=>{
     })
     // res.render('editCategory');
 }
+
+// ***********************banner Management********************************
+exports.banner = (req, res)=>{
+    res.render('banner');
+}

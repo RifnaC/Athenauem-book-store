@@ -121,5 +121,11 @@ route.get('/api/categories',categoryController.find);
 route.put('/api/categories/:id',categoryController.update);
 route.delete('/api/categories/:id',categoryController.delete)
 
+// ***********************banner Management********************************
+// /** 
+//  * @description banner Route
+//  * @method GET/
+// */
+route.get("/banner", services.banner);
 
 module.exports = route
