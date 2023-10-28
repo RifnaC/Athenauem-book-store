@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <title>Atheneuam - Book Colleciton</title>
@@ -9,7 +8,7 @@
   <meta content="" name="description">
 
   <!-- Favicon -->
-  <link href="img/favicon.ico" rel="icon">
+  <link href="img/book collection 0.png" rel="icon">
 
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +30,6 @@
   <!-- Template Stylesheet -->
   <link href="/css/style.css" rel="stylesheet">
 </head>
-
 <body>
   <div class="container-fluid position-relative d-flex p-0">
     <!-- Spinner Start -->
@@ -42,16 +40,16 @@
       </div>
     </div>
     <!-- Spinner End -->
-
-
     <!-- Sidebar Start -->
     <div class="sidebar pe-4 pb-3">
       <nav class="navbar bg-secondary navbar-dark">
         <a href="dashboard" class="navbar-brand mx-4 mb-3">
-          <h3 class="text-primary">Atheneuam</h3>
+          <div class="d-flex justify-content-between">
+            <img src="/img/book collection 0.png" alt="logo" style="width: 40px; height: 40px; border-radius: 50%;">
+            <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+          </div>
         </a>
-
-       <div class="navbar-nav w-100 d-flex ">
+        <div class="navbar-nav w-100 d-flex ">
           <div>
             <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
             <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
@@ -64,7 +62,6 @@
           </div>
           <div>
             <a href="#" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
-
           </div>
         </div>
       </nav>
@@ -72,8 +69,6 @@
     </nav>
   </div>
   <!-- Sidebar End -->
-
-
   <!-- Content Start -->
   <div class="content">
     <!-- Navbar Start -->
@@ -81,7 +76,7 @@
       <div class="navbar-nav align-items-center ms-auto">
         <h6>
           <a href="category" class="mx-4">
-           Category View
+            Category View
           </a>
         </h6>
         <h6>
@@ -89,7 +84,6 @@
             <i class="fa fa-bars "></i>
           </a>
         </h6>
-
         <div class="nav-item dropdown">
           <a href="#" class="nav-link ">
             <h3><i class=" bi-person text-primary"></i>
@@ -99,83 +93,62 @@
       </div>
     </nav>
     <!-- Navbar End -->
-
-
     <!-- Button Start -->
     <div class="container-fluid pt-4 px-4">
+      <div class="d-flex justify-content-between ">
+        <h2 class="text-primary text-center ">Products{{shop.name}}</h2>
+        <div>
+          <a href="addProduct" class="btn btn-4 btn-outline-primary mx-2">add</a>
+          <a href="" class="btn btn-4 btn-outline-primary ">Import File</a>
+        </div>
+      </div>
       <div class="bg-secondary border rounded">
         <div class="row no-gutters">
-           <h2 class="text-primary text-center mt-5">Products{{shop.name}}</h2>
           <div class="col-lg-12 col-xl-12">
-           
-             
-
-                <div class="card-body pt-0 pb-5">
-                  <table class="table card-table table-responsive table-responsive-large text-center" style="width:100%">
-                    <thead>
-                      <tr>
-                        {{!-- <th>Id</th>
-                        <th>Image</th> --}}
-                        <th>Book Name</th>
-                        <th>Genre</th>                       
-                        <th>Author</th>
-                        {{!-- <th>publisher</th> --}}
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                    
-                     {{#each books}}
-                         <tr>
-                        {{!-- <td>
-                          <a class="text-dark" href="">{{this._id}}</a>
-                        </td> --}}
-                        {{!-- <td class="text-dark product-img"><img src="{{this.bookImage}}" alt="{{this.bookName}}"></td> --}}
-                        <td class="text-dark">{{this.bookName}}</td>
-                        <td class="text-dark">{{this.genre}}</td>
-                        <td class="text-dark">{{this.author}}</td>
-                        {{!-- <td class="text-dark">{{this.publisher}}</td> --}}
-                        <td class="text-dark">&#8377 {{this.price}}</td>
-                        <td class="text-dark">{{this.quantity}}</td>
-                        <td class="text-dark">{{this.description}}</td>
-                      
-                        <td class="text-dark">
-                          <a href="editProduct?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
-                          <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
-                        </td>
-                      </tr>
-                     {{/each}}
-                    </tbody>
-                  </table>
-
-                </div>
-                <div class="d-flex justify-content-center mb-3"> <a href="addProduct"
-                    class="btn btn-4 btn-outline-primary ">add</a></div>
-
+            <div class="card-body table-responsive pt-0 pb-5 mx-0 px-0">
+              <table class="table card-table text-center" style="width:100%">
+                <thead>
+                  <tr class="table-primary">
+                    <th>Image</th>
+                    <th>Book Name</th>
+                    <th>Genre</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each books}}
+                  <tr>
+                    {{!-- <td>
+                      <a class="text-dark" href="">{{this._id}}</a>
+                    </td> --}}
+                    <td class="text-dark product-img"><img src="{{this.bookImage}}" alt="{{this.bookName}}"></td>
+                    <td class="text-dark">{{this.bookName}}</td>
+                    <td class="text-dark">{{this.genre}}</td>
+                    <td class="text-dark">{{this.author}}</td>
+                    <td class="text-dark">&#8377 {{this.price}}</td>
+                    <td class="text-dark">{{this.quantity}}</td>
+                    <td class="text-dark">{{this.description}}</td>
+                    <td class="text-dark">
+                      <a href="editProduct?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
+                      <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-
-
-
-
-
-
     </div>
-
-
-
-
   </div>
   <!-- Content End -->
-
-
   <!-- Back to Top -->
-  <!-- <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a> -->
+  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
   </div>
 
   <!-- JavaScript Libraries -->
@@ -188,6 +161,7 @@
   <script src="/lib/tempusdominus/js/moment.min.js"></script>
   <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
   <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- Template Javascript -->
   <script src="/js/main.js"></script>

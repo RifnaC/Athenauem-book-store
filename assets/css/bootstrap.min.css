@@ -1874,7 +1874,8 @@ progress {
     margin-bottom: 1rem;
     color: #6C7293;
     vertical-align: top;
-    border-color: #000
+    border-color: #000;
+    overflow-x: hidden !important;
 }
 
 .table>:not(caption)>*>* {
@@ -2029,41 +2030,42 @@ progress {
 
 .table-responsive {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch
+    -webkit-overflow-scrolling:var(--bs-primary);
 }
 
 @media (max-width: 575.98px) {
     .table-responsive-sm {
-        overflow-x:auto;
-        -webkit-overflow-scrolling: touch
+        overflow-x: auto ;
+        -webkit-overflow-scrolling: var(--bs-primary);
     }
 }
 
 @media (max-width: 767.98px) {
     .table-responsive-md {
-        overflow-x:auto;
-        -webkit-overflow-scrolling: touch
+        overflow-x: auto;
+        width: fit-content;
+        -webkit-overflow-scrolling: var(--bs-primary);
     }
 }
 
 @media (max-width: 991.98px) {
     .table-responsive-lg {
-        overflow-x:auto;
-        -webkit-overflow-scrolling: touch
+        overflow-x:auto ;
+        -webkit-overflow-scrolling: var(--bs-primary);
     }
 }
 
 @media (max-width: 1199.98px) {
     .table-responsive-xl {
         overflow-x:auto;
-        -webkit-overflow-scrolling: touch
+        -webkit-overflow-scrolling: var(--bs-primary);
     }
 }
 
 @media (max-width: 1399.98px) {
     .table-responsive-xxl {
         overflow-x:auto;
-        -webkit-overflow-scrolling: touch
+        -webkit-overflow-scrolling: var(--bs-primary);
     }
 }
 
@@ -4480,6 +4482,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .card-img,.card-img-top,.card-img-bottom {
     width: 100%;
+    height: 240px !important;
     box-shadow: 2px 2px 40px 2px rgb(88, 119, 119);
 }
 

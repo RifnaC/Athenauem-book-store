@@ -8,13 +8,13 @@ exports.homeRoutes = (req, res)=>{
 exports.admin= (req, res)=>{
     axios.get('http://localhost:3000/api/admins')
     .then(function (response) {
-        // console.log(response)
         res.render('admin',{admins: response.data});
     })
     .catch(err =>{
         res.send(err);
     } )
 }
+
 exports.addedAdmin= (req, res)=> res.render('addAdmin');
 
 exports.edit_admin= (req, res)=>{
@@ -31,12 +31,10 @@ exports.edit_admin= (req, res)=>{
 
 exports.shop=(req, res)=>{
      axios.get('http://localhost:3000/api/shops')
-    // console.log(response.data);
     .then(function (response) {
         res.render('shop', {shops: response.data});
     })
     .catch(error=>{
-        // console.error("An error occurred:", error);
         res.status(500).send("<script>alert('Something Went Wrong'); window.location.href ='/addShop';</script>");
     });
 }
@@ -112,4 +110,9 @@ exports.edit_category=(req, res)=>{
         res.send(err);
     })
     // res.render('editCategory');
+}
+
+// ***********************banner Management********************************
+exports.banner = (req, res)=>{
+    res.render('banner');
 }

@@ -12,7 +12,7 @@ exports.create = async (req, res) => {
     const genre = new genreCollection({
         genre: req.body.genre,
         totalBooks: req.body.totalBooks,
-        totalEarnings: req.body.totalEarnings,
+        description: req.body.description,
     });
 
   const savedGenre = await genre.save(); 

@@ -4,8 +4,11 @@ const Shopdb = require('../models/shopModel');
 const cloudinary = require('../services/cloudinary');
 const path = require('path')
 const multer = require('multer');
+const { request } = require('http');
+const { response } = require('express');
 
-// accessing multer middleware storage
+
+// access multer middleware storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads')
@@ -13,7 +16,7 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now() + file.originalname.split('.').pop())
   },
-});
+}); 
 
 const upload = multer({ storage: storage });
 
@@ -30,34 +33,29 @@ exports.create = async (req, res) => {
     }
     const { name, openingTime, closingTime, address } = req.body;
     const shopImg = req.file.path;
-
     cloudinary.uploader.upload(shopImg, (cloudinaryErr, result) => {
       if (cloudinaryErr) {
         res.status(500).send({ message: cloudinaryErr.message });
         return;
       }
-      // console.log(result);
       const shop = new Shopdb({
         name,
         openingTime,
         closingTime,
         shopImg: result.secure_url,
+        cloudinaryId: result.public_id,
         address,
       });
       shop.save()
       .then(savedShop => {
-        // console.log(savedShop);
         res.redirect('/shop');
        })
       .catch(saveErr => {
-        // console.log('hi')
         res.status(500).send({ message: saveErr.message });
       });
     });
   });
 };
-
-
 // retrieve and return all shop or  retrieve and return a single shop 
 exports.find = (req, res) => {
   if (req.query.id) {
@@ -90,49 +88,99 @@ exports.find = (req, res) => {
   }
 }
 
-
 // Update a new identified shop by  shop id
-exports.update = (req, res) => {
-  if (!req.body) {
-    return res.status(400).send({ message: "Data to update can not be empty" })
+// exports.update = async (req, res) => {
+//   if (!req.body) {
+//       return res.status(400).send({ message: "Data to update can not be empty" })
+//     }
+//     const id = req.params.id;
+//     Shopdb.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+//     .then(data => {
+//       if (!data) {
+//         return res.status(404).send({ message: `User with ${id} is not found` })
+//       } else {        
+//         res.send(data);
+//       }
+//     })
+//     .catch(err => {
+//       res.status(500).send({ message: "Error Update user information" })
+//     })
+// }
+
+exports.update = async(req, res) => {
+  upload.single('shopImg', {name:"shopImg"})(req, res, async (err) => {
+    if (err) {
+      res.status(500).send({ message: err.message });
+      return;
+    }
+  try {
+    const shopId = req.params.id;
+    const shop = await Shopdb.findById(shopId);
+    console.log(shop)
+    if (!shop) {
+      return res.status(404).json({ message: 'Shop not found' });
+    }
+    console.log(req.file)
+    // Check if a new file is being uploaded
+    if (req.file) {
+      // Delete the old shop image from Cloudinary
+      await cloudinary.uploader.destroy(shop.cloudinaryId);
+
+      // Upload the new shop image to Cloudinary
+      const result = await cloudinary.uploader.upload(req.file.path);
+
+      // Update the shop image URL and Cloudinary ID
+      shop.shopImg = result.secure_url;
+      shop.cloudinaryId = result.public_id;
+    }
+
+    // Update other shop details based on your form data
+    shop.name = req.body.name || shop.name;
+    shop.openingTime = req.body.openingTime || shop.openingTime;
+    shop.closingTime = req.body.closingTime || shop.closingTime;
+    shop.address = req.body.address || shop.address;
+
+    // Save the shop changes to the database
+    await shop.save();
+    // Return the updated shop data
+    return res.status(200).json(shop);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'An error occurred while updating the shop' });
   }
-  const id = req.params.id;
-  Shopdb.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-    .then(data => {
-      if (!data) {
-        return res.status(404).send({ message: `User with ${id} is not found` })
-      } else {
-        res.send(data);
-      }
-    })
-    .catch(err => {
-      res.status(500).send({ message: "Error Update user information" })
-    })
-}
-
-
-
+})
+};
 
 exports.delete = (req, res) => {
   const id = req.params.id;
-
-  Shopdb.findByIdAndDelete(id)
-    .then(data => {
-      if (!data) {
-        res.status(404).send({ message: `Shop with ${id} is not found` })
-      } else {
-        res.send({
-          message: "Shop is deleted successfully"
+  Shopdb.findById(id)
+  .then(shop => {
+    if (!shop) {
+      res.status(404).send({ message: `Shop with ${id} is not found` });
+    } else {
+      // Delete the shop image from Cloudinary
+      cloudinary.uploader.destroy(shop.cloudinaryId, (cloudinaryErr, result) => {
+        if (cloudinaryErr) {
+          console.error('Error deleting image from Cloudinary:', cloudinaryErr);
+        }
+        // Regardless of Cloudinary deletion status, proceed to delete the shop data
+        Shopdb.findByIdAndDelete(id)
+        .then(() => {
+          res.send({
+            message: "Shop is deleted successfully"
+          });
         })
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Could not delete shop with id " + id
-      })
-    })
-
+        .catch(err => {
+          res.status(500).send({
+            message: "Could not delete shop with id " + id
+          });
+        });
+      });
+    }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Error finding shop with id " + id
+    });
+  });
 }
-
-
-

@@ -14,8 +14,6 @@ const app = express();
 
 const port = process.env.PORT || 5000
 
-
-
 //log request
 app.use(morgan('tiny'));
 
@@ -36,7 +34,6 @@ app.use('/lib', express.static(path.resolve(__dirname,"assets/lib")))
 
 // load routers
 app.use('/',require('./server/routes/router'))
-
 
 app.listen(port , ()=> {
     console.log('> Server is up and running on port : ' + port)

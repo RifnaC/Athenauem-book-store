@@ -4,18 +4,19 @@ const Productdb = require('../models/products');
 const { product } = require('../services/render');
 
 exports.fetchShopDetails = async(shopId) => {
-    try {
-            const shop = await Shopdb.findById(shopId);
-            return shop;
-        } catch (error) {
-            console.error('Error fetching shop details:', error);
-            throw error;
-        }
+  try {
+    const shop = await Shopdb.findById(shopId);      
+    return shop;
+  } catch (error) {
+    console.error('Error fetching shop details:', error);
+    throw error;
+  }
 };
+
 exports.renderShopDetails = async(req, res) =>{
-    const shopId = req.query.id;
-    const shopDetails = await this.fetchShopDetails(shopId);
-    res.render('products', {shop: shopDetails})
+  const shopId = req.query.id;
+  const shopDetails = await this.fetchShopDetails(shopId);
+  res.render('products', {shop: shopDetails})
 };
    
 // Function to fetch books for a shop by shop ID
@@ -37,22 +38,23 @@ exports.renderProducts = async (req, res) => {
   res.render('products');
 };
 
-  // create and save new product
+// create and save new product
 exports.create = async (req, res) => {
     if(!req.body){
-        res.status(400).send({message: 'Content can not be empty'})
-        return;
+      res.status(400).send({message: 'Content can not be empty'})
+      return;
     }
-    // console.log(req.body);
+    console.log(req.body);
     const product = new Productdb({
-    bookName:req.body.bookName,
-    genre: req.body.genre,
-    author: req.body.author,
-    price: req.body.price,
-    quantity: req.body.quantity,
-    description: req.body.description,
-    // productImg: req.body.productImg,
-});
+      bookName:req.body.bookName,
+      genre: req.body.genre,
+      author: req.body.author,
+      price: req.body.price,
+      quantity: req.body.quantity,  
+      description: req.body.description
+      // productImg: req.body.productImg,
+    });
+  console.log(product)
   const savedProduct = await product.save(); 
   console.log(savedProduct);
   res.redirect('/products');
@@ -61,20 +63,20 @@ exports.create = async (req, res) => {
 
 // retrieve and return all product or  retrieve and return a single  product
 exports.find = (req, res) => {
-    if(req.query.id){
-        const id = req.query.id;
-        Productdb.findById(id)
-        .then(data => {
-            if(!data){
-                res.status(404).send({message:"Not found product with id" + id})
-            }else{
-                res.send(data)
-            }
-        })
-        .catch(err => {
-            res.status(500).send({message:"Error in retrieving product with id" + id})
-        })
-    }else{
+  if(req.query.id){
+    const id = req.query.id;
+    Productdb.findById(id)
+    .then(data => {
+      if(!data){
+        res.status(404).send({message:"Not found product with id" + id})
+      }else{
+        res.send(data)
+      }
+    })
+    .catch(err => {
+      res.status(500).send({message:"Error in retrieving product with id" + id})
+    })
+  }else{
     Productdb.find()
     .then(book => {
       // If it's an API request, send JSON data
@@ -84,7 +86,6 @@ exports.find = (req, res) => {
         // If it's a web request, render the "" page with the data
         // console.log(books);
         res.render('products', {books: book});
-       
       }
     })
     .catch(err => {

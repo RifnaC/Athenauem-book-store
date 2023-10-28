@@ -92,7 +92,7 @@
     }
     return true;
   }
-  
+  // Add new admin
   $("#uploadUser").submit(function(event) {
     if (!validateForm()) {
       event.preventDefault();
@@ -105,7 +105,7 @@
       })
     }
   })
-
+  // update admin
   $("#edit_admin").submit(function(event) {
     event.preventDefault();
     let unindexed_array = $(this).serializeArray();
@@ -265,12 +265,10 @@
         icon: 'success',
         title: 'New shop is added Successfully',
         showConfirmButton: false,
-        timer: 8000,
+        timer: 6000,
       })
     }           
   })
-  
-
 
   //update shop details
   $("#edit_shop").submit(function(event) {
@@ -337,7 +335,7 @@
       })
     });
   });
-
+  // Delete the shop
   if(window.location.pathname==="/shop"){      
     $(document).on("click", ".shopCard a.delete", function (event) {
       event.preventDefault();
@@ -370,320 +368,427 @@
     })
   }
 
+  // Validation for adding new book
+  function productValidation() {
+    let genre = document.forms["add_product"]["genre"].value;
+    let bookName = document.forms["add_product"]["bookName"].value;
+    let author = document.forms["add_product"]["author"].value;
+    let quantity = document.forms["add_product"]["quantity"].value;
+    let description = document.forms["add_product"]["description"].value;
+    let price = document.forms["add_product"]["price"].value;    
 
-    
-    function productValidation() {
-        let genre = document.forms["add_product"]["genre"].value;
-        let bookName = document.forms["add_product"]["bookName"].value;
-        let author = document.forms["add_product"]["author"].value;
-        let quantity = document.forms["add_product"]["quantity"].value;
-        let description = document.forms["add_product"]["description"].value;
-        let price = document.forms["add_product"]["price"].value;
-    
-        // Check if name, email, password, and confirmPassword are not empty
-        if (genre === "" ) {
-          alert("Category field must be filled out");
-          return false;
+    // Check if book details are not empty
+    if (bookName === "") {
+      Swal.fire({
+        title:'Please enter book name!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (bookName.length < 4 ) {
+      Swal.fire({
+        title: 'Book Name should have at least 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+    return false;
+    }
+    if (author === "" ) {
+      Swal.fire({
+        title:'Please enter Author field!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;    
+    }
+    if (author.length < 4 ) {
+      Swal.fire({
+        title: 'Author should have at least 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+    return false;
+    }
+    if (description === "" ) {
+      Swal.fire({
+        title:'Please provide the decription of the book!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (description.length < 4 ) {
+      Swal.fire({
+        title: 'Description should have at least 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+    return false;
+    }
+    if (price === "") {
+      Swal.fire({
+        title:'Please enter the price of the Book!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    return true;
+  }
+  // Add new book
+  $("#add_product").submit(function(event) {
+    if (!productValidation()) {
+      event.preventDefault();
+    }else{
+      Swal.fire({
+        icon: 'success',
+        title: 'New Book is added Successfully',
+        showConfirmButton: false,
+        timer: 6000
+      })
+    }        
+  })
+  // Update product
+  $("#edit_product").submit(function(event) {
+    event.preventDefault();
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
+    $.map(unindexed_array, function(n, i) {
+      data[n['name']] = n['value'];
+    });
+    // Extract the book's ID from the form data
+    const bookId = data.id;
+    // Validation
+    if (!data.bookName) {
+      Swal.fire({
+        title:'Please enter the book name',
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    if (data.bookName.length < 4) {
+      Swal.fire({
+        title:'The book name should be at least 4 characters',
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    if (!data.author) {
+      Swal.fire({
+        title: 'Please enter Author of the book!',
+        confirmButtonColor: '#15877C'
+      })
+      return;    
+    } 
+    if (data.author.length < 4) {
+      Swal.fire({
+        title:'The Author should be at least 4 characters',
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    if (!data.description) {
+      Swal.fire({
+        title: "Please enter the description of the book",
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    if (!data.price) {
+      Swal.fire({
+        title: "Please enter the price of the book!",
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    let request = {
+      "url": `http://localhost:3000/api/products/${bookId}`,          
+      "method": "PUT",
+      "data": data
+    };
+    // Send the PUT request        
+    $.ajax(request).done(function(response) {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#15877C'
+      })
+      .then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire('Saved!', 'Data updated successfully', 'success')
+          .then(() => {
+            window.location.href='/products';
+          })
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+          .then(() => {
+            window.location.href='/products';
+          })
         }
-        if (bookName === "") {
-          alert("Book name field must be filled out");
-          return false;
+      })
+    });
+  });
+  // Delete the product
+  if(window.location.pathname==="/products"){      
+    $(document).on("click", ".table tbody td a.delete", function (event) {
+      event.preventDefault();
+      const id = $(this).attr('data-id');
+      const request = {
+        "url":`http://localhost:3000/api/products/${id}`,
+        "method":"DELETE"
+      };
+      Swal.fire({
+        title: 'Do you really want to delete this record?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it',
+        cancelButtonText: 'cancel',
+        confirmButtonColor: '#d33',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // The user clicked the "Yes, delete it" button
+          $.ajax(request).done(function (response) {
+            Swal.fire('Data deleted Successfully', '', 'success').then(() => {
+              location.reload();
+            });
+          });
+        } else {
+          // The user clicked the "cancel" button or closed the dialog
+          Swal.fire('Action canceled', '', 'info');
         }
-        if (author === "" ) {
-          alert("Author field must be filled out");
-          return false;    
+      });
+    })
+  }
+  // validation for category
+  function categoryValidation(){
+    let genre = document.forms["add_cat"]["genre"].value;
+    let totalBooks = document.forms["add_cat"]["totalBooks"].value;
+    let description = document.forms["add_cat"]["description"].value;
+    // Check if name, email, password, and confirmPassword are not empty
+    if (genre === "" ) {
+      Swal.fire({
+        title: "Please enter a the category ",
+        confirmButtonColor: '#15778C',
+      })
+      return false;
+    }
+    if (genre.length <4 ) {
+      Swal.fire({
+        title: "Category should be at least 4 characters",
+        confirmButtonColor: '#15778C',
+      })
+      return false;
+    }
+    if (totalBooks === "") {
+      Swal.fire({
+        title: "please enter a total books",
+        confirmButtonColor: '#15778C',
+      })
+      return false;
+    }
+    if (description === "" ) {
+      Swal.fire({ 
+        title: "Please enter the description of the category",
+        confirmButtonColor: '#15778C'
+      })
+      return false;    
+    }
+    if (description.length < 4 ) {
+      Swal.fire({ 
+        title: "The description must be at least 4 characters",
+        confirmButtonColor: '#15778C'
+      })
+      return false;    
+    }
+    return true;
+  }
+  // add the category
+  $("#add_cat").submit(function(event) {
+    if (!categoryValidation()) {
+      event.preventDefault();
+    }else{
+      Swal.fire({
+        icon: 'success',
+        title:'Successfully added category',
+        showConfirmButton: false,
+        timer: 6000
+      }) 
+    }   
+  })
+
+  // update category
+  $("#edit_cat").submit(function(event) {
+    event.preventDefault();
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
+    $.map(unindexed_array, function(n, i) {
+        data[n['name']] = n['value'];
+    });
+    // Extract the genre's ID from the form data
+    const genreId = data.id;
+      
+    // Validation
+    if (!data.genre) {
+        Swal.fire({
+          title: 'Please enter the category',
+          confirmButtonColor: '#15778C',
+        })
+        return;
+    }
+    if (data.genre.length < 4) {
+        Swal.fire({
+          title: 'The category should be at least 4 characters',
+          confirmButtonColor: '#15778C',
+        })
+        return;
+    }
+    if (!data.totalBooks) {
+        Swal.fire({
+          title: 'Please enter the total books',
+          confirmButtonColor: '#15778c'
+        });
+        return;
+    }
+    if (!data.description ) {
+        Swal.fire({
+          title: 'Please enter the description',
+          confirmButtonColor: '#15778C'
+        });
+        return;    
+    }
+    if (data.description.length < 4) {
+        Swal.fire({
+          title: 'The description should be at least 4 characters',
+          confirmButtonColor: '#15778C',
+        })
+        return;
+    }
+    let request = {
+        "url": `http://localhost:3000/api/categories/${genreId}`,
+        "method": "PUT",
+        "data": data
+    };
+    // Send the PUT request        
+    $.ajax(request).done(function(response) {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,            
+        showCancelButton: true,
+        confirmButtonText: 'Save',            
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#15877C'          
+      })
+      .then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire('Saved!', 'Data updated successfully', 'success')              
+          .then(() => {
+            window.location.href='/category';
+          })
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+            .then(() => {
+              window.location.href='/category';
+            })
         }
-        if (quantity === "") {
-          alert("Quantity field must be filled out");
-          return false;
-        } 
+      })
+    });
+  });
+
+  // Delete the category
+  if(window.location.pathname==="/category"){      
+    $(document).on("click", ".table tbody td a.delete", function (event) {
+      event.preventDefault();
+      const id = $(this).attr('data-id');
+      const request = {
+        "url":`http://localhost:3000/api/categories/${id}`,
+        "method":"DELETE"
+      };
+      Swal.fire({
+        title: 'Do you really want to delete this record?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it',
+        cancelButtonText: 'cancel',
+        confirmButtonColor: '#d33',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // The user clicked the "Yes, delete it" button
+          $.ajax(request).done(function (response) {
+            Swal.fire('Data deleted Successfully', '', 'success').then(() => {
+              location.reload();
+            });
+          });
+        } else {
+          // The user clicked the "cancel" button or closed the dialog
+          Swal.fire('Action cancelled', '', 'info');
+        }
+      });
+    })
+  }
+
+
+
+
+  // Chart Global Color
+  Chart.defaults.color = "#6C7293";
+  Chart.defaults.borderColor = "#ffffffff";    
   
-        if (description === "" ) {
-          alert("Description field must be filled out");
-          return false;
-        }
-        if (price === "") {
-          alert("Price field must be filled out");
-          return false;
-        }
-        return true;
-      }
-
-
-    $("#add_product").submit(function(event) {
-        if (!productValidation()) {
-            event.preventDefault();
-        }else{
-            
-            alert("new book data is inserted Successfully"); 
-        }
-             
-    })
-
-
-    $("#edit_product").submit(function(event) {
-        event.preventDefault();
+  // Worldwide Sales Chart
+  let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
+  let myChart1 = new Chart(ctx1, {
+    type: "bar",
+    data: {
+      labels: ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      datasets: [{
+        label: "Sales",
+        data: [0, 20, 35, 55, 50, 70, 75, 55, 20, 45, 45, 40, 60],
+        backgroundColor: "#CCEBD7"
+      },
+      {
+        label: "Target",
+        data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80],
+        backgroundColor: "#15877C"
+      }]
+    },
+    options: {
+      responsive: true
+    }        
+  });
     
-        let unindexed_array = $(this).serializeArray();
-        let data = {};
-    
-        $.map(unindexed_array, function(n, i) {
-            data[n['name']] = n['value'];
-        });
-    
-        // console.log(data);
-    
-        // Extract the book's ID from the form data
-        const bookId = data.id;
-    
-        // Validation
-        if (!data.genre === "" ) {
-            alert("Category field is required");
-            return;
-          }
-          if (!data.bookName === "") {
-            alert("Book name field is required.");
-            return;
-          }
-          if (!data.author === "" ) {
-            alert("Author field is required.");
-            return;    
-          }
-          if (!data.quantity === "") {
-            alert("Quantity field is required.");
-            return;
-          } 
-    
-          if (!data.description === "" ) {
-            alert("Description field is required.");
-            return;
-          }
-          if (!data.price === "") {
-            alert("Price field is required.");
-            return;
-          }
+  // Date range picker
+  let start = moment().subtract(29, 'days');
+  let end = moment();
 
-            let request = {
-                "url": `http://localhost:3000/api/products/${bookId}`,
-                "method": "PUT",
-                "data": data
-            };
-            // console.log(shopId)
-            // Send the PUT request
-            $.ajax(request).done(function(response) {
-                alert("Book data updated successfully");
-                window.location.href='/products';
-            });
-    
-    });
+  function cb(start, end) {
+    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+  }
 
-
-    let $ondeleteProduct;
-
-    if(window.location.pathname=="/products"){
-        $ondeleteProduct = $(".table tbody td a.delete");
-        $ondeleteProduct.click(function(){
-            const id= $(this).attr('data-id')
-
-            const request = {
-                "url":`http://localhost:3000/api/products/${id}`,
-                "method":"DELETE"
-            }
-            if(confirm("DO you really want to delete this record?")){
-                $.ajax(request).done(function(response){
-                    alert("Data deleted Successfully");
-                    location.reload()
-                })
-            }
-        })
+  $('#reportrange').daterangepicker({
+    startDate: start,
+    endDate: end,
+    ranges: {
+      'Today': [moment(), moment()],
+      'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+      'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+      'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+      'This Month': [moment().startOf('month'), moment().endOf('month')],
+      'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
     }
+  }, cb);
 
-    function categoryValidation(){
-        let genre = document.forms["add_cat"]["genre"].value;
-        let totalBooks = document.forms["add_cat"]["totalBooks"].value;
-        let totalEarnings = document.forms["add_cat"]["totalEarnings"].value;
-        // Check if name, email, password, and confirmPassword are not empty
-        if (genre === "" ) {
-          alert("Genre field must be filled out");
-          return false;
-        }
-        if (totalBooks === "") {
-          alert("Total Books field must be filled out");
-          return false;
-        }
-        if (totalEarnings === "" ) {
-          alert("Total earnings field must be filled out");
-          return false;    
-        }
-        return true;
-      }
-    $("#add_cat").submit(function(event) {
-        if (!categoryValidation()) {
-            event.preventDefault();
-        }else{
-            alert("new book data is inserted Successfully"); 
-        }
-             
-    })
+  cb(start, end);
 
-
-    $("#edit_cat").submit(function(event) {
-        event.preventDefault();
-    
-        let unindexed_array = $(this).serializeArray();
-        let data = {};
-    
-        $.map(unindexed_array, function(n, i) {
-            data[n['name']] = n['value'];
-        });
-    
-        // console.log(data);
-    
-        // Extract the genre's ID from the form data
-        const genreId = data.id;
-        console.log(genreId);
-    
-        // Validation
-        if (!data.genre === "" ) {
-            alert("Genre field is required");
-            return;
-          }
-          if (!data.totalBooks === "") {
-            alert("Provide total books available.");
-            return;
-          }
-          if (!data.totalEarnings === "" ) {
-            alert("Provide the total earnings of the books.");
-            return;    
-          }
-            let request = {
-                "url": `http://localhost:3000/api/categories/${genreId}`,
-                "method": "PUT",
-                "data": data
-            };
-            // console.log(shopId)
-            // Send the PUT request
-            $.ajax(request).done(function(response) {
-                alert("Genre data updated successfully");
-                window.location.href='/category';
-            });
-    
-    });
-
-
-    let $ondeleteCategory;
-
-    if(window.location.pathname=="/category"){
-        $ondeleteCategory = $(".table tbody td a.delete");
-        $ondeleteCategory.click(function(){
-            const id= $(this).attr('data-id')
-
-            const request = {
-                "url":`http://localhost:3000/api/categories/${id}`,
-                "method":"DELETE"
-            }
-            if(confirm("DO you really want to delete this record?")){
-                $.ajax(request).done(function(response){
-                    alert("Data deleted Successfully");
-                    location.reload()
-                })
-            }
-        })
-    }
-
-
-
-
-    // Chart Global Color
-    Chart.defaults.color = "#6C7293";
-    Chart.defaults.borderColor = "#ffffffff";    
-    
-    // Worldwide Sales Chart
-    let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
-    let myChart1 = new Chart(ctx1, {
-        type: "bar",
-        data: {
-            labels: ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                    label: "Sales",
-                    data: [0, 20, 35, 55, 50, 70, 75, 55, 20, 45, 45, 40, 60],
-                    backgroundColor: "#CCEBD7"
-                },
-                {
-                    label: "Target",
-                    data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80],
-                    backgroundColor: "#15877C"
-                }]
-        },
-        options: {
-            responsive: true
-        }        
-    });
-    
-    // Date range picker
-    let start = moment().subtract(29, 'days');
-    let end = moment();
-
-    function cb(start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-    }
-
-    $('#reportrange').daterangepicker({
-        startDate: start,
-        endDate: end,
-        ranges: {
-           'Today': [moment(), moment()],
-           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-           'This Month': [moment().startOf('month'), moment().endOf('month')],
-           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        }
-    }, cb);
-
-    cb(start, end);
-
-    
-
-    // let customerChart = $("#customerChart").get(0).getContext("2d");   
-    // var cust1 = new Chart(customerChart, {
-    //     type: "doughnut",
-    //     data: {
-    //         labels: [],
-    //         datasets: [{
-    //             backgroundColor: [
-    //                 "rgba(21, 135, 124, .7)",
-    //                 "rgba(21, 135, 124, .6)",
-    //                 "rgba(21, 135, 124, .5)",
-    //                 "rgba(21, 135, 124, .4)",
-    //                 "rgba(21, 135, 124, .3)"
-    //             ],
-    //             data: [0, 0, 0, 45, 0]
-    //         }]
-    //     },
-    //     options: {
-    //         responsive: true,
-    //         aspectRatio: 4.0,
-    //         // cutoutPercentage: 90,
-    //         // cutoutPercentage: 400
-    //         // percentageInnerCutout: 40
-    //     },
-    //     centerText: {
-    //         display: true,
-    //         text: "280"
-    //     }
-    // });
-
-    // current customer chart
-    const currentData = {
-        datasets: [{
-          data: [85, 15],
-          backgroundColor: [
-            '#15877C',
-            '#E2E2E2'
-          ],
-          hoverOffset: 0
-        }],
+  // current customer chart
+  const currentData = {
+    datasets: [{      
+      data: [85, 15],
+      backgroundColor: [
+        '#15877C',
+        '#E2E2E2'
+      ],
+      hoverOffset: 0
+    }],
       };
 
       const centerTextPlugin = {
