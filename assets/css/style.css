@@ -82,6 +82,10 @@ body::-webkit-scrollbar-thumb
 .disaplayInput{
     display: none;
 }
+
+#bannerProduct{
+    display: none;
+}
 /*** Layout ***/
 .sidebar {
     position: fixed;

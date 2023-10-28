@@ -116,3 +116,7 @@ exports.edit_category=(req, res)=>{
 exports.banner = (req, res)=>{
     res.render('banner');
 }
+
+exports.createBanner = (req, res)=>{
+    res.render('bannerPage');
+};

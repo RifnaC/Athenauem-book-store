@@ -128,4 +128,10 @@ route.delete('/api/categories/:id',categoryController.delete)
 // */
 route.get("/banner", services.banner);
 
+// /** 
+//  * @description add  banner
+//  * @method GET/
+// */
+route.get("/bannerPage", services.createBanner)
+
 module.exports = route

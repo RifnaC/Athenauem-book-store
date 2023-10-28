@@ -1,8 +1,7 @@
 (function ($) {
   "use strict";
-
   // Spinner
-  var spinner = function () {
+  const spinner = function () {
     setTimeout(function () {      
       if ($('#spinner').length > 0) {
         $('#spinner').removeClass('show');
@@ -727,6 +726,18 @@
     })
   }
 
+// Banner Section
+
+// Banner field on option value change
+$('#clickType').on('change',function(){
+  if( $(this).val()==="product"){
+    $("#bannerProduct").show()
+    $("#bannerCategory").hide()
+  }else{
+    $("#bannerProduct").hide()
+    $("#bannerCategory").show()
+  }
+})
 
 
 
