@@ -5,7 +5,7 @@ const controller = require('../controller/controller')
 const shopController = require('../controller/shopController');
 const productController = require('../controller/productController');
 const categoryController = require('../controller/categoryController');
-
+const bannerController = require('../controller/bannerController');
 
 // ***********************Admin Management********************************
 /** 
@@ -133,5 +133,10 @@ route.get("/banner", services.banner);
 //  * @method GET/
 // */
 route.get("/bannerPage", services.createBanner)
+
+route.post('/api/banner', bannerController.create);
+route.get('/api/banner', bannerController.find);
+route.put('/api/banner/:id', bannerController.update);
+route.delete('/api/banner/:id', bannerController.delete);
 
 module.exports = route

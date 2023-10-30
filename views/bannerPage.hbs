@@ -96,7 +96,7 @@
         <div class="container-fluid pt-4 px-4">
             <h2 class="text-primary text-center">Create Banner</h2>
             <div class="bg-secondary border rounded">
-                <form action="/api/banner" method="POST" id="createBanner" onsubmit="return bannerValidation()">
+                <form action="/api/banner" method="POST" id="createBanner" onsubmit="return bannerValidation()" enctype="multipart/form-data">
                     <div class="row m-2">
                         <div class="form-group my-2 col-lg-6">
                             <label for="banner name">Banner Name</label>
@@ -105,9 +105,8 @@
                         <div class="my-2 col-lg-6">
                             <label for="shop">Shop</label>
                             <select class="form-select" aria-label="choose  a shop" name="shop">
-                                <option selected>Choose a shop</option>
-                                <option value="">EC Books</option>
-                                <option value="">DC books</option>
+                                <option value="EC Books" selected>EC Books</option>
+                                <option value="DC Books">DC books</option>
                             </select>
                         </div>
                         <div class="form-group col-lg-6  my-2">
@@ -117,31 +116,23 @@
                                 <option value="product">Product</option>
                             </select>
                         </div>
-                        <div class="form-group col-lg-6  my-2" id="bannerCategory" >
+                        <div class="form-group col-lg-6  my-2" id="bannerCategory">
                             <label for="Category ID">Category ID</label>
                             <input type="text" class="form-control" id="categoryId" value="" name="categoryId"
                                 placeholder="Category ID">
                         </div>
                         <div class="form-group col-lg-6  my-2" id="bannerProduct">
-                             <label for="Product ID">Product ID</label>
+                            <label for="Product ID">Product ID</label>
                             <input type="text" class="form-control" id="productId" value="" name="productId"
                                 placeholder="Product ID">
                         </div>
-               
-                            <label for="image">Banner Image</label>
-                            <div class="form-group col-lg-6">
-                                 <input type="file" class="form-control" id="inputGroupFile02">
-                               
-                            </div>
-                            
-                            <div class="form-group col-lg-6">
-                              <input type="text" class="form-control" id="imgUrl" value="" name="imgUrl"
-                                placeholder="Image URL">
-                            </div>
+                        <label for="image">Banner Image</label>
+                        <div class="form-group col-lg-6  mb-3">
+                            <input type="file" class="form-control" id="bannerImg" name="bannerImg">
                         </div>
                         <div class="d-flex justify-content-center my-3">
                             <a href="banner" class="btn btn-4 btn-outline-dark me-4">Cancel</a>
-                        <button class="btn btn-4 btn-primary">Create</button>
+                            <button class="btn btn-4 btn-primary">Create</button>
                         </div>
                     </div>
                 </form>

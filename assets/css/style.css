@@ -82,8 +82,18 @@ body::-webkit-scrollbar-thumb
 .disaplayInput{
     display: none;
 }
+/* Table image size */
+.tableImg{
+    width: 40px;
+    height: auto;
+}
 
-#bannerProduct{
+/* modal close button */
+.close{
+    cursor: pointer;
+    font-size: 32px;
+}
+#bannerProduct, #productIdField{
     display: none;
 }
 /*** Layout ***/

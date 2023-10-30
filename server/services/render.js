@@ -114,9 +114,27 @@ exports.edit_category=(req, res)=>{
 
 // ***********************banner Management********************************
 exports.banner = (req, res)=>{
-    res.render('banner');
+    axios.get('http://localhost:3000/api/banner')
+    .then(function (response) {
+        res.render('banner', {banners: response.data});
+    })
+    .catch(error=>{
+        // console.error("An error occurred:", error);
+        res.status(500).send("<script>alert('Something Went Wrong'); window.location.href ='/bannerPage';</script>");
+    });
 }
 
 exports.createBanner = (req, res)=>{
     res.render('bannerPage');
 };
+
+exports.editBanner=(req, res)=>{
+    axios.get('http://localhost:3000/api/banner',{params: {id:req.query.id}})
+    .then(function(banner){
+        res.render('banner',{banners:banner.data});
+    })
+    .catch(err => {
+        res.send(err);
+    })
+    // res.render('editCategory');
+}
