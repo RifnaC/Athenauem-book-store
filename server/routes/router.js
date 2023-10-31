@@ -145,4 +145,13 @@ route.get('/api/banner', bannerController.find);
 route.put('/api/banner/:id', bannerController.update);
 route.delete('/api/banner/:id', bannerController.delete);
 
+
+// ***********************Login Section********************************
+// /** 
+//  * @description Login Route
+//  * @method GET/
+// */
+route.get("/home", services.login);
+
+
 module.exports = route

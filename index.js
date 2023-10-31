@@ -7,6 +7,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cloudinary = require('cloudinary').v2;
+const jwt = require('jsonwebtoken');
 
 const connectDB = require('./server/database/connection');
 

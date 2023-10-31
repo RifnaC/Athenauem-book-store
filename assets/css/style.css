@@ -115,6 +115,9 @@ body::-webkit-scrollbar-thumb
     background: var(--dark);
     transition: 0.5s;
 }
+.homeNav a{
+    color:#130B0B;
+}
 @media (min-width: 992px) {
     .sidebar {
         margin-left: 0;

@@ -42,7 +42,6 @@
             </div>
         </div>
         <!-- Spinner End -->
-
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
@@ -65,18 +64,17 @@
                         <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
                     </div>
                     <div>
-                        <a href="#" class="nav-link" data-bs-toggle="dropdown"><i
-                                class="bi bi-box-arrow-right"></i>Logout</a>
-
+                        <a href="#" class="nav-link" data-bs-toggle="dropdown">
+                            <i class="bi bi-box-arrow-right"></i>Logout</a>
                     </div>
                 </div>
             </nav>
         </div>
-        </nav>
-    </div>
+        <!-- </nav> -->
+    <!-- </div>
     <!-- Sidebar End -->
     <!-- Content Start -->
-    <div class="content">
+    <!-- <div class="content">
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand bg-secondary navbar-dark  px-4 py-0">
             <div class="navbar-nav align-items-center ms-auto">
@@ -85,6 +83,7 @@
                         <i class="fa fa-bars"></i>
                     </a>
                 </h6>
+
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link ">
                         <h3><i class=" bi-person text-dark"></i>
@@ -92,53 +91,58 @@
                     </a>
                 </div>
             </div>
-        </nav>
+        </nav> --> -->
         <!-- Navbar End -->
-        <div class="container-fluid pt-4 px-4">
-            <div class="d-flex justify-content-end mb-3"> 
-                <a href="bannerPage" class="btn btn-4 btn-outline-primary">Create</a>
-            </div>
+        <!-- <div class="container-fluid pt-4 px-4">
+            <h2 class="text-primary text-center">Edit Banner</h2>
             <div class="bg-secondary border rounded">
-                <div class="row no-gutters">
-                    <div class="col-lg-12 col-xl-12">
-                        <div class="card-body pt-0 pb-4 table-responsive px-0">
-                            <table class="table card-table text-center" style="width:100%">
-                                <thead>
-                                    <tr class="table-primary">
-                                        <th>Banner Name</th>
-                                        <th>Shop</th>
-                                        <th>Click Type</th>
-                                        <th>Image</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each banners}}
-                                    <tr>
-                                        <td class="text-dark product-img">{{this.name}}</td>
-                                        <td class="text-dark">{{this.shop}}</td>
-                                        <td class="text-dark">{{this.type}}</td>
-                                        <td class="text-dark">
-                                            <img src="{{this.bannerImg}}" name="bannerImg" alt="{{this.name}}" class="tableImg"></td>
-                                        <td class="text-dark">
-                                            <a href="banners?id={{_id}}"><i
-                                                    class="bi bi-pencil-square mx-3"></i></a>
-                                            <a href="" class="delete" data-id={{_id}}><i
-                                                    class="bi bi-trash-fill text-danger me-3"></i></a>
-                                            <a href="" ><i class="bi bi-check2-square"></i></a>
-                                        </td>
-                                    </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
+                <form method="POST" id="editBanner" >
+                    <div class="row m-2">
+                        <input type="hidden" name="id" value="{{banners._id}}">
+                        <div class="form-group my-2 col-lg-6">
+                            <label for="banner name">Banner Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Banner Name" value="{{banners.name}}">
+                        </div>
+                        <div class="my-2 col-lg-6">
+                            <label for="shop">Shop</label>
+                            <select class="form-select" aria-label="choose  a shop" name="shop">
+                                <option value="EC Books" selected>EC Books</option>
+                                <option value="Dc Books">DC books</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-6  my-2">
+                            <label for="Click type">Click Type</label>
+                            <select class="form-select" aria-label="choose click type" name="type" id="editClickType">
+                                <option value="{{this.type }}" selected>Category</option>
+                                <option value="product ">Product</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-6  my-2" id="bannerCategoryId">
+                            <label for="Category ID">Category ID</label>
+                            <input type="text" class="form-control" id="categoryID" value="{{banners.categoryId}}" name="categoryId"
+                                placeholder="Category ID">
+                        </div>
+                        <div class="form-group col-lg-6  my-2" id="bannerProductId">
+                            <label for="Product ID">Product ID</label>
+                            <input type="text" class="form-control" id="productID" value="{{banners.productId}}" name="productId"
+                                placeholder="Product ID">
+                        </div>
+                        <label for="image">Banner Image</label>
+                        <div class="form-group col-lg-6  mb-3">
+                            <input type="file" class="form-control" id="bannerImg" name="bannerImg">
+                        </div>
+                        <div class="d-flex justify-content-center my-3">
+                            <a href="banner" class="btn btn-4 btn-outline-dark me-4">Cancel</a>
+                            <button class="btn btn-4 btn-primary">save</button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Content End -->
     </div>
+
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -150,11 +154,9 @@
     <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
 </body>
 
 </html>
-
-
-

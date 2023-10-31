@@ -136,5 +136,12 @@ exports.editBanner= (req, res)=>{
     .catch(err => {
         res.send(err);
     })
-    // res.render('editCategory');
+}
+
+
+
+// ***********************Login Section********************************
+
+exports.login= (req, res)=>{
+    res.render('home');
 }
