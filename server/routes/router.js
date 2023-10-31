@@ -134,6 +134,12 @@ route.get("/banner", services.banner);
 // */
 route.get("/bannerPage", services.createBanner)
 
+/** 
+ * @description Edit banner 
+ * @method GET/
+*/
+route.get("/banners", services.editBanner)
+
 route.post('/api/banner', bannerController.create);
 route.get('/api/banner', bannerController.find);
 route.put('/api/banner/:id', bannerController.update);

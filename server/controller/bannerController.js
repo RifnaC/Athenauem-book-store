@@ -92,68 +92,49 @@ exports.find = (req, res) => {
   }
 }
 
-// Update a new identified banner by  banner id
-exports.update = async (req, res) => {
-  if (!req.body) {
-      return res.status(400).send({ message: "Data to update can not be empty" })
-    }
-    const id = req.params.id;
-    bannerCollection.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-    .then(data => {
-      if (!data) {
-        return res.status(404).send({ message: `Banner with ${id} is not found` })
-      } else {        
-        res.send(data);
-      }
+exports.update = async(req, res) => {
+    upload.single('bannerImg', {name:"bannerImg"})(req, res, async (err) => {
+        if (err) {
+            res.status(500).send({ message: err.message });
+            return;
+        }
+        try {
+            const bannerId = req.params.id;
+            const banner = await bannerCollection.findById(bannerId);
+            // console.log(shop)
+            if (!banner) {
+                return res.status(404).json({ message: 'Shop not found' });
+            }   
+            // console.log(req.file)
+            // Check if a new file is being uploaded
+            if (req.file) {
+                // Delete the old banner image from Cloudinary
+                await cloudinary.uploader.destroy(banner.cloudinaryId);
+
+                // Upload the new banner image to Cloudinary
+                const result = await cloudinary.uploader.upload(req.file.path);
+
+                // Update the banner image URL and Cloudinary ID
+                banner.bannerImg = result.secure_url;
+                banner.cloudinaryId = result.public_id;
+            }
+            // Update other banner details based on your form data
+            banner.name = req.body.name || banner.name;
+            banner.shop = req.body.shop || banner.shop
+            banner.type = req.body.type || banner.type;        
+            banner.categoryId = req.body.categoryId || banner.categoryId;
+            banner.productId = req.body.productId || banner.productId;
+
+            // Save the banner changes to the database  
+            const savedBan = await banner.save();
+            // Return the updated banner data
+            return res.status(200).json(banner);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'An error occurred while updating the banner' });
+        }
     })
-    .catch(err => {
-      res.status(500).send({ message: "Error Update banner information" })
-    })
-}
-
-// exports.update = async(req, res) => {
-//   upload.single('shopImg', {name:"shopImg"})(req, res, async (err) => {
-//     if (err) {
-//       res.status(500).send({ message: err.message });
-//       return;
-//     }
-//   try {
-//     const shopId = req.params.id;
-//     const shop = await Shopdb.findById(shopId);
-//     console.log(shop)
-//     if (!shop) {
-//       return res.status(404).json({ message: 'Shop not found' });
-//     }
-//     console.log(req.file)
-//     // Check if a new file is being uploaded
-//     if (req.file) {
-//       // Delete the old shop image from Cloudinary
-//       await cloudinary.uploader.destroy(shop.cloudinaryId);
-
-//       // Upload the new shop image to Cloudinary
-//       const result = await cloudinary.uploader.upload(req.file.path);
-
-//       // Update the shop image URL and Cloudinary ID
-//       shop.shopImg = result.secure_url;
-//       shop.cloudinaryId = result.public_id;
-//     }
-
-//     // Update other shop details based on your form data
-//     shop.name = req.body.name || shop.name;
-//     shop.openingTime = req.body.openingTime || shop.openingTime;
-//     shop.closingTime = req.body.closingTime || shop.closingTime;
-//     shop.address = req.body.address || shop.address;
-
-//     // Save the shop changes to the database
-//     await shop.save();
-//     // Return the updated shop data
-//     return res.status(200).json(shop);
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({ message: 'An error occurred while updating the shop' });
-//   }
-// })
-// };
+};
 
 exports.delete = (req, res) => {
     const id = req.params.id;

@@ -93,7 +93,7 @@ body::-webkit-scrollbar-thumb
     cursor: pointer;
     font-size: 32px;
 }
-#bannerProduct, #productIdField{
+#bannerProduct, #bannerProductId{
     display: none;
 }
 /*** Layout ***/

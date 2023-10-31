@@ -727,7 +727,6 @@
   }
 
   // Banner Section
-
   // Banner field on option value change
   $('#clickType').on('change',function(){
   if( $(this).val()==="product"){
@@ -820,19 +819,18 @@
     }        
   })
 
-  $('#editType').on('change',function(){
-    if( $(this).val()==="product"){
-      
-      $("#productIdField").show()
-      $("#categoryIdField").hide()
+  $('#editClickType').on('change',function(){
+    if( $(this).val()==='category'){
+      $("#bannerProductId").hide()
+      $("#bannerCategoryId").show()
     }else{
-      $("#productIdField").hide()
-      $("#categoryIdField").show()
+      $("#bannerProductId").show()
+      $("#bannerCategoryId").hide()
     }
-  })
+    })
 
    // Update banner
-   $("#editBanner").submit(function(event) {
+  $("#editBanner").submit(function(event) {
     event.preventDefault();
     let unindexed_array = $(this).serializeArray();
     let data = {};
@@ -871,7 +869,7 @@
       return;
     }
     if (data.type === 'category') {
-      if(!categoryId ||categoryId.length < 4){
+      if(!data.categoryId || data.categoryId.length < 4){
         Swal.fire({
           title: 'please enter the category ID with at least 4 characters!',
           confirmButtonColor: '#15877C',
@@ -879,8 +877,8 @@
         return false;
       }
     }
-    if(type === 'product'){
-      if(!productId ||productId.length < 4){
+    if(data.type === 'product'){
+      if(!data.productId || data.productId.length < 4){
         Swal.fire({
           title: 'Please enter the product ID with at least 4 characters!',
           confirmButtonColor: '#15877C',
@@ -893,6 +891,7 @@
       "method": "PUT",
       "data": data
     };
+
     // Send the PUT request        
     $.ajax(request).done(function(response) {
       Swal.fire({
@@ -919,6 +918,8 @@
       })
     });
   });
+
+
   // Delete the Banner
   if(window.location.pathname==="/banner"){      
     $(document).on("click", ".table tbody td a.delete", function (event) {

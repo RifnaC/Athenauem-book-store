@@ -128,10 +128,10 @@ exports.createBanner = (req, res)=>{
     res.render('bannerPage');
 };
 
-exports.editBanner=(req, res)=>{
+exports.editBanner= (req, res)=>{
     axios.get('http://localhost:3000/api/banner',{params: {id:req.query.id}})
-    .then(function(banner){
-        res.render('banner',{banners:banner.data});
+    .then(function(ban){
+        res.render('banners',{banners:ban.data});
     })
     .catch(err => {
         res.send(err);
