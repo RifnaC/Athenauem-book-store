@@ -139,8 +139,14 @@ exports.editBanner= (req, res)=>{
 
 
 
-// ***********************Login Section********************************
-
+// ***********************Login Section*******************************
 exports.login= (req, res)=>{
+    res.render('login');
+}
+exports.signup= (req, res)=>{
+    res.render('signUp');
+}
+
+exports.home= (req, res)=>{
     res.render('home');
 }

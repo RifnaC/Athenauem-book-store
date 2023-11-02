@@ -143,7 +143,7 @@ route.get("/banners", services.editBanner)
 route.post('/api/banner', bannerController.create);
 route.get('/api/banner', bannerController.find);
 route.put('/api/banner/:id', bannerController.update);
-route.post('/api/banner/:id', bannerController.banner);
+// route.post('/api/banner/:id', bannerController.banner);
 route.delete('/api/banner/:id', bannerController.delete);
 
 
@@ -152,7 +152,9 @@ route.delete('/api/banner/:id', bannerController.delete);
 //  * @description Login Route
 //  * @method GET/
 // */
-route.get("/home", services.login);
+route.get("/home", services.home);
+route.get('/login',services.login);
+route.get('/signup',services.signup);
 
 
 module.exports = route
