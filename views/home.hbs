@@ -33,6 +33,63 @@
 </head>
 
 <body>
+    <!-- Header Start -->
+    <Header class="container-fluid m-0 p-0">
+        <nav class="navbar navbar-expand-lg navbar bg-secondary">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#homeNavbar"
+                    aria-controls="homeNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse mx-5 d-flex justify-content-between" id="homeNavbar">
+                    <a class="navbar-brand " href="home">
+                        <div class="d-flex justify-content-between">
+                            <img src="/img/book collection 0.png" alt="logo"
+                                style="width: 40px; height: 40px; border-radius: 50%;">
+                            <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+                        </div>
+                    </a>
+                    <div>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 home-nav">
+                            <li class="nav-item ">
+                                <a class="nav-link active" aria-current="page" href="home">Home</a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="shop-page">Shop</a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="blog">Blog</a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="author">Author</a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="contact">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="cart">
+                                    <i class="bi bi-cart3"></i>
+                                </a>
+
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="wishlist"><i class="bi bi-person"></i></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </Header>
+    <!-- Header End -->
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner"
@@ -43,90 +100,17 @@
         </div>
         <!-- Spinner End -->
 
-        <!-- Header Start -->
-        <Header class="container-fluid m-0 p-0">
-            <nav class="navbar navbar-expand-lg navbar bg-secondary">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse mx-5" id="homeNavbar">
-                        <a class="navbar-brand " href="home">
-                            <div class="d-flex justify-content-between">
-                                <img src="/img/book collection 0.png" alt="logo"
-                                    style="width: 40px; height: 40px; border-radius: 50%;">
-                                <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
-                            </div>
-                        </a>
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item ">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li class="nav-item homeNav">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item homeNav">
-                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                            </li>
-                        </ul>f
-                    </div>
-                </div>
-            </nav>
-        </Header>
-
-
-        <!-- Navbar End -->
-        <!-- <div class="container-fluid pt-4 px-4">
-            <h2 class="text-primary text-center">Edit Banner</h2>
-            <div class="bg-secondary border rounded">
-                <form method="POST" id="editBanner" >
-                    <div class="row m-2">
-                        <input type="hidden" name="id" value="{{banners._id}}">
-                        <div class="form-group my-2 col-lg-6">
-                            <label for="banner name">Banner Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Banner Name" value="{{banners.name}}">
-                        </div>
-                        <div class="my-2 col-lg-6">
-                            <label for="shop">Shop</label>
-                            <select class="form-select" aria-label="choose  a shop" name="shop">
-                                <option value="EC Books" selected>EC Books</option>
-                                <option value="Dc Books">DC books</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-lg-6  my-2">
-                            <label for="Click type">Click Type</label>
-                            <select class="form-select" aria-label="choose click type" name="type" id="editClickType">
-                                <option value="{{this.type }}" selected>Category</option>
-                                <option value="product ">Product</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-lg-6  my-2" id="bannerCategoryId">
-                            <label for="Category ID">Category ID</label>
-                            <input type="text" class="form-control" id="categoryID" value="{{banners.categoryId}}" name="categoryId"
-                                placeholder="Category ID">
-                        </div>
-                        <div class="form-group col-lg-6  my-2" id="bannerProductId">
-                            <label for="Product ID">Product ID</label>
-                            <input type="text" class="form-control" id="productID" value="{{banners.productId}}" name="productId"
-                                placeholder="Product ID">
-                        </div>
-                        <label for="image">Banner Image</label>
-                        <div class="form-group col-lg-6  mb-3">
-                            <input type="file" class="form-control" id="bannerImg" name="bannerImg">
-                        </div>
-                        <div class="d-flex justify-content-center my-3">
-                            <a href="banner" class="btn btn-4 btn-outline-dark me-4">Cancel</a>
-                            <button class="btn btn-4 btn-primary">save</button>
-                        </div>
-                    </div>
-                </form>
+        <section class="bgImg">
+            <img src="/img/banner.png" alt="banner">
+            <div class="button-box  my-5 py-5">
+                <button class="twenty-one py-1  my-5"><span class="my-5">Shop Now</span></button>
             </div>
-        </div>
-    </div> -->
-        <!-- Content End -->
+        </section>
+
+
     </div>
+
+
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

@@ -18,6 +18,10 @@ const bannerSchema = new mongoose.Schema({
     productId:String,
     bannerImg:String,
     cloudinaryId:String,
+    isEnabled:{
+        type:Boolean,
+        default:false,
+    }
 })
 
 

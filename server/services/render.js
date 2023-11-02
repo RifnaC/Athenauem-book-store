@@ -109,7 +109,6 @@ exports.edit_category=(req, res)=>{
     .catch(err => {
         res.send(err);
     })
-    // res.render('editCategory');
 }
 
 // ***********************banner Management********************************

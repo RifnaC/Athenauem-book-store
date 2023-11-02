@@ -143,6 +143,7 @@ route.get("/banners", services.editBanner)
 route.post('/api/banner', bannerController.create);
 route.get('/api/banner', bannerController.find);
 route.put('/api/banner/:id', bannerController.update);
+route.post('/api/banner/:id', bannerController.banner);
 route.delete('/api/banner/:id', bannerController.delete);
 
 
