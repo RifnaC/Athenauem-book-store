@@ -80,7 +80,15 @@
                                 <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="wishlist"><i class="bi bi-person"></i></a>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link" data-bs-toggle="dropdown">
+                                        <i class="bi bi-person"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                                        <a href="profile" class="dropdown-item">My Profile</a>
+                                        <a href="login" class="dropdown-item">Log Out</a>
+                                    </div>
+                                </div>
                             </li>
 
                         </ul>
@@ -123,15 +131,13 @@
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                {{!-- <div class="button-box  my-5 py-5"> --}}
-                
-            {{!-- </div> --}}
                 <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
                     data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
-                <button class="carousel-control twenty-one py-1 mx-5 my-5"><span class="mx-2 my-5">Shop Now</span></button>
+                <button class="carousel-control twenty-one py-1 mx-5 my-5"><span class="mx-2 my-5">Shop
+                        Now</span></button>
             </div>
         </section>
 

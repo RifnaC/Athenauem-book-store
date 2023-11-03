@@ -827,7 +827,7 @@
       $("#bannerProductId").show()
       $("#bannerCategoryId").hide()
     }
-    })
+  })
 
    // Update banner
   $("#editBanner").submit(function(event) {
@@ -954,6 +954,128 @@
     })
   }
 
+  // Validation for signUp
+  function signupValidation(){
+    let name = document.forms["signup"]["name"].value;
+    let email = document.forms["signup"]["email"].value;
+    let pswd = document.forms["signup"]['password'].value;
+    let confirmPswd = document.forms["signup"]["confirmPswd"].value;
+    
+    // Check if  sign up form are not empty
+    if (!name) {
+      Swal.fire({
+        title:'Please enter your name!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (name.length < 4) {
+      Swal.fire({
+        title:'The name should at least contain 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!email){
+      Swal.fire({
+        title:'Please enter your email!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!email.includes('.')){
+      Swal.fire({
+        title:'Please Enter a valid email address!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!pswd) {
+      Swal.fire({
+        title:'Please enter password!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (pswd.length < 6 ) {
+      Swal.fire({
+        title: 'Password should have at least six characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!confirmPswd) {
+      Swal.fire({
+        title: 'Please enter confirm password!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (confirmPswd !== pswd) {
+      Swal.fire({
+        title: 'Password and confirm password should be same!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    return true;
+  }
+  // signup
+  $("#signup").submit(function(event) {
+    if (!signupValidation()) {
+      event.preventDefault();
+    }else{
+      location.window.href = '/signup';
+    }        
+  })
+
+   // Validation for login
+   function loginValidation(){
+    let email = document.forms["login"]["email"].value;
+    let pswd = document.forms["login"]['password'].value;
+
+    // Check if book details are not empty
+    if (!email) {
+      Swal.fire({
+        title:'Please enter your email!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!email.includes('.')){
+      Swal.fire({
+        title:'Please Enter a valid email address!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!pswd) {
+      Swal.fire({
+        title:'Please enter password!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (pswd.length < 6 ) {
+      Swal.fire({
+        title: 'Banner Name should have at least six characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    return true;
+  }
+  // login
+  $("#login").submit(function(event) {
+    if (!loginValidation()) {
+      event.preventDefault();
+    }else{
+      location.window.href = '/login';
+    }        
+  })
+  
+
+  
  // Chart Global Color
  Chart.defaults.color = "#6C7293";
   Chart.defaults.borderColor = "#ffffffff";    

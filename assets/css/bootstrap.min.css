@@ -3731,7 +3731,7 @@ input[type=number]::-webkit-outer-spin-button {
     padding: .25rem 1rem;
     clear: both;
     font-weight: 400;
-    color: #212529;
+    color: #130B0B;
     text-align: inherit;
     white-space: nowrap;
     background-color: transparent;
@@ -3739,8 +3739,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .dropdown-item:hover,.dropdown-item:focus {
-    color: #1e2125;
-    background-color: #e9ecef
+    color: #130B0B;
+    background-color: #CCEBD7
 }
 
 .dropdown-item.active,.dropdown-item:active {
@@ -3763,7 +3763,7 @@ input[type=number]::-webkit-outer-spin-button {
     display: block;
     padding: .5rem 1rem;
     margin-bottom: 0;
-    font-size: .875rem;
+    font-size: .85rem;
     color: #6c757d;
     white-space: nowrap
 }

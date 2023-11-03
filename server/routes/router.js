@@ -153,8 +153,6 @@ route.delete('/api/banner/:id', bannerController.delete);
 //  * @method GET/
 // */
 route.get("/home", services.home);
-route.get('/login',services.login);
-route.get('/signup',services.signup);
 
 
 module.exports = route

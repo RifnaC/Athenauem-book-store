@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <head>
     <meta charset="utf-8">
     <title>Atheneuam - Book Colleciton</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -34,41 +32,41 @@
 </head>
 
 <body>
-    <main class="container d-flex justify-content-center my-4">
-       <div class="my-5">
-          <form action="/signUp" method="POST" class="login" name="loginForm">
-        <h2>Welcome</h2>
-        <p>Please fill the form</p>
-        <input type="text" name="name" id="name" placeholder="Name" required>
-        <input type="email" name="email" id="Email" placeholder="Email" required />
-        <input type="tel" name="phoneNum" id="phoneNum" placeholder="Phone Number">
-        <input type="password" name="password" id="Password" placeholder="Password" required />
-        <input type="password" name="confirmPswd" id="confirmPswd" placeholder="Confirm Password" required />
-        <input type="submit" value="signUp" />
-        <div class="links">
-            <p>Already have an account?</p>
-            <a href="/login">Login</a>
+    <main class="container">
+        <div>
+            <form action="/api/auth/signup" method="POST" class="login" id="signup" name="signupForm"
+                onsubmit="return signupValidation()">
+                <h2>Atheneuam</h2>
+                <p>Please fill the form</p>
+                <input type="text" name="name" id="name" placeholder="Name">
+                <input type="email" name="email" id="Email" placeholder="Email" />
+                <input type="password" name="password" id="Password" placeholder="Password" />
+                <input type="password" name="confirmPswd" id="confirmPswd" placeholder="Confirm Password" />
+                <div class="d-flex justify-content-center">
+                    <input type="submit" value="sign Up" />
+                </div>
+
+                <div class="links">
+                    <a href="/login">Already have an account?</a>
+                    <a class="linkText" href="/login">Login</a>
+                </div>
+            </form>
         </div>
-    </form>
-       </div>
     </main>
-
-
-
 </body>
 <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/lib/chart/chart.min.js"></script>
-    <script src="/lib/easing/easing.min.js"></script>
-    <script src="/lib/waypoints/waypoints.min.js"></script>
-    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="/lib/tempusdominus/js/moment.min.js"></script>
-    <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/chart/chart.min.js"></script>
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/waypoints/waypoints.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="/lib/tempusdominus/js/moment.min.js"></script>
+<script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Template Javascript -->
-    <script src="/js/main.js"></script>
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
 
 </html>

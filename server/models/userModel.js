@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-// admin collection 
-const schema = new mongoose.Schema({
+// user collection 
+const userSchema = new mongoose.Schema({
     name:{
         type:String,
         required: true,
@@ -18,6 +18,6 @@ const schema = new mongoose.Schema({
     }
 })
 
-const Admindb = mongoose.model('Admin', schema);
-module.exports = Admindb;
+const user = mongoose.model('users', userSchema);
+module.exports = user;
 

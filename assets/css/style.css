@@ -116,13 +116,12 @@ body::-webkit-scrollbar-thumb
     transition: 0.5s;
 }
 .login {
-    top: 260px;
     margin: 20px auto;
     padding: 40px 50px;
     width: 360px;
     border-radius: 5px;
     background: #EEF2F2;
-    box-shadow: 1px 1px 1px #666;
+    box-shadow: 1px 1px 1px #CCEBD7;
 }
 
 .login input {
@@ -155,7 +154,7 @@ body::-webkit-scrollbar-thumb
     color: white;
     font-weight: bold;
     transition: 0.2s;
-    margin: 20px 80px;
+    margin: 20px 10px;
     border-radius: 25px;
 }
 
@@ -183,8 +182,7 @@ body::-webkit-scrollbar-thumb
     margin-top: 16px;
 
 }
-
-.links a {
+.linkText {
     display: table-cell;
     padding-top: 10px;
     color: #00B7FF !important;
@@ -203,7 +201,7 @@ body::-webkit-scrollbar-thumb
     color: inherit;
 }
 
-.login a:hover {
+.login .linkText:hover {
     text-decoration: underline;
 }
 .homeNav a , .nav-icon a{
@@ -214,8 +212,11 @@ body::-webkit-scrollbar-thumb
     font-weight: 500;
 }
 .nav-icon a {
-    font-size: 24px !important;
+    font-size: 24px ;
     font-weight: 800 !important;
+}
+.dropdown-menu a{
+    font-size: 16px;
 }
 .bgImg{
     height: 10vh;
