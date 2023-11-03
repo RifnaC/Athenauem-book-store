@@ -1,12 +1,13 @@
 const { log } = require('handlebars');
 const userCollection = require('../models/userModel');
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const user = require('../models/userModel');
 const { token } = require('morgan');
 const saltRounds = 10;
+// const {  } = require('express-validator');
 
-const JWT_SECRET = process.env.jwt;
+
 // ***********************user Management********************************
 // Register and save new user
 exports.register = async(req, res) => {
@@ -41,49 +42,74 @@ exports.register = async(req, res) => {
     }
 };
 
-const verifyUser = async(email, password) => {
-    try {
-        const user = await userCollection.findOne({email}).lean()
-        if(!user){
-            return {status:'error',error:'user not found'}
-        }
-        if(await bcrypt.compare(password, user.password)){
-            token = jwt.sign({id:user._id,
-            username:user.email, type:'user'},
-            JWT_SECRET,{expiresIn: '2h'})
-            return {status:'ok',data:token}
-        }
-        return {status:'error',error:'invalid password'}
-    } catch (error) {
-        console.log(error);
-        return {status:'error',error:'timed out'}
+exports.login = async(req, res) => {
+    const user = await userCollection.findOne({
+        email: req.body.email
+    });
+    if(!user) {
+        res.status(404).send({message: "This email is not found."});
     }
-}
 
-exports.login = async (req, res) => {
-    const {email, password} = req.body;
-    const response = await verifyUser(email, password);
-    if (response.status === 200){
-        res.cookie('token', token, {maxAge: 2 * 60 * 60 * 1000, httpOnly: true});
-        res.redirect('/home');
-    }else{
-        res.json(response);
+    const ispswdValid = await bcrypt.compare(req.body.password, user.password);
+    if(!ispswdValid){
+        res.status(401).send({message: "Invalid password."});
     }
+    const token = jwt.sign({
+        id:user._id,
+        email: user.email,
+    },
+    "createdbyrifna",{
+        expiresIn: "2h",
+    });
+    res.status(200).render('home');
 }
+// const verifyUser = async(email, password) => {
+//     try {
+//         const user = await userCollection.findOne({email}).lean()
+//         if(!user){
+//             return {status:'error',error:'user not found'} 
+//             // return "<script>alert('Email already exists'); window.location.href ='/signup';</script>"
+//         }
+//         if(await bcrypt.compare(password, user.password)){
+//             token = jwt.sign({
+//                 id:user._id,
+//                 username:user.email, 
+//                 // type:'user'
+//             },
+//             JWT_SECRET,{expiresIn: '2h'})
+//             return {status:'ok',data:token}
+//         }
+//         return {status:'error',error:'invalid password'}
+//     } catch (error) {
+//         console.log(error);
+//         return {status:'error',error:'timed out'}
+//     }
+// }
 
-const verifyToken = (token) => {
-    try {
-        const verify = jwt.verify(token, JWT_SECRET);
-        if (verify.type === 'user') {
-            return true;
-        }else{
-            return false;
-        }
-    }catch (e) {
-        console.log(JSON.stringify(error),"error");
-        return false;
-    }
-}
+// exports.login = async (req, res) => {
+//     const {email, password} = req.body;
+//     const response = await verifyUser(email, password);
+//     if (response.status === 200){
+//         res.cookie('token', token, {maxAge: 2 * 60 * 60 * 1000, httpOnly: true});
+//         res.redirect('/home');
+//     }else{
+//         res.json(response);
+//     }
+// }
+
+// const verifyToken = (token) => {
+    // try {
+    //     const verify = jwt.verify(token, JWT_SECRET);
+    //     if (verify.type === 'user') {
+    //         return true;
+    //     }else{
+    //         return false;
+    //     }
+    // }catch (e) {
+    //     console.log(JSON.stringify(error),"error");
+    //     return false;
+    // }
+// }
 
 exports.home = async (req, res) => {
     const {token}= req.cookies;
