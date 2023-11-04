@@ -61,7 +61,7 @@ exports.login = async(req, res) => {
     "createdbyrifna",{
         expiresIn: "2h",
     });
-    res.status(200).render('home');
+    res.status(200).redirect('/home')
 }
 // const verifyUser = async(email, password) => {
 //     try {
@@ -112,11 +112,12 @@ exports.login = async(req, res) => {
 // }
 
 exports.home = async (req, res) => {
-    const {token}= req.cookies;
-    if(verifyToken(token)){
-        return res.render('home');
-    }else{
-        res.redirect('/login')
+    const token = req.headers['authorization'];
+    if (!token){
+        res.status(401).json({message:Unauthorized});
     }
+    const decodeToken = jwt.verify(token, "createdbyrifna");
+    const user = await userCollection.findById(decodeToken.id);
+    res.render('home');
 }
 
