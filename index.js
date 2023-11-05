@@ -11,7 +11,7 @@ const connectDB = require('./server/database/connection');
 
 const app = express();
 
-const JWT_SECRET = process.env.jwt;
+
 const port = process.env.PORT || 5000
 
 

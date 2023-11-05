@@ -1,5 +1,6 @@
 const { log } = require('handlebars');
 const userCollection = require('../models/userModel');
+const adminCollection = require('../models/model');
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -7,7 +8,7 @@ const { token } = require('morgan');
 const saltRounds = 10;
 // const {  } = require('express-validator');
 
-
+const JWT_SECRET = process.env.jwt;
 // ***********************user Management********************************
 // Register and save new user
 exports.register = async(req, res) => {
@@ -18,11 +19,12 @@ exports.register = async(req, res) => {
     try{
         // Check if the email already exists in the database
         const existingUser = await userCollection.findOne({ email: req.body.email });
-        if (existingUser){ 
+        const existingEmail = await adminCollection.findOne({ email: req.body.email });
+        if (existingUser || existingEmail) { 
             // Display an alert when email is already taken.
-            res.status(200).send(
-                "<script>alert('Email already exists'); window.location.href ='/signup';</script>"
-            );
+            res.status(200).render('signup',{isRepeatedEmail: true});
+                // "<script>alert('Email already exists'); window.location.href ='/signup';</script>"
+        
             return;
         }
         // Hash the password
@@ -47,21 +49,41 @@ exports.login = async(req, res) => {
         email: req.body.email
     });
     if(!user) {
-        res.status(404).send({message: "This email is not found."});
+        const admin = await adminCollection.findOne({
+            email: req.body.email
+        })
+        if(!admin){
+            res.status(404).send({message: "This email is not found."});
+        }
+        
+        const ispswdValid = await bcrypt.compare(req.body.password, admin.password);
+        if(!ispswdValid){
+            res.status(401).send({message: "Invalid password."});
+        }
+        const token = jwt.sign({
+            id:admin._id,
+            email: admin.email,
+        },
+        JWT_SECRET,{
+            expiresIn: "2h",
+        });
+        res.status(200).redirect('/dashboard')
+        // res.status(404).send({message: "This email is not found."});
     }
-
-    const ispswdValid = await bcrypt.compare(req.body.password, user.password);
-    if(!ispswdValid){
-        res.status(401).send({message: "Invalid password."});
+    else{
+        const ispswdValid = await bcrypt.compare(req.body.password, user.password);
+        if(!ispswdValid){
+            res.status(401).send({message: "Invalid password."});
+        }
+        const token = jwt.sign({
+            id:user._id,
+            email: user.email,
+        },
+        JWT_SECRET,{
+            expiresIn: "2h",
+        });
+        res.status(200).redirect('/home')
     }
-    const token = jwt.sign({
-        id:user._id,
-        email: user.email,
-    },
-    "createdbyrifna",{
-        expiresIn: "2h",
-    });
-    res.status(200).redirect('/home')
 }
 // const verifyUser = async(email, password) => {
 //     try {
@@ -118,6 +140,17 @@ exports.home = async (req, res) => {
     }
     const decodeToken = jwt.verify(token, "createdbyrifna");
     const user = await userCollection.findById(decodeToken.id);
+    
     res.render('home');
 }
 
+exports.dashboard = async (req, res) => {
+    const token = req.headers['authorization'];
+    if (!token){
+        res.status(401).json({message:Unauthorized});
+    }
+    const decodeToken = jwt.verify(token, "createdbyrifna");
+    const admin = await adminCollection.findById(decodeToken.id);
+    
+    res.render('dashboard');
+}
