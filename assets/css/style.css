@@ -275,6 +275,16 @@ body::-webkit-scrollbar-thumb
     justify-content: center;
     align-items: center;
 }
+
+
+.dropdown-toggle::after {
+    display: none;
+  }
+.text-decoration-none{
+  text-decoration: none!important;
+}
+/* Font Awesome Icons have variable width. Added fixed width to fix that.*/
+.icon-width { width: 2rem;}
 @media (min-width: 992px) {
     .sidebar {
         margin-left: 0;

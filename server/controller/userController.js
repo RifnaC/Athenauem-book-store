@@ -19,12 +19,12 @@ exports.register = async(req, res) => {
     try{
         // Check if the email already exists in the database
         const existingUser = await userCollection.findOne({ email: req.body.email });
-        const existingEmail = await adminCollection.findOne({ email: req.body.email });
-        if (existingUser || existingEmail) { 
+        const existingEmail = await adminCollection.findOne({ email: existingUser.email });
+        if (existingUser || existingEmail){ 
             // Display an alert when email is already taken.
-            res.status(200).render('signup',{isRepeatedEmail: true});
-                // "<script>alert('Email already exists'); window.location.href ='/signup';</script>"
-        
+            res.status(200).send(
+                "<script>alert('Email already exists'); window.location.href ='/signup';</script>"
+            );
             return;
         }
         // Hash the password
@@ -64,7 +64,7 @@ exports.login = async(req, res) => {
             id:admin._id,
             email: admin.email,
         },
-        JWT_SECRET,{
+        "createdbyrifna",{
             expiresIn: "2h",
         });
         res.status(200).redirect('/dashboard')
@@ -79,7 +79,7 @@ exports.login = async(req, res) => {
             id:user._id,
             email: user.email,
         },
-        JWT_SECRET,{
+        "createdbyrifna",{
             expiresIn: "2h",
         });
         res.status(200).redirect('/home')

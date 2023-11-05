@@ -35,199 +35,161 @@
 <body>
     <!-- <div class="container-fluid position-relative d-flex p-0">
         Spinner Start -->
-        <div id="spinner"
-            class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
+    <div id="spinner"
+        class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
-        <!-- Spinner End -->
-        <!-- Sidebar Start -->
-        <!-- <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-secondary navbar-dark">
-                <a href="dashboard" class="navbar-brand mx-4 mb-3">
-                    <div class="d-flex justify-content-between">
-                        <img src="/img/book collection 0.png" alt="logo"
-                            style="width: 40px; height: 40px; border-radius: 50%;">
-                        <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
-                    </div>
-                </a>
-                <div class="navbar-nav w-100 d-flex ">
-                    <div>
-                        <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
-                        <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
-                        <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-                        <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
-                        <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-                        <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
-                        <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
-                        <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
-                    </div>
-                    <div>
-                        <a href="#" class="nav-link" data-bs-toggle="dropdown">
-                            <i class="bi bi-box-arrow-right"></i>Logout</a>
-                    </div>
-                </div>
-            </nav>
-        </div> -->
-        <!-- </nav> -->
-    <!-- </div>
-    < Sidebar End -->
-    <!-- Content Start -->
-    <!-- <div class="content">
-        < Navbar Start -->
-        <!-- <nav class="navbar navbar-expand bg-secondary navbar-dark  px-4 py-0">
-            <div class="navbar-nav align-items-center ms-auto">
-                <h6>
-                    <a href="#" class="sidebar-toggler flex-shrink-0">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                </h6>
+    </div>
+    <!-- Spinner End -->
 
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link ">
-                        <h3><i class=" bi-person text-dark"></i>
-                        </h3>
-                    </a>
-                </div>
-            </div>
-        </nav> - -->
-        <!-- Navbar End -->
-        <!-- <div class="container-fluid pt-4 px-4">
-            <h2 class="text-primary text-center">Edit Banner</h2>
-            <div class="bg-secondary border rounded">
-                <form method="POST" id="editBanner" >
-                    <div class="row m-2">
-                        <input type="hidden" name="id" value="{{banners._id}}">
-                        <div class="form-group my-2 col-lg-6">
-                            <label for="banner name">Banner Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Banner Name" value="{{banners.name}}">
-                        </div>
-                        <div class="my-2 col-lg-6">
-                            <label for="shop">Shop</label>
-                            <select class="form-select" aria-label="choose  a shop" name="shop">
-                                <option value="EC Books" selected>EC Books</option>
-                                <option value="Dc Books">DC books</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-lg-6  my-2">
-                            <label for="Click type">Click Type</label>
-                            <select class="form-select" aria-label="choose click type" name="type" id="editClickType">
-                                <option value="{{this.type }}" selected>Category</option>
-                                <option value="product ">Product</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-lg-6  my-2" id="bannerCategoryId">
-                            <label for="Category ID">Category ID</label>
-                            <input type="text" class="form-control" id="categoryID" value="{{banners.categoryId}}" name="categoryId"
-                                placeholder="Category ID">
-                        </div>
-                        <div class="form-group col-lg-6  my-2" id="bannerProductId">
-                            <label for="Product ID">Product ID</label>
-                            <input type="text" class="form-control" id="productID" value="{{banners.productId}}" name="productId"
-                                placeholder="Product ID">
-                        </div>
-                        <label for="image">Banner Image</label>
-                        <div class="form-group col-lg-6  mb-3">
-                            <input type="file" class="form-control" id="bannerImg" name="bannerImg">
-                        </div>
-                        <div class="d-flex justify-content-center my-3">
-                            <a href="banner" class="btn btn-4 btn-outline-dark me-4">Cancel</a>
-                            <button class="btn btn-4 btn-primary">save</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> -->
-    <!-- Content End -->
-    <!-- </div> -->
-
-    <nav class="navbar navbar-expand-lg bg-secondary">
-        <div class="container-fluid mx-auto ">
-            <a class="navbar-brand " href="home">
+    <!-- <nav class="navbar navbar-expand-lg navbar-secondary">
+        <div class="container-fluid mx-5">
+            <a class="navbar-brand fw-bold" href="home">
                 <div class="d-flex justify-content-between">
                     <img src="/assets/img/book collection 0.png" alt="logo"
                         style="width: 40px; height: 40px; border-radius: 50%;">
                     <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
                 </div>
             </a>
-          <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon py-1"><i class="fa fa-bars"></i></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
-              </li>
-            </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </nav>
-
-            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#homeNavbar"
-                aria-controls="homeNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse mx-5 d-flex justify-content-between" class="topnav" id="myTopnav" id="homeNavbar">
-                
-                <div>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 home-nav">
-                        <li class="nav-item ">
-                            <a class="nav-link active" aria-current="page" href="home">Home</a>
-                        </li>
-                        <li class="nav-item homeNav">
-                            <a class="nav-link" href="shop-page">Shop</a>
-                        </li>
-                        <li class="nav-item homeNav">
-                            <a class="nav-link" href="blog">Blog</a>
-                        </li>
-                        <li class="nav-item homeNav">
-                            <a class="nav-link" href="author">Author</a>
-                        </li>
-                        <li class="nav-item homeNav">
-                            <a class="nav-link" href="contact">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
-                        <li class="nav-item homeNav">
-                            <a class="nav-link" href="cart">
-                                <i class="bi bi-cart3"></i>
-                            </a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Author</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mx-0 mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="cartpage" href="cart"><i class="bi bi-cart3"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="bi bi-person"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a href="profile" class="dropdown-item">My Profile</a></li>
 
-                        </li>
-                        <li class="nav-item homeNav">
-                            <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
-                        </li>
-                        <li class="nav-item homeNav">
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link" data-bs-toggle="dropdown">
-                                    <i class="bi bi-person"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                                    <a href="profile" class="dropdown-item">My Profile</a>
-                                    <a href="/login" class="dropdown-item">Log Out</a>
-                                </div>
-                            </div>
-                        </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a href="/login" class="dropdown-item">Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
 
-                    </ul>
-                </div>
-            </div> -->
+            </div>
+        </div>
+    </nav> -->
 
-        <!-- JavaScript Libraries -->
+
+    
+
+
+
+<!--
+
+BootStrap NavBar Example Three - Social Media Icons
+ //
+1. Replaced the ugly toggle with angle
+2. Used hover only for large screen and above
+3. You can add resize function if you want in javascript
+4. SlideIn / SlideUp can be replaced with FadeIn /FadeUp
+5. Delay on leaving mouse is applied to ensure the hover actions are not jittery.
+//
+-->
+
+
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-light fixed-top">
+    <div class="container"> <a class="navbar-brand d-flex align-items-center" href="#">
+    <svg width="40px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+    <g>
+    <g>
+    <path d="M511.981,118.509c-0.135-2.956-1.892-5.726-4.565-7.04l-159.24-79.62c-3.776-1.887-8.363-0.64-10.664,2.898 L229.916,200.282l-55.413-85.891c-0.796-1.235-1.945-2.264-3.259-2.922l-159.24-79.62C6.582,29.138,0,33.218,0,39.268v79.621 c0,4.581,3.712,8.294,8.294,8.294c4.581,0,8.294-3.712,8.294-.294V52.687l142.652,71.326v335.32L16.587,388.008V154.277	c0-4.581-3.712-8.294-8.294-8.294c-4.581,0-8.294,3.712-8.294,8.294v238.857c0,3.142,1.775,6.013,4.585,7.418l159.24,79.62	c5.427,2.714,12.003-1.375,12.003-7.418V318.087l324.17,162.085c5.427,2.714,12.003-1.375,12.003-7.418V118.888	C512,118.76,511.987,118.636,511.981,118.509z M175.827,299.541v-152.5l145.239,225.12L175.827,299.541z M495.413,459.335
+    l-139.34-69.671l108.576-186.993c2.299-3.961,0.952-9.037-3.009-11.337c-3.96-2.298-9.036-0.953-11.337,3.009L344.094,377.258
+    L239.77,215.555L347.383,49.998l144.717,72.359l-26.387,45.446c-2.299,3.961-0.952,9.037,3.009,11.337	c3.958,2.297,9.035,0.953,11.337-3.009l15.354-26.443V459.335z" fill="#000" />
+    </g>
+    </g>
+    </svg>
+    <span class="ml-3 font-weight-bold  d-flex justify-content-between">BRAND</apan>
+    </a> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar4">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    
+    <div class="collapse navbar-collapse " id="navbar4">
+    <ul class="navbar-nav mr-auto pl-lg-4">
+    <li class="nav-item px-lg-2 active"> <a class="nav-link" href="#"> <span class="d-inline-block d-lg-none icon-width"><i class="fas fa-home"></i></span>Home</a> </li>
+    <li class="nav-item px-lg-2"> <a class="nav-link" href="#"><span class="d-inline-block d-lg-none icon-width"><i class="fas fa-spa"></i></span>Services</a> </li>
+    <li class="nav-item px-lg-2"> <a class="nav-link" href="#"><span class="d-inline-block d-lg-none icon-width"><i class="far fa-user"></i></i></span>About</a> </li>
+    
+    <li class="nav-item px-lg-2 dropdown d-menu">
+    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="d-inline-block d-lg-none icon-width"><i class="far fa-caret-square-down"></i></span>Dropdown
+    <svg  id="arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+    </a>
+    <div class="dropdown-menu shadow-sm sm-menu" aria-labelledby="dropdown01">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+    </div>
+    </li>
+    
+    <li class="nav-item px-lg-2"> <a class="nav-link" href="#"><span class="d-inline-block d-lg-none icon-width"><i class="far fa-envelope"></i></span>Contact</a> </li>
+    </ul>
+    <ul class="navbar-nav ml-auto mt-3 mt-lg-0">
+    <li class="nav-item"> <a class="nav-link" href="#">
+      <i class="fab fa-twitter"></i><span class="d-lg-none ml-3">Twitter</span>
+    </a> </li>
+    <li class="nav-item"> <a class="nav-link" href="#">
+    <i class="fab fa-facebook"></i><span class="d-lg-none ml-3">Facebook</span>
+    </a> </li>
+    <li class="nav-item"> <a class="nav-link" href="#">
+    <i class="fab fa-instagram"></i><span class="d-lg-none ml-3">Instagram</span>
+    </a> </li>
+      <li class="nav-item"> <a class="nav-link" href="#">
+    <i class="fab fa-linkedin"></i><span class="d-lg-none ml-3">Linkedin</span>
+    </a> </li>
+    </ul>
+    </div>
+    </div>
+    </nav>
+    
+    <!--The html below this line is for display purpose only-->
+    
+    <div class="py-5 text-center text-white bg-primary">
+    <div class="container py-5">
+    <div class="row py-5">
+    <div class="mx-auto col-lg-10">
+      <h1 class="display-4 mb-4 ">This is a beautiful Bootstrap 4 Navbar with Social Media Icons </h1>
+      <p class="lead mb-5">There is nothing more rare, nor more beautiful, than a woman being unapologetically herself; comfortable in her perfect imperfection. To me, that is the true essence of beauty.  </p> <a href="#" class="btn btn-lg btn-outline-light mx-1">Take me there</a> 
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/lib/chart/chart.min.js"></script>

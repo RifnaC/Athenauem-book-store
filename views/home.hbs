@@ -34,25 +34,88 @@
 
 <body>
     <!-- Spinner Start -->
-        <div id="spinner"
-            class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
+    <div id="spinner"
+        class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
-        <!-- Spinner End -->
+    </div>
+    <!-- Spinner End -->
+
     <!-- Header Start -->
     <Header class="container-fluid m-0 p-0">
+        <nav class="navbar navbar-expand-lg bg-secondary">
+            <div class="container-fluid mx-5 ">
+                <a class="navbar-brand " href="home">
+                    <div class="d-lg-flex justify-content-lg-between">
+                        <img src="/img/book collection 0.png" alt="logo"
+                            style="width: 40px; height: 40px; border-radius: 50%;">
+                        <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+                    </div>
+                </a>
+                <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon py-1"><i class="fa fa-bars"></i></span>
+                </button>
+                <div class="collapse navbar-collapse d-lg-flex justify-content-lg-evenly" id="navbarTogglerDemo02">
+                    <div>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 home-nav">
+                            <li class="nav-item ">
+                                <a class="nav-link active" aria-current="page" href="home">Home</a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="shop-page">Shop</a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="blog">Blog</a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="author">Author</a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="contact">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="cart">
+                                    <i class="bi bi-cart3"></i>
+                                </a>
 
-  
-</div>
-        <nav class="navbar navbar-expand-lg navbar bg-secondary">
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link" data-bs-toggle="dropdown">
+                                        <i class="bi bi-person"></i>
+                                    </a>
+                                    <div
+                                        class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                                        <a href="profile" class="dropdown-item">My Profile</a>
+                                        <a href="/login" class="dropdown-item">Log Out</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        {{!-- <nav class="navbar navbar-expand-lg navbar bg-secondary">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#homeNavbar"
                     aria-controls="homeNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse mx-5 d-flex justify-content-between" class="topnav" id="myTopnav" id="homeNavbar">
+                <div class="collapse navbar-collapse mx-5 d-flex justify-content-between" class="topnav" id="myTopnav"
+                    id="homeNavbar">
                     <a class="navbar-brand " href="home">
                         <div class="d-flex justify-content-between">
                             <img src="/img/book collection 0.png" alt="logo"
@@ -95,7 +158,8 @@
                                     <a href="#" class="nav-link" data-bs-toggle="dropdown">
                                         <i class="bi bi-person"></i>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                                    <div
+                                        class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                                         <a href="profile" class="dropdown-item">My Profile</a>
                                         <a href="/login" class="dropdown-item">Log Out</a>
                                     </div>
@@ -106,63 +170,10 @@
                     </div>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
     </Header>
     <!-- Header End -->
 
-
-
-
-
-
-
-
-
-
-
-
-    {{!-- <nav class="navbar bg-light fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Offcanvas navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-        </ul>
-        <form class="d-flex mt-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</nav> --}}
-    
     <div class="container-fluid position-relative d-flex p-0">
         <div class="bgImg">
             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
@@ -190,12 +201,12 @@
                 <button class="carousel-control twenty-one py-1 mx-5 my-5"><span class="mx-2 my-5">Shop
                         Now</span></button>
             </div>
-             <div class="container">
+            <div class="container">
                 Featured Categories
             </div>
         </div>
-       
-       
+
+
 
 
     </div>
