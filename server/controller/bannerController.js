@@ -20,7 +20,46 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// create new banner
+// // create new banner
+// exports.create = async (req, res) => {
+//   upload.single('bannerImg')(req, res, async (err) => {
+//     if (err) {
+//       res.status(500).send({ message: err.message });
+//       return;
+//     }
+//     if (!req.body) {
+//       res.status(400).send({ message: 'Content can not be empty' });
+//       return;
+//     }
+//     const { name,  shop,  type, categoryId, productId} = req.body;
+//     const bannerImg = req.file.path;
+//     cloudinary.uploader.upload(bannerImg, (cloudinaryErr, result) => {
+//       if (cloudinaryErr) {
+//         res.status(500).send({ message: cloudinaryErr.message });
+//         return;
+//       }
+//       const banner = new bannerCollection({
+//         name,
+//         shop, 
+//         type, 
+//         categoryId, 
+//         productId,
+//         bannerImg: result.secure_url,
+//         cloudinaryId: result.public_id,
+//       });
+//       banner.save()
+//       .then(savedBanner => {
+//         console.log(savedBanner);
+//         res.redirect('/banner');
+//        })
+//       .catch(saveErr => {
+//         res.status(500).send({ message: saveErr.message });
+//       });
+//     });
+//   });
+// };
+
+
 exports.create = async (req, res) => {
   upload.single('bannerImg')(req, res, async (err) => {
     if (err) {
@@ -31,30 +70,60 @@ exports.create = async (req, res) => {
       res.status(400).send({ message: 'Content can not be empty' });
       return;
     }
-    const { name,  shop,  type, categoryId, productId, isEnabled} = req.body;
+    
+    const { name, shop, type, categoryId, productId } = req.body;
     const bannerImg = req.file.path;
-    cloudinary.uploader.upload(bannerImg, (cloudinaryErr, result) => {
+    
+    cloudinary.uploader.upload(bannerImg, async (cloudinaryErr, result) => {
       if (cloudinaryErr) {
         res.status(500).send({ message: cloudinaryErr.message });
         return;
       }
-      const banner = new bannerCollection({
-        name,
-        shop, 
-        type, 
-        categoryId, 
-        productId,
-        bannerImg: result.secure_url,
-        cloudinaryId: result.public_id,
-      });
-      banner.save()
-      .then(savedBanner => {
-        console.log(savedBanner);
-        res.redirect('/banner');
-       })
-      .catch(saveErr => {
-        res.status(500).send({ message: saveErr.message });
-      });
+
+      try {
+        // Count the number of existing records
+        const count = await bannerCollection.countDocuments({});
+
+        if (count >= 3) {
+          // Find and delete the oldest record
+          const oldestBanner = await bannerCollection.findOneAndDelete({}, { sort: { _id: 1 } });
+
+          // Delete the old image from Cloudinary
+          await cloudinary.uploader.destroy(oldestBanner.cloudinaryId);
+
+          // Create and save the new banner
+          const banner = new bannerCollection({
+            name,
+            shop,
+            type,
+            categoryId,
+            productId,
+            bannerImg: result.secure_url,
+            cloudinaryId: result.public_id,
+          });
+
+          const savedBanner = await banner.save();
+          console.log(savedBanner);
+          res.redirect('/banner');
+        } else {
+          // Create and save the new banner if the count is less than 3
+          const banner = new bannerCollection({
+            name,
+            shop,
+            type,
+            categoryId,
+            productId,
+            bannerImg: result.secure_url,
+            cloudinaryId: result.public_id,
+          });
+
+          const savedBanner = await banner.save();
+          console.log(savedBanner);
+          res.redirect('/banner');
+        }
+      } catch (error) {
+        res.status(500).send({ message: error.message });
+      }
     });
   });
 };

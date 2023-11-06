@@ -1,5 +1,5 @@
 const axios = require('axios');
-
+const bannerCollection = require('../models/bannerModel')
 // ***********************Admin Management********************************
 exports.homeRoutes = (req, res)=>{
     res.render('dashboard');
@@ -147,6 +147,19 @@ exports.signup= (req, res)=>{
     res.render('signUp');
 }
 
-exports.home= (req, res)=>{
-    res.render('home');
+exports.home= async(req, res)=>{
+    // Modify the route to fetch the three latest images
+    try {
+      const latestImages = await bannerCollection
+        .find({})
+        .sort({ _id: -1 }) // Sort by _id in descending order to get the latest images
+        .limit(3); // Limit the result to the latest 3 images
+  
+      res.render('home', { images: latestImages });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
+  
+    // res.render('home');
 }

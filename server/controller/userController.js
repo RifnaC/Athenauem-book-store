@@ -2,6 +2,7 @@ const { log } = require('handlebars');
 const userCollection = require('../models/userModel');
 const adminCollection = require('../models/model');
 
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { token } = require('morgan');
@@ -85,53 +86,6 @@ exports.login = async(req, res) => {
         res.status(200).redirect('/home')
     }
 }
-// const verifyUser = async(email, password) => {
-//     try {
-//         const user = await userCollection.findOne({email}).lean()
-//         if(!user){
-//             return {status:'error',error:'user not found'} 
-//             // return "<script>alert('Email already exists'); window.location.href ='/signup';</script>"
-//         }
-//         if(await bcrypt.compare(password, user.password)){
-//             token = jwt.sign({
-//                 id:user._id,
-//                 username:user.email, 
-//                 // type:'user'
-//             },
-//             JWT_SECRET,{expiresIn: '2h'})
-//             return {status:'ok',data:token}
-//         }
-//         return {status:'error',error:'invalid password'}
-//     } catch (error) {
-//         console.log(error);
-//         return {status:'error',error:'timed out'}
-//     }
-// }
-
-// exports.login = async (req, res) => {
-//     const {email, password} = req.body;
-//     const response = await verifyUser(email, password);
-//     if (response.status === 200){
-//         res.cookie('token', token, {maxAge: 2 * 60 * 60 * 1000, httpOnly: true});
-//         res.redirect('/home');
-//     }else{
-//         res.json(response);
-//     }
-// }
-
-// const verifyToken = (token) => {
-    // try {
-    //     const verify = jwt.verify(token, JWT_SECRET);
-    //     if (verify.type === 'user') {
-    //         return true;
-    //     }else{
-    //         return false;
-    //     }
-    // }catch (e) {
-    //     console.log(JSON.stringify(error),"error");
-    //     return false;
-    // }
-// }
 
 exports.home = async (req, res) => {
     const token = req.headers['authorization'];
@@ -140,7 +94,7 @@ exports.home = async (req, res) => {
     }
     const decodeToken = jwt.verify(token, "createdbyrifna");
     const user = await userCollection.findById(decodeToken.id);
-    
+    // Modify the route to fetch the three latest images 
     res.render('home');
 }
 

@@ -745,8 +745,7 @@
     let type = document.forms["createBanner"]["type"].value;
     let categoryId = document.forms["createBanner"]["categoryId"].value;
     let productId = document.forms["createBanner"]["productId"].value;
-    let bannerImg = document.getElementById("bannerImg");    
-    let imgUrl = document.forms["createBanner"]["imgUrl"].value;    
+    let bannerImg = document.getElementById("bannerImg");     
 
     // Check if book details are not empty
     if (!name) {

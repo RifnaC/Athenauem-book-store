@@ -225,11 +225,12 @@ body::-webkit-scrollbar-thumb
 }
 .carousel-item img{
     width : 100vw;
-    height: 88vh;
+    height: 100vh;
 }
-
+section{
+    overflow: hidden;
+}
 .twenty-one {
-    /* margin-top: 800px !important; */
     background: #f5f5f5;
     color: #130B0B;
     border: 2px solid #b8e0dc;
