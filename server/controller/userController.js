@@ -1,7 +1,7 @@
 const { log } = require('handlebars');
 const userCollection = require('../models/userModel');
 const adminCollection = require('../models/model');
-
+const bannerCollection = require('../models/bannerModel')
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -94,7 +94,6 @@ exports.home = async (req, res) => {
     }
     const decodeToken = jwt.verify(token, "createdbyrifna");
     const user = await userCollection.findById(decodeToken.id);
-    // Modify the route to fetch the three latest images 
     res.render('home');
 }
 

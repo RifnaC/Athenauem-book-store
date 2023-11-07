@@ -96,7 +96,7 @@
         <div class="container-fluid pt-4 px-4"> 
             <h2 class="text-primary text-center">Add Products</h2>
             <div class="bg-secondary border rounded">
-                <form action="/api/products" method="POST" id="add_product" onsubmit="return productValidation">
+                <form action="/api/products" method="POST" id="add_product" onsubmit="return productValidation" enctype="multipart/form-data">
                     <div class="row m-2 ">
                         <div class="form-group col-lg-6 my-2">
                             <label for="category">Genre</label>
