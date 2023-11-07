@@ -7,7 +7,6 @@ const path = require('path')
 const multer = require('multer');
 const { response } = require('express');
 
-
 // access multer middleware storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -166,6 +165,7 @@ exports.update = (req, res) => {
       }
     })
 }
+// Delete the book by its id
 exports.delete = (req, res) => {
   const id = req.params.id;
   Productdb.findById(id)

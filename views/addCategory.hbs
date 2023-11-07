@@ -96,7 +96,7 @@
         <div class="container-fluid pt-4 px-4">
             <h2 class="text-primary text-center">Add Category</h2>
             <div class="bg-secondary border rounded">
-                <form action="/api/categories" method="POST" id="add_cat" onsubmit="return categoryValidation()">
+                <form action="/api/categories" method="POST" id="add_cat" onsubmit="return categoryValidation()" enctype="multipart/form-data">
                     <div class="row m-2">
                         <div class="form-group m-2">
                             <input type="text" class="form-control" id="name" name="genre" value=""
@@ -110,19 +110,18 @@
                         <div class="form-group m-2">
                             <input type="text" class="form-control" placeholder="Description" name="description">
                         </div>
+                        <div class="m-2">
+                            <label for="categoryImg">Upload Image</label>
+                            <input type="file" class="form-control" id="categoryImg" name="categoryImg">
+                        </div>
                     </div>
                     <div class="d-flex m-4">
-
                         <a href="category" class="btn btn-4 btn-outline-dark mx-2">Cancel</a>
                         <button class="btn btn-4 btn-primary">save</button>
                     </div>
                 </form>
             </div>
         </div>
-
-
-
-
     </div>
     <!-- Content End -->
 

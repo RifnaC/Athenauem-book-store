@@ -137,8 +137,6 @@ exports.editBanner= (req, res)=>{
     })
 }
 
-
-
 // ***********************Login Section*******************************
 exports.login= (req, res)=>{
     res.render('login');
@@ -152,8 +150,8 @@ exports.home= async(req, res)=>{
     try {
       const latestImages = await bannerCollection
         .find({})
-        .sort({ _id: -1 }) // Sort by _id in descending order to get the latest images
-        .limit(3); // Limit the result to the latest 3 images
+        .sort({ _id: -1 })
+        .limit(3); 
   
       res.render('home', { images: latestImages });
     } catch (err) {

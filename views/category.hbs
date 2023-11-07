@@ -107,7 +107,8 @@
               <table class="table card-table text-center" style="width:100%">
                 <thead>
                   <tr class="table-primary">
-                    <th>Categories <br></th>
+                    <th>Category Image</th>
+                    <th>Categories </th>
                     <th>Total Books</th>
                     <th>Description</th>
                     <th>Action</th>
@@ -116,7 +117,8 @@
                 <tbody>
                   {{#each categories}}
                   <tr>
-                    <td class="text-dark product-img">{{this.genre}}</td>
+                    <td class="text-dark"><img src="{{this.categoryImg}}" alt="{{this.genre}}" class="tableImg"></td>
+                    <td class="text-dark">{{this.genre}}</td>
                     <td class="text-dark">{{this.totalBooks}}</td>
                     <td class="text-dark">{{this.description}}</td>
                     <td class="text-dark">

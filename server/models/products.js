@@ -27,7 +27,6 @@ const bookSchema = new mongoose.Schema({
     },
     productImg:String,
     cloudinaryId:String
-
 });
 
 const Book = mongoose.model('Book', bookSchema);

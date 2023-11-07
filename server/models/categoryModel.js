@@ -12,7 +12,9 @@ const genreSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true,
-    }
+    },
+    categoryImg:String,
+    cloudinaryId:String
 });
 
 const genre = mongoose.model('categories', genreSchema);
