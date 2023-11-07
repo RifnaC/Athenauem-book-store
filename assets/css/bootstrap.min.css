@@ -4369,7 +4369,7 @@ input[type=number]::-webkit-outer-spin-button {
     color: #fff
 }
 
-.card {
+.card, .cardCat {
     position: relative;
     display: flex;
     flex-direction: column;

@@ -277,7 +277,7 @@ section{
     justify-content: center;
     align-items: center;
 }
-.container {
+.containerCard {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -304,13 +304,13 @@ section{
     width: 99999px;
   }
   
-  .card img{
+  .cardCat img{
     width: 40px;
     height: 40px;
     margin-left: auto;
     margin-right: auto;
   }
-  .card {
+  .cardCat {
     /* Add shadows to create the "card" effect */
     -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -324,13 +324,13 @@ section{
     display: flex;
     justify-content: center;
   }
-  .container h4 b{
+  .containerCard h4 b{
     color: #1e3838;
   }
  .cardContainer{
-    min-width: 94vw;
+    min-width: 92vw;
  }
-  .card:hover {
+  .cardCat:hover {
     -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -346,28 +346,30 @@ section{
     display: block;
     cursor: pointer;
   }
-  
+  .slider{
+    margin-top: -32px;
+}
   .slide-left,
   .slide-right {
     border-color: #15877C;
     border-style: solid;
     height: 20px;
     width: 20px;
-    margin-top: 30%;
+    margin-left: 98%;
   }
   
   .slide-left {
     border-width: 4px 0 0 4px;
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
-    margin-left: 8%;
+    margin-left: 96%;
   }
   
   .slide-right {
     border-width: 4px 4px 0 0;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
-    margin-left: 4%;
+    margin-top: -1.6%;
   }
   
 
@@ -497,6 +499,15 @@ section{
     }
     .cardContainer{
         max-width: 90vw;
+    }
+    .slider{
+        margin-top: -32px;
+    }
+    .slide-left {
+        margin-left: 92%;
+    }
+    .slide-right {
+        margin-top: -6.6%;
     }
 }
 /* Ragnge Date Picker */
