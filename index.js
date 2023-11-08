@@ -1,6 +1,6 @@
 const { config } = require('dotenv');
 const express = require('express')
-const hbs = require ('hbs');
+const hbs = require ('express-handlebars');
 const path = require('path')
 const dotenv = require('dotenv').config({path:'config.env'})
 const morgan = require('morgan')
@@ -22,8 +22,16 @@ app.use(morgan('tiny'));
 connectDB();
 
 app.use(bodyParser.urlencoded({extended: true}))
+
+
 // set view engines
 app.set('view engine','hbs')
+// app.engine('hbs', hbs.engine({
+//     extname: 'hbs',
+//     defaultLayout: 'dashboard',
+//     layoutDir: __dirname + '/views/layouts/',
+//     partialsDir: __dirname + '/views/partials/',
+// }));
 // app.set ('views', path.resolve(__dirname,'views/hbs'))
 
 // load assets
