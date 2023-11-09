@@ -2,6 +2,7 @@ const { log } = require('handlebars');
 const Admindb = require('../models/model');
 const bcrypt = require('bcrypt');
 const saltRounds = 10; 
+
 // ***********************Admin Management********************************
 // create and save new admin
 exports.create = async(req, res) => {

@@ -5,8 +5,7 @@ const path = require('path')
 const dotenv = require('dotenv').config({path:'config.env'})
 const morgan = require('morgan')
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
-
+const {superAdmin} = require('./server/seeder/adminSeeder');
 const connectDB = require('./server/database/connection');
 
 const app = express();

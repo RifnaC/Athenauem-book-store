@@ -1,3 +1,25 @@
-const admin =  require('../models/model');
-const mongoose = require('mongoose');
-const dev = require('../../config.env/dev')
+const { log } = require('handlebars');
+const Admindb = require('../models/model')
+const bcrypt = require('bcrypt');
+const saltRounds = 10; 
+
+// seeding super-admin
+const superAdmin = async() => {
+        const password = await bcrypt.hash('admin@22', saltRounds);
+        const admin = await Admindb.findOne({email:'admin@admin.com'})
+        if(!admin){
+            Admindb.create({
+                name: 'Super Admin',
+                email: 'admin@admin.com',
+                password: password,
+                isSuperAdmin: true,
+            })
+            console.log('Super Admin created successfully')
+        }
+        console.log('Super Admin already exists');
+        return;
+    
+};
+superAdmin().then(() => {
+    console.log('Logged in as super admin');
+});

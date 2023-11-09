@@ -6,6 +6,7 @@ const shopController = require('../controller/shopController');
 const productController = require('../controller/productController');
 const categoryController = require('../controller/categoryController');
 const bannerController = require('../controller/bannerController');
+const userController = require('../controller/userController');
 
 // ***********************Admin Management********************************
 /** 
@@ -33,10 +34,10 @@ route.get("/addAdmin" , services.addedAdmin)
 route.get("/editAdmin" , services.edit_admin)
 
 // API
-route.post('/api/admins',controller.create);
+route.post('/api/admins',userController.isSuperAdmin,controller.create);
 route.get('/api/admins',controller.find);
 route.put('/api/admins/:id',controller.update);
-route.delete('/api/admins/:id',controller.delete)
+route.delete('/api/admins/:id',controller.delete);
 
 // ***********************Shop Management********************************
 /** 
