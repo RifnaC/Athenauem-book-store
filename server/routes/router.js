@@ -6,7 +6,8 @@ const shopController = require('../controller/shopController');
 const productController = require('../controller/productController');
 const categoryController = require('../controller/categoryController');
 const bannerController = require('../controller/bannerController');
-const {verifyToken} =require('../controller/authController');
+
+
 
 // ***********************Admin Management********************************
 /** 

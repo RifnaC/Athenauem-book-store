@@ -15,7 +15,7 @@ exports.register = async(req, res) => {
     try{
         // Check if the email already exists in the database
         const existingUser = await userCollection.findOne({ email: req.body.email });
-        const existingEmail = await adminCollection.findOne({ email: existingUser.email });
+        const existingEmail = await adminCollection.findOne({ email: req.body.email });
         if (existingUser || existingEmail){ 
             // Display an alert when email is already taken.
             res.status(200).send(
@@ -64,8 +64,19 @@ exports.login = async(req, res) => {
         JWT_SECRET,{
         expiresIn: "2h",
         });
-        res.status(200).redirect('/dashboard');
-        console.log(adminToken);
+        let result = {
+            email: admin.email,
+            token: `Bearer ${adminToken}`,
+            expiresIn: 168,
+          };
+      
+        if (admin.isSuperAdmin) {
+            res.redirect('/dashboard');
+        } else {
+            res.redirect('/shop');
+        }
+        //   return res.status(200).redirect('/dashboard');
+        // console.log(adminToken);
     }
     else{
         const ispswdValid = await bcrypt.compare(req.body.password, user.password);

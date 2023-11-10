@@ -46,7 +46,7 @@ exports.dashboard = async (req, res) => {
         if (admin.isSuperAdmin) {
             res.render('dashboard',{isSuperAdmin:true});
         } else {
-            res.render('dashboard', {isSuperAdmin:false});
+            res.render('dashboard');
         }
     } catch (error) {
         res.status(401).json({ message: "Invalid token" });

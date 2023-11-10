@@ -1,5 +1,6 @@
 const { log } = require('handlebars');
 const Admindb = require('../models/model');
+const user = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const saltRounds = 10; 
 
@@ -13,7 +14,8 @@ exports.create = async(req, res) => {
     try{
         // Check if the email already exists in the database
         const existingAdmin = await Admindb.findOne({ email: req.body.email });
-        if (existingAdmin){ 
+        const existingEmail = await user.findOne({email: req.body.email});
+        if (existingAdmin || existingEmail){ 
             // Display an alert when email is already taken.
             res.status(200).send(
                 "<script>alert('Email already exists'); window.location.href ='/addAdmin';</script>"
