@@ -2355,7 +2355,7 @@ textarea.form-control-lg {
     background-size: contain;
     border: 1px solid rgba(0,0,0,0.25);
     appearance: none;
-    color-adjust: exact
+    color-adjust: exact;
 }
 
 .form-check-input[type="checkbox"] {
@@ -3731,7 +3731,7 @@ input[type=number]::-webkit-outer-spin-button {
     padding: .25rem 1rem;
     clear: both;
     font-weight: 400;
-    color: #212529;
+    color: #130B0B;
     text-align: inherit;
     white-space: nowrap;
     background-color: transparent;
@@ -3739,8 +3739,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .dropdown-item:hover,.dropdown-item:focus {
-    color: #1e2125;
-    background-color: #e9ecef
+    color: #130B0B;
+    background-color: #CCEBD7
 }
 
 .dropdown-item.active,.dropdown-item:active {
@@ -3763,7 +3763,7 @@ input[type=number]::-webkit-outer-spin-button {
     display: block;
     padding: .5rem 1rem;
     margin-bottom: 0;
-    font-size: .875rem;
+    font-size: .85rem;
     color: #6c757d;
     white-space: nowrap
 }
@@ -4053,8 +4053,9 @@ input[type=number]::-webkit-outer-spin-button {
     padding: .25rem .75rem;
     font-size: 1.25rem;
     line-height: 1;
+    color: #15877C;
     background-color: transparent;
-    border: 1px solid transparent;
+    border: 1px solid #15877C;
     border-radius: 5px;
     transition: box-shadow 0.15s ease-in-out
 }
@@ -4310,7 +4311,7 @@ input[type=number]::-webkit-outer-spin-button {
     color: #FCFCFC;
 }
 
-.navbar-light .navbar-toggler {
+.navbar-light  {
     color: #FCFCFC;
     border-color: #FCFCFC;
 }
@@ -4351,14 +4352,14 @@ input[type=number]::-webkit-outer-spin-button {
     color: #fff
 }
 
-.navbar-dark .navbar-toggler {
+.navbar-dark {
     color:#ffffff98;
     border-color: #FFFFFF;
 }
 
-.navbar-dark .navbar-toggler-icon {
+/* .navbar-dark .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
-}
+} */
 
 .navbar-dark .navbar-text {
     color: #FFFFFF;
@@ -4368,7 +4369,7 @@ input[type=number]::-webkit-outer-spin-button {
     color: #fff
 }
 
-.card {
+.card, .cardCat {
     position: relative;
     display: flex;
     flex-direction: column;

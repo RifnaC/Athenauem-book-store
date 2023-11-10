@@ -57,6 +57,7 @@
                         <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
                         <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
                         <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
+                        <a href="products" class="nav-item nav-link" id="productSection"><i class="bi bi-book"></i>Products</a>
                         <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
                         <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                         <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
@@ -98,7 +99,7 @@
         <div class="container-fluid pt-4 px-4">
             <h2 class="text-primary text-center">Edit Books</h2>
             <div class="bg-secondary border rounded">
-                <form method="POST" id="edit_product">
+                <form method="POST" id="edit_product" enctype="multipart/form-data">
                     <div class="row m-2 ">
                         <input type="hidden" name="id" value="{{book._id}}">
                         <div class="form-group col-lg-6 my-2">
@@ -156,7 +157,7 @@
 
                     <div class="d-flex justify-content-center mb-3">
                         <a href="products" class="btn btn-4 btn-outline-dark mx-3 ">Cancel</a>
-                        <button href="" class="btn btn-4 btn-primary">save</button>
+                        <button  class="btn btn-4 btn-primary">save</button>
                     </div>
                 </form>
             </div>

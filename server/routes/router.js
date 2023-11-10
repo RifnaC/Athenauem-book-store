@@ -5,6 +5,8 @@ const controller = require('../controller/controller')
 const shopController = require('../controller/shopController');
 const productController = require('../controller/productController');
 const categoryController = require('../controller/categoryController');
+const bannerController = require('../controller/bannerController');
+
 
 
 // ***********************Admin Management********************************
@@ -33,10 +35,11 @@ route.get("/addAdmin" , services.addedAdmin)
 route.get("/editAdmin" , services.edit_admin)
 
 // API
+
 route.post('/api/admins',controller.create);
 route.get('/api/admins',controller.find);
-route.put('/api/admins/:id',controller.update);
-route.delete('/api/admins/:id',controller.delete)
+route.put('/api/admins/:id', controller.update);
+route.delete('/api/admins/:id', controller.delete);
 
 // ***********************Shop Management********************************
 /** 
@@ -127,5 +130,32 @@ route.delete('/api/categories/:id',categoryController.delete)
 //  * @method GET/
 // */
 route.get("/banner", services.banner);
+
+// /** 
+//  * @description add  banner
+//  * @method GET/
+// */
+route.get("/bannerPage", services.createBanner)
+
+/** 
+ * @description Edit banner 
+ * @method GET/
+*/
+route.get("/banners", services.editBanner)
+
+route.post('/api/banner', bannerController.create);
+route.get('/api/banner', bannerController.find);
+route.put('/api/banner/:id', bannerController.update);
+// route.post('/api/banner/:id', bannerController.banner);
+route.delete('/api/banner/:id', bannerController.delete);
+
+
+// ***********************Login Section********************************
+// /** 
+//  * @description Login Route
+//  * @method GET/
+// */
+route.get("/home", services.home);
+
 
 module.exports = route

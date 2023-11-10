@@ -82,6 +82,20 @@ body::-webkit-scrollbar-thumb
 .disaplayInput{
     display: none;
 }
+/* Table image size */
+.tableImg{
+    width: 40px;
+    height: auto;
+}
+
+/* modal close button */
+.close{
+    cursor: pointer;
+    font-size: 32px;
+}
+#bannerProduct, #bannerProductId{
+    display: none;
+}
 /*** Layout ***/
 .sidebar {
     position: fixed;
@@ -101,6 +115,264 @@ body::-webkit-scrollbar-thumb
     background: var(--dark);
     transition: 0.5s;
 }
+.login {
+    margin: 20px auto;
+    padding: 40px 50px;
+    width: 360px;
+    border-radius: 5px;
+    background: #EEF2F2;
+    box-shadow: 1px 1px 1px #CCEBD7;
+}
+
+.login input {
+    width: 100% ;
+    display: block;
+    box-sizing: border-box;
+    margin: 10px 0;
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 2px;
+}
+
+.login input,
+.login input {
+    border: 1px solid #c0c0c0;
+    border-radius: 25px;
+    transition: .2s;
+}
+
+.login input:hover {
+    border-color: #084C5B;
+    outline: none;
+    transition: all .2s ease-in-out;
+}
+
+.login input[type=submit] {
+    width: 100px;
+    border: none;
+    background: #084C5B;
+    color: white;
+    font-weight: bold;
+    transition: 0.2s;
+    margin: 20px 10px;
+    border-radius: 25px;
+}
+
+.login input[type=submit]:hover {
+    background: #28867D;
+}
+
+.login h2 {
+    margin: 20px 0 0;
+    color: #084C5B;
+    font-size: 28px;
+}
+
+.login p {
+    margin-bottom: 40px;
+}
+
+.links {
+    display: table;
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid #c0c0c0;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-top: 16px;
+
+}
+.linkText {
+    display: table-cell;
+    padding-top: 10px;
+    color: #00B7FF !important;
+}
+
+.login h2,
+.login p {
+    text-align: center;
+}
+
+.login a {
+    text-decoration: none;
+}
+
+.login a:visited {
+    color: inherit;
+}
+
+.login .linkText:hover {
+    text-decoration: underline;
+}
+.homeNav a , .nav-icon a{
+    color:#130B0B;  
+}
+.home-nav a{
+    font-size: 20px !important;
+    font-weight: 500;
+}
+.nav-icon a {
+    font-size: 24px ;
+    font-weight: 800 !important;
+}
+.dropdown-menu a{
+    font-size: 16px;
+}
+.bgImg{
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+.carousel-item img{
+    width : 100vw;
+    height: 100vh;
+    overflow: hidden !important;
+}
+section{
+    overflow: hidden;
+}
+.twenty-one {
+    background: #f5f5f5;
+    color: #130B0B;
+    border: 2px solid #b8e0dc;
+    border-radius: 16px 0px 16px 0px;
+    position: relative;
+    z-index: 1;
+    transition: color 400ms;
+}
+
+.twenty-one::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 16px 0px 16px 0px;
+    background: #b8e0dc;
+    z-index: -1;
+    transition: transform 400ms ease-out;
+    transform: scaleX(0);
+    transform-origin: left;
+}
+.carousel-control{
+   top: -160px ;
+   left: 24px;
+}
+.twenty-one:hover::before {
+   transform: scaleX(1);
+}
+
+.twenty-one:hover {
+    color:#130B0B;
+}
+
+.button-box,
+.button-box-special {
+    width: 230px;
+    height: 150px;
+    /* border: 1px solid black; */
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.containerCard {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    justify-content:center ;
+    padding: 4px 16px;
+
+  }
+ 
+  
+  #cards-container {
+    overflow: hidden;
+   
+  }
+  .cards {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 99999px;
+  }
+  
+  .cardCat img{
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cardCat {
+    /* Add shadows to create the "card" effect */
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background: #CCEBD7;
+    color: #130B0B;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    width: 260px;
+    height: 120px;
+    margin: 15px 7.5px;
+    display: flex;
+    justify-content: center;
+  }
+  .containerCard h4 b{
+    color: #1e3838;
+  }
+ .cardContainer{
+    min-width: 92vw;
+ }
+  .cardCat:hover {
+    -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+  
+  #slide-left-container,
+  #slide-right-container {
+    display: none;
+  }
+  
+  #slide-left-container.active,
+  #slide-right-container.active {
+    display: block;
+    cursor: pointer;
+  }
+  .slider{
+    margin-top: -32px;
+}
+  .slide-left,
+  .slide-right {
+    border-color: #15877C;
+    border-style: solid;
+    height: 20px;
+    width: 20px;
+    margin-left: 98%;
+  }
+  
+  .slide-left {
+    border-width: 4px 0 0 4px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    margin-left: 96%;
+  }
+  
+  .slide-right {
+    border-width: 4px 4px 0 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin-top: -1.6%;
+  }
+  
+
 @media (min-width: 992px) {
     .sidebar {
         margin-left: 0;
@@ -115,6 +387,8 @@ body::-webkit-scrollbar-thumb
         width: 100%;
         margin-left: 0;
     }
+    
+    
 }
 @media (max-width: 991.98px) {
     .sidebar {
@@ -124,11 +398,11 @@ body::-webkit-scrollbar-thumb
     .sidebar.open {
         margin-left: 0;
     }
-
     .content {
         width: 100%;
         margin-left: 0;
     }
+    
 }
 /*** Navbar ***/
 .sidebar .navbar .navbar-nav .nav-link {
@@ -222,6 +496,18 @@ body::-webkit-scrollbar-thumb
 @media (max-width: 575.98px) {
     .content .navbar .navbar-nav .nav-link {
         margin-left: 15px;
+    }
+    .cardContainer{
+        max-width: 90vw;
+    }
+    .slider{
+        margin-top: -32px;
+    }
+    .slide-left {
+        margin-left: 92%;
+    }
+    .slide-right {
+        margin-top: -6.6%;
     }
 }
 /* Ragnge Date Picker */

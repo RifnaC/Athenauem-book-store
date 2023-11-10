@@ -45,6 +45,7 @@
             <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
             <a href="shop" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Shops</a>
             <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
+            <a href="products" class="nav-item nav-link" id="productSection"><i class="bi bi-book"></i>Products</a>
             <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
             <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
             <a href="admin" class="nav-item nav-link active"><i class="bi bi-person"></i>Admin</a>
@@ -52,7 +53,7 @@
             <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
           </div>
           <div>
-            <a href="#" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
+            <a href="login" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
 
           </div>
         </div>
@@ -77,7 +78,7 @@
       <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary border rounded">
           <div class="m-4">
-            <form action="/api/admins" method="POST" id="uploadUser" onsubmit="return validateForm()">
+            <form action="/api/admins" method="POST" id="uploadUser" onsubmit="return validateForm()" >
               <div class="newUser">
                 <div class="form-group m-2">
                   <label for="name" class="text-light m-1">Name</label>

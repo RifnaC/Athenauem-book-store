@@ -56,6 +56,7 @@
             <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
             <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
             <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
+            <a href="products" class="nav-item nav-link" id="productSection"><i class="bi bi-book"></i>Products</a>
             <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
             <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
             <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
@@ -107,7 +108,8 @@
               <table class="table card-table text-center" style="width:100%">
                 <thead>
                   <tr class="table-primary">
-                    <th>Categories <br></th>
+                    <th>Category Image</th>
+                    <th>Categories </th>
                     <th>Total Books</th>
                     <th>Description</th>
                     <th>Action</th>
@@ -116,7 +118,8 @@
                 <tbody>
                   {{#each categories}}
                   <tr>
-                    <td class="text-dark product-img">{{this.genre}}</td>
+                    <td class="text-dark"><img src="{{this.categoryImg}}" alt="{{this.genre}}" class="tableImg"></td>
+                    <td class="text-dark">{{this.genre}}</td>
                     <td class="text-dark">{{this.totalBooks}}</td>
                     <td class="text-dark">{{this.description}}</td>
                     <td class="text-dark">

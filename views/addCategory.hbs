@@ -57,6 +57,7 @@
                         <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
                         <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
                         <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
+                        <a href="products" class="nav-item nav-link" id="productSection"><i class="bi bi-book"></i>Products</a>
                         <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
                         <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                         <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
@@ -96,7 +97,7 @@
         <div class="container-fluid pt-4 px-4">
             <h2 class="text-primary text-center">Add Category</h2>
             <div class="bg-secondary border rounded">
-                <form action="/api/categories" method="POST" id="add_cat" onsubmit="return categoryValidation()">
+                <form action="/api/categories" method="POST" id="add_cat" onsubmit="return categoryValidation()" enctype="multipart/form-data">
                     <div class="row m-2">
                         <div class="form-group m-2">
                             <input type="text" class="form-control" id="name" name="genre" value=""
@@ -110,19 +111,18 @@
                         <div class="form-group m-2">
                             <input type="text" class="form-control" placeholder="Description" name="description">
                         </div>
+                        <div class="m-2">
+                            <label for="categoryImg">Upload Image</label>
+                            <input type="file" class="form-control" id="categoryImg" name="categoryImg">
+                        </div>
                     </div>
                     <div class="d-flex m-4">
-
                         <a href="category" class="btn btn-4 btn-outline-dark mx-2">Cancel</a>
                         <button class="btn btn-4 btn-primary">save</button>
                     </div>
                 </form>
             </div>
         </div>
-
-
-
-
     </div>
     <!-- Content End -->
 

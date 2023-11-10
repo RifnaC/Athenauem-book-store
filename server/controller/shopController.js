@@ -1,4 +1,3 @@
-
 const { log } = require('handlebars');
 const Shopdb = require('../models/shopModel');
 const cloudinary = require('../services/cloudinary');

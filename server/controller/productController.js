@@ -2,6 +2,22 @@ const { log } = require('handlebars');
 const Shopdb = require('../models/shopModel')
 const Productdb = require('../models/products');
 const { product } = require('../services/render');
+const cloudinary = require('../services/cloudinary');
+const path = require('path')
+const multer = require('multer');
+const { response } = require('express');
+
+// access multer middleware storage
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + file.originalname.split('.').pop())
+  },
+}); 
+
+const upload = multer({ storage: storage });
 
 exports.fetchShopDetails = async(shopId) => {
   try {
@@ -40,26 +56,42 @@ exports.renderProducts = async (req, res) => {
 
 // create and save new product
 exports.create = async (req, res) => {
-    if(!req.body){
-      res.status(400).send({message: 'Content can not be empty'})
+  upload.single('productImg')(req, res, async(err) => {
+    if (err) {
+      res.status(500).send({ message: err.message });
       return;
     }
-    console.log(req.body);
-    const product = new Productdb({
-      bookName:req.body.bookName,
-      genre: req.body.genre,
-      author: req.body.author,
-      price: req.body.price,
-      quantity: req.body.quantity,  
-      description: req.body.description
-      // productImg: req.body.productImg,
-    });
-  console.log(product)
-  const savedProduct = await product.save(); 
-  console.log(savedProduct);
-  res.redirect('/products');
+    if(!req.body){
+      res.status(400).send({ message:'Content can not be empty' });
+      return;
+    }
+    const {bookName, genre, author, price, quantity, description} = req.body;
+    const productImg = req.file.path;
+    cloudinary.uploader.upload(productImg,(cloudinaryErr, results) => {
+      if (cloudinaryErr){
+        res.status(500).send({ message: cloudinaryErr.message});
+        return;
+      }
+      const product = new Productdb({
+        bookName,
+        genre, 
+        author, 
+        price, 
+        quantity, 
+        description,
+        productImg: results.secure_url,
+        cloudinaryId: results.public_id,
+      });
+      product.save()
+      .then(savedProduct => {
+        res.redirect('/products');
+      })
+      .catch(savedErr => {
+        res.status(500).send({ message: savedErr.message});
+      });
+    })
+  })
 };
-
 
 // retrieve and return all product or  retrieve and return a single  product
 exports.find = (req, res) => {
@@ -94,47 +126,70 @@ exports.find = (req, res) => {
   }
 }
   
-
-  // Update a new identified book by   id
-  exports.update = (req, res) => {
-    if(!req.body){
-         return res.status(400).send({message:"Data to update can not be empty"})
-     }
-     const id = req.params.id;
-    //  console.log(req.body);
-     Productdb.findByIdAndUpdate(id, req.body, {useFindAndModify: false})
-     .then(data =>{
-         if(!data){
-             return res.status(404).send({message:`Book with ${id} is not found`})
-         }else{
-             res.send(data);
-         }
-     })
-     .catch(err => {
-         res.status(500).send({message: "Error Update Book information"})
-     })
-  }
-  
-  
-  
-  
-  exports.delete = (req, res) => {
-    const id = req.params.id;
-  
-    Productdb.findByIdAndDelete(id)
-    .then(data => { 
-        if(!data){
-            res.status(404).send({message: `Book with ${id} is not found`})
-        }else{
-            res.send({
-                message: "Book is deleted successfully"
-            })
+// Update a new identified book by   id
+exports.update = (req, res) => {
+    upload.single('productImg'), (req, res, async(err) =>{
+      if(err){
+        res.status(500).send({ message: err.message });
+        return;
+      }
+      try{
+        const id = req.params.id;
+        const book = await Productdb.findById(id);
+        if (!book) {
+          return res.status(404).json({ message: 'Book not found' });
         }
-    })
-    .catch(err => {
-        res.status(500).send({
-            message:"Could not delete book with id "+ id
-        })
-    })
+        if (req.file) {
+          // Delete the old shop image from Cloudinary
+          await cloudinary.uploader.destroy(book.cloudinaryId);
     
-  }
+          // Upload the new shop image to Cloudinary
+          const result = await cloudinary.uploader.upload(req.file.path);
+    
+          // Update the shop image URL and Cloudinary ID
+          book.shopImg = result.secure_url;
+          book.cloudinaryId = result.public_id;
+        }
+        // Update other shop details based on your form data
+        book.bookName = req.body.bookName;
+        book.genre= req.body.genre;
+        book.author = req.body.author;
+        book.price = req.body.price;
+        book.quantity = req.body.quantity;
+        book.description = req.body.description;
+        await book.save();
+        return res.status(200).json(book);
+      }catch(err){
+        console.error(err);
+        return res.status(500).json({message: 'An error occurred while updating the book'})
+      }
+    })
+}
+// Delete the book by its id
+exports.delete = (req, res) => {
+  const id = req.params.id;
+  Productdb.findById(id)
+  .then(book => {
+      if(!book){
+        res.status(404).send({message: `Book with id ${id} not found`});
+      }else{
+        cloudinary.uploader.destroy(book.cloudinaryId, (cloudinaryErr, result) => {
+          if(cloudinaryErr){
+            console.error('Error deleting book from cloudinary', cloudinaryErr);
+          }
+          Productdb.findByIdAndDelete(id)
+          .then(() => { 
+            res.send({message: 'Book deleted successfully'});
+          })
+          .catch(err => {
+            res.status(500).send({message: `Could not delete book with id ${id}`});
+          })
+        });
+      }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:"Error finding book with id "+ id
+    });
+  })
+}

@@ -1,5 +1,5 @@
 const axios = require('axios');
-
+const bannerCollection = require('../models/bannerModel')
 // ***********************Admin Management********************************
 exports.homeRoutes = (req, res)=>{
     res.render('dashboard');
@@ -109,10 +109,55 @@ exports.edit_category=(req, res)=>{
     .catch(err => {
         res.send(err);
     })
-    // res.render('editCategory');
 }
 
 // ***********************banner Management********************************
 exports.banner = (req, res)=>{
-    res.render('banner');
+    axios.get('http://localhost:3000/api/banner')
+    .then(function (response) {
+        res.render('banner', {banners: response.data});
+    })
+    .catch(error=>{
+        // console.error("An error occurred:", error);
+        res.status(500).send("<script>alert('Something Went Wrong'); window.location.href ='/bannerPage';</script>");
+    });
+}
+
+exports.createBanner = (req, res)=>{
+    res.render('bannerPage');
+};
+
+exports.editBanner= (req, res)=>{
+    axios.get('http://localhost:3000/api/banner',{params: {id:req.query.id}})
+    .then(function(ban){
+        res.render('banners',{banners:ban.data});
+    })
+    .catch(err => {
+        res.send(err);
+    })
+}
+
+// ***********************Login Section*******************************
+exports.login= (req, res)=>{
+    res.render('login');
+}
+exports.signup= (req, res)=>{
+    res.render('signUp');
+}
+
+exports.home= async(req, res)=>{
+    // Modify the route to fetch the three latest images
+    try {
+      const latestImages = await bannerCollection
+        .find({})
+        .sort({ _id: -1 })
+        .limit(3); 
+  
+      res.render('home', { images: latestImages });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
+  
+    // res.render('home');
 }

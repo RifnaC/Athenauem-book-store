@@ -1,8 +1,7 @@
 (function ($) {
   "use strict";
-
   // Spinner
-  var spinner = function () {
+  const spinner = function () {
     setTimeout(function () {      
       if ($('#spinner').length > 0) {
         $('#spinner').removeClass('show');
@@ -727,11 +726,368 @@
     })
   }
 
+  // Banner Section
+  // Banner field on option value change
+  $('#clickType').on('change',function(){
+  if( $(this).val()==="product"){
+    $("#bannerProduct").show()
+    $("#bannerCategory").hide()
+  }else{
+    $("#bannerProduct").hide()
+    $("#bannerCategory").show()
+  }
+  })
+
+  // Validation for creating banner
+  function bannerValidation(){
+    let name = document.forms["createBanner"]["name"].value;
+    let shop = document.forms["createBanner"]['shop'].value;
+    let type = document.forms["createBanner"]["type"].value;
+    let categoryId = document.forms["createBanner"]["categoryId"].value;
+    let productId = document.forms["createBanner"]["productId"].value;
+    let bannerImg = document.getElementById("bannerImg");     
+
+    // Check if book details are not empty
+    if (!name) {
+      Swal.fire({
+        title:'Please enter banner name!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (name.length < 4 ) {
+      Swal.fire({
+        title: 'Banner Name should have at least 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!shop) {
+      Swal.fire({
+        title:'Please enter shop name!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (shop.length < 4 ) {
+      Swal.fire({
+        title: 'Shop Name should have at least 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (type === 'category') {
+      if(!categoryId ||categoryId.length < 4){
+        Swal.fire({
+          title: 'please enter the category ID with at least 4 characters!',
+          confirmButtonColor: '#15877C',
+        })
+        return false;
+      }
+    }
+    if(type === 'product'){
+      if(!productId ||productId.length < 4){
+        Swal.fire({
+          title: 'Please enter the product ID with at least 4 characters!',
+          confirmButtonColor: '#15877C',
+        })
+        return false;
+      }
+    }
+    if(!bannerImg.value && !imgUrl){
+      Swal.fire({
+        title:'Please provide the image of the book banner!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    return true;
+  }
+
+  // Create new banner  
+  $("#createBanner").submit(function(event) {
+    if (!bannerValidation()) {
+      event.preventDefault();
+    }else{
+      Swal.fire({
+        icon: 'success',
+        title: 'New banner is created Successfully',
+        showConfirmButton: false,
+        timer: 6000
+      })
+    }        
+  })
+
+  $('#editClickType').on('change',function(){
+    if( $(this).val()==='category'){
+      $("#bannerProductId").hide()
+      $("#bannerCategoryId").show()
+    }else{
+      $("#bannerProductId").show()
+      $("#bannerCategoryId").hide()
+    }
+  })
+
+   // Update banner
+  $("#editBanner").submit(function(event) {
+    event.preventDefault();
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
+    $.map(unindexed_array, function(n, i) {
+      data[n['name']] = n['value'];
+    });
+    // Extract the book's ID from the form data
+    const bannerId = data.id;
+    // Validation
+    if (!data.name) {
+      Swal.fire({
+        title:'Please enter the banner name',
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    if (data.name.length < 4) {
+      Swal.fire({
+        title:'The banner name should be at least 4 characters',
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    if (!data.shop) {
+      Swal.fire({
+        title: 'Please enter shop name!',
+        confirmButtonColor: '#15877C'
+      })
+      return;    
+    } 
+    if (data.shop.length < 4) {
+      Swal.fire({
+        title:'The shop name should be at least 4 characters',
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    if (data.type === 'category') {
+      if(!data.categoryId || data.categoryId.length < 4){
+        Swal.fire({
+          title: 'please enter the category ID with at least 4 characters!',
+          confirmButtonColor: '#15877C',
+        })
+        return false;
+      }
+    }
+    if(data.type === 'product'){
+      if(!data.productId || data.productId.length < 4){
+        Swal.fire({
+          title: 'Please enter the product ID with at least 4 characters!',
+          confirmButtonColor: '#15877C',
+        })
+        return false;
+      }
+    }
+    let request = {
+      "url": `http://localhost:3000/api/banner/${bannerId}`,          
+      "method": "PUT",
+      "data": data
+    };
+
+    // Send the PUT request        
+    $.ajax(request).done(function(response) {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#15877C'
+      })
+      .then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire('Saved!', 'Data updated successfully', 'success')
+          .then(() => {
+            window.location.href='/banner';
+          })
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+          .then(() => {
+            window.location.href='/banner';
+          })
+        }
+      })
+    });
+  });
+
+
+  // Delete the Banner
+  if(window.location.pathname==="/banner"){      
+    $(document).on("click", ".table tbody td a.delete", function (event) {
+      event.preventDefault();
+      const id = $(this).attr('data-id');
+      const request = {
+        "url":`http://localhost:3000/api/banner/${id}`,
+        "method":"DELETE"
+      };
+      Swal.fire({
+        title: 'Do you really want to delete this record?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it',
+        cancelButtonText: 'cancel',
+        confirmButtonColor: '#d33',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // The user clicked the "Yes, delete it" button
+          $.ajax(request).done(function (response) {
+            Swal.fire('Data deleted Successfully', '', 'success')
+            .then(() => {
+              location.reload();
+            });
+          });
+        } else {
+          // The user clicked the "cancel" button or closed the dialog
+          Swal.fire('Action cancelled', '', 'info');
+        }
+      });
+    })
+  }
+
+  // Validation for signUp
+  function signupValidation(){
+    let name = document.forms["signup"]["name"].value;
+    let email = document.forms["signup"]["email"].value;
+    let pswd = document.forms["signup"]['password'].value;
+    let confirmPswd = document.forms["signup"]["confirmPswd"].value;
+    
+    // Check if  sign up form are not empty
+    if (!name) {
+      Swal.fire({
+        title:'Please enter your name!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (name.length < 4) {
+      Swal.fire({
+        title:'The name should at least contain 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!email){
+      Swal.fire({
+        title:'Please enter your email!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!email.includes('.')){
+      Swal.fire({
+        title:'Please Enter a valid email address!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!pswd) {
+      Swal.fire({
+        title:'Please enter password!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (pswd.length < 6 ) {
+      Swal.fire({
+        title: 'Password should have at least six characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!confirmPswd) {
+      Swal.fire({
+        title: 'Please enter confirm password!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (confirmPswd !== pswd) {
+      Swal.fire({
+        title: 'Password and confirm password should be same!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    return true;
+  }
+  // signup
+  $("#signup").submit(function(event) {
+    if (!signupValidation()) {
+      event.preventDefault();
+    }else{
+      location.window.href = '/signup';
+    }        
+  })
+
+   // Validation for login
+   function loginValidation(){
+    let email = document.forms["login"]["email"].value;
+    let pswd = document.forms["login"]['password'].value;
+
+    // Check if book details are not empty
+    if (!email) {
+      Swal.fire({
+        title:'Please enter your email!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!email.includes('.')){
+      Swal.fire({
+        title:'Please Enter a valid email address!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!pswd) {
+      Swal.fire({
+        title:'Please enter password!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (pswd.length < 6 ) {
+      Swal.fire({
+        title: 'Banner Name should have at least six characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    return true;
+  }
+  // login
+  $("#login").submit(function(event) {
+    if (!loginValidation()) {
+      event.preventDefault();
+    }else{
+      location.window.href = '/login';
+    }        
+  })
+
+ 
+
+  
+  
+
+
+ 
 
 
 
-  // Chart Global Color
-  Chart.defaults.color = "#6C7293";
+
+
+  
+ // Chart Global Color
+ Chart.defaults.color = "#6C7293";
   Chart.defaults.borderColor = "#ffffffff";    
   
   // Worldwide Sales Chart
