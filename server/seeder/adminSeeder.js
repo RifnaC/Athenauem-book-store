@@ -21,5 +21,4 @@ const superAdmin = async() => {
     
 };
 superAdmin().then(() => {
-    console.log('Logged in as super admin');
 });

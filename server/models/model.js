@@ -19,7 +19,15 @@ const schema = new mongoose.Schema({
     isSuperAdmin:{
         type:Boolean,
         default:false
-    }
+    },
+    tokens:[
+        {
+            adminToken: {
+                type:String,
+                required: true,
+            },
+        },
+    ]
 })
 
 const Admindb = mongoose.model('Admin', schema);
