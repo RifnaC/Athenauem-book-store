@@ -16,15 +16,6 @@ exports.home = async (req, res) => {
     res.render('home');
 }
 
-// exports.dashboard = async (req, res) => {
-//     const adminToken = req.headers['authorization'];
-//     if (!adminToken){
-//         res.status(401).json({message: "Unauthorized"});
-//     }
-//     const decodeToken = jwt.verify(adminToken, JWT_SECRET);
-//     const admin = await adminCollection.findById(decodeToken.id);
-//     res.render('dashboard');
-// }
 
 exports.dashboard = async (req, res) => {
     const token = req.headers['authorization'];
