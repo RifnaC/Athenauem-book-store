@@ -16,14 +16,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         required: true,
     },
-    tokens:[
-        {
-            token: {
-                type:String,
-                required: true,
-            },
-        },
-    ]
+    role: { 
+        type: String, 
+        default: 'user' 
+    }
 })
 
 const user = mongoose.model('users', userSchema);

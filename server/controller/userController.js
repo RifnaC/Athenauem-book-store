@@ -24,7 +24,6 @@ exports.dashboard = async (req, res) => {
         res.status(401).json({ message: "Unauthorized" });
         return;
     }
-
     try {
         const decodeToken = jwt.verify(token, JWT_SECRET);
         const admin = await adminCollection.findById(decodeToken.id);
@@ -33,9 +32,8 @@ exports.dashboard = async (req, res) => {
             res.status(404).json({ message: "Admin not found" });
             return;
         }
-
         if (admin.isSuperAdmin) {
-            res.render('dashboard',{isSuperAdmin:true});
+            res.render('dashboard');
         } else {
             res.render('dashboard');
         }

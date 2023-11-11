@@ -270,70 +270,67 @@
   })
 
   //update shop details
-  $("#edit_shop").submit(function(event) {
+  $("#edit_shop").submit(function (event) {
     event.preventDefault();
-    let unindexed_array = $(this).serializeArray();
-    let data = {};
-    
-    $.map(unindexed_array, function(n, i) {
-      data[n['name']] = n['value'];
-    });
-    // Extract the shop's ID from the form data
-    const shopId = data.id;
-    // Validation
-    if (!data.name ) {
+    const formData = new FormData(this);
+    const shopId = formData.get('id');
+
+    if (!formData.get('name')) {
       Swal.fire({
         title: 'Please enter the shop name!',
         confirmButtonColor: '#15877C',
       })
       return;
     }  
-    if (!data.address) {
+    if (!formData.get('address')) {
       Swal.fire({
         title: 'Please enter the address of shop!',
         confirmButtonColor: '#15877C',
       })
       return;
     }
-    if (!data.openingTime || !data.closingTime) {
+    if (!formData.get('openingTime')|| !formData.get('closingTime')) {
       Swal.fire({
         title: 'Please enter opening time and closing time of the shop!',
         confirmButtonColor: '#15877C',
       })
       return;
     }
-    // If no new password is provided, update without hashing
-    let request = {
-      "url": `http://localhost:3000/api/shops/${shopId}`,
-      "method": "PUT",          
-      "data": data
+    // Append the shopId to the URL
+    const request = {
+        url: `http://localhost:3000/api/shops/${shopId}`,
+        method: 'PUT',
+        data: formData,
+        processData: false,
+        contentType: false,
     };
-    // Send the PUT request
-    $.ajax(request).done(function(response) {
-      Swal.fire({
-        title: 'Do you want to save the changes?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        denyButtonText: `Don't save`,
-        confirmButtonColor: '#15877C'
-      })
-      .then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire('Saved!', 'Data updated successfully', 'success')
-          .then(() => {
-            window.location.href='/shop';
-          })
-        } else if (result.isDenied) {
-          Swal.fire('Changes are not saved', '', 'info')
-          .then(() => {
-            window.location.href='/shop';
-          })
-        }
-      })
+
+  $.ajax(request)
+    .done(function (response) {
+        Swal.fire({
+          title: 'Do you want to save the changes?',
+          showDenyButton: true,            
+          showCancelButton: true,
+          confirmButtonText: 'Save',
+          denyButtonText: `Don't save`,
+          confirmButtonColor: '#15877C',
+        }).then((result) => {          
+          if (result.isConfirmed) {
+            Swal.fire('Saved!', 'Data updated successfully', 'success').then(() => {
+              window.location.href = '/shop';
+            });
+          } else if (result.isDenied) {
+            Swal.fire('Changes are not saved', '', 'info').then(() => {
+              window.location.href = '/shop';
+            });
+          }
+        });
+    })
+    .fail(function (error) {
+        Swal.fire('Error', 'Failed to update data', 'error');
     });
   });
+
   // Delete the shop
   if(window.location.pathname==="/shop"){      
     $(document).on("click", ".shopCard a.delete", function (event) {
@@ -444,60 +441,60 @@
   // Update product
   $("#edit_product").submit(function(event) {
     event.preventDefault();
-    let unindexed_array = $(this).serializeArray();
-    let data = {};
-    $.map(unindexed_array, function(n, i) {
-      data[n['name']] = n['value'];
-    });
+    const formData = new FormData(this);
+    
     // Extract the book's ID from the form data
-    const bookId = data.id;
+    const bookId = formData.get('id');
     // Validation
-    if (!data.bookName) {
+    if (!formData.get('bookName')) {
       Swal.fire({
         title:'Please enter the book name',
         confirmButtonColor: '#15877C'
       })
       return;
     }
-    if (data.bookName.length < 4) {
+    if (formData.get('bookName').length < 4) {
       Swal.fire({
         title:'The book name should be at least 4 characters',
         confirmButtonColor: '#15877C'
       })
       return;
     }
-    if (!data.author) {
+    if (!formData.get('author')) {
       Swal.fire({
         title: 'Please enter Author of the book!',
         confirmButtonColor: '#15877C'
       })
       return;    
     } 
-    if (data.author.length < 4) {
+    if (formData.get('author').length < 4) {
       Swal.fire({
         title:'The Author should be at least 4 characters',
         confirmButtonColor: '#15877C'
       })
       return;
     }
-    if (!data.description) {
+    if (!formData.get('description')) {
       Swal.fire({
         title: "Please enter the description of the book",
         confirmButtonColor: '#15877C'
       })
       return;
     }
-    if (!data.price) {
+    if (!formData.get('price')) {
       Swal.fire({
         title: "Please enter the price of the book!",
         confirmButtonColor: '#15877C'
       })
       return;
     }
-    let request = {
-      "url": `http://localhost:3000/api/products/${bookId}`,          
-      "method": "PUT",
-      "data": data
+    // Append the shopId to the URL
+    const request = {
+      url: `http://localhost:3000/api/products/${bookId}`,
+      method: 'PUT',
+      data: formData,
+      processData: false,        
+      contentType: false,
     };
     // Send the PUT request        
     $.ajax(request).done(function(response) {
@@ -525,6 +522,7 @@
       })
     });
   });
+
   // Delete the product
   if(window.location.pathname==="/products"){      
     $(document).on("click", ".table tbody td a.delete", function (event) {
@@ -615,83 +613,149 @@
   })
 
   // update category
-  $("#edit_cat").submit(function(event) {
-    event.preventDefault();
-    let unindexed_array = $(this).serializeArray();
-    let data = {};
-    $.map(unindexed_array, function(n, i) {
-        data[n['name']] = n['value'];
-    });
-    // Extract the genre's ID from the form data
-    const genreId = data.id;
+  // $("#edit_cat").submit(function(event) {
+  //   event.preventDefault();
+  //   let unindexed_array = $(this).serializeArray();
+  //   let data = {};
+  //   $.map(unindexed_array, function(n, i) {
+  //       data[n['name']] = n['value'];
+  //   });
+  //   // Extract the genre's ID from the form data
+  //   const genreId = data.id;
       
-    // Validation
-    if (!data.genre) {
+  //   // Validation
+  //   if (!data.genre) {
+  //       Swal.fire({
+  //         title: 'Please enter the category',
+  //         confirmButtonColor: '#15778C',
+  //       })
+  //       return;
+  //   }
+  //   if (data.genre.length < 4) {
+  //       Swal.fire({
+  //         title: 'The category should be at least 4 characters',
+  //         confirmButtonColor: '#15778C',
+  //       })
+  //       return;
+  //   }
+  //   if (!data.totalBooks) {
+  //       Swal.fire({
+  //         title: 'Please enter the total books',
+  //         confirmButtonColor: '#15778c'
+  //       });
+  //       return;
+  //   }
+  //   if (!data.description ) {
+  //       Swal.fire({
+  //         title: 'Please enter the description',
+  //         confirmButtonColor: '#15778C'
+  //       });
+  //       return;    
+  //   }
+  //   if (data.description.length < 4) {
+  //       Swal.fire({
+  //         title: 'The description should be at least 4 characters',
+  //         confirmButtonColor: '#15778C',
+  //       })
+  //       return;
+  //   }
+  //   let request = {
+  //       "url": `http://localhost:3000/api/categories/${genreId}`,
+  //       "method": "PUT",
+  //       "data": data
+  //   };
+  //   // Send the PUT request        
+  //   $.ajax(request).done(function(response) {
+  //     Swal.fire({
+  //       title: 'Do you want to save the changes?',
+  //       showDenyButton: true,            
+  //       showCancelButton: true,
+  //       confirmButtonText: 'Save',            
+  //       denyButtonText: `Don't save`,
+  //       confirmButtonColor: '#15877C'          
+  //     })
+  //     .then((result) => {
+  //     /* Read more about isConfirmed, isDenied below */
+  //       if (result.isConfirmed) {
+  //         Swal.fire('Saved!', 'Data updated successfully', 'success')              
+  //         .then(() => {
+  //           window.location.href='/category';
+  //         })
+  //       } else if (result.isDenied) {
+  //         Swal.fire('Changes are not saved', '', 'info')
+  //           .then(() => {
+  //             window.location.href='/category';
+  //           })
+  //       }
+  //     })
+  //   });
+  // });
+  $("#edit_cat").submit(function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    const genreId = formData.get('id');
+
+    if (!formData.get('genre') || formData.get('genre').length < 4) {
         Swal.fire({
-          title: 'Please enter the category',
-          confirmButtonColor: '#15778C',
-        })
-        return;
-    }
-    if (data.genre.length < 4) {
-        Swal.fire({
-          title: 'The category should be at least 4 characters',
-          confirmButtonColor: '#15778C',
-        })
-        return;
-    }
-    if (!data.totalBooks) {
-        Swal.fire({
-          title: 'Please enter the total books',
-          confirmButtonColor: '#15778c'
+            title: 'Please enter a category with at least 4 characters',
+            confirmButtonColor: '#15778C',
         });
         return;
     }
-    if (!data.description ) {
+
+    if (!formData.get('totalBooks')) {
         Swal.fire({
-          title: 'Please enter the description',
-          confirmButtonColor: '#15778C'
+            title: 'Please enter the total number of books',
+            confirmButtonColor: '#15778c',
         });
-        return;    
-    }
-    if (data.description.length < 4) {
-        Swal.fire({
-          title: 'The description should be at least 4 characters',
-          confirmButtonColor: '#15778C',
-        })
         return;
     }
-    let request = {
-        "url": `http://localhost:3000/api/categories/${genreId}`,
-        "method": "PUT",
-        "data": data
+
+    if (!formData.get('description') || formData.get('description').length < 4) {
+        Swal.fire({
+            title: 'Please enter a description with at least 4 characters',
+            confirmButtonColor: '#15778C',
+        });
+        return;
+    }
+
+    const request = {
+        url: `http://localhost:3000/api/categories/${genreId}`,
+        method: 'PUT',
+        data: formData,
+        processData: false,
+        contentType: false,
     };
-    // Send the PUT request        
-    $.ajax(request).done(function(response) {
-      Swal.fire({
-        title: 'Do you want to save the changes?',
-        showDenyButton: true,            
-        showCancelButton: true,
-        confirmButtonText: 'Save',            
-        denyButtonText: `Don't save`,
-        confirmButtonColor: '#15877C'          
-      })
-      .then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire('Saved!', 'Data updated successfully', 'success')              
-          .then(() => {
-            window.location.href='/category';
-          })
-        } else if (result.isDenied) {
-          Swal.fire('Changes are not saved', '', 'info')
-            .then(() => {
-              window.location.href='/category';
-            })
-        }
-      })
-    });
-  });
+
+    $.ajax(request)
+        .done(function (response) {
+            Swal.fire({
+                title: 'Do you want to save the changes?',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Save',
+                denyButtonText: `Don't save`,
+                confirmButtonColor: '#15877C',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire('Saved!', 'Data updated successfully', 'success').then(() => {
+                        window.location.href = '/category';
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire('Changes are not saved', '', 'info').then(() => {
+                        window.location.href = '/category';
+                    });
+                }
+            });
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            console.error('AJAX request failed:', textStatus, errorThrown);
+            Swal.fire('Error', 'Failed to update data. Check the console for details.', 'error');
+        });
+});
+
 
   // Delete the category
   if(window.location.pathname==="/category"){      
@@ -917,7 +981,6 @@
       })
     });
   });
-
 
   // Delete the Banner
   if(window.location.pathname==="/banner"){      

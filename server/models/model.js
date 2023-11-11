@@ -16,18 +16,11 @@ const schema = new mongoose.Schema({
         type:String,
         required: true,
     },
-    isSuperAdmin:{
-        type:Boolean,
-        default:false
-    },
-    tokens:[
-        {
-            adminToken: {
-                type:String,
-                required: true,
-            },
-        },
-    ]
+    role: { 
+        type: String, 
+        enum: ['admin', 'superAdmin'], 
+        default: 'admin' 
+    }
 })
 
 const Admindb = mongoose.model('Admin', schema);

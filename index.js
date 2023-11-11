@@ -42,7 +42,8 @@ app.use('/lib', express.static(path.resolve(__dirname,"assets/lib")))
 
 // load routers
 app.use('/',require('./server/routes/router'))
-app.use('/',require('./server/routes/userRouter'));
+app.use('/',require('./server/routes/authRouter'));
+// app.use('/',require('./server/routes/protected'));
 
 app.listen(port , ()=> {
     console.log('> Server is up and running on port : ' + port)
