@@ -2,14 +2,14 @@
   "use strict";
   // Spinner
   const spinner = function () {
-    setTimeout(function () {      
+    setTimeout(function () {
       if ($('#spinner').length > 0) {
         $('#spinner').removeClass('show');
       }
     }, 1);
   };
   spinner();
-  
+
   // Back to top button
   $(window).scroll(function () {
     if ($(this).scrollTop() > 300) {
@@ -21,8 +21,8 @@
 
   // back to top button
   $('.back-to-top').click(function () {
-    $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
-      return false;
+    $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
+    return false;
   });
 
   // Sidebar Toggler
@@ -38,21 +38,21 @@
     let email = document.forms["uploadUser"]["email"].value;
     let password = document.forms["uploadUser"]["password"].value;
     let confirmPassword = document.forms["uploadUser"]["confirmPassword"].value;
-  
+
     // Check if name, email, password, and confirmPassword are not empty
     if (name === "") {
       Swal.fire({
-        title:'Please enter your name!',
+        title: 'Please enter your name!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
-    if (name.length < 3 ) {
+    if (name.length < 3) {
       Swal.fire({
         title: 'Name should have at least 3 characters!',
         confirmButtonColor: '#15877C',
       })
-    return false;
+      return false;
     }
     if (email === "") {
       Swal.fire({
@@ -66,7 +66,7 @@
         title: 'Please enter your password!',
         confirmButtonColor: '#15877C',
       })
-        return false;
+      return false;
     }
     if (confirmPassword === "") {
       Swal.fire({
@@ -92,10 +92,10 @@
     return true;
   }
   // Add new admin
-  $("#uploadUser").submit(function(event) {
+  $("#uploadUser").submit(function (event) {
     if (!validateForm()) {
       event.preventDefault();
-    }else{
+    } else {
       Swal.fire({
         icon: 'success',
         title: 'New admin data is inserted Successfully',
@@ -105,12 +105,12 @@
     }
   })
   // update admin
-  $("#edit_admin").submit(function(event) {
+  $("#edit_admin").submit(function (event) {
     event.preventDefault();
     let unindexed_array = $(this).serializeArray();
     let data = {};
-    
-    $.map(unindexed_array, function(n, i) {
+
+    $.map(unindexed_array, function (n, i) {
       data[n['name']] = n['value'];
     });
     // Extract the admin's ID from the form data
@@ -131,20 +131,20 @@
       return;
     }
     if (!data.email) {
-      Swal.fire({            
+      Swal.fire({
         title: 'Please enter the name!',
         confirmButtonColor: '#15877C',
       })
       return;
     }
-    
+
     let request = {
       "url": `http://localhost:3000/api/admins/${adminId}`,
       "method": "PUT",
       "data": data
     };
     // Send the PUT request
-    $.ajax(request).done(function(response) {
+    $.ajax(request).done(function (response) {
       Swal.fire({
         title: 'Do you want to save the changes?',
         showDenyButton: true,
@@ -153,25 +153,25 @@
         denyButtonText: `Don't save`,
         confirmButtonColor: '#15877C'
       })
-      .then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire('Saved!', 'Data updated successfully', 'success')
-          .then((result) => {
-            window.location.href='/admin';
-          })
-        } else if (result.isDenied) {
-          Swal.fire('Changes are not saved', '', 'info')
-          .then((result) => {
-            window.location.href='/admin';
-          })
-        }
-      })
+        .then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            Swal.fire('Saved!', 'Data updated successfully', 'success')
+              .then((result) => {
+                window.location.href = '/admin';
+              })
+          } else if (result.isDenied) {
+            Swal.fire('Changes are not saved', '', 'info')
+              .then((result) => {
+                window.location.href = '/admin';
+              })
+          }
+        })
     });
   });
-  
+
   //delete admin
-  if(window.location.pathname==="/admin"){      
+  if (window.location.pathname === "/admin") {
     $(document).on("click", ".table tbody td a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
@@ -187,19 +187,19 @@
         cancelButtonText: 'cancel',
         confirmButtonColor: '#d33',
       })
-      .then((result) => {
-        if (result.isConfirmed) {
-          // The user clicked the "Yes, delete it" button
-          $.ajax(request).done(function (response) {
-            Swal.fire('Data deleted Successfully', '', 'success').then(() => {
-              location.reload();
+        .then((result) => {
+          if (result.isConfirmed) {
+            // The user clicked the "Yes, delete it" button
+            $.ajax(request).done(function (response) {
+              Swal.fire('Data deleted Successfully', '', 'success').then(() => {
+                location.reload();
+              });
             });
-          });
-        } else {
-          // The user clicked the "cancel" button or closed the dialog
-          Swal.fire('Action canceled', '', 'info');
-        }
-      });
+          } else {
+            // The user clicked the "cancel" button or closed the dialog
+            Swal.fire('Action canceled', '', 'info');
+          }
+        });
     })
   }
   // shop alerts
@@ -211,37 +211,37 @@
     let closingTime = document.forms["add_shop"]["closingTime"].value;
     let shopImg = document.forms["add_shop"]["shopImg"].value;
     // Check if name, email, password, and confirmPassword are not empty
-    if (name === "" ) {
+    if (name === "") {
       Swal.fire({
-        title:'Please enter the shop name!',
+        title: 'Please enter the shop name!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
-    if (name.length < 3 ) {
+    if (name.length < 3) {
       Swal.fire({
         title: 'Shop name should have at least 3 characters!',
         confirmButtonColor: '#15877C'
       })
       return false;
     }
-    if (address === "" ) {
+    if (address === "") {
       Swal.fire({
-        title:'Please enter the address of shop!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;    
-    }
-    if (openingTime === "") {
-      Swal.fire({
-        title:'Please enter opening time of the shop!',
+        title: 'Please enter the address of shop!',
         confirmButtonColor: '#15877C',
       })
       return false;
-    } 
-    if (closingTime === "" ) {
+    }
+    if (openingTime === "") {
       Swal.fire({
-        title:'Please enter closing time of the shop!',
+        title: 'Please enter opening time of the shop!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (closingTime === "") {
+      Swal.fire({
+        title: 'Please enter closing time of the shop!',
         confirmButtonColor: '#15877C',
       })
       return false;
@@ -256,17 +256,17 @@
     return true;
   }
 
-  $("#add_shop").submit(function(event) {
+  $("#add_shop").submit(function (event) {
     if (!shopValidation()) {
       event.preventDefault();
-    }else{
+    } else {
       Swal.fire({
         icon: 'success',
         title: 'New shop is added Successfully',
         showConfirmButton: false,
         timer: 6000,
       })
-    }           
+    }
   })
 
   //update shop details
@@ -281,7 +281,7 @@
         confirmButtonColor: '#15877C',
       })
       return;
-    }  
+    }
     if (!formData.get('address')) {
       Swal.fire({
         title: 'Please enter the address of shop!',
@@ -289,7 +289,7 @@
       })
       return;
     }
-    if (!formData.get('openingTime')|| !formData.get('closingTime')) {
+    if (!formData.get('openingTime') || !formData.get('closingTime')) {
       Swal.fire({
         title: 'Please enter opening time and closing time of the shop!',
         confirmButtonColor: '#15877C',
@@ -298,23 +298,23 @@
     }
     // Append the shopId to the URL
     const request = {
-        url: `http://localhost:3000/api/shops/${shopId}`,
-        method: 'PUT',
-        data: formData,
-        processData: false,
-        contentType: false,
+      url: `http://localhost:3000/api/shops/${shopId}`,
+      method: 'PUT',
+      data: formData,
+      processData: false,
+      contentType: false,
     };
 
-  $.ajax(request)
-    .done(function (response) {
+    $.ajax(request)
+      .done(function (response) {
         Swal.fire({
           title: 'Do you want to save the changes?',
-          showDenyButton: true,            
+          showDenyButton: true,
           showCancelButton: true,
           confirmButtonText: 'Save',
           denyButtonText: `Don't save`,
           confirmButtonColor: '#15877C',
-        }).then((result) => {          
+        }).then((result) => {
           if (result.isConfirmed) {
             Swal.fire('Saved!', 'Data updated successfully', 'success').then(() => {
               window.location.href = '/shop';
@@ -325,14 +325,14 @@
             });
           }
         });
-    })
-    .fail(function (error) {
+      })
+      .fail(function (error) {
         Swal.fire('Error', 'Failed to update data', 'error');
-    });
+      });
   });
 
   // Delete the shop
-  if(window.location.pathname==="/shop"){      
+  if (window.location.pathname === "/shop") {
     $(document).on("click", ".shopCard a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
@@ -348,19 +348,19 @@
         cancelButtonText: 'cancel',
         confirmButtonColor: '#d33',
       })
-      .then((result) => {
-        if (result.isConfirmed) {
-          // The user clicked the "Yes, delete it" button
-          $.ajax(request).done(function (response) {
-            Swal.fire('Data deleted Successfully', '', 'success').then(() => {
-              location.reload();
+        .then((result) => {
+          if (result.isConfirmed) {
+            // The user clicked the "Yes, delete it" button
+            $.ajax(request).done(function (response) {
+              Swal.fire('Data deleted Successfully', '', 'success').then(() => {
+                location.reload();
+              });
             });
-          });
-        } else {
-          // The user clicked the "cancel" button or closed the dialog
-          Swal.fire('Action canceled', '', 'info');
-        }
-      });
+          } else {
+            // The user clicked the "cancel" button or closed the dialog
+            Swal.fire('Action canceled', '', 'info');
+          }
+        });
     })
   }
 
@@ -371,54 +371,54 @@
     let author = document.forms["add_product"]["author"].value;
     let quantity = document.forms["add_product"]["quantity"].value;
     let description = document.forms["add_product"]["description"].value;
-    let price = document.forms["add_product"]["price"].value;    
+    let price = document.forms["add_product"]["price"].value;
 
     // Check if book details are not empty
     if (bookName === "") {
       Swal.fire({
-        title:'Please enter book name!',
+        title: 'Please enter book name!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
-    if (bookName.length < 4 ) {
+    if (bookName.length < 4) {
       Swal.fire({
         title: 'Book Name should have at least 4 characters!',
         confirmButtonColor: '#15877C',
       })
-    return false;
+      return false;
     }
-    if (author === "" ) {
+    if (author === "") {
       Swal.fire({
-        title:'Please enter Author field!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;    
-    }
-    if (author.length < 4 ) {
-      Swal.fire({
-        title: 'Author should have at least 4 characters!',
-        confirmButtonColor: '#15877C',
-      })
-    return false;
-    }
-    if (description === "" ) {
-      Swal.fire({
-        title:'Please provide the decription of the book!',
+        title: 'Please enter Author field!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
-    if (description.length < 4 ) {
+    if (author.length < 4) {
+      Swal.fire({
+        title: 'Author should have at least 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (description === "") {
+      Swal.fire({
+        title: 'Please provide the decription of the book!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (description.length < 4) {
       Swal.fire({
         title: 'Description should have at least 4 characters!',
         confirmButtonColor: '#15877C',
       })
-    return false;
+      return false;
     }
     if (price === "") {
       Swal.fire({
-        title:'Please enter the price of the Book!',
+        title: 'Please enter the price of the Book!',
         confirmButtonColor: '#15877C',
       })
       return false;
@@ -426,36 +426,37 @@
     return true;
   }
   // Add new book
-  $("#add_product").submit(function(event) {
+  $("#add_product").submit(function (event) {
     if (!productValidation()) {
       event.preventDefault();
-    }else{
+    } else {
       Swal.fire({
         icon: 'success',
         title: 'New Book is added Successfully',
         showConfirmButton: false,
         timer: 6000
       })
-    }        
+    }
   })
   // Update product
-  $("#edit_product").submit(function(event) {
+  $("#edit_product").submit(function (event) {
     event.preventDefault();
     const formData = new FormData(this);
     
+    formData.append('additionalField', 'additionalValue');
     // Extract the book's ID from the form data
     const bookId = formData.get('id');
     // Validation
     if (!formData.get('bookName')) {
       Swal.fire({
-        title:'Please enter the book name',
+        title: 'Please enter the book name',
         confirmButtonColor: '#15877C'
       })
       return;
     }
     if (formData.get('bookName').length < 4) {
       Swal.fire({
-        title:'The book name should be at least 4 characters',
+        title: 'The book name should be at least 4 characters',
         confirmButtonColor: '#15877C'
       })
       return;
@@ -465,11 +466,11 @@
         title: 'Please enter Author of the book!',
         confirmButtonColor: '#15877C'
       })
-      return;    
-    } 
+      return;
+    }
     if (formData.get('author').length < 4) {
       Swal.fire({
-        title:'The Author should be at least 4 characters',
+        title: 'The Author should be at least 4 characters',
         confirmButtonColor: '#15877C'
       })
       return;
@@ -488,16 +489,16 @@
       })
       return;
     }
-    // Append the shopId to the URL
+    // Append the bookid to the URL
     const request = {
-      url: `http://localhost:3000/api/products/${bookId}`,
-      method: 'PUT',
-      data: formData,
-      processData: false,        
+      'url': `http://localhost:3000/api/products/${bookId}`,
+      'method': 'PUT',
+      'data': formData,
+      processData: false,
       contentType: false,
     };
-    // Send the PUT request        
-    $.ajax(request).done(function(response) {
+    // // Send the PUT request        
+    $.ajax(request).done(function (response) {
       Swal.fire({
         title: 'Do you want to save the changes?',
         showDenyButton: true,
@@ -506,31 +507,37 @@
         denyButtonText: `Don't save`,
         confirmButtonColor: '#15877C'
       })
-      .then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire('Saved!', 'Data updated successfully', 'success')
-          .then(() => {
-            window.location.href='/products';
-          })
-        } else if (result.isDenied) {
-          Swal.fire('Changes are not saved', '', 'info')
-          .then(() => {
-            window.location.href='/products';
-          })
-        }
-      })
+        .then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            Swal.fire('Saved!', 'Data updated successfully', 'success')
+              .then(() => {
+                window.location.href = '/products';
+              })
+          } else if (result.isDenied) {
+            Swal.fire('Changes are not saved', '', 'info')
+              .then(() => {
+                window.location.href = '/products';
+              })
+          }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+          console.error('AJAX request failed:', textStatus, errorThrown);
+          console.log('XHR status:', jqXHR.status);
+          console.log('XHR response text:', jqXHR.responseText);
+          Swal.fire('Error', 'Failed to update data. Check the console for details.', 'error');
+        });
+
     });
   });
 
   // Delete the product
-  if(window.location.pathname==="/products"){      
+  if (window.location.pathname === "/products") {
     $(document).on("click", ".table tbody td a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url":`http://localhost:3000/api/products/${id}`,
-        "method":"DELETE"
+        "url": `http://localhost:3000/api/products/${id}`,
+        "method": "DELETE"
       };
       Swal.fire({
         title: 'Do you really want to delete this record?',
@@ -540,35 +547,35 @@
         cancelButtonText: 'cancel',
         confirmButtonColor: '#d33',
       })
-      .then((result) => {
-        if (result.isConfirmed) {
-          // The user clicked the "Yes, delete it" button
-          $.ajax(request).done(function (response) {
-            Swal.fire('Data deleted Successfully', '', 'success').then(() => {
-              location.reload();
+        .then((result) => {
+          if (result.isConfirmed) {
+            // The user clicked the "Yes, delete it" button
+            $.ajax(request).done(function (response) {
+              Swal.fire('Data deleted Successfully', '', 'success').then(() => {
+                location.reload();
+              });
             });
-          });
-        } else {
-          // The user clicked the "cancel" button or closed the dialog
-          Swal.fire('Action canceled', '', 'info');
-        }
-      });
+          } else {
+            // The user clicked the "cancel" button or closed the dialog
+            Swal.fire('Action canceled', '', 'info');
+          }
+        });
     })
   }
   // validation for category
-  function categoryValidation(){
+  function categoryValidation() {
     let genre = document.forms["add_cat"]["genre"].value;
     let totalBooks = document.forms["add_cat"]["totalBooks"].value;
     let description = document.forms["add_cat"]["description"].value;
     // Check if name, email, password, and confirmPassword are not empty
-    if (genre === "" ) {
+    if (genre === "") {
       Swal.fire({
         title: "Please enter a the category ",
         confirmButtonColor: '#15778C',
       })
       return false;
     }
-    if (genre.length <4 ) {
+    if (genre.length < 4) {
       Swal.fire({
         title: "Category should be at least 4 characters",
         confirmButtonColor: '#15778C',
@@ -582,114 +589,36 @@
       })
       return false;
     }
-    if (description === "" ) {
-      Swal.fire({ 
+    if (description === "") {
+      Swal.fire({
         title: "Please enter the description of the category",
         confirmButtonColor: '#15778C'
       })
-      return false;    
+      return false;
     }
-    if (description.length < 4 ) {
-      Swal.fire({ 
+    if (description.length < 4) {
+      Swal.fire({
         title: "The description must be at least 4 characters",
         confirmButtonColor: '#15778C'
       })
-      return false;    
+      return false;
     }
     return true;
   }
   // add the category
-  $("#add_cat").submit(function(event) {
+  $("#add_cat").submit(function (event) {
     if (!categoryValidation()) {
       event.preventDefault();
-    }else{
+    } else {
       Swal.fire({
         icon: 'success',
-        title:'Successfully added category',
+        title: 'Successfully added category',
         showConfirmButton: false,
         timer: 6000
-      }) 
-    }   
+      })
+    }
   })
 
-  // update category
-  // $("#edit_cat").submit(function(event) {
-  //   event.preventDefault();
-  //   let unindexed_array = $(this).serializeArray();
-  //   let data = {};
-  //   $.map(unindexed_array, function(n, i) {
-  //       data[n['name']] = n['value'];
-  //   });
-  //   // Extract the genre's ID from the form data
-  //   const genreId = data.id;
-      
-  //   // Validation
-  //   if (!data.genre) {
-  //       Swal.fire({
-  //         title: 'Please enter the category',
-  //         confirmButtonColor: '#15778C',
-  //       })
-  //       return;
-  //   }
-  //   if (data.genre.length < 4) {
-  //       Swal.fire({
-  //         title: 'The category should be at least 4 characters',
-  //         confirmButtonColor: '#15778C',
-  //       })
-  //       return;
-  //   }
-  //   if (!data.totalBooks) {
-  //       Swal.fire({
-  //         title: 'Please enter the total books',
-  //         confirmButtonColor: '#15778c'
-  //       });
-  //       return;
-  //   }
-  //   if (!data.description ) {
-  //       Swal.fire({
-  //         title: 'Please enter the description',
-  //         confirmButtonColor: '#15778C'
-  //       });
-  //       return;    
-  //   }
-  //   if (data.description.length < 4) {
-  //       Swal.fire({
-  //         title: 'The description should be at least 4 characters',
-  //         confirmButtonColor: '#15778C',
-  //       })
-  //       return;
-  //   }
-  //   let request = {
-  //       "url": `http://localhost:3000/api/categories/${genreId}`,
-  //       "method": "PUT",
-  //       "data": data
-  //   };
-  //   // Send the PUT request        
-  //   $.ajax(request).done(function(response) {
-  //     Swal.fire({
-  //       title: 'Do you want to save the changes?',
-  //       showDenyButton: true,            
-  //       showCancelButton: true,
-  //       confirmButtonText: 'Save',            
-  //       denyButtonText: `Don't save`,
-  //       confirmButtonColor: '#15877C'          
-  //     })
-  //     .then((result) => {
-  //     /* Read more about isConfirmed, isDenied below */
-  //       if (result.isConfirmed) {
-  //         Swal.fire('Saved!', 'Data updated successfully', 'success')              
-  //         .then(() => {
-  //           window.location.href='/category';
-  //         })
-  //       } else if (result.isDenied) {
-  //         Swal.fire('Changes are not saved', '', 'info')
-  //           .then(() => {
-  //             window.location.href='/category';
-  //           })
-  //       }
-  //     })
-  //   });
-  // });
   $("#edit_cat").submit(function (event) {
     event.preventDefault();
 
@@ -698,73 +627,72 @@
     const genreId = formData.get('id');
 
     if (!formData.get('genre') || formData.get('genre').length < 4) {
-        Swal.fire({
-            title: 'Please enter a category with at least 4 characters',
-            confirmButtonColor: '#15778C',
-        });
-        return;
+      Swal.fire({
+        title: 'Please enter a category with at least 4 characters',
+        confirmButtonColor: '#15778C',
+      });
+      return;
     }
 
     if (!formData.get('totalBooks')) {
-        Swal.fire({
-            title: 'Please enter the total number of books',
-            confirmButtonColor: '#15778c',
-        });
-        return;
+      Swal.fire({
+        title: 'Please enter the total number of books',
+        confirmButtonColor: '#15778c',
+      });
+      return;
     }
 
     if (!formData.get('description') || formData.get('description').length < 4) {
-        Swal.fire({
-            title: 'Please enter a description with at least 4 characters',
-            confirmButtonColor: '#15778C',
-        });
-        return;
+      Swal.fire({
+        title: 'Please enter a description with at least 4 characters',
+        confirmButtonColor: '#15778C',
+      });
+      return;
     }
 
     const request = {
-        url: `http://localhost:3000/api/categories/${genreId}`,
-        method: 'PUT',
-        data: formData,
-        processData: false,
-        contentType: false,
+      url: `http://localhost:3000/api/categories/${genreId}`,
+      method: 'PUT',
+      data: formData,
+      processData: false,
+      contentType: false,
     };
 
     $.ajax(request)
-        .done(function (response) {
-            Swal.fire({
-                title: 'Do you want to save the changes?',
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: 'Save',
-                denyButtonText: `Don't save`,
-                confirmButtonColor: '#15877C',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire('Saved!', 'Data updated successfully', 'success').then(() => {
-                        window.location.href = '/category';
-                    });
-                } else if (result.isDenied) {
-                    Swal.fire('Changes are not saved', '', 'info').then(() => {
-                        window.location.href = '/category';
-                    });
-                }
+      .done(function (response) {
+        Swal.fire({
+          title: 'Do you want to save the changes?',
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonText: 'Save',
+          denyButtonText: `Don't save`,
+          confirmButtonColor: '#15877C',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire('Saved!', 'Data updated successfully', 'success').then(() => {
+              window.location.href = '/category';
             });
-        })
-        .fail(function (jqXHR, textStatus, errorThrown) {
-            console.error('AJAX request failed:', textStatus, errorThrown);
-            Swal.fire('Error', 'Failed to update data. Check the console for details.', 'error');
+          } else if (result.isDenied) {
+            Swal.fire('Changes are not saved', '', 'info').then(() => {
+              window.location.href = '/category';
+            });
+          }
         });
-});
-
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        console.error('AJAX request failed:', textStatus, errorThrown);
+        Swal.fire('Error', 'Failed to update data. Check the console for details.', 'error');
+      });
+  });
 
   // Delete the category
-  if(window.location.pathname==="/category"){      
+  if (window.location.pathname === "/category") {
     $(document).on("click", ".table tbody td a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url":`http://localhost:3000/api/categories/${id}`,
-        "method":"DELETE"
+        "url": `http://localhost:3000/api/categories/${id}`,
+        "method": "DELETE"
       };
       Swal.fire({
         title: 'Do you really want to delete this record?',
@@ -774,52 +702,52 @@
         cancelButtonText: 'cancel',
         confirmButtonColor: '#d33',
       })
-      .then((result) => {
-        if (result.isConfirmed) {
-          // The user clicked the "Yes, delete it" button
-          $.ajax(request).done(function (response) {
-            Swal.fire('Data deleted Successfully', '', 'success').then(() => {
-              location.reload();
+        .then((result) => {
+          if (result.isConfirmed) {
+            // The user clicked the "Yes, delete it" button
+            $.ajax(request).done(function (response) {
+              Swal.fire('Data deleted Successfully', '', 'success').then(() => {
+                location.reload();
+              });
             });
-          });
-        } else {
-          // The user clicked the "cancel" button or closed the dialog
-          Swal.fire('Action cancelled', '', 'info');
-        }
-      });
+          } else {
+            // The user clicked the "cancel" button or closed the dialog
+            Swal.fire('Action cancelled', '', 'info');
+          }
+        });
     })
   }
 
   // Banner Section
   // Banner field on option value change
-  $('#clickType').on('change',function(){
-  if( $(this).val()==="product"){
-    $("#bannerProduct").show()
-    $("#bannerCategory").hide()
-  }else{
-    $("#bannerProduct").hide()
-    $("#bannerCategory").show()
-  }
+  $('#clickType').on('change', function () {
+    if ($(this).val() === "product") {
+      $("#bannerProduct").show()
+      $("#bannerCategory").hide()
+    } else {
+      $("#bannerProduct").hide()
+      $("#bannerCategory").show()
+    }
   })
 
   // Validation for creating banner
-  function bannerValidation(){
+  function bannerValidation() {
     let name = document.forms["createBanner"]["name"].value;
     let shop = document.forms["createBanner"]['shop'].value;
     let type = document.forms["createBanner"]["type"].value;
     let categoryId = document.forms["createBanner"]["categoryId"].value;
     let productId = document.forms["createBanner"]["productId"].value;
-    let bannerImg = document.getElementById("bannerImg");     
+    let bannerImg = document.getElementById("bannerImg");
 
     // Check if book details are not empty
     if (!name) {
       Swal.fire({
-        title:'Please enter banner name!',
+        title: 'Please enter banner name!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
-    if (name.length < 4 ) {
+    if (name.length < 4) {
       Swal.fire({
         title: 'Banner Name should have at least 4 characters!',
         confirmButtonColor: '#15877C',
@@ -828,12 +756,12 @@
     }
     if (!shop) {
       Swal.fire({
-        title:'Please enter shop name!',
+        title: 'Please enter shop name!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
-    if (shop.length < 4 ) {
+    if (shop.length < 4) {
       Swal.fire({
         title: 'Shop Name should have at least 4 characters!',
         confirmButtonColor: '#15877C',
@@ -841,7 +769,7 @@
       return false;
     }
     if (type === 'category') {
-      if(!categoryId ||categoryId.length < 4){
+      if (!categoryId || categoryId.length < 4) {
         Swal.fire({
           title: 'please enter the category ID with at least 4 characters!',
           confirmButtonColor: '#15877C',
@@ -849,8 +777,8 @@
         return false;
       }
     }
-    if(type === 'product'){
-      if(!productId ||productId.length < 4){
+    if (type === 'product') {
+      if (!productId || productId.length < 4) {
         Swal.fire({
           title: 'Please enter the product ID with at least 4 characters!',
           confirmButtonColor: '#15877C',
@@ -858,9 +786,9 @@
         return false;
       }
     }
-    if(!bannerImg.value && !imgUrl){
+    if (!bannerImg.value && !imgUrl) {
       Swal.fire({
-        title:'Please provide the image of the book banner!',
+        title: 'Please provide the image of the book banner!',
         confirmButtonColor: '#15877C',
       })
       return false;
@@ -869,70 +797,73 @@
   }
 
   // Create new banner  
-  $("#createBanner").submit(function(event) {
+  $("#createBanner").submit(function (event) {
     if (!bannerValidation()) {
       event.preventDefault();
-    }else{
+    } else {
       Swal.fire({
         icon: 'success',
         title: 'New banner is created Successfully',
         showConfirmButton: false,
         timer: 6000
       })
-    }        
+    }
   })
 
-  $('#editClickType').on('change',function(){
-    if( $(this).val()==='category'){
+  $('#editClickType').on('change', function () {
+    if ($(this).val() === 'category') {
       $("#bannerProductId").hide()
       $("#bannerCategoryId").show()
-    }else{
+    } else {
       $("#bannerProductId").show()
       $("#bannerCategoryId").hide()
     }
   })
 
-   // Update banner
-  $("#editBanner").submit(function(event) {
+  // Update banner
+  $("#editBanner").submit(function (event) {
     event.preventDefault();
-    let unindexed_array = $(this).serializeArray();
-    let data = {};
-    $.map(unindexed_array, function(n, i) {
-      data[n['name']] = n['value'];
-    });
-    // Extract the book's ID from the form data
-    const bannerId = data.id;
+
+    // Create a FormData object
+    const formData = new FormData(this);
+
+    // Append additional data to the FormData object
+    formData.append('additionalField', 'additionalValue');
+
+    // Extract the banner's ID from the form data
+    const bannerId = formData.get('id');
+
     // Validation
-    if (!data.name) {
+    if (!formData.get('name')) {
       Swal.fire({
-        title:'Please enter the banner name',
+        title: 'Please enter the banner name',
         confirmButtonColor: '#15877C'
       })
       return;
     }
-    if (data.name.length < 4) {
+    if (formData.get('name').length < 4) {
       Swal.fire({
-        title:'The banner name should be at least 4 characters',
+        title: 'The banner name should be at least 4 characters',
         confirmButtonColor: '#15877C'
       })
       return;
     }
-    if (!data.shop) {
+    if (!formData.get('shop')) {
       Swal.fire({
         title: 'Please enter shop name!',
         confirmButtonColor: '#15877C'
       })
-      return;    
-    } 
-    if (data.shop.length < 4) {
+      return;
+    }
+    if (formData.get('shop').length < 4) {
       Swal.fire({
-        title:'The shop name should be at least 4 characters',
+        title: 'The shop name should be at least 4 characters',
         confirmButtonColor: '#15877C'
       })
       return;
     }
-    if (data.type === 'category') {
-      if(!data.categoryId || data.categoryId.length < 4){
+    if (formData.get('type') === 'category') {
+      if (!formData.get('categoryId') || formData.get('categoryId').length < 4) {
         Swal.fire({
           title: 'please enter the category ID with at least 4 characters!',
           confirmButtonColor: '#15877C',
@@ -940,8 +871,8 @@
         return false;
       }
     }
-    if(data.type === 'product'){
-      if(!data.productId || data.productId.length < 4){
+    if (formData.get('type') === 'product') {
+      if (!formData.get('productId') || formData.get('productId').length < 4) {
         Swal.fire({
           title: 'Please enter the product ID with at least 4 characters!',
           confirmButtonColor: '#15877C',
@@ -949,14 +880,18 @@
         return false;
       }
     }
+    // Construct the AJAX request object
     let request = {
-      "url": `http://localhost:3000/api/banner/${bannerId}`,          
+      "url": `http://localhost:3000/api/banner/${bannerId}`,
       "method": "PUT",
-      "data": data
+      "data": formData,  // Use the modified FormData object
+      processData: false,
+      contentType: false,
     };
 
-    // Send the PUT request        
-    $.ajax(request).done(function(response) {
+    // Send the PUT request
+    $.ajax(request).done(function (response) {
+      // Display a confirmation SweetAlert
       Swal.fire({
         title: 'Do you want to save the changes?',
         showDenyButton: true,
@@ -965,31 +900,33 @@
         denyButtonText: `Don't save`,
         confirmButtonColor: '#15877C'
       })
-      .then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire('Saved!', 'Data updated successfully', 'success')
-          .then(() => {
-            window.location.href='/banner';
-          })
-        } else if (result.isDenied) {
-          Swal.fire('Changes are not saved', '', 'info')
-          .then(() => {
-            window.location.href='/banner';
-          })
-        }
-      })
+        .then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            // Success message and redirect if user confirms
+            Swal.fire('Saved!', 'Data updated successfully', 'success')
+              .then(() => {
+                window.location.href = '/banner';
+              })
+          } else if (result.isDenied) {
+            // Info message and redirect if user denies
+            Swal.fire('Changes are not saved', '', 'info')
+              .then(() => {
+                window.location.href = '/banner';
+              })
+          }
+        });
     });
   });
 
   // Delete the Banner
-  if(window.location.pathname==="/banner"){      
+  if (window.location.pathname === "/banner") {
     $(document).on("click", ".table tbody td a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url":`http://localhost:3000/api/banner/${id}`,
-        "method":"DELETE"
+        "url": `http://localhost:3000/api/banner/${id}`,
+        "method": "DELETE"
       };
       Swal.fire({
         title: 'Do you really want to delete this record?',
@@ -999,67 +936,67 @@
         cancelButtonText: 'cancel',
         confirmButtonColor: '#d33',
       })
-      .then((result) => {
-        if (result.isConfirmed) {
-          // The user clicked the "Yes, delete it" button
-          $.ajax(request).done(function (response) {
-            Swal.fire('Data deleted Successfully', '', 'success')
-            .then(() => {
-              location.reload();
+        .then((result) => {
+          if (result.isConfirmed) {
+            // The user clicked the "Yes, delete it" button
+            $.ajax(request).done(function (response) {
+              Swal.fire('Data deleted Successfully', '', 'success')
+                .then(() => {
+                  location.reload();
+                });
             });
-          });
-        } else {
-          // The user clicked the "cancel" button or closed the dialog
-          Swal.fire('Action cancelled', '', 'info');
-        }
-      });
+          } else {
+            // The user clicked the "cancel" button or closed the dialog
+            Swal.fire('Action cancelled', '', 'info');
+          }
+        });
     })
   }
 
   // Validation for signUp
-  function signupValidation(){
+  function signupValidation() {
     let name = document.forms["signup"]["name"].value;
     let email = document.forms["signup"]["email"].value;
     let pswd = document.forms["signup"]['password'].value;
     let confirmPswd = document.forms["signup"]["confirmPswd"].value;
-    
+
     // Check if  sign up form are not empty
     if (!name) {
       Swal.fire({
-        title:'Please enter your name!',
+        title: 'Please enter your name!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
     if (name.length < 4) {
       Swal.fire({
-        title:'The name should at least contain 4 characters!',
+        title: 'The name should at least contain 4 characters!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
-    if (!email){
+    if (!email) {
       Swal.fire({
-        title:'Please enter your email!',
+        title: 'Please enter your email!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
-    if (!email.includes('.')){
+    if (!email.includes('.')) {
       Swal.fire({
-        title:'Please Enter a valid email address!',
+        title: 'Please Enter a valid email address!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
     if (!pswd) {
       Swal.fire({
-        title:'Please enter password!',
+        title: 'Please enter password!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
-    if (pswd.length < 6 ) {
+    if (pswd.length < 6) {
       Swal.fire({
         title: 'Password should have at least six characters!',
         confirmButtonColor: '#15877C',
@@ -1083,42 +1020,42 @@
     return true;
   }
   // signup
-  $("#signup").submit(function(event) {
+  $("#signup").submit(function (event) {
     if (!signupValidation()) {
       event.preventDefault();
-    }else{
+    } else {
       location.window.href = '/signup';
-    }        
+    }
   })
 
-   // Validation for login
-   function loginValidation(){
+  // Validation for login
+  function loginValidation() {
     let email = document.forms["login"]["email"].value;
     let pswd = document.forms["login"]['password'].value;
 
     // Check if book details are not empty
     if (!email) {
       Swal.fire({
-        title:'Please enter your email!',
+        title: 'Please enter your email!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
-    if (!email.includes('.')){
+    if (!email.includes('.')) {
       Swal.fire({
-        title:'Please Enter a valid email address!',
+        title: 'Please Enter a valid email address!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
     if (!pswd) {
       Swal.fire({
-        title:'Please enter password!',
+        title: 'Please enter password!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
-    if (pswd.length < 6 ) {
+    if (pswd.length < 6) {
       Swal.fire({
         title: 'Banner Name should have at least six characters!',
         confirmButtonColor: '#15877C',
@@ -1128,31 +1065,31 @@
     return true;
   }
   // login
-  $("#login").submit(function(event) {
+  $("#login").submit(function (event) {
     if (!loginValidation()) {
       event.preventDefault();
-    }else{
+    } else {
       location.window.href = '/login';
-    }        
+    }
   })
 
- 
-
-  
-  
-
-
- 
 
 
 
 
 
-  
- // Chart Global Color
- Chart.defaults.color = "#6C7293";
-  Chart.defaults.borderColor = "#ffffffff";    
-  
+
+
+
+
+
+
+
+
+  // Chart Global Color
+  Chart.defaults.color = "#6C7293";
+  Chart.defaults.borderColor = "#ffffffff";
+
   // Worldwide Sales Chart
   let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
   let myChart1 = new Chart(ctx1, {
@@ -1172,9 +1109,9 @@
     },
     options: {
       responsive: true
-    }        
+    }
   });
-    
+
   // Date range picker
   let start = moment().subtract(29, 'days');
   let end = moment();
@@ -1200,7 +1137,7 @@
 
   // current customer chart
   const currentData = {
-    datasets: [{      
+    datasets: [{
       data: [85, 15],
       backgroundColor: [
         '#15877C',
@@ -1208,420 +1145,420 @@
       ],
       hoverOffset: 0
     }],
-      };
+  };
 
-      const centerTextPlugin = {
-        beforeDraw: function (chart) {
-          if (chart.config.options.centerText) {
-            const ctx = chart.ctx;
-            const chartArea = chart.chartArea;
-            const centerX = (chartArea.left + chartArea.right) / 2;
-            const centerY = (chartArea.top + chartArea.bottom) / 2;
-      
-            ctx.save();
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.font = chart.config.options.centerText.font || '16px roboto';
-            ctx.fillStyle = chart.config.options.centerText.color || '#000';
-            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
-            ctx.restore();
-          }
+  const centerTextPlugin = {
+    beforeDraw: function (chart) {
+      if (chart.config.options.centerText) {
+        const ctx = chart.ctx;
+        const chartArea = chart.chartArea;
+        const centerX = (chartArea.left + chartArea.right) / 2;
+        const centerY = (chartArea.top + chartArea.bottom) / 2;
+
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = chart.config.options.centerText.font || '16px roboto';
+        ctx.fillStyle = chart.config.options.centerText.color || '#000';
+        ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
+        ctx.restore();
+      }
+    }
+  };
+  const config = {
+    type: 'doughnut',
+    data: currentData,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
         }
-      };
-    const config = {
-        type: 'doughnut',
-        data: currentData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            centerText: {
-                text: '85%', 
-                font: '16px Roboto', 
-                color: '#000'
-              },
-            borderWidth: 0,
-            cutout: '80%',
-            rotation: 70
-        },plugins: [centerTextPlugin],
-    };
-      const myChart = new Chart(
-        document.getElementById('doughnut'),
-        config
-      );
-    
-      
-    // New customers chart
-    const newData = {
-        datasets: [{
-          data: [66, 34],
-          backgroundColor: [
-            '#0E5A6A',
-            '#E2E2E2'
-          ],
-          hoverOffset: 0
-        }],
-      };
+      },
+      centerText: {
+        text: '85%',
+        font: '16px Roboto',
+        color: '#000'
+      },
+      borderWidth: 0,
+      cutout: '80%',
+      rotation: 70
+    }, plugins: [centerTextPlugin],
+  };
+  const myChart = new Chart(
+    document.getElementById('doughnut'),
+    config
+  );
 
-      const centerText66 = {
-        beforeDraw: function (chart) {
-          if (chart.config.options.centerText) {
-            const ctx = chart.ctx;
-            const chartArea = chart.chartArea;
-            const centerX = (chartArea.left + chartArea.right) / 2;
-            const centerY = (chartArea.top + chartArea.bottom) / 2;
-      
-            ctx.save();
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.font = chart.config.options.centerText.font || '16px roboto';
-            ctx.fillStyle = chart.config.options.centerText.color || '#000';
-            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
-            ctx.restore();
-          }
+
+  // New customers chart
+  const newData = {
+    datasets: [{
+      data: [66, 34],
+      backgroundColor: [
+        '#0E5A6A',
+        '#E2E2E2'
+      ],
+      hoverOffset: 0
+    }],
+  };
+
+  const centerText66 = {
+    beforeDraw: function (chart) {
+      if (chart.config.options.centerText) {
+        const ctx = chart.ctx;
+        const chartArea = chart.chartArea;
+        const centerX = (chartArea.left + chartArea.right) / 2;
+        const centerY = (chartArea.top + chartArea.bottom) / 2;
+
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = chart.config.options.centerText.font || '16px roboto';
+        ctx.fillStyle = chart.config.options.centerText.color || '#000';
+        ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
+        ctx.restore();
+      }
+    }
+  };
+  const configNew = {
+    type: 'doughnut',
+    data: newData,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
         }
-      };
-    const configNew = {
-        type: 'doughnut',
-        data: newData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            centerText: {
-                text: '66%', 
-                font: '16px Roboto', 
-                color: '#000'
-              },
-            borderWidth: 0,
-            cutout: '80%',
-            rotation: 70
-        },plugins: [centerTextPlugin],
-    };
-      const newChart = new Chart(
-        document.getElementById('doughnut2'),
-        configNew
-      );
-    
+      },
+      centerText: {
+        text: '66%',
+        font: '16px Roboto',
+        color: '#000'
+      },
+      borderWidth: 0,
+      cutout: '80%',
+      rotation: 70
+    }, plugins: [centerTextPlugin],
+  };
+  const newChart = new Chart(
+    document.getElementById('doughnut2'),
+    configNew
+  );
 
-      // target customers chart
-    const targetData = {
-        datasets: [{
-          data: [90, 10],
-          backgroundColor: [
-            '#0E5A6A',
-            '#E2E2E2'
-          ],
-          hoverOffset: 0
-        }],
-      };
 
-      const centerText90 = {
-        beforeDraw: function (chart) {
-          if (chart.config.options.centerText) {
-            const ctx = chart.ctx;
-            const chartArea = chart.chartArea;
-            const centerX = (chartArea.left + chartArea.right) / 2;
-            const centerY = (chartArea.top + chartArea.bottom) / 2;
-      
-            ctx.save();
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.font = chart.config.options.centerText.font || '16px roboto';
-            ctx.fillStyle = chart.config.options.centerText.color || '#000';
-            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
-            ctx.restore();
-          }
+  // target customers chart
+  const targetData = {
+    datasets: [{
+      data: [90, 10],
+      backgroundColor: [
+        '#0E5A6A',
+        '#E2E2E2'
+      ],
+      hoverOffset: 0
+    }],
+  };
+
+  const centerText90 = {
+    beforeDraw: function (chart) {
+      if (chart.config.options.centerText) {
+        const ctx = chart.ctx;
+        const chartArea = chart.chartArea;
+        const centerX = (chartArea.left + chartArea.right) / 2;
+        const centerY = (chartArea.top + chartArea.bottom) / 2;
+
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = chart.config.options.centerText.font || '16px roboto';
+        ctx.fillStyle = chart.config.options.centerText.color || '#000';
+        ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
+        ctx.restore();
+      }
+    }
+  };
+  const target = {
+    type: 'doughnut',
+    data: targetData,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
         }
-      };
-    const target = {
-        type: 'doughnut',
-        data: targetData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            centerText: {
-                text: '90%', 
-                font: '16px Roboto', 
-                color: '#000'
-              },
-            borderWidth: 0,
-            cutout: '80%',
-            rotation: 70
-        },plugins: [centerTextPlugin],
-    };
-      const targetChart = new Chart(
-        document.getElementById('doughnut3'),
-        target
-      );
-    
-    // Retarget customers chart
-    const retargetData = {
-        datasets: [{
-          data: [30, 70],
-          backgroundColor: [
-            '#6CCCC3',
-            '#E2E2E2'
-          ],
-          hoverOffset: 0
-        }],
-      };
+      },
+      centerText: {
+        text: '90%',
+        font: '16px Roboto',
+        color: '#000'
+      },
+      borderWidth: 0,
+      cutout: '80%',
+      rotation: 70
+    }, plugins: [centerTextPlugin],
+  };
+  const targetChart = new Chart(
+    document.getElementById('doughnut3'),
+    target
+  );
 
-      const centerText30 = {
-        beforeDraw: function (chart) {
-          if (chart.config.options.centerText) {
-            const ctx = chart.ctx;
-            const chartArea = chart.chartArea;
-            const centerX = (chartArea.left + chartArea.right) / 2;
-            const centerY = (chartArea.top + chartArea.bottom) / 2;
-      
-            ctx.save();
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.font = chart.config.options.centerText.font || '16px roboto';
-            ctx.fillStyle = chart.config.options.centerText.color || '#000';
-            ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
-            ctx.restore();
-          }
+  // Retarget customers chart
+  const retargetData = {
+    datasets: [{
+      data: [30, 70],
+      backgroundColor: [
+        '#6CCCC3',
+        '#E2E2E2'
+      ],
+      hoverOffset: 0
+    }],
+  };
+
+  const centerText30 = {
+    beforeDraw: function (chart) {
+      if (chart.config.options.centerText) {
+        const ctx = chart.ctx;
+        const chartArea = chart.chartArea;
+        const centerX = (chartArea.left + chartArea.right) / 2;
+        const centerY = (chartArea.top + chartArea.bottom) / 2;
+
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = chart.config.options.centerText.font || '16px roboto';
+        ctx.fillStyle = chart.config.options.centerText.color || '#000';
+        ctx.fillText(chart.config.options.centerText.text, centerX, centerY);
+        ctx.restore();
+      }
+    }
+  };
+  const Retarget = {
+    type: 'doughnut',
+    data: retargetData,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
         }
-      };
-    const Retarget = {
-        type: 'doughnut',
-        data: retargetData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            centerText: {
-                text: '30%', 
-                font: '16px Roboto', 
-                color: '#000'
-              },
-            borderWidth: 0,
-            cutout: '80%',
-            rotation: 70
-        },plugins: [centerTextPlugin],
-    };
-      const retargetChart = new Chart(
-        document.getElementById('doughnut4'),
-        Retarget
-      );
-
-
-
-      
-
-    // $(document).ready(function() {
-    //     const x = $("#address");
-  
-    //     $("#getLocation").click(function() {
-    //       if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition(showPosition);
-    //       } else {
-    //         alert("Geolocation is not supported by this browser.");
-    //       }
-    //     });
-  
-    //     function showPosition(position) {
-    //       alert("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
-    //     }
-    //   });
-
-
-    // // Progress Bar
-    // $('.pg-bar').waypoint(function () {
-    //     $('.progress .progress-bar').each(function () {
-    //         $(this).css("width", $(this).attr("aria-valuenow") + '%');
-    //     });
-    // }, {offset: '80%'});
-
-
-   
-
-
-    // // Testimonials carousel
-    // $(".testimonial-carousel").owlCarousel({
-    //     autoplay: true,
-    //     smartSpeed: 1000,
-    //     items: 1,
-    //     dots: true,
-    //     loop: true,
-    //     nav : false
-    // });
+      },
+      centerText: {
+        text: '30%',
+        font: '16px Roboto',
+        color: '#000'
+      },
+      borderWidth: 0,
+      cutout: '80%',
+      rotation: 70
+    }, plugins: [centerTextPlugin],
+  };
+  const retargetChart = new Chart(
+    document.getElementById('doughnut4'),
+    Retarget
+  );
 
 
 
 
 
-        // $(document).ready(function() {
-        //     var ctx = document.getElementById("worldwide-sales").getContext("2d");
-          
-        //     // Create the chart data
-        //     var data = {
-        //       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        //       datasets: [{
-        //         label: "Total Revenue",
-        //         data: [10000, 12000, 11000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000],
-        //         borderColor: "#3366cc",
-        //         backgroundColor: "#3366cc",
-        //         fill: false
-        //       }]
-        //     };
-          
-        //     // Create the chart options
-        //     var options = {
-        //       title: {
-        //         text: "Total Revenue"
-        //       },
-        //       legend: {
-        //         display: false
-        //       },
-        //       scales: {
-        //         yAxes: [{
-        //           ticks: {
-        //             stepSize: 1000
-        //           }
-        //         }]
-        //       }
-        //     };
-          
-        //     // Create the chart
-        //     var chart = new Chart(ctx, {
-        //       type: "bar",
-        //       data: data,
-        //       options: options
-        //     });
-        //   });
-          
+  // $(document).ready(function() {
+  //     const x = $("#address");
 
-      
-            
-      
+  //     $("#getLocation").click(function() {
+  //       if (navigator.geolocation) {
+  //         navigator.geolocation.getCurrentPosition(showPosition);
+  //       } else {
+  //         alert("Geolocation is not supported by this browser.");
+  //       }
+  //     });
 
-    //    // bar chart data
-    //    let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
-    // let myChart1 = new Chart(ctx1,  {
-    //     labels : ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    //     datasets : [
-    //         {
-    //             fillColor : "#15877C",
-    //             strokeColor : "#48A4D1",
-    //             data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80]
-    //         },
-    //         {
-    //             fillColor : "rgba(73,188,170,0.4)",
-    //             strokeColor : "rgba(72,174,209,0.4)",
-    //             data : [364,504,605,400,345,320]
-    //         }
-    //     ]
-    // })
-    // // get bar chart canvas
-    // // var income = document.getElementById("income").getContext("2d");
-    // // // draw bar chart
-    // // new Chart(income).Bar(barData);
-
-   
-
-    // // Single Line Chart
-    // var ctx3 = $("#line-chart").get(0).getContext("2d");
-    // var myChart3 = new Chart(ctx3, {
-    //     type: "line",
-    //     data: {
-    //         labels: [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150],
-    //         datasets: [{
-    //             label: "Salse",
-    //             fill: false,
-    //             backgroundColor: "rgba(21, 135, 124, .7)",
-    //             data: [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15]
-    //         }]
-    //     },
-    //     options: {
-    //         responsive: true
-    //     }
-    // });
+  //     function showPosition(position) {
+  //       alert("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
+  //     }
+  //   });
 
 
-    // // Single Bar Chart
-    // var ctx4 = $("#bar-chart").get(0).getContext("2d");
-    // var myChart4 = new Chart(ctx4, {
-    //     type: "bar",
-    //     data: {
-    //         labels: ["Italy", "France", "Spain", "USA", "Argentina"],
-    //         datasets: [{
-    //             backgroundColor: [
-    //                 "rgba(21, 135, 124, .7)",
-    //                 "rgba(21, 135, 124, .6)",
-    //                 "rgba(21, 135, 124, .5)",
-    //                 "rgba(21, 135, 124, .4)",
-    //                 "rgba(21, 135, 124, .3)"
-    //             ],
-    //             data: [55, 49, 44, 24, 15]
-    //         }]
-    //     },
-    //     options: {
-    //         responsive: true
-    //     }
-    // });
+  // // Progress Bar
+  // $('.pg-bar').waypoint(function () {
+  //     $('.progress .progress-bar').each(function () {
+  //         $(this).css("width", $(this).attr("aria-valuenow") + '%');
+  //     });
+  // }, {offset: '80%'});
 
 
-    // // Pie Chart
-    // var ctx5 = $("#pie-chart").get(0).getContext("2d");
-    // var myChart5 = new Chart(ctx5, {
-    //     type: "pie",
-    //     data: {
-    //         labels: ["Italy", "France", "Spain", "USA", "Argentina"],
-    //         datasets: [{
-    //             backgroundColor: [
-    //                 "rgba(21, 135, 124, .7)",
-    //                 "rgba(21, 135, 124, .6)",
-    //                 "rgba(21, 135, 124, .5)",
-    //                 "rgba(21, 135, 124, .4)",
-    //                 "rgba(21, 135, 124, .3)"
-    //             ],
-    //             data: [55, 49, 44, 24, 15]
-    //         }]
-    //     },
-    //     options: {
-    //         responsive: true
-    //     }
-    // });
 
 
-    // // Doughnut Chart
-    // var ctx6 = $("#doughnut-chart").get(0).getContext("2d");
-    // var myChart6 = new Chart(ctx6, {
-    //     type: "doughnut",
-    //     data: {
-    //         labels: ["Italy", "France", "Spain", "USA", "Argentina"],
-    //         datasets: [{
-    //             backgroundColor: [
-    //                 "rgba(21, 135, 124, .7)",
-    //                 "rgba(21, 135, 124, .6)",
-    //                 "rgba(21, 135, 124, .5)",
-    //                 "rgba(21, 135, 124, .4)",
-    //                 "rgba(21, 135, 124, .3)"
-    //             ],
-    //             data: [55, 49, 44, 24, 15]
-    //         }]
-    //     },
-    //     options: {
-    //         responsive: true
-    //     }
-    // });
-   
+
+  // // Testimonials carousel
+  // $(".testimonial-carousel").owlCarousel({
+  //     autoplay: true,
+  //     smartSpeed: 1000,
+  //     items: 1,
+  //     dots: true,
+  //     loop: true,
+  //     nav : false
+  // });
+
+
+
+
+
+  // $(document).ready(function() {
+  //     var ctx = document.getElementById("worldwide-sales").getContext("2d");
+
+  //     // Create the chart data
+  //     var data = {
+  //       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  //       datasets: [{
+  //         label: "Total Revenue",
+  //         data: [10000, 12000, 11000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000],
+  //         borderColor: "#3366cc",
+  //         backgroundColor: "#3366cc",
+  //         fill: false
+  //       }]
+  //     };
+
+  //     // Create the chart options
+  //     var options = {
+  //       title: {
+  //         text: "Total Revenue"
+  //       },
+  //       legend: {
+  //         display: false
+  //       },
+  //       scales: {
+  //         yAxes: [{
+  //           ticks: {
+  //             stepSize: 1000
+  //           }
+  //         }]
+  //       }
+  //     };
+
+  //     // Create the chart
+  //     var chart = new Chart(ctx, {
+  //       type: "bar",
+  //       data: data,
+  //       options: options
+  //     });
+  //   });
+
+
+
+
+
+
+  //    // bar chart data
+  //    let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
+  // let myChart1 = new Chart(ctx1,  {
+  //     labels : ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  //     datasets : [
+  //         {
+  //             fillColor : "#15877C",
+  //             strokeColor : "#48A4D1",
+  //             data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80]
+  //         },
+  //         {
+  //             fillColor : "rgba(73,188,170,0.4)",
+  //             strokeColor : "rgba(72,174,209,0.4)",
+  //             data : [364,504,605,400,345,320]
+  //         }
+  //     ]
+  // })
+  // // get bar chart canvas
+  // // var income = document.getElementById("income").getContext("2d");
+  // // // draw bar chart
+  // // new Chart(income).Bar(barData);
+
+
+
+  // // Single Line Chart
+  // var ctx3 = $("#line-chart").get(0).getContext("2d");
+  // var myChart3 = new Chart(ctx3, {
+  //     type: "line",
+  //     data: {
+  //         labels: [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150],
+  //         datasets: [{
+  //             label: "Salse",
+  //             fill: false,
+  //             backgroundColor: "rgba(21, 135, 124, .7)",
+  //             data: [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15]
+  //         }]
+  //     },
+  //     options: {
+  //         responsive: true
+  //     }
+  // });
+
+
+  // // Single Bar Chart
+  // var ctx4 = $("#bar-chart").get(0).getContext("2d");
+  // var myChart4 = new Chart(ctx4, {
+  //     type: "bar",
+  //     data: {
+  //         labels: ["Italy", "France", "Spain", "USA", "Argentina"],
+  //         datasets: [{
+  //             backgroundColor: [
+  //                 "rgba(21, 135, 124, .7)",
+  //                 "rgba(21, 135, 124, .6)",
+  //                 "rgba(21, 135, 124, .5)",
+  //                 "rgba(21, 135, 124, .4)",
+  //                 "rgba(21, 135, 124, .3)"
+  //             ],
+  //             data: [55, 49, 44, 24, 15]
+  //         }]
+  //     },
+  //     options: {
+  //         responsive: true
+  //     }
+  // });
+
+
+  // // Pie Chart
+  // var ctx5 = $("#pie-chart").get(0).getContext("2d");
+  // var myChart5 = new Chart(ctx5, {
+  //     type: "pie",
+  //     data: {
+  //         labels: ["Italy", "France", "Spain", "USA", "Argentina"],
+  //         datasets: [{
+  //             backgroundColor: [
+  //                 "rgba(21, 135, 124, .7)",
+  //                 "rgba(21, 135, 124, .6)",
+  //                 "rgba(21, 135, 124, .5)",
+  //                 "rgba(21, 135, 124, .4)",
+  //                 "rgba(21, 135, 124, .3)"
+  //             ],
+  //             data: [55, 49, 44, 24, 15]
+  //         }]
+  //     },
+  //     options: {
+  //         responsive: true
+  //     }
+  // });
+
+
+  // // Doughnut Chart
+  // var ctx6 = $("#doughnut-chart").get(0).getContext("2d");
+  // var myChart6 = new Chart(ctx6, {
+  //     type: "doughnut",
+  //     data: {
+  //         labels: ["Italy", "France", "Spain", "USA", "Argentina"],
+  //         datasets: [{
+  //             backgroundColor: [
+  //                 "rgba(21, 135, 124, .7)",
+  //                 "rgba(21, 135, 124, .6)",
+  //                 "rgba(21, 135, 124, .5)",
+  //                 "rgba(21, 135, 124, .4)",
+  //                 "rgba(21, 135, 124, .3)"
+  //             ],
+  //             data: [55, 49, 44, 24, 15]
+  //         }]
+  //     },
+  //     options: {
+  //         responsive: true
+  //     }
+  // });
+
 })(jQuery);
 
 

@@ -126,45 +126,48 @@ exports.find = (req, res) => {
   }
 }
   
-// Update a new identified book by   id
+// Update a new identified book by book id
 exports.update = (req, res) => {
-    upload.single('productImg'), (req, res, async(err) =>{
-      if(err){
-        res.status(500).send({ message: err.message });
-        return;
+  upload.single('productImg'), (req, res, async(err) =>{
+    console.log(res);
+    if(err){
+      res.status(500).send({ message: err.message });
+      return;
+    }
+    try{
+      const id = req.params.id;
+      const book = await Productdb.findById(id);        
+      console.log(book);
+      if (!book) {
+        return res.status(404).json({ message: 'Book not found' });
       }
-      try{
-        const id = req.params.id;
-        const book = await Productdb.findById(id);
-        if (!book) {
-          return res.status(404).json({ message: 'Book not found' });
-        }
-        if (req.file) {
-          // Delete the old shop image from Cloudinary
-          await cloudinary.uploader.destroy(book.cloudinaryId);
-    
-          // Upload the new shop image to Cloudinary
-          const result = await cloudinary.uploader.upload(req.file.path);
-    
-          // Update the shop image URL and Cloudinary ID
-          book.shopImg = result.secure_url;
-          book.cloudinaryId = result.public_id;
-        }
-        // Update other shop details based on your form data
-        book.bookName = req.body.bookName;
-        book.genre= req.body.genre;
-        book.author = req.body.author;
-        book.price = req.body.price;
-        book.quantity = req.body.quantity;
-        book.description = req.body.description;
-        await book.save();
-        return res.status(200).json(book);
-      }catch(err){
-        console.error(err);
-        return res.status(500).json({message: 'An error occurred while updating the book'})
+      if (req.file) {
+        // Delete the old book image from Cloudinary
+        await cloudinary.uploader.destroy(book.cloudinaryId);
+
+        // Upload the new book image to Cloudinary
+        const result = await cloudinary.uploader.upload(req.file.path);
+  
+        // Update the book image URL and Cloudinary ID
+        book.productImg = result.secure_url;
+        book.cloudinaryId = result.public_id;
       }
-    })
+      // Update other book details based on your form data
+      book.bookName = req.body.bookName || book.bookName;
+      book.genre = req.body.genre || book.genre;
+      book.author = req.body.author || book.author;
+      book.price = req.body.price || book.price;
+      book.quantity = req.body.quantity || book.quantity;
+      book.description = req.body.description || book.description;
+      await book.save();
+      return res.status(200).json(book);
+    }catch(err){
+      console.error(err);
+      return res.status(500).json({message: 'An error occurred while updating the book'})
+    }
+  })
 }
+
 // Delete the book by its id
 exports.delete = (req, res) => {
   const id = req.params.id;

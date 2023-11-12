@@ -14,8 +14,8 @@ route.get('/signup',services.signup);
 
 route.get('/logout', auth.logout);
 
-route.post('/api/auth/signup',authMiddleware, auth.register);
-route.post('/api/auth/signin',authMiddleware, auth.login);
+route.post('/api/auth/signup', auth.register);
+route.post('/api/auth/signin', auth.login);
 
 route.get('/home', userController.home, services.home);
 route.get('/dashboard', userController.dashboard, services.homeRoutes);

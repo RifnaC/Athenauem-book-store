@@ -16,7 +16,6 @@ const storage = multer.diskStorage({
     cb(null, file.fieldname + '-' + Date.now() + file.originalname.split('.').pop())
   },
 }); 
-
 const upload = multer({ storage: storage });
 
 // create new shop
@@ -87,25 +86,7 @@ exports.find = (req, res) => {
   }
 }
 
-// Update a new identified shop by  shop id
-// exports.update = async (req, res) => {
-//   if (!req.body) {
-//       return res.status(400).send({ message: "Data to update can not be empty" })
-//     }
-//     const id = req.params.id;
-//     Shopdb.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-//     .then(data => {
-//       if (!data) {
-//         return res.status(404).send({ message: `User with ${id} is not found` })
-//       } else {        
-//         res.send(data);
-//       }
-//     })
-//     .catch(err => {
-//       res.status(500).send({ message: "Error Update user information" })
-//     })
-// }
-
+// Update a new identified shop by shop id
 exports.update = async(req, res) => {
   upload.single('shopImg', {name:"shopImg"})(req, res, async (err) => {
     if (err) {
@@ -115,11 +96,10 @@ exports.update = async(req, res) => {
   try {
     const shopId = req.params.id;
     const shop = await Shopdb.findById(shopId);
-    console.log(shop)
     if (!shop) {
       return res.status(404).json({ message: 'Shop not found' });
     }
-    console.log(req.file)
+    // console.log(req.file)
     // Check if a new file is being uploaded
     if (req.file) {
       // Delete the old shop image from Cloudinary
@@ -150,6 +130,7 @@ exports.update = async(req, res) => {
 })
 };
 
+// Delete the shop
 exports.delete = (req, res) => {
   const id = req.params.id;
   Shopdb.findById(id)
