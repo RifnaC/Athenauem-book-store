@@ -439,96 +439,153 @@
     }
   })
   // Update product
-  $("#edit_product").submit(function (event) {
-    event.preventDefault();
-    const formData = new FormData(this);
+  // $("#edit_product").submit(function (event) {
+  //   event.preventDefault();
+  //   const formData = new FormData(this);
     
-    formData.append('additionalField', 'additionalValue');
+  //   formData.append('additionalField', 'additionalValue');
+  //   // Extract the book's ID from the form data
+  //   const bookId = formData.get('id');
+  //   // Validation
+  //   if (!formData.get('bookName')) {
+  //     Swal.fire({
+  //       title: 'Please enter the book name',
+  //       confirmButtonColor: '#15877C'
+  //     })
+  //     return;
+  //   }
+  //   if (formData.get('bookName').length < 4) {
+  //     Swal.fire({
+  //       title: 'The book name should be at least 4 characters',
+  //       confirmButtonColor: '#15877C'
+  //     })
+  //     return;
+  //   }
+  //   if (!formData.get('author')) {
+  //     Swal.fire({
+  //       title: 'Please enter Author of the book!',
+  //       confirmButtonColor: '#15877C'
+  //     })
+  //     return;
+  //   }
+  //   if (formData.get('author').length < 4) {
+  //     Swal.fire({
+  //       title: 'The Author should be at least 4 characters',
+  //       confirmButtonColor: '#15877C'
+  //     })
+  //     return;
+  //   }
+  //   if (!formData.get('description')) {
+  //     Swal.fire({
+  //       title: "Please enter the description of the book",
+  //       confirmButtonColor: '#15877C'
+  //     })
+  //     return;
+  //   }
+  //   if (!formData.get('price')) {
+  //     Swal.fire({
+  //       title: "Please enter the price of the book!",
+  //       confirmButtonColor: '#15877C'
+  //     })
+  //     return;
+  //   }
+  //   // Append the bookid to the URL
+  //   const request = {
+  //     'url': `http://localhost:3000/api/products/${bookId}`,
+  //     'method': 'PUT',
+  //     'data': formData,
+  //     processData: false,
+  //     contentType: false,
+  //   };
+  //   // // Send the PUT request        
+  //   $.ajax(request).done(function (response) {
+  //     Swal.fire({
+  //       title: 'Do you want to save the changes?',
+  //       showDenyButton: true,
+  //       showCancelButton: true,
+  //       confirmButtonText: 'Save',
+  //       denyButtonText: `Don't save`,
+  //       confirmButtonColor: '#15877C'
+  //     })
+  //       .then((result) => {
+  //         /* Read more about isConfirmed, isDenied below */
+  //         if (result.isConfirmed) {
+  //           Swal.fire('Saved!', 'Data updated successfully', 'success')
+  //             .then(() => {
+  //               window.location.href = '/products';
+  //             })
+  //         } else if (result.isDenied) {
+  //           Swal.fire('Changes are not saved', '', 'info')
+  //             .then(() => {
+  //               window.location.href = '/products';
+  //             })
+  //         }
+  //       }).fail(function (jqXHR, textStatus, errorThrown) {
+  //         console.error('AJAX request failed:', textStatus, errorThrown);
+  //         console.log('XHR status:', jqXHR.status);
+  //         console.log('XHR response text:', jqXHR.responseText);
+  //         Swal.fire('Error', 'Something Went Wrong.', 'error');
+  //       });
+
+  //   });
+  // });
+
+  $("#edit_product").submit(function(event) {
+    event.preventDefault();
+
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
+
+    $.map(unindexed_array, function(n, i) {
+        data[n['name']] = n['value'];
+    });
+
+    // console.log(data);
+
     // Extract the book's ID from the form data
-    const bookId = formData.get('id');
+    const bookId = data.id;
+
     // Validation
-    if (!formData.get('bookName')) {
-      Swal.fire({
-        title: 'Please enter the book name',
-        confirmButtonColor: '#15877C'
-      })
-      return;
-    }
-    if (formData.get('bookName').length < 4) {
-      Swal.fire({
-        title: 'The book name should be at least 4 characters',
-        confirmButtonColor: '#15877C'
-      })
-      return;
-    }
-    if (!formData.get('author')) {
-      Swal.fire({
-        title: 'Please enter Author of the book!',
-        confirmButtonColor: '#15877C'
-      })
-      return;
-    }
-    if (formData.get('author').length < 4) {
-      Swal.fire({
-        title: 'The Author should be at least 4 characters',
-        confirmButtonColor: '#15877C'
-      })
-      return;
-    }
-    if (!formData.get('description')) {
-      Swal.fire({
-        title: "Please enter the description of the book",
-        confirmButtonColor: '#15877C'
-      })
-      return;
-    }
-    if (!formData.get('price')) {
-      Swal.fire({
-        title: "Please enter the price of the book!",
-        confirmButtonColor: '#15877C'
-      })
-      return;
-    }
-    // Append the bookid to the URL
-    const request = {
-      'url': `http://localhost:3000/api/products/${bookId}`,
-      'method': 'PUT',
-      'data': formData,
-      processData: false,
-      contentType: false,
-    };
-    // // Send the PUT request        
-    $.ajax(request).done(function (response) {
-      Swal.fire({
-        title: 'Do you want to save the changes?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        denyButtonText: `Don't save`,
-        confirmButtonColor: '#15877C'
-      })
-        .then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            Swal.fire('Saved!', 'Data updated successfully', 'success')
-              .then(() => {
-                window.location.href = '/products';
-              })
-          } else if (result.isDenied) {
-            Swal.fire('Changes are not saved', '', 'info')
-              .then(() => {
-                window.location.href = '/products';
-              })
-          }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-          console.error('AJAX request failed:', textStatus, errorThrown);
-          console.log('XHR status:', jqXHR.status);
-          console.log('XHR response text:', jqXHR.responseText);
-          Swal.fire('Error', 'Failed to update data. Check the console for details.', 'error');
+    if (!data.genre === "" ) {
+        alert("Category field is required");
+        return;
+      }
+      if (!data.bookName === "") {
+        alert("Book name field is required.");
+        return;
+      }
+      if (!data.author === "" ) {
+        alert("Author field is required.");
+        return;    
+      }
+      if (!data.quantity === "") {
+        alert("Quantity field is required.");
+        return;
+      } 
+
+      if (!data.description === "" ) {
+        alert("Description field is required.");
+        return;
+      }
+      if (!data.price === "") {
+        alert("Price field is required.");
+        return;
+      }
+
+        let request = {
+            "url": `http://localhost:3000/api/products/${bookId}`,
+            "method": "PUT",
+            "data": data
+        };
+        // console.log(shopId)
+        // Send the PUT request
+        $.ajax(request).done(function(response) {
+            alert("Book data updated successfully");
+            window.location.href='/products';
         });
 
-    });
-  });
+});
+
 
   // Delete the product
   if (window.location.pathname === "/products") {

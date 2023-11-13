@@ -127,16 +127,16 @@ exports.find = (req, res) => {
 }
   
 // Update a new identified book by book id
-exports.update = (req, res) => {
-  upload.single('productImg'), (req, res, async(err) =>{
-    console.log(res);
+exports.update = async(req, res) => {
+  upload.single("productImg"), (req, res, async(err) =>{
+     console.log(res);
     if(err){
       res.status(500).send({ message: err.message });
       return;
     }
     try{
-      const id = req.params.id;
-      const book = await Productdb.findById(id);        
+      const bookId = req.params.id;
+      const book = await Productdb.findById(bookId);        
       console.log(book);
       if (!book) {
         return res.status(404).json({ message: 'Book not found' });

@@ -1,5 +1,7 @@
 const axios = require('axios');
 const bannerCollection = require('../models/bannerModel')
+const categoryCollection = require('../models/categoryModel')
+const productCollection  = require('../models/products')
 // ***********************Admin Management********************************
 exports.homeRoutes = (req, res)=>{
     res.render('dashboard');
@@ -153,7 +155,9 @@ exports.home= async(req, res)=>{
         .sort({ _id: -1 })
         .limit(3); 
   
-      res.render('home', { images: latestImages });
+     const categories = await categoryCollection.find({});
+     const products = await productCollection.find({}).sort({ _id: -1 }).limit(12);
+      res.render('home', { images: latestImages, category: categories, product: products });
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');

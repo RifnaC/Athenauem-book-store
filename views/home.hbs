@@ -158,91 +158,124 @@
         <div class="container mx-4 cardContainer">
             <div id="cards-container">
                 <div class="cards ">
+                    {{#each category}}
                     <div class="cardCat">
-                        <img src="/img/fantasy.png" alt="Fantasy icon">
+                        <img src="{{this.categoryImg}}" alt="{{this.genre}} icon">
                         <div class="containerCard">
-                            <h4>
-                                <b>Fantasy</b>
-                            </h4>
+                            <h4><b>{{this.genre}}</b></h4>
                         </div>
                     </div>
-                    <div class="cardCat">
-                        <img src="/img/adventure.png" alt="Adventure icon">
-                        <div class="containerCard">
-                            <h4>
-                                <b>Adventure</b>
-                            </h4>
+                    {{/each}}
+                    {{!-- <div class="cardCat">
+
+                        <div class="cardCat">
+                            <img src="/img/PinClipart.com_buddha-clipart_352860.png" alt="Spirituality icon">
+                            <div class="containerCard">
+                                <h4>
+                                    <b>Spirituality</b>
+                                </h4>
+                            </div>
                         </div>
-                    </div>
-                    <div class="cardCat">
-                        <img src="/img/biography.png" alt="Biography icon">
-                        <div class="containerCard">
-                            <h4>
-                                <b>Biography</b>
-                            </h4>
+                        <div class="cardCat">
+                            <img src="/img/mystery.png" alt="mystery icon">
+                            <div class="containerCard">
+                                <h4>
+                                    <b>Mystery</b>
+                                </h4>
+                            </div>
                         </div>
-                    </div>
-                    <div class="cardCat">
-                        <img src="/img/—Pngtree—book icon_4358423.png" alt="Noval icon">
-                        <div class="containerCard">
-                            <h4>
-                                <b>Noval</b>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="cardCat">
-                        <img src="/img/kisspng-youtube-computer-icons-horror-icon-clip-art-5af35d28b3b3a0.8953733115258985367361.png"
-                            alt="Horror icon">
-                        <div class="containerCard">
-                            <h4>
-                                <b>Horror</b>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="cardCat">
-                        <img src="/img/science-fiction.png" alt="science fiction icon">
-                        <div class="containerCard">
-                            <h4>
-                                <b>Science Fiction</b>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="cardCat">
-                        <img src="/img/PinClipart.com_buddha-clipart_352860.png" alt="Spirituality icon">
-                        <div class="containerCard">
-                            <h4>
-                                <b>Spirituality</b>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="cardCat">
-                        <img src="/img/mystery.png" alt="mystery icon">
-                        <div class="containerCard">
-                            <h4>
-                                <b>Mystery</b>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="cardCat">
-                        <img src="/img/man-sitting-and-reading-book.png" alt="self help icon">
-                        <div class="containerCard">
-                            <h4>
-                                <b>Self Help</b>
-                            </h4>
-                        </div>
+                        <div class="cardCat"> --}}
+                            {{!-- <img src="/img/man-sitting-and-reading-book.png" alt="self help icon">
+                            <div class="containerCard">
+                                <h4>
+                                    <b>Self Help</b>
+                                </h4>
+                            </div> --}}
+                            {{!--
+                        </div> --}}
                     </div>
                 </div>
             </div>
-        </div>
     </section>
     <!-- Category Section End -->
 
     <!-- product Section Start -->
-    <section>
-        
+    <section class="mx-lg-3">
+        <div class="container-fluid m-5 me-5">
+            <div class="m-0 mb-5">
+                <h1 class="text-primary">Popular Books</h1>
+            </div>
+            <div class="row me-5 pe-4">
+                {{#each product}}
+                <div class="col col-lg-2 productCard m-3 mb-5">
+                    <img src="{{this.productImg}}" alt="{{this.bookName}}" class="card-img">
+                    <div class="card-info">
+                        <p class="text-title text-center mb-0">{{this.bookName}} </p>
+                        <p class="text-center mb-0">By {{this.author}}</p>
+                        <div class="d-flex justify-content-center m-0">
+                            <div class="review-star me-1 ">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <i class="bi bi-star"></i>
+
+                            </div>
+                            <span class="review-count">(13)</span>
+                        </div>
+
+                        <div class="old-price text-center">
+                            &#8377 50.45
+                        </div>
+                        <div class="new-price text-center">
+                            &#8377 35.053455555
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="card-button m-2">
+                            <b>Add to Cart</b>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+
     </section>
+    <!-- product Section End -->
 
-
+    <!-- Author Section Start -->
+    <section class="mx-lg-4">
+        <div class="m-5">
+            <h1 class="text-primary">Featured Author</h1>
+            <div class="slider">
+                <div id="slide-left-container">
+                    <div class="slide-left">
+                    </div>
+                </div>
+                <div id="slide-right-container">
+                    <div class="slide-right">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-4 cardContainer">
+            <div id="cards-container">
+                <div class="cards ">
+                    {{#each category}}
+                    <div class=" authorCard">
+                        <img src="{{this.categoryImg}}" alt="{{this.genre}} icon">
+                        <div class="containerCard">
+                            <h4><b>{{this.genre}}</b></h4>
+                        </div>
+                    </div>
+                    {{/each}}
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- Author Section End -->
+    
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
