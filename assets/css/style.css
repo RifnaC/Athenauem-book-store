@@ -469,167 +469,86 @@ section{
    box-shadow: rgba(226, 196, 63, 0.25) 0px 13px 47px -5px, rgba(180, 71, 71, 0.3) 0px 8px 16px -8px;
   }
 
-
-section.t-bq-section {
-    padding: 30px;
-    margin-bottom: 60px;
+/* .container{
+    width: 100%;
+    margin: auto; */
+/* } */
+/* start testimonails */
+.testim{
+  position: relative;
+  padding: 0px 40px;
 }
-
-.t-bq-wrapper.t-bq-wrapper-boxed {
-    max-width: 576px;
-    margin: 0 auto;
+.testim h2{
+  color: #130B0B;
+  font-size: 2rem;
+  font-weight: bold;
 }
-
-.t-bq-wrapper.t-bq-wrapper-fullwidth {
-    max-width: 100%;
-}
-
-
-
-
-/* ========== 05. Paul ========== */
-
-.t-bq-quote-paul {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    min-height: 250px;
-    box-shadow: 2px 2px 25px #cecece;
-    border-radius: 10px;
-}
-
-.t-bq-quote-paul .t-bq-quote-paul-pattern {
-    flex-basis: 80px;
-    background: url("https://raw.githubusercontent.com/taviskaron/t-div-blockquotes/main/img/hexabump.png") repeat;
-    border-radius: 10px 0 0 10px;
-}
-
-.t-bq-quote-paul .t-bq-quote-paul-base {
-    flex-basis: calc(100% - 80px);
-    background: #ffffff;
-    padding: 40px 30px 50px 80px;
-    font-size: 11pt;
-    line-height: 1.62em;
-    border-radius: 0 10px 10px 0;
-}
-
-.t-bq-quote-paul .t-bq-quote-paul-qmark {
-    position: absolute;
-    top: 50px;
-    left: 105px;
-    font-family: Garamond, Georgia, "Times New Roman", serif;
-    font-size: 42pt;
-    color: #999999;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-.t-bq-quote-paul .t-bq-quote-paul-userpic {
-    position: absolute;
-    top: 80px;
-    left: 45px;
-    width: 70px;
-    height: 70px;
-    background: url("https://raw.githubusercontent.com/taviskaron/t-div-blockquotes/main/img/strug.jpg") center center no-repeat;
-    background-size: cover;
-    border-radius: 50%;
-}
-
-.t-bq-quote-paul .t-bq-quote-paul-meta {
-    margin-top: 30px;
-    padding-top: 10px;
-    border-top: 2px dotted #777777;
-}
-
-.t-bq-quote-paul .t-bq-quote-paul-meta .t-bq-quote-paul-author,
-.t-bq-quote-paul .t-bq-quote-paul-meta .t-bq-quote-paul-source {
-    color: #777777;
-}
-
-.t-bq-quote-paul .t-bq-quote-paul-meta .t-bq-quote-paul-author {
-    font-style: normal;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    font-size: 10pt;
-    font-weight: bold;
-}
-
-.t-bq-quote-paul .t-bq-quote-paul-meta .t-bq-quote-paul-author cite {
-    font-style: normal;
-}
-
-.t-bq-quote-paul .t-bq-quote-paul-meta .t-bq-quote-paul-source {
-    font-size: 9pt;
-}
-
-@media screen and (max-width: 768px) {
-
-    .t-bq-quote-paul .t-bq-quote-paul-pattern {
-        flex-basis: 20px;
+.testim::before{
+  position: absolute;
+  content: "";
+  width: 50%;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: -1;
     }
 
-    .t-bq-quote-paul .t-bq-quote-paul-base {
-        flex-basis: calc(100% - 20px);
-        padding: 100px 30px 50px 30px;
-    }
+.testim::after{
+  position: absolute;
+  content: "";
+  width: 50%;
+  top: 0;
+  right:  0;
 
-    .t-bq-quote-paul .t-bq-quote-paul-userpic {
-        width: 50px;
-        height: 50px;
-        left: 40px;
-        top: 20px;
+  height: 100%;
     }
+    
+.testim-content{
+position: relative;
+display: flex;
+justify-content: space-around;
+gap: 30px;
 
-    .t-bq-quote-paul .t-bq-quote-paul-qmark {
-        left: 100px;
-        top: 45px;
-    }
 }
 
-
-@media screen and (max-width: 768px) {
-
-    .t-bq-quote-jasper .t-bq-quote-jasper-base {
-        padding-left: 30px;
-    }
-}
-
-
-
-
-
-
-
-
-
-@media screen and (max-width: 768px) {
-
-    .t-bq-quote-horace .t-bq-quote-horace-base {
-        padding-left: 40px;
-        padding-right: 40px;
-    }
-
-    .t-bq-quote-horace .t-bq-quote-horace-meta {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .t-bq-quote-horace .t-bq-quote-horace-meta .t-bq-quote-horace-userpic {
-        margin: 0 auto;
-        margin-bottom: 10px;
-    }
+.testim-box{
+z-index: 2;
+padding: 20px 30px;
+background-color: #FFFFFF;
 
 }
 
 
 
+.testim-box-content img{
+  top: -10px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 30px;
+  position: relative;
+
+}
+
+.testim-content h3{
+  color: #130B0B;
+  font-size: 1.3rem;
+  }
+  .testim-box > p{
+    color: rgb(209, 194, 194);
+   
+    font-style: italic;
+    padding-bottom: 20px;
+  }
+.testim-box-content p{
+color: var(--main-color);
+}
+/* endtestimonails */
 
 
 
 
-  
 @media (min-width: 992px) {
     .sidebar {
         margin-left: 0;
