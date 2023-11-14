@@ -103,12 +103,7 @@
         timer: 6000
       })
     }
-  }).fail(function (jqXHR, textStatus, errorThrown) {
-    console.error('AJAX request failed:', textStatus, errorThrown);
-    console.log('XHR status:', jqXHR.status);
-    console.log('XHR response text:', jqXHR.responseText);
-    Swal.fire('Error', 'Something Went Wrong.', 'error');
-  });
+  })
   // update admin
   $("#edit_admin").submit(function (event) {
     event.preventDefault();
@@ -173,11 +168,6 @@
           }
         })
     });
-  }).fail(function (jqXHR, textStatus, errorThrown) {
-    console.error('AJAX request failed:', textStatus, errorThrown);
-    console.log('XHR status:', jqXHR.status);
-    console.log('XHR response text:', jqXHR.responseText);
-    Swal.fire('Error', 'Something Went Wrong.', 'error');
   });
 
   //delete admin
@@ -209,11 +199,6 @@
             // The user clicked the "cancel" button or closed the dialog
             Swal.fire('Action canceled', '', 'info');
           }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-          console.error('AJAX request failed:', textStatus, errorThrown);
-          console.log('XHR status:', jqXHR.status);
-          console.log('XHR response text:', jqXHR.responseText);
-          Swal.fire('Error', 'Something Went Wrong.', 'error');
         });
     })
   }
@@ -282,12 +267,7 @@
         timer: 6000,
       })
     }
-  }).fail(function (jqXHR, textStatus, errorThrown) {
-    console.error('AJAX request failed:', textStatus, errorThrown);
-    console.log('XHR status:', jqXHR.status);
-    console.log('XHR response text:', jqXHR.responseText);
-    Swal.fire('Error', 'Something Went Wrong.', 'error');
-  });
+  })
 
   //update shop details
   $("#edit_shop").submit(function (event) {
@@ -344,11 +324,6 @@
               window.location.href = '/shop';
             });
           }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-          console.error('AJAX request failed:', textStatus, errorThrown);
-          console.log('XHR status:', jqXHR.status);
-          console.log('XHR response text:', jqXHR.responseText);
-          Swal.fire('Error', 'Something Went Wrong.', 'error');
         });
       })
       .fail(function (error) {
@@ -946,7 +921,7 @@
 
   // Delete the Banner
   if (window.location.pathname === "/banner") {
-    $(document).on("click", ".table tbody td a.delete", function (event) {
+    $(document).on("click", ".banner a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {

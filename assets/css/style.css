@@ -88,6 +88,11 @@ body::-webkit-scrollbar-thumb
     height: auto;
 }
 
+.bannerImg{
+    width: 120px;
+    height: 80px;
+    
+}
 /* modal close button */
 .close{
     cursor: pointer;

@@ -3928,7 +3928,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .nav-tabs {
-    border-bottom: 1px solid #000
+    border-bottom: 1px solid #000;
+    margin-left:0px
 }
 
 .nav-tabs .nav-link {

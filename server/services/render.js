@@ -156,12 +156,12 @@ exports.home= async(req, res)=>{
         .limit(3); 
   
      const categories = await categoryCollection.find({});
-     const products = await productCollection.find({}).sort({ _id: -1 }).limit(12);
+     const products = await productCollection.find({}).sort({ _id: -1 }).limit(10);
       res.render('home', { images: latestImages, category: categories, product: products });
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');
     }
   
-    // res.render('home');
+
 }
