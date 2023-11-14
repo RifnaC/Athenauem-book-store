@@ -469,11 +469,6 @@ section{
    box-shadow: rgba(226, 196, 63, 0.25) 0px 13px 47px -5px, rgba(180, 71, 71, 0.3) 0px 8px 16px -8px;
   }
 
-/* .container{
-    width: 100%;
-    margin: auto; */
-/* } */
-/* start testimonails */
 .testim{
   position: relative;
   padding: 0px 40px;
@@ -499,7 +494,6 @@ section{
   width: 50%;
   top: 0;
   right:  0;
-
   height: 100%;
     }
     
@@ -507,18 +501,18 @@ section{
 position: relative;
 display: flex;
 justify-content: space-around;
-gap: 30px;
+left: -40px;
+gap: 8px;
 
 }
 
 .testim-box{
 z-index: 2;
-padding: 20px 30px;
+padding: 20px 20px;
 background-color: #FFFFFF;
+box-shadow: 8px 8px #7b7d7e;
 
 }
-
-
 
 .testim-box-content img{
   top: -10px;
@@ -544,10 +538,93 @@ background-color: #FFFFFF;
 .testim-box-content p{
 color: var(--main-color);
 }
-/* endtestimonails */
 
 
 
+.footer {
+	background-color: #FFFFFF;
+	padding: 40px 0;
+}
+
+ul {
+	list-style: none;
+    margin-left: -30px;
+}
+
+.footer-col {
+	width: 25%;
+	padding: 0 15px;
+}
+
+.footer-col h4 {
+	font-size: 18px;
+	color: #130B0B;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+}
+
+.footer-col h4::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: -10px;
+	background-color: #15877C;
+	width: 50px;
+	height: 2px;
+}
+
+.footer-col ul li:not(:last-child) {
+	margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+	color: #130B0B;
+	display: block;
+	font-size: 1rem;
+	font-weight: 300;
+	text-transform: capitalize;
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+	color: #130B0B;
+	padding-left: 7px;
+}
+
+.footer-col .social-links a {
+	color: #15877C;
+	background-color: rgba(255, 255, 255, 0.2);
+	display: inline-block;
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	text-align: center;
+	margin: 0 10px 10px 0;
+	line-height: 40px;
+	transition: all 0.5s ease;
+}
+
+.footer-col .social-links a:hover {
+	color: #FCFCFC;
+	background-color: #15877C;
+}
+
+@media(max-width: 767px) {
+	.footer-col,  .testim-box {
+		width: 50%;
+		margin-bottom: 30px;
+	}
+   
+}
+
+@media(max-width: 574px) {
+	.footer-col,  .testim-box {
+		width: 100%;
+	}
+}
 
 @media (min-width: 992px) {
     .sidebar {
