@@ -6,6 +6,7 @@ const cloudinary = require('../services/cloudinary');
 const path = require('path')
 const multer = require('multer');
 const { response } = require('express');
+const { error } = require('console');
 
 // access multer middleware storage
 const storage = multer.diskStorage({
@@ -127,31 +128,34 @@ exports.find = (req, res) => {
 }
   
 // Update a new identified book by book id
-exports.update = async(req, res) => {
-  upload.single("productImg"), (req, res, async(err) =>{
-     console.log(res);
-    if(err){
-      res.status(500).send({ message: err.message });
-      return;
+exports.update = async (req, res) => {
+  // Middleware for handling file uploads 
+  upload.single("productImg")(req, res, async(err) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send({ message: err.message });
     }
-    try{
+    try {
       const bookId = req.params.id;
-      const book = await Productdb.findById(bookId);        
+      const book = await Productdb.findById(bookId);
       console.log(book);
+
       if (!book) {
         return res.status(404).json({ message: 'Book not found' });
       }
+
       if (req.file) {
         // Delete the old book image from Cloudinary
         await cloudinary.uploader.destroy(book.cloudinaryId);
 
         // Upload the new book image to Cloudinary
         const result = await cloudinary.uploader.upload(req.file.path);
-  
+
         // Update the book image URL and Cloudinary ID
         book.productImg = result.secure_url;
         book.cloudinaryId = result.public_id;
       }
+
       // Update other book details based on your form data
       book.bookName = req.body.bookName || book.bookName;
       book.genre = req.body.genre || book.genre;
@@ -159,13 +163,16 @@ exports.update = async(req, res) => {
       book.price = req.body.price || book.price;
       book.quantity = req.body.quantity || book.quantity;
       book.description = req.body.description || book.description;
+
+      // Save the updated book to the database
       await book.save();
+
       return res.status(200).json(book);
-    }catch(err){
+    } catch (err) {
       console.error(err);
-      return res.status(500).json({message: 'An error occurred while updating the book'})
+      return res.status(500).json({ message: 'An error occurred while updating the book' });
     }
-  })
+  });
 }
 
 // Delete the book by its id
