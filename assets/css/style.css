@@ -128,7 +128,6 @@ body::-webkit-scrollbar-thumb
     background: #EEF2F2;
     box-shadow: 1px 1px 1px #CCEBD7;
 }
-
 .login input {
     width: 100% ;
     display: block;
@@ -138,20 +137,17 @@ body::-webkit-scrollbar-thumb
     font-size: 16px;
     border-radius: 2px;
 }
-
 .login input,
 .login input {
     border: 1px solid #c0c0c0;
     border-radius: 25px;
     transition: .2s;
 }
-
 .login input:hover {
     border-color: #084C5B;
     outline: none;
     transition: all .2s ease-in-out;
 }
-
 .login input[type=submit] {
     width: 100px;
     border: none;
@@ -162,7 +158,6 @@ body::-webkit-scrollbar-thumb
     margin: 20px 10px;
     border-radius: 25px;
 }
-
 .login input[type=submit]:hover {
     background: #28867D;
 }
@@ -227,6 +222,7 @@ body::-webkit-scrollbar-thumb
     height: 100vh;
     width: 100vw;
     position: relative;
+    background-color: 15877C;
 }
 .carousel-item img{
     width : 100vw;
@@ -253,8 +249,8 @@ section{
     left: 0;
     right: 0;
     bottom: 0;
+     background: #15877C;
     border-radius: 16px 0px 16px 0px;
-    background: #b8e0dc;
     z-index: -1;
     transition: transform 400ms ease-out;
     transform: scaleX(0);
@@ -270,6 +266,7 @@ section{
 
 .twenty-one:hover {
     color:#130B0B;
+   
 }
 
 .button-box,
