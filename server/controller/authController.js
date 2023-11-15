@@ -68,6 +68,7 @@ exports.login = async(req, res) => {
             id: (user || admin).id,
             email: (user || admin).email,
             isSuperAdmin: admin ? admin.isSuperAdmin:false,
+            name: (user || admin).name
         };
         const token = signToken((user || admin)._id, data);
         console.log(token)
@@ -83,68 +84,21 @@ exports.login = async(req, res) => {
     }   
 }
 
+// Logout function
 exports.logout = async(req, res) => {
-    // res.clearCookie('jwt'); // Clear the JWT cookie or remove the token from wherever it's stored
-
-    const token = req.headers['authorization'];
-    const user = await userCollection.findOne({ token });
-  
-    if (user) {
-      user.token = null;
-      await user.save();
-      res.redirect('/login');
-    } else {
-      res.status(401).json({
-        message: 'You are not logged in.'
-      });
-    }
-     // Redirect to the login page or any other desired page
+    // Clear the session and redirect to the login page
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            res.status(500).send({ message: 'Internal Server Error' });
+        } else {
+            res.redirect('/login');
+        }
+    });
 };
 
 
-//     if(!user) {
-//         const admin = await adminCollection.findOne({
-//             email: req.body.email
-//         })
-//         if(!admin){
-//             res.status(404).send({message: "This email is not found."});
-//         }
-//         const adminToken = jwt.sign({
-//             id:admin._id,
-//             email: admin.email,
-//             isSuperAdmin: admin.isSuperAdmin,
-//         },
-//         JWT_SECRET,{
-//         expiresIn: "2h",
-//         });
-//         let result = {
-//             email: admin.email,
-//             token: `Bearer ${adminToken}`,
-//             expiresIn: 168,
-//           };
-      
-//         if (admin.isSuperAdmin) {
-//             res.redirect('/dashboard');
-//         } else {
-//             res.redirect('/shop');
-//         }
-//           return res.status(200).redirect('/dashboard');
-//         console.log(adminToken);
-//     }
-//     else{
-//         const ispswdValid = await bcrypt.compare(req.body.password, user.password);
-//         if(!ispswdValid){
-//             res.status(401).send({message: "Invalid password."});
-//         }
-//         const token = jwt.sign({
-//             id:user._id,
-//             email: user.email,
-//             isSuperAdmin: user.isSuperAdmin,
-//         },
-//         JWT_SECRET,{
-//             expiresIn: "2h",
-//         });
-//         res.status(200).redirect('/home')
-//     }
-// }
+
+
+
 
