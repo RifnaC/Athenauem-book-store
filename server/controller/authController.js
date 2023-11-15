@@ -4,10 +4,14 @@ const adminCollection = require('../models/model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
-
+const session = require('express-session');
 const JWT_SECRET = process.env.JWT_SECRET;
 // ***********************user Management********************************
 // Register and save new user
+const signToken = id => {
+    return jwt.sign({id}, JWT_SECRET, {expiresIn: process.env.JWT_EXPIRE});
+}
+
 exports.register = async(req, res) => {
     if(!req.body){
         res.status(400).send({message: 'Content can not be empty'})
@@ -31,9 +35,12 @@ exports.register = async(req, res) => {
             email: req.body.email,                
             password:  hashedPassword
         });
+        const token = signToken(user._id);
         // save user in database
         const savedUser = await user.save();
-        res.redirect('/home');
+        if(token){
+            res.redirect('/home');
+        }
     }catch(err){
         res.status(500).send({
             message:err.message || "Some error occured while creating a create operation"
@@ -62,8 +69,9 @@ exports.login = async(req, res) => {
             email: (user || admin).email,
             isSuperAdmin: admin ? admin.isSuperAdmin:false,
         };
-        const token = jwt.sign(data, JWT_SECRET, {expiresIn: '4h'})
-        console.log(token);
+        const token = signToken((user || admin)._id, data);
+        console.log(token)
+        req.session.token = token;
         if (admin) {
             res.redirect('/dashboard');
         } else {
@@ -92,6 +100,7 @@ exports.logout = async(req, res) => {
     }
      // Redirect to the login page or any other desired page
 };
+
 
 //     if(!user) {
 //         const admin = await adminCollection.findOne({
@@ -138,3 +147,4 @@ exports.logout = async(req, res) => {
 //         res.status(200).redirect('/home')
 //     }
 // }
+

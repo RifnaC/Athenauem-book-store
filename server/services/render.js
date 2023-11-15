@@ -148,7 +148,6 @@ exports.signup= (req, res)=>{
 }
 
 exports.home= async(req, res)=>{
-    // Modify the route to fetch the three latest images
     try {
       const latestImages = await bannerCollection
         .find({})
@@ -156,7 +155,7 @@ exports.home= async(req, res)=>{
         .limit(3); 
   
      const categories = await categoryCollection.find({});
-     const products = await productCollection.find({}).sort({ _id: -1 }).limit(10);
+     const products = await productCollection.find({}).limit(10);
       res.render('home', { images: latestImages, category: categories, product: products });
     } catch (err) {
       console.error(err);
@@ -164,4 +163,8 @@ exports.home= async(req, res)=>{
     }
   
 
+}
+
+exports.wishlist= (req, res)=>{
+    res.render('wishlist');
 }

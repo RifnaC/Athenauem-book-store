@@ -14,7 +14,7 @@ const bannerController = require('../controller/bannerController');
  * @description Root Route
  * @method GET/
 */
-route.get("/dashboard", services.homeRoutes)
+// route.get("/dashboard", services.homeRoutes)
 
 /** 
  * @description Admin Route
@@ -150,11 +150,6 @@ route.put('/api/banner/:id', bannerController.update);
 route.delete('/api/banner/:id', bannerController.delete);
 
 
-// ***********************Login Section********************************
-// /** 
-//  * @description Login Route
-//  * @method GET/
-// */
 route.get("/home", services.home);
 
 

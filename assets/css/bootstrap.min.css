@@ -3455,6 +3455,9 @@ input[type=number]::-webkit-outer-spin-button {
 .collapse:not(.show) {
     display: none
 }
+.collapse{
+    margin-left: 40px !important;
+}
 
 .collapsing {
     height: 0;
@@ -4446,6 +4449,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .card-footer {
+    margin-bottom: -10 !important;
     padding: .5rem 1rem;
     background-color: rgba(0,0,0,0.03);
     border-top: 1px solid rgba(0,0,0,0.125)
