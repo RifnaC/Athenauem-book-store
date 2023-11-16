@@ -5,7 +5,16 @@ const categoryCollection = require('../models/categoryModel')
 const productCollection  = require('../models/products')
 // ***********************Admin Management********************************
 exports.homeRoutes = async(req, res)=>{
-    res.render('dashboard');
+    if(!req.session.token){
+        return res.render('home')
+    }
+    // const admin = req.session.token;
+    // console.log(admin)
+    const id = req.user.id;
+    const admin = await adminCollection.findById(id);
+    const name = admin.name.split(" ")[0];
+    console.log(name)
+    res.render('dashboard',{admin: name});
 }
 
 exports.admin= (req, res)=>{

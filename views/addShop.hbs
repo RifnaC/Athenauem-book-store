@@ -57,9 +57,10 @@
                         <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
                         <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
                         <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-                        <a href="products" class="nav-item nav-link" id="productSection"><i class="bi bi-book"></i>Products</a>
+                        <a href="products" class="nav-item nav-link" id="productSection"><i
+                                class="bi bi-book"></i>Products</a>
+                        <a href="category" class="nav-item nav-link"><i class="bi bi-box"></i>Category</a>
                         <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
-                        <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                         <a href="admin" class="nav-item nav-link "><i class="bi bi-person"></i>Admin</a>
                         <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
                         <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
@@ -95,7 +96,8 @@
         <div class="container-fluid pt-4 px-4">
             <h2 class="text-primary text-center mb-3">Add Shop</h2>
             <div class="bg-secondary border rounded">
-                <form action="/api/shops" method="POST" id="add_shop" onsubmit="return shopValidation" enctype="multipart/form-data">
+                <form action="/api/shops" method="POST" id="add_shop" onsubmit="return shopValidation"
+                    enctype="multipart/form-data">
                     <div class="row m-2">
                         <div class="form-group m-2">
                             <input type="hidden" name="id" value="">
@@ -115,7 +117,7 @@
                                 <label class="ms-5" for="closes">Closing Time:</label>
                                 <input type="time" id="closeTime" name="closingTime" value="">
                             </div>
-                            <input type="file" name="shopImg" id="shopImg" class="ms-5" >
+                            <input type="file" name="shopImg" id="shopImg" class="ms-5">
                         </div>
                     </div>
                     <div class="d-flex justify-content-center mb-3">

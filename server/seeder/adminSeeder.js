@@ -9,7 +9,7 @@ const superAdmin = async() => {
         const admin = await Admindb.findOne({email:'admin@admin.com'})
         if(!admin){
             Admindb.create({
-                name: 'Super Admin',
+                name: 'Rishad',
                 email: 'admin@admin.com',
                 password: password,
                 isSuperAdmin: true,

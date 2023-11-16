@@ -13,8 +13,7 @@ exports.home = async (req, res) => {
 }
 
 exports.authMiddleware = async(req, res, next) => {
-     const token = req.session.token;
-
+    const token = req.session.token;
     if (!token) {
         return res.redirect('/login');
     }

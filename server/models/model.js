@@ -16,6 +16,7 @@ const schema = new mongoose.Schema({
         type:String,
         required: true,
     },
+    token:String,
     role: { 
         type: String, 
         enum: ['admin', 'superAdmin'], 
