@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Atheneuam - Book Colleciton</title>
@@ -30,6 +31,7 @@
   <!-- Template Stylesheet -->
   <link href="/css/style.css" rel="stylesheet">
 </head>
+
 <body>
   <div class="container-fluid position-relative d-flex p-0">
     <!-- Spinner Start -->
@@ -55,14 +57,15 @@
             <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
             <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
             <a href="products" class="nav-item nav-link" id="productSection"><i class="bi bi-book"></i>Products</a>
+            <a href="category" class="nav-item nav-link"><i class="bi bi-book"></i>Category</a>
             <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
-            <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+
             <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
             <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
             <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
           </div>
           <div>
-            <a href="#" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
+            <a href="/logout" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
           </div>
         </div>
       </nav>
@@ -75,11 +78,6 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand bg-secondary navbar-dark  px-4 py-0">
       <div class="navbar-nav align-items-center ms-auto">
-        <h6>
-          <a href="category" class="mx-4">
-            Category View
-          </a>
-        </h6>
         <h6>
           <a href="#" class="sidebar-toggler flex-shrink-0">
             <i class="fa fa-bars "></i>
@@ -116,7 +114,6 @@
                     <th>Author</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Description</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -129,7 +126,6 @@
                     <td class="text-dark">{{this.author}}</td>
                     <td class="text-dark">&#8377 {{this.price}}</td>
                     <td class="text-dark">{{this.quantity}}</td>
-                    <td class="text-dark">{{this.description}}</td>
                     <td class="text-dark">
                       <a href="editProduct?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
                       <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>

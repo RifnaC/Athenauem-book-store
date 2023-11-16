@@ -1,18 +1,28 @@
+const { log } = require('handlebars');
+const userCollection = require('../models/userModel');
+const adminCollection = require('../models/model');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const util = require('util');
+const saltRounds = 10;
+const JWT_SECRET = process.env.JWT_SECRET;
 
-exports.verifyToken = (req, res, next) => {
-    const token = req.headers['authorization'];
-    console.log(token);
+
+exports.home = async (req, res) => {
+    res.render('home');
+}
+
+exports.authMiddleware = async(req, res, next) => {
+    const token = req.session.token;
     if (!token) {
-        return res.status(401).json({ message: 'JWT must be provided' });
+        return res.redirect('/login');
     }
-
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(token, JWT_SECRET, (err, user) => {
         if (err) {
-            return res.status(401).json({ message: 'Invalid JWT' });
+            console.error('Token Verification Error:', err);
+            return res.redirect('/login');
         }
-        req.user = decoded;  // Attach decoded user information to the request
+        req.user = user;
         next();
     });
-};
-
+}

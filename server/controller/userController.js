@@ -1,46 +1,51 @@
 const { log } = require('handlebars');
 const userCollection = require('../models/userModel');
 const adminCollection = require('../models/model');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const saltRounds = 10;
-const JWT_SECRET = process.env.JWT_SECRET;
-
-exports.home = async (req, res) => {
-    const token = req.headers['authorization'];
-    if (!token){
-        res.status(401).json({message:Unauthorized});
-    }
-    const decodeToken = jwt.verify(token, JWT_SECRET);
-    const user = await userCollection.findById(decodeToken.id);
-    res.render('home');
-}
+// const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
+// const util = require('util');
+// const saltRounds = 10;
+// const JWT_SECRET = process.env.JWT_SECRET;
 
 
-exports.dashboard = async (req, res) => {
-    const token = req.headers['authorization'];
+// exports.home = async (req, res) => {
+//     res.render('home');
+// }
 
-    if (!token) {
-        res.status(401).json({ message: "Unauthorized" });
-        return;
-    }
+// exports.authMiddleware = async(req, res, next) => {
+//      const token = req.session.token;
 
-    try {
-        const decodeToken = jwt.verify(token, JWT_SECRET);
-        const admin = await adminCollection.findById(decodeToken.id);
+//     if (!token) {
+//         return res.redirect('/login');
+//     }
+//     jwt.verify(token, JWT_SECRET, (err, user) => {
+//         if (err) {
+//             console.error('Token Verification Error:', err);
+//             return res.redirect('/login');
+//         }
+//         req.user = user;
+//         next();
+//     });
+// }
 
-        if (!admin) {
-            res.status(404).json({ message: "Admin not found" });
-            return;
-        }
+// exports.dashboard = async (req, res) => {
+//         try {
+//             // Assuming user data is available in req.user or req.session.user
+//             const admin = await adminCollection.findOne({ where: { email: email } });
+//             console.log(admin)
+//             if (!admin) {
+//                 // Redirect to login if user data is not available
+//                 return res.redirect('/login');
+//             }
+    
+//             // Render the profile view and pass the user data
+//             res.render('dashboard', { admin });
+//         } catch (error) {
+//             console.error(error);
+//             res.status(500).send('Internal Server Error');
+//         }
+    
+// }
 
-        if (admin.isSuperAdmin) {
-            res.render('dashboard',{isSuperAdmin:true});
-        } else {
-            res.render('dashboard');
-        }
-    } catch (error) {
-        res.status(401).json({ message: "Invalid token" });
-    }
-};
+
 

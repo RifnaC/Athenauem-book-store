@@ -1,8 +1,20 @@
 const axios = require('axios');
+const adminCollection = require('../models/model')
 const bannerCollection = require('../models/bannerModel')
+const categoryCollection = require('../models/categoryModel')
+const productCollection  = require('../models/products')
 // ***********************Admin Management********************************
-exports.homeRoutes = (req, res)=>{
-    res.render('dashboard');
+exports.homeRoutes = async(req, res)=>{
+    if(!req.session.token){
+        return res.render('home')
+    }
+    // const admin = req.session.token;
+    // console.log(admin)
+    const id = req.user.id;
+    const admin = await adminCollection.findById(id);
+    const name = admin.name.split(" ")[0];
+    console.log(name)
+    res.render('dashboard',{admin: name});
 }
 
 exports.admin= (req, res)=>{
@@ -146,18 +158,23 @@ exports.signup= (req, res)=>{
 }
 
 exports.home= async(req, res)=>{
-    // Modify the route to fetch the three latest images
     try {
-      const latestImages = await bannerCollection
+    const latestImages = await bannerCollection
         .find({})
         .sort({ _id: -1 })
         .limit(3); 
   
-      res.render('home', { images: latestImages });
+    const categories = await categoryCollection.find({});
+    const products = await productCollection.find({}).limit(10);
+        res.render('home', { images: latestImages, category: categories, product: products });
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');
     }
   
-    // res.render('home');
+
+}
+
+exports.wishlist= (req, res)=>{
+    res.render('wishlist');
 }

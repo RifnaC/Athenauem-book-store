@@ -58,15 +58,16 @@
                         <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
                         <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
                         <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-                        <a href="products" class="nav-item nav-link" id="productSection"><i class="bi bi-book"></i>Products</a>
+                        <a href="products" class="nav-item nav-link" id="productSection"><i
+                                class="bi bi-book"></i>Products</a>
+                        <a href="category" class="nav-item nav-link"><i class="bi bi-box"></i>Category</a>
                         <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
-                        <a href="charts" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                         <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
                         <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
                         <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
                     </div>
                     <div>
-                        <a href="#" class="nav-link" data-bs-toggle="dropdown"><i
+                        <a href="/logout" class="nav-link" data-bs-toggle="dropdown"><i
                                 class="bi bi-box-arrow-right"></i>Logout</a>
 
                     </div>
@@ -101,45 +102,28 @@
             </div>
             <div class="bg-secondary border rounded">
                 <div class="row no-gutters">
-                    <div class="col-lg-12 col-xl-12">
-                        <div class="card-body pt-0 pb-4 table-responsive px-0">
-                            <table class="table card-table text-center" style="width:100%">
-                                <thead>
-                                    <tr class="table-primary">
-                                        <th>Banner Name</th>
-                                        <th>Shop</th>
-                                        <th>Click Type</th>
-                                        <th>Image</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each banners}}
-                                    <tr>
-                                        <td class="text-dark">{{this.name}}</td>
-                                        <td class="text-dark">{{this.shop}}</td>
-                                        <td class="text-dark">{{this.type}}</td>
-                                        <td class="text-dark">
-                                            <img src="{{this.bannerImg}}" name="bannerImg" alt="{{this.name}}"
-                                                class="tableImg">
-                                        </td>
-                                        <td class="text-secondary">
-                                            <a href="banners?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
-                                            <a href="" class="delete" data-id={{_id}}><i
-                                                    class="bi bi-trash-fill text-danger me-3"></i></a>
-                                            {{!-- <a href="banner/{{_id}}"><input class="form-check-input" type="checkbox"
-                                                    value="" data-id="{{_id}}" id="banner-{{_id}}"></a> --}}
-
-                                        </td>
-                                    </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
+                    <div class="col-lg-12 col-xl-12 d-flex banner">
+                        {{#each banners}}
+                        <div class="row bg-primaryLight m-3 ">
+                            <div class="d-flex  ">
+                                <div class="p-2">
+                                    <h3 class="text-dark">{{this.name}}</h3>
+                                    <p class="m-0">{{this.shop}} </p>
+                                    <p>{{this.type}}</p>
+                                    <a href="banners?id={{_id}}"><i class="bi bi-pencil-square me-3"></i></a>
+                                    <a href="" class="delete" data-id="{{_id}}"><i
+                                            class="bi bi-trash-fill text-danger me-3"></i></a>
+                                </div>
+                                <img src="{{this.bannerImg}}" name="bannerImg" alt="{{this.name}}"
+                                    class="bannerImg m-3">
+                            </div>
                         </div>
+                        {{/each}}
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <!-- Content End -->
     </div>

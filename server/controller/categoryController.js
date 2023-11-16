@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// create and save new shop
+// create and save new category
 exports.create = async (req, res) => {
     upload.single('categoryImg')(req, res, async (err) => {
         if (err) {
@@ -53,7 +53,7 @@ exports.create = async (req, res) => {
     });
 };
 
-// retrieve and return all shop or  retrieve and return a single shop 
+// retrieve and return all category or  retrieve and return a single category 
 exports.find = (req, res) => {
     if (req.query.id) {
         const id = req.query.id;
@@ -94,32 +94,31 @@ exports.update = async (req, res) => {
         }
         try {
             const id = req.params.id;
-            const genre = await Shopdb.findById(id);
+            const genre = await genreCollection.findById(id);
             if (!genre) {
                 return res.status(404).json({ message: 'Category not found' });
             }
             // Check if a new file is being uploaded
             if (req.file) {
-                // Delete the old shop image from Cloudinary
+                // Delete the old category image from Cloudinary
                 await cloudinary.uploader.destroy(genre.cloudinaryId);
 
-                // Upload the new shop image to Cloudinary
+                // Upload the new category image to Cloudinary
                 const result = await cloudinary.uploader.upload(req.file.path);
 
-                // Update the shop image URL and Cloudinary ID
-                genre.shopImg = result.secure_url;
+                // Update the category image URL and Cloudinary ID
+                genre.categoryImg = result.secure_url;
                 genre.cloudinaryId = result.public_id;
             }
 
-            // Update other shop details based on your form data
-            genre.name = req.body.name
-            genre.openingTime = req.body.openingTime
-            genre.closingTime = req.body.closingTime
-            genre.address = req.body.address
+            // Update other category details based on your form data
+            genre.genre = req.body.genre
+            genre.totalBooks = req.body.totalBooks
+            genre.description = req.body.description
 
-            // Save the shop changes to the database
-            await genre.save();
-            // Return the updated shop data
+            // Save the category changes to the database
+            const sg = await genre.save();
+            // Return the updated category data
             return res.status(200).json(genre);
         } catch (error) {
             return res.status(500).json({ message: 'An error occurred while updating the Category' });
@@ -161,41 +160,3 @@ exports.delete = (req, res) => {
     });
   });
 }
-
-
-// exports.update = (req, res) => {
-//     if(!req.body){
-//          return res.status(400).send({message:"Data to update can not be empty"})
-//      }
-//      const id = req.params.id;
-//      genreCollection.findByIdAndUpdate(id, req.body, {useFindAndModify: false})
-//      .then(data =>{
-//          if(!data){
-//              return res.status(404).send({message:`category with ${id} is not found`})
-//          }else{
-//              res.send(data);
-//          }
-//      })
-//      .catch(err => {
-//          res.status(500).send({message: "Error Update user information"})
-//      })
-//   }
-
-// exports.delete = (req, res) => {
-//     const id = req.params.id;
-//     genreCollection.findByIdAndDelete(id)
-//         .then(data => {
-//             if (!data) {
-//                 res.status(404).send({ message: `Genre with ${id} is not found` })
-//             } else {
-//                 res.send({
-//                     message: "Category is deleted successfully"
-//                 })
-//             }
-//         })
-//         .catch(err => {
-//             res.status(500).send({
-//                 message: "Could not delete Category with id " + id
-//             })
-//         })
-// }
