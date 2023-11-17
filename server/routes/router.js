@@ -145,11 +145,10 @@ route.get("/banners",auth.authMiddleware, services.editBanner)
 route.post('/api/banner',auth.authMiddleware, bannerController.create);
 route.get('/api/banner', bannerController.find);
 route.put('/api/banner/:id',auth.authMiddleware, bannerController.update);
-// route.post('/api/banner/:id', bannerController.banner);
 route.delete('/api/banner/:id',auth.authMiddleware, bannerController.delete);
 
 
-route.get("/home", services.home);
+// route.get("/home", services.home);
 
 
 module.exports = route

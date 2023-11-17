@@ -36,11 +36,11 @@ app.set('view engine','hbs')
 
 // app.engine('hbs', hbs.engine({
 //     extname: 'hbs',
-//     defaultLayout: 'dashboard',
+//     defaultLayout: 'login',
 //     layoutDir: __dirname + '/views/layouts/',
 //     partialsDir: __dirname + '/views/partials/',
 // }));
-// app.set ('views', path.resolve(__dirname,'views'))
+// // app.set ('views', path.resolve(__dirname,'views'))
 
 // load assets
 app.use('/css', express.static(path.resolve(__dirname,"assets/css")))
