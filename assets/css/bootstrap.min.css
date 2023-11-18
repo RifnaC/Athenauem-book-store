@@ -1886,7 +1886,7 @@ progress {
 }
 
 .table>tbody {
-    vertical-align: inherit
+    vertical-align: inherit;
 }
 
 .table>thead {
@@ -4709,7 +4709,7 @@ input[type=number]::-webkit-outer-spin-button {
     display: block;
     color: #15877C;
     background-color: #fff;
-    border: 1px solid #dee2e6;
+    border: 0px solid #000;
     transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out
 }
 
@@ -4721,17 +4721,17 @@ input[type=number]::-webkit-outer-spin-button {
 
 .page-link:hover {
     z-index: 2;
-    color: #bc1212;
-    background-color: #e9ecef;
-    border-color: #dee2e6
+    color: #F5F5F5;
+    background-color: #15877C;
+    border-color: #000
 }
 
 .page-link:focus {
     z-index: 3;
-    color: #bc1212;
-    background-color: #e9ecef;
+    color: #15877C;
+    background-color: #F5F5F5;
     outline: 0;
-    box-shadow: 0 0 0 .25rem rgba(235,22,22,0.25)
+    box-shadow: 0 0 0 .25rem #CCEBD7
 }
 
 .page-item:not(:first-child) .page-link {
@@ -4741,30 +4741,26 @@ input[type=number]::-webkit-outer-spin-button {
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
-    background-color: #EB1616;
-    border-color: #EB1616
+    background-color: #15877C;
+    border-color: #15877C
 }
 
 .page-item.disabled .page-link {
-    color: #6c757d;
+    color: #15877C;
     pointer-events: none;
     background-color: #fff;
-    border-color: #dee2e6
+    border-color: #CCEBD7
 }
 
 .page-link {
     padding: .375rem .75rem
 }
 
-.page-item:first-child .page-link {
+/* .page-item:first-child .page-link {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px
-}
+}  */
 
-.page-item:last-child .page-link {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px
-}
 
 .pagination-lg .page-link {
     padding: .75rem 1.5rem;

@@ -567,6 +567,7 @@
     let genre = document.forms["add_cat"]["genre"].value;
     let totalBooks = document.forms["add_cat"]["totalBooks"].value;
     let description = document.forms["add_cat"]["description"].value;
+    let image = document.forms["add_cat"]["categoryImg"].value;
     // Check if name, email, password, and confirmPassword are not empty
     if (genre === "") {
       Swal.fire({
@@ -601,6 +602,13 @@
         title: "The description must be at least 4 characters",
         confirmButtonColor: '#15778C'
       })
+      return false;
+    }
+    if (image === "") {
+      Swal.fire({
+        title: "Please select an image",
+        confirmButtonColor: '#15778C',
+      });
       return false;
     }
     return true;
@@ -1072,6 +1080,13 @@
       location.window.href = '/login';
     }
   })
+
+  $(document).ready(function () {
+    $('#categoryTable').DataTable({
+        "paging": true,
+        "pageLength": 10, 
+    });
+});
 
   
 

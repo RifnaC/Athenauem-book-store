@@ -1,0 +1,525 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0063)https://keralaresults.nic.in/dhsefyimpoct23tjc/dhsefy_imprv.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>DHSE First Year Improvement Results - September 2023 </title>
+		
+		<script language="javascript">
+function initcon()
+{	newwin();
+	setHeight();
+	document.fmhome.treg.value = "";
+	document.fmhome.dobd.value="";
+	document.fmhome.dobm.value="";
+	document.fmhome.doby.value="";
+	document.fmhome.treg.focus();
+
+}
+function setHeight()
+{
+	if(screen.height == '600')
+	{
+		document.getElementById('headtd').height='100px';
+		document.getElementById('spantd').style.height='188px';
+		document.getElementById('tblmain').width='600px';
+	}
+	else
+	{
+		document.getElementById('headtd').height='104px';
+		document.getElementById('spantd').style.height='320px';
+		document.getElementById('tblmain').width='780px';
+	}
+}
+function newwin()
+{
+if (self != top) 
+top.location.href="dhsefy_imprv.htm";
+}
+function IsNumeric(sText)
+{
+   var ValidChars = "0123456789";
+   var IsNumber=true;
+   var Char;
+
+ 
+   for (i = 0; i < sText.length && IsNumber == true; i++) 
+      { 
+      Char = sText.charAt(i); 
+      if (ValidChars.indexOf(Char) == -1) 
+         {
+         IsNumber = false;
+         }
+      }
+   return IsNumber;
+   
+ }
+
+
+
+function checkform()
+{
+  if(document.fmhome.treg.value == "")
+  {
+   	alert("Enter Register number");
+	document.fmhome.treg.value = "";
+	document.fmhome.treg.focus();
+   return false;
+  }
+  if(document.fmhome.treg.value.length < 6)
+  {
+    alert("Enter valid Registration number");
+	document.fmhome.treg.value = "";
+	document.fmhome.treg.focus();
+	return false;
+  }
+  if(IsNumeric(document.fmhome.treg.value)==false)
+  {
+	alert("Please enter some valid Registration number");
+	document.fmhome.treg.value = "";
+	document.fmhome.treg.focus();
+	return false;
+
+  }
+	dob=document.fmhome.dobd.value+"/"+document.fmhome.dobm.value+"/"+document.fmhome.doby.value;
+	if(!/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.test(dob))
+	{
+        alert('Enter valid Date : DD-MM-YYYY');                 
+		document.fmhome.dobd.value="";
+		document.fmhome.dobm.value="";
+		document.fmhome.doby.value="";
+		document.fmhome.dobd.focus();
+		return false;
+    }
+}
+
+function resetContents()
+{
+	document.fmhome.treg.value = "";
+	document.fmhome.dobd.value = "";
+	document.fmhome.dobm.value = "";
+	document.fmhome.doby.value = "";
+	document.getElementById("showres").innerHTML='';
+}
+
+function NavigateAjax(regno)
+{
+	if(checkform() != false)
+	{
+		document.getElementById("showres").innerHTML="<table width='100%' ><tr><td align='center'><img src='atom01.gif' style='border:0px'/></table></tr></td>";
+		xmlHttp=GetXmlHttpObject()
+		if (xmlHttp==null)
+		{
+		alert ("Browser does not support HTTP Request")
+		return
+		} 
+		if((regno > 22000019   ) && (regno < 23700002 ))
+		{
+			var url="dhsefy_imprv.asp?treg="+regno+"&dob="+dob;
+		}
+		else
+		{
+			
+			document.fmhome.treg.value = "";
+			document.getElementById("showres").innerHTML='<center><b>Please Check Your Roll Number.</b></center';
+			return false;
+		}
+		url=url+"&sid="+Math.random();
+		xmlHttp.onreadystatechange=stateChanged ;
+		xmlHttp.open("GET",url,true);
+		xmlHttp.send(null);
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
+function stateChanged() 
+{ 
+	if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete")
+	{ 
+	document.getElementById("showres").innerHTML="";
+	document.getElementById("showres").innerHTML=xmlHttp.responseText
+	document.getElementById("ctrltr").style.display='none';
+	document.getElementById("lnktd").style.display='';
+	} 
+}  
+function enableCheckAnoRes()
+{
+	document.getElementById("ctrltr").style.display='';
+	document.getElementById("lnktd").style.display='none';
+	document.getElementById("showres").innerHTML="";
+	document.fmhome.treg.value = "";
+	document.fmhome.dobd.value = "";
+	document.fmhome.dobm.value = "";
+	document.fmhome.doby.value = "";
+	document.fmhome.treg.focus();
+}
+function GetXmlHttpObject(handler)
+{ 
+	var objXMLHttp=null
+	if (window.XMLHttpRequest)
+	{
+	objXMLHttp=new XMLHttpRequest()
+	}
+	else if (window.ActiveXObject)
+	{
+	objXMLHttp=new ActiveXObject("Microsoft.XMLHTTP")
+	}
+	return objXMLHttp
+}
+function movetoNext(current, nextFieldID) 
+{
+	if (current.value.length >= current.maxLength) 
+	{
+		document.getElementById(nextFieldID).focus();
+	}
+}
+		</script>
+		<style> 
+	<!-- 		
+	 td {font-family:'Verdana';font-size:13px}
+	.hdg {font-family:'Verdana';background-color:#D6C58F;#dedede;#650d22; color:navy;yellow;}	
+	.hdg1 {font-family:'Verdana';background:white;color:navy;font-weight:bold}
+	.hdg21 {font-family:'Verdana';background:white;color:navy;}
+	.rslt{font-family:'Verdana';background:white;#dedede;#e4dcc7;color:#660033;}
+	.mark {background:#f9f0d6;color:#39300F;navy;}
+	.mark2 {background:#e4d8b6;color:maroon;navy;}
+	
+	.D { background-color: #93008E ; color: #ffffff ; font-family: verdana ; font-size: 13px }
+	.L { background-color: #A95B97 ; color: #ffffff ; font-family: verdana ; font-size: 13px }
+	.R{ background-color:#996633; color:#3333FF; font-family:verdana ; font-size:13px}
+	.r1{ background-color:#CDCDCD; color:#305876;font-family:verdana ; font-size:13px}
+	.r2{ background-color:#FFFFFF; color:#305876;font-family:verdana ; font-size:13px}
+	.r3{ background-color:#F0F5F9; color:#305876;font-family:verdana ; font-size:13px}
+	.r4{ background-color:#305876; color:#FFFFFF;font-family:verdana ; font-size:13px}
+	.Y { color: e9ef45 }
+	.S { font-size: 12 }
+
+	a.hov:link { color: blue; text-decoration:none; }
+	a.hov:active { color: blue; text-decoration:none; }
+	a.hov:visited { color: #CC00CC; text-decoration:none; }
+	a.hov:hover { color: blue; text-decoration:none; }
+	a.lnkchkAno:link { color: #660000;font-weight:bold;font-size:13px; font-family:verdana; text-decoration:none; background:#cdcdcd}
+	a.lnkchkAno:active { color: #660000;font-weight:bold;font-size:13px; font-family:verdana; text-decoration:none; background:#cdcdcd }
+	a.lnkchkAno:visited { color: #660000;font-weight:bold;font-size:13px; font-family:verdana; text-decoration:none; background:#cdcdcd }
+	a.lnkchkAno:hover { color: #0000ff;font-weight:bold;font-size:13px; font-family:verdana; text-decoration:none; background:#cdcdcd}
+	.dob { width:25px;FONT-WEIGHT: bold; FONT-SIZE: 12px; BORDER-LEFT-COLOR: #660000; BACKGROUND: #cdcdcd; BORDER-BOTTOM-COLOR: #660000; COLOR: #3333FF;#660000; BORDER-TOP-COLOR: #660000; FONT-FAMILY: verdana; TEXT-ALIGN: center; BORDER-RIGHT-COLOR: #660000}
+	-->
+	</style>
+	<style>@font-face {
+              font-family: 'Open Sans Regular';
+              font-style: normal;
+              font-weight: 400;
+              src: url('chrome-extension://gkkdmjjodidppndkbkhhknakbeflbomf/fonts/open_sans/open-sans-v18-latin-regular.woff');
+          }</style><style>@font-face {
+              font-family: 'Open Sans Bold';
+              font-style: normal;
+              font-weight: 800;
+              src: url('chrome-extension://gkkdmjjodidppndkbkhhknakbeflbomf/fonts/open_sans/OpenSans-Bold.woff');
+          }</style><style>@font-face {
+              font-family: 'Open Sans ExtraBold';
+              font-style: normal;
+              font-weight: 800;
+              src: url('chrome-extension://gkkdmjjodidppndkbkhhknakbeflbomf/fonts/open_sans/open-sans-v18-latin-800.woff');
+          }</style></head>
+	<body onload="initcon()" onfocus="setHeight()" xbottommargin="0" leftmargin="0" rightmargin="0" topmargin="5" xbgcolor="#eeeeee" background="./DHSE First Year Improvement Results - September 2023_files/dhsepgbg2.gif">
+		<form name="fmhome" onsubmit="NavigateAjax(treg.value);return false;">
+			<table id="tblmain" align="center" bgcolor="#ffffff" xborder="0" style="COLOR:#660000;border:1px solid  #DFB67D" width="780px">
+				<tbody><tr xvalign="middle">
+					<td id="headtd" align="center" width="780px" xheight="90" background="./DHSE First Year Improvement Results - September 2023_files/dhseftr.jpg" xbgcolor="#d8d4c9" height="104px"><a href="https://keralaresults.nic.in/dhsefyimpoct23tjc/swr_dhsefy_impr.htm"><img style="float:right" src="./DHSE First Year Improvement Results - September 2023_files/sr.png" border="0"></a>
+						<font style="color:#103852;font-size:20px;font-family:trebuchet ms">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GOVERNMENT OF KERALA</font>
+			<br><font style="color:#630c21;font-size:20px;font-family:trebuchet ms">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Higher Secondary Examination  </font> <font style="color:#100c73;font-size:22px;font-weight:bold;font-family:trebuchet ms">September 2023</font><br> <b style="font-size:14px">First Year Improvement Results</b>
+					</td>
+				</tr>
+				<tr align="center">
+					<td xheight="300">
+						<table align="center" border="0" style="WIDTH:100%">
+							<tbody><tr id="ctrltr" style="display: none;">
+								<td width="25%" align="right">
+									Roll Number
+								</td>
+								<td width="20%" align="center">
+                                <input title="Enter 7 or 5 Digit Roll Number" type="text" onkeyup="movetoNext(this, &#39;dobd&#39;)" id="treg" name="treg" maxlength="8" style="FONT-WEIGHT: bold; FONT-SIZE: 12px; BORDER-LEFT-COLOR: #660000; BACKGROUND: #cdcdcd; BORDER-BOTTOM-COLOR: #660000; WIDTH: 97px; COLOR: #3333FF;#660000; BORDER-TOP-COLOR: #660000; FONT-FAMILY: verdana; TEXT-ALIGN: center; BORDER-RIGHT-COLOR: #660000">
+								</td>
+								<td align="left"> Date of Birth <input type="text" onkeyup="movetoNext(this, &#39;dobm&#39;)" id="dobd" name="dobd" class="dob" maxlength="2" title="Day as DD">-<input type="text" name="dobm" id="dobm" class="dob" maxlength="2" onkeyup="movetoNext(this, &#39;doby&#39;)" title="Month as MM">-<input type="text" id="doby" name="doby" class="dob" maxlength="4" title="Year as YYYY" style="width:35px">&nbsp;&nbsp;&nbsp;
+                                <input type="button" name="bsubmit" value="Submit" onclick="return NavigateAjax(treg.value)" style="BORDER-RIGHT:#305876 1px solid; BORDER-TOP:#305876 1px solid; FONT-WEIGHT:bold; BORDER-LEFT:#305876 1px solid; COLOR:#ffffff; BORDER-BOTTOM:#305876 1px solid; BACKGROUND-COLOR:#660000">&nbsp;
+									<input type="button" value=" Reset " name="breset" onclick="resetContents()" style="BORDER-RIGHT: #305876 1px solid; BORDER-TOP: #305876 1px solid; FONT-WEIGHT: bold; BORDER-LEFT: #305876 1px solid; COLOR: #ffffff; BORDER-BOTTOM: #305876 1px solid; BACKGROUND-COLOR: #660000"></td>
+							</tr>
+							<tr id="lnktd" style="">
+								<td colspan="3" align="center"><a href="javascript:void enableCheckAnoRes()" class="lnkchkAno">&nbsp;&nbsp;CHECK 
+										ANOTHER RESULT&nbsp;&nbsp;</a></td>
+							</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				<tr>
+					<td id="spantd" height="320" style="height: 320px;">
+						<span id="showres" valign="top" style="WIDTH: 100%; HEIGHT: 100%; BACKGROUND-COLOR: transparent; TEXT-ALIGN: center">
+<div align="center"><center>
+<table border="0" width="75%" cellspacing="1" cellpadding="4" align="center" style="BACKGROUND:#AF9441;#bad1e2" id="Table2">
+	
+	
+	<tbody><tr class="hdg">
+		<td colspan="2" align="center"><b>Register No :
+				23371372
+			</b>
+		</td>
+	</tr>
+	<tr class="hdg1">
+		<td width="50%">Name of the Candidate
+		</td>
+		<td>RISHADUDHEEN C                                                                                      </td>
+	</tr>
+	<tr class="hdg1">
+		<td>Group Name
+		</td>
+		<td>COMMERCE       </td>
+	</tr>
+	<tr class="rslt">
+		<td><b>Remarks</b></td>
+		<td>
+			
+		</td>
+	</tr>
+</tbody></table>
+<table border="0" width="75%" cellspacing="1" cellpadding="2" align="center" style="border-right:1px solid #AF9441;BACKGROUND:#AF9441;#bad1e2" id="Table3">
+	
+	<tbody><tr class="hdg">
+		<td xbgcolor="#DAE4ED" align="center" colspan="5"><b></b>
+		</td>
+	</tr>
+	<tr>
+		<td class="mark2" align="center"><b>Exam Type</b></td>
+		<td class="mark2" align="center" colspan="2"><b>Your Score</b></td>
+		<td class="mark2" align="center" colspan="2"><b>Max Marks</b></td>
+		<!-- <td class="mark2" align="center"><B>Grade</B></td> --> 
+	</tr>
+	<tr>
+		<td class="mark" align="center"><b>CE</b></td>
+		<td class="mark" align="center" colspan="2"><b></b></td>
+		<td class="mark" align="center" colspan="2"><b></b></td>
+	<!-- 	<td class="hdg1" align="center" rowspan="3"><B></B></td> -->
+	</tr>
+	<!--<tr>
+		<td class="mark" align="center"><B>PE</B></td>
+		<td class="mark" align="center" colSpan="2"><B></B></td>
+		<td class="mark" align="center" colSpan="2"><B></B></td>
+	</tr>-->
+	<tr>
+		<td class="mark" align="center"><b>TE</b></td>
+		<td class="mark" align="center" colspan="2"><b></b></td>
+		<td class="mark" align="center" colspan="2"><b></b></td>
+	</tr>
+	<tr>
+		<td class="mark" align="center"><b>GM</b></td>
+		<td class="mark" align="center" colspan="2"><b>  </b></td>
+		<td class="mark" align="center" colspan="2"><b>&nbsp;</b></td>
+	</tr>	
+	<tr>
+		<td class="mark2" align="center"><b>Total</b></td>
+		<td class="mark2" align="center" colspan="2"><b></b></td>
+		<td class="mark2" align="center" colspan="2"><b></b></td>
+	</tr>
+	<tr class="hdg">
+		<td xbgcolor="#DAE4ED" align="center" colspan="6" xstyle="background:navy;color:yellow;height:10px"><b></b>
+		</td>
+	</tr>
+	<tr>
+		<td class="mark2" align="center"><b>Exam Type</b></td>
+		<td class="mark2" align="center" colspan="2"><b>Your Score</b></td>
+		<td class="mark2" align="center" colspan="2"><b>Max Marks</b></td>
+			<!-- <td class="mark2" align="center"><B>Grade</B></td> -->
+	</tr>
+	<tr>
+		<td class="mark" align="center"><b>CE</b></td>
+		<td class="mark" align="center" colspan="2"><b></b></td>
+		<td class="mark" align="center" colspan="2"><b></b></td>
+		<!-- <td class="hdg1" align="center" rowspan="3"><B></B></td> -->
+	</tr>
+<!--	<tr>
+		<td class="mark" align="center"><B>PE</B></td>
+		<td class="mark" align="center" colSpan="2"><B></B></td>
+		<td class="mark" align="center" colSpan="2"><B></B></td>
+	</tr>-->
+	<tr>
+		<td class="mark" align="center"><b>TE</b></td>
+		<td class="mark" align="center" colspan="2"><b></b></td>
+		<td class="mark" align="center" colspan="2"><b></b></td>
+	</tr>
+	<tr>
+		<td class="mark" align="center"><b>GM</b></td>
+		<td class="mark" align="center" colspan="2"><b>  </b></td>
+		<td class="mark" align="center" colspan="2"><b>&nbsp;</b></td>
+	</tr>		
+	<tr>
+		<td class="mark2" align="center"><b>Total</b></td>
+		<td class="mark2" align="center" colspan="2"><b></b></td>
+		<td class="mark2" align="center" colspan="2"><b></b></td>
+	</tr>
+	<tr class="hdg">
+		<td xbgcolor="#DAE4ED" align="center" colspan="6" xstyle="background:navy;color:yellow;height:10px"><b>BUSINESS STUDIES WITH  FUNCTIONAL MANAGEMENT </b>
+		</td>
+	</tr>
+	<tr>
+		<td class="mark2" align="center"><b>Exam Type</b></td>
+		<td class="mark2" align="center" colspan="2"><b>Your Score</b></td>
+		<td class="mark2" align="center" colspan="2"><b>Max Marks</b></td>
+			<!-- <td class="mark2" align="center"><B>Grade</B></td> -->
+	</tr>
+	<tr>
+		<td class="mark" align="center"><b>CE</b></td>
+		<td class="mark" align="center" colspan="2"><b>17</b></td>
+		<td class="mark" align="center" colspan="2"><b>20</b></td>
+		<!-- <td class="hdg1" align="center" rowspan="3"><B></B></td> -->
+	</tr>
+<!--	<tr>
+		<td class="mark" align="center"><B>PE</B></td>
+		<td class="mark" align="center" colSpan="2"><B></B></td>
+		<td class="mark" align="center" colSpan="2"><B></B></td>
+	</tr>-->
+	<tr>
+		<td class="mark" align="center"><b>TE</b></td>
+		<td class="mark" align="center" colspan="2"><b>33 </b></td>
+		<td class="mark" align="center" colspan="2"><b>80</b></td>
+	</tr>
+	<tr>
+		<td class="mark" align="center"><b>GM</b></td>
+		<td class="mark" align="center" colspan="2"><b>  </b></td>
+		<td class="mark" align="center" colspan="2"><b>&nbsp;</b></td>
+	</tr>		
+	<tr>
+		<td class="mark2" align="center"><b>Total</b></td>
+		<td class="mark2" align="center" colspan="2"><b>50 </b></td>
+		<td class="mark2" align="center" colspan="2"><b></b></td>
+	</tr>
+	<tr class="hdg">
+		<td xbgcolor="#DAE4ED" align="center" colspan="6" xstyle="background:navy;color:yellow;height:10px"><b>ACCOUNTANCY WITH COMPUTER ACCOUNTING</b>
+		</td>
+	</tr>
+	<tr>
+		<td class="mark2" align="center"><b>Exam Type</b></td>
+		<td class="mark2" align="center" colspan="2"><b>Your Score</b></td>
+		<td class="mark2" align="center" colspan="2"><b>Max Marks</b></td>
+			<!-- <td class="mark2" align="center"><B>Grade</B></td> -->
+	</tr>
+	<tr>
+		<td class="mark" align="center"><b>CE</b></td>
+		<td class="mark" align="center" colspan="2"><b>18</b></td>
+		<td class="mark" align="center" colspan="2"><b>20</b></td>
+		<!-- <td class="hdg1" align="center" rowspan="3"><B></B></td> -->
+	</tr>
+<!--	<tr>
+		<td class="mark" align="center"><B>PE</B></td>
+		<td class="mark" align="center" colSpan="2"><B></B></td>
+		<td class="mark" align="center" colSpan="2"><B></B></td>
+	</tr>-->
+	<tr>
+		<td class="mark" align="center"><b>TE</b></td>
+		<td class="mark" align="center" colspan="2"><b>25 </b></td>
+		<td class="mark" align="center" colspan="2"><b>60</b></td>
+	</tr>
+	<tr>
+		<td class="mark" align="center"><b>GM</b></td>
+		<td class="mark" align="center" colspan="2"><b>  </b></td>
+		<td class="mark" align="center" colspan="2"><b>&nbsp;</b></td>
+	</tr>		
+	<tr>
+		<td class="mark2" align="center"><b>Total</b></td>
+		<td class="mark2" align="center" colspan="2"><b>43 </b></td>
+		<td class="mark2" align="center" colspan="2"><b></b></td>
+	</tr> 
+	<tr class="hdg">
+		<td xbgcolor="#DAE4ED" align="center" colspan="6" xstyle="background:navy;color:yellow;height:10px"><b>ECONOMICS </b>
+		</td>
+	</tr>
+	<tr>
+		<td class="mark2" align="center"><b>Exam Type</b></td>
+		<td class="mark2" align="center" colspan="2"><b>Your Score</b></td>
+		<td class="mark2" align="center" colspan="2"><b>Max Marks</b></td>
+			<!-- <td class="mark2" align="center"><B>Grade</B></td> -->
+	</tr>
+	<tr>
+		<td class="mark" align="center"><b>CE</b></td>
+		<td class="mark" align="center" colspan="2"><b>19</b></td>
+		<td class="mark" align="center" colspan="2"><b>20</b></td>
+<!-- 		<td class="hdg1" align="center" rowspan="3"><B></B></td> -->
+	</tr>
+	<tr>
+		<td class="mark" align="center"><b>TE</b></td>
+		<td class="mark" align="center" colspan="2"><b>43 </b></td>
+		<td class="mark" align="center" colspan="2"><b>80</b></td>
+	</tr>
+	<tr>
+		<td class="mark" align="center"><b>GM</b></td>
+		<td class="mark" align="center" colspan="2"><b>  </b></td>
+		<td class="mark" align="center" colspan="2"><b>&nbsp;</b></td>
+	</tr>		
+	<tr>
+		<td class="mark2" align="center"><b>Total</b></td>
+		<td class="mark2" align="center" colspan="2"><b>62 </b></td>
+		<td class="mark2" align="center" colspan="2"><b></b></td>
+	</tr>
+	
+	<tr class="hdg">
+		<td xbgcolor="#DAE4ED" align="center" colspan="6" xstyle="background:navy;color:yellow;height:10px"><b></b>
+		</td>
+	</tr>
+	<tr>
+		<td class="mark2" align="center"><b>Exam Type</b></td>
+		<td class="mark2" align="center" colspan="2"><b>Your Score</b></td>
+		<td class="mark2" align="center" colspan="2"><b>Max Marks</b></td>
+			<!-- <td class="mark2" align="center"><B>Grade</B></td> -->
+	</tr>
+	<tr>
+		<td class="mark" align="center"><b>CE</b></td>
+		<td class="mark" align="center" colspan="2"><b></b></td>
+		<td class="mark" align="center" colspan="2"><b></b></td>
+<!-- 		<td class="hdg1" align="center" rowspan="3"><B></B></td> -->
+	</tr>
+	<!--<tr>
+		<td class="mark" align="center"><B>PE</B></td>
+		<td class="mark" align="center" colSpan="2"><B></B></td>
+		<td class="mark" align="center" colSpan="2"><B></B></td>
+	</tr>-->
+	<tr>
+		<td class="mark" align="center"><b>TE</b></td>
+		<td class="mark" align="center" colspan="2"><b></b></td>
+		<td class="mark" align="center" colspan="2"><b></b></td>
+	</tr>
+	<tr>
+		<td class="mark" align="center"><b>GM</b></td>
+		<td class="mark" align="center" colspan="2"><b>  </b></td>
+		<td class="mark" align="center" colspan="2"><b>&nbsp;</b></td>
+	</tr>		
+	<tr>
+		<td class="mark2" align="center"><b>Total</b></td>
+		<td class="mark2" align="center" colspan="2"><b></b></td>
+		<td class="mark2" align="center" colspan="2"><b></b></td>
+	</tr>
+	
+	
+</tbody></table>
+<br>
+
+<br>
+</center>
+</div></span>
+					</td>
+				</tr>
+				<tr>
+					<td id="footertd" align="center" height="70" background="./DHSE First Year Improvement Results - September 2023_files/dhseftr.jpg" xbgcolor="#305876">
+						Data Provided By Directorate of Higher Secondary Education, Kerala.
+						<br>
+						IT Support by <a target="_blank" href="http://www.kerala.nic.in/" class="hov" style="TEXT-DECORATION:none;xcolor:#5305876">
+							National Informatics Centre</a>, Kerala State Centre.<br>
+							<br>
+					<div style="font-face:verdana;font-size:11px;color:#660000;#0F3D6A;text-align:justify"><u>Disclaimer</u>:  Neither NIC nor Directorate of Higher Secondary Education is responsible for any inadvertent error that may have crept in the results being published on net. The results published on net are for immediate information to the examinees.These cannot be treated as original mark sheets. Original marksheets will be issued by the Directorate of Higher Secondary Education separately. 
+					</div>
+					</td>
+				</tr>
+			</tbody></table>
+		</form>
+	
+
+</body></html>
