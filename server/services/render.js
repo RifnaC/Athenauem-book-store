@@ -103,7 +103,8 @@ exports.add_product = async (req, res)=>{
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
-    res.render('addProduct', {admin: name});
+    const category = await categoryCollection.find();
+    res.render('addProduct', {admin: name, category});
 }
 
 exports.edit_product = async (req, res)=>{

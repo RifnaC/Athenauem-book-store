@@ -559,6 +559,9 @@ ul {
     margin-left: 8px;
     margin-right: 8px;
 }
+.stockRadioBtn{
+    margin-top: -8px;
+}
 @media(max-width: 767px) {
 	.footer-col,  .testim-box {
 		width: 50%;
