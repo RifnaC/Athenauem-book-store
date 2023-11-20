@@ -375,6 +375,7 @@
   function productValidation() {
     let genre = document.forms["add_product"]["genre"].value;
     let bookName = document.forms["add_product"]["bookName"].value;
+    let productImg = document.forms["add_product"]["productImg"].value;
     let author = document.forms["add_product"]["author"].value;
     let quantity = document.forms["add_product"]["quantity"].value;
     let description = document.forms["add_product"]["description"].value;
@@ -383,8 +384,15 @@
     let originalPrice = document.forms["add_product"]["originalPrice"].value;
     let discount = document.forms["add_product"]["discount"].value; 
     let stock = document.forms["add_product"]["stock"].value;
-
+    
     // Check if book details are not empty
+    if(shopId === "") {
+      Swal.fire({
+        title: 'Please select the shop!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
     if (bookName === "") {
       Swal.fire({
         title: 'Please enter book name!',
@@ -395,6 +403,13 @@
     if (bookName.length < 4) {
       Swal.fire({
         title: 'Book Name should have at least 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if(productImg === " "){
+      Swal.fire({
+        title: 'Please enter the product image of the book!',
         confirmButtonColor: '#15877C',
       })
       return false;
@@ -427,9 +442,37 @@
       })
       return false;
     }
+    if(originalPrice === " "){
+      Swal.fire({
+        title: 'Please enter the original price of the book!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if(discount === " "){
+      Swal.fire({
+        title: 'Please enter the discount of the book!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
     if (price === "") {
       Swal.fire({
         title: 'Please enter the price of the Book!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if(stock === " "){
+      Swal.fire({
+        title: 'Please enter the stock of the book!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if(productImg === "") {
+      Swal.fire({
+        title: 'Please provide the image of the book!',
         confirmButtonColor: '#15877C',
       })
       return false;
@@ -472,6 +515,13 @@
       })
       return;
     }
+    if(!formData.get('shopId')){
+      Swal.fire({
+        title: 'Please select the shop!',
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
     if (!formData.get('author')) {
       Swal.fire({
         title: 'Please enter Author of the book!',
@@ -485,10 +535,32 @@
         confirmButtonColor: '#15877C'
       })
       return;
-    }
+    } 
     if (!formData.get('description')) {
       Swal.fire({
         title: "Please enter the description of the book",
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    if(!formData.get('originalPrice')){
+      Swal.fire({
+        title: "Please enter the original price of the book",
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    
+    }
+    if(!formData.get('discount')){
+      Swal.fire({
+        title: "Please enter the discount of the book",
+        confirmButtonColor: '#15877C'
+      })
+      return;
+    }
+    if(!formData.get('stock')){
+      Swal.fire({
+        title: "Please enter the stock of the book",
         confirmButtonColor: '#15877C'
       })
       return;

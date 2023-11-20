@@ -110,10 +110,11 @@ exports.add_product = async (req, res)=>{
 exports.edit_product = async (req, res)=>{
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
+    const category = await categoryCollection.find();
     const name = admin.name.split(" ")[0];
     axios.get('http://localhost:3000/api/products',{params: {id:req.query.id}})
     .then(function(bookData){
-        res.render('editproduct',{book:bookData.data, admin: name});
+        res.render('editproduct',{book:bookData.data, admin: name, category});
     })
     .catch(err => {
         res.send(err);

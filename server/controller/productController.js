@@ -172,7 +172,6 @@ exports.update = async (req, res) => {
       book.discount = req.body.discount || book.discount;
       book.stock = req.body.stock || book.stock; 
       
-
       // Save the updated book to the database
       await book.save();
 
