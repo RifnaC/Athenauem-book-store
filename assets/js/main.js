@@ -253,6 +253,13 @@
       })
       return false;
     }
+    if (shopImg === "") {
+      Swal.fire({
+        title: 'Please upload shop image!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
     return true;
   }
 
@@ -372,6 +379,10 @@
     let quantity = document.forms["add_product"]["quantity"].value;
     let description = document.forms["add_product"]["description"].value;
     let price = document.forms["add_product"]["price"].value;
+    let shopId = document.forms["add_product"]["shopId"].value;
+    let originalPrice = document.forms["add_product"]["originalPrice"].value;
+    let discount = document.forms["add_product"]["discount"].value; 
+    let stock = document.forms["add_product"]["stock"].value;
 
     // Check if book details are not empty
     if (bookName === "") {

@@ -99,42 +99,39 @@
         <!-- Navbar End -->
 
 
-        <!-- Button Start -->
 
         <div class="container-fluid pt-4 px-4">
             <h2 class="text-primary text-center">Edit Books</h2>
             <div class="bg-secondary border rounded">
                 <form id="edit_product" enctype="multipart/form-data">
-                    <div class="row m-2 ">
-                        <input type="hidden" name="id" value="{{book._id}}">
+                   <div class="row m-2 ">
                         <div class="form-group col-lg-6 my-2">
-                            <label for="category">Category</label>
-                            <select name="genre" class="form-select" aria-label="Default select example"
-                                aria-selected="{{book.genre}}">
-                                <option selected>Fiction</option>
-                                <option value="Non-Fiction">Non-Fiction</option>
-                                <option value="Science">Science Fiction</option>
-                                <option value="Thriller">Thriller</option>
-                                <option value="romance">Romance</option>
-                                <option value="Adventure">Adventure</option>
-                                <option value="Self-help">Self-help</option>
-                                <option value="Fantasy">Fantasy</option>
+                            <label for="category">Genre</label>
+                            <select class="form-select" aria-label="Default select example" name="genre">
+                                {{#each category}}
+                                <option value="Fiction">{{this.genre}}</option>
+                                {{/each }}
                             </select>
-
+                        </div>
+                        <div class="mb-3 col-lg-6 my-2">
+                            <label for="shopId">Shop Id</label>
+                            <input type="text" class="form-control" id="shopId" name="shopId">
                         </div>
                         <div class="form-group col-lg-6  my-2">
                             <label for="bookName">Book Name</label>
-                            <input type="text" class="form-control" id="bookName" name="bookName"
-                                value="{{book.bookName}}">
+                            <input type="text" class="form-control" id="bookName" name="bookName" value="">
+                        </div>
+                        <div class="mb-3 col-lg-6 my-2">
+                            <label for="productImg">Upload Book Image</label>
+                            <input type="file" class="form-control" id="productImg" name="productImg">
                         </div>
                         <div class="form-group col-lg-6  my-2">
                             <label for="Author">Author</label>
-                            <input type="text" class="form-control" id="author" name="author" value="{{book.author}}">
+                            <input type="text" class="form-control" id="author" value="" name="author">
                         </div>
                         <div class="form-group col-lg-6 my-2">
-                            <label for="category">Quantity</label>
-                            <select class="form-select" aria-label="Default select example" name="quantity"
-                                aria-valuetext="{{book.quantity}}">
+                            <label for="quantity">Quantity</label>
+                            <select class="form-select" aria-label="Default select example" name="quantity">
                                 <option selected>10</option>
                                 <option value="20">20</option>
                                 <option value="40">40</option>
@@ -142,25 +139,38 @@
                                 <option value="160">160</option>
                                 <option value="320">320</option>
                                 <option value="640">640</option>
+                                <option value="1280">1280</option>
                             </select>
-
                         </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3"
-                                aria-valuetext="{{book.description}}"></textarea>
-                        </div>
-                        <div class="mb-3 col-lg-6 my-2">
-                            <label for="uploadImg">Upload Image</label>
-                            <input type="file" class="form-control" id="productImg" name="productImg" accept="image/*">
+                        <div class="mb-3 ">
+                            <label for="description" class="form-label">Book Description</label>
+                            <textarea class="form-control" id="description" rows="3" name="description"></textarea>
+                        </div>                      
+                        <div class="form-group col-lg-6  my-2">
+                            <label for="originalPrice">Original Price</label>
+                            <input type="number" class="form-control" id="originalPrice" value="" name="originalPrice">
                         </div>
                         <div class="form-group col-lg-6  my-2">
-                            <label for="price">Price</label>
-                            <input type="number" name="price" class="form-control" id="price" value="{{book.price}}">
+                            <label for="price">Discount</label>
+                            <input type="number" class="form-control" id="discount" value="" name="discount">
+                        </div>
+                        <div class="form-group col-lg-6  my-2">
+                            <label for="price">Selling Price</label>
+                            <input type="number" class="form-control" id="price" value="" name="price">
+                        </div>
+                        <div class="d-flex col-lg-6 mt-5 pt-2">
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="stock" id="inStock"
+                                value="In Stock">
+                            <label class="form-check-label stockRadioBtn" for="In Stock">Available</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="stock" id="outOfStock"
+                                value="Out Of Stock">
+                            <label class="form-check-label stockRadioBtn" for="Out of Stock">Out Of Stock</label>
+                        </div>
                         </div>
                     </div>
-
-
                     <div class="d-flex justify-content-center mb-3">
                         <a href="products" class="btn btn-4 btn-outline-dark mx-3 ">Cancel</a>
                         <button class="btn btn-4 btn-primary">save</button>

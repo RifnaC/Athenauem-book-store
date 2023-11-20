@@ -66,7 +66,7 @@ exports.create = async (req, res) => {
       res.status(400).send({ message:'Content can not be empty' });
       return;
     }
-    const {bookName, genre, author, price, quantity, description} = req.body;
+    const {bookName, shopId, genre, author, price, quantity,description, originalPrice, discount, stock} = req.body;
     const productImg = req.file.path;
     cloudinary.uploader.upload(productImg,(cloudinaryErr, results) => {
       if (cloudinaryErr){
@@ -75,11 +75,15 @@ exports.create = async (req, res) => {
       }
       const product = new Productdb({
         bookName,
+        shopId, 
         genre, 
         author, 
-        price, 
-        quantity, 
-        description,
+        originalPrice, 
+        discount,
+        price: originalPrice - discount,
+        quantity,
+        description, 
+        stock,
         productImg: results.secure_url,
         cloudinaryId: results.public_id,
       });
@@ -163,6 +167,11 @@ exports.update = async (req, res) => {
       book.price = req.body.price || book.price;
       book.quantity = req.body.quantity || book.quantity;
       book.description = req.body.description || book.description;
+      book.shopId = req.body.shopId || book.shopId;
+      book.originalPrice = req.body.originalPrice || book.originalPrice;
+      book.discount = req.body.discount || book.discount;
+      book.stock = req.body.stock || book.stock; 
+      
 
       // Save the updated book to the database
       await book.save();

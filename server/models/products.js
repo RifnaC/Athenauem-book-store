@@ -5,6 +5,10 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    shopId:{
+        type: String,
+        required: true,
+    },
     genre:{
         type: String,
         required: true,
@@ -24,6 +28,19 @@ const bookSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true,
+    },
+    originalPrice:{
+        type: Number,
+        required: true,
+    },
+    discount:{
+        type: Number,
+        default: 0,
+        required: true,
+    },
+    stock:{
+      type: String,
+      required: true,  
     },
     productImg:String,
     cloudinaryId:String
