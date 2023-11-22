@@ -5,6 +5,7 @@ const bannerCollection = require('../models/bannerModel');
 const categoryCollection = require('../models/categoryModel');
 const productCollection  = require('../models/products');
 const user = require('../models/userModel');
+const getBooksForShop = require('../controller/shopController')
 // ***********************Admin Management********************************
 exports.homeRoutes = async(req, res)=>{
     if(!req.session.token){
@@ -84,6 +85,45 @@ exports.edit_Shop = async (req, res)=>{
     })
     // res.render('editShop');
 }
+// exports.shopDetails = async (req, res)=>{
+//     const id = req.user.id;
+//     const admin = await adminCollection.findById(id);
+//     const name = admin.name.split(" ")[0];
+//     const booksForShop = getBooksForShop(id);
+//     console.log(booksForShop);
+//     axios.get('http://localhost:3000/api/shops',{params: {id:req.query.id}})
+//     .then(function(shopData){
+//         res.render('books',{shop:shopData.data, admin: name});
+//     })
+//     .catch(err => {
+//         res.send(err);
+//     })
+// }
+
+
+exports.shopDetails = async (req, res) => {
+  try {
+    const id = req.user.id;
+    const admin = await adminCollection.findById(id);
+    const name = admin.name.split(" ")[0];
+    
+    // Corrected: Use await to call the asynchronous function
+    // const booksForShop = await getBooksForShop(id);
+    // console.log(booksForShop);
+
+    axios.get('http://localhost:3000/api/shops', { params: { id: req.query.id } })
+      .then(function (shopData) {
+        res.render('books', { shop: shopData.data, admin: name });
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  } catch (error) {
+    console.error('Error in shopDetails:', error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+};
+
 
 // ***********************Product Management********************************
 exports.product= async (req, res)=>{

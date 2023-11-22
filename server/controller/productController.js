@@ -20,41 +20,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-exports.fetchShopDetails = async(shopId) => {
-  try {
-    const shop = await Shopdb.findById(shopId);      
-    return shop;
-  } catch (error) {
-    console.error('Error fetching shop details:', error);
-    throw error;
-  }
-};
-
-exports.renderShopDetails = async(req, res) =>{
-  const shopId = req.query.id;
-  const shopDetails = await this.fetchShopDetails(shopId);
-  res.render('products', {shop: shopDetails})
-};
-   
-// Function to fetch books for a shop by shop ID
-exports.fetchBooksForShop = async (shopId) => {
-  try {
-    const books = await Productdb.find({ shopId: shopId });
-    return books;
-  } catch (error) {
-    console.error('Error fetching books for shop:', error);
-    throw error;
-  }
-};
-
-// Function to render the products page
-exports.renderProducts = async (req, res) => {
-  const shopId = req.query.id;
-  const books = await this.fetchBooksForShop(shopId);
-  res.locals.books = books;
-  res.render('products');
-};
-
 // create and save new product
 exports.create = async (req, res) => {
   upload.single('productImg')(req, res, async(err) => {

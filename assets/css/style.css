@@ -320,7 +320,7 @@ section{
     color: #130B0B;
     -webkit-transition: 0.3s;
     transition: 0.3s;
-    width: 260px;
+    width: 234px;
     height: 120px;
     margin: 15px 7.5px;
     display: flex;
@@ -561,6 +561,12 @@ ul {
 }
 .stockRadioBtn{
     margin-top: -8px;
+}
+.load-more{
+    font-size: 20px;
+}
+.bi-arrow-right:hover{
+    width: 32px;
 }
 @media(max-width: 767px) {
 	.footer-col,  .testim-box {

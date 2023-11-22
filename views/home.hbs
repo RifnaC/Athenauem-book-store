@@ -157,45 +157,20 @@
         </div>
         <div class="container mx-4 cardContainer">
             <div id="cards-container">
-                <div class="cards ">
+                <div class="cards row">
                     {{#each category}}
-                    <div class="cardCat">
+                    <div class="cardCat col-5">
                         <img src="{{this.categoryImg}}" alt="{{this.genre}} icon">
-                        <div class="containerCard">
+                        <div class="containerCard ">
                             <h4><b>{{this.genre}}</b></h4>
                         </div>
                     </div>
                     {{/each}}
-                    {{!-- <div class="cardCat">
-
-                        <div class="cardCat">
-                            <img src="/img/PinClipart.com_buddha-clipart_352860.png" alt="Spirituality icon">
-                            <div class="containerCard">
-                                <h4>
-                                    <b>Spirituality</b>
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="cardCat">
-                            <img src="/img/mystery.png" alt="mystery icon">
-                            <div class="containerCard">
-                                <h4>
-                                    <b>Mystery</b>
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="cardCat"> --}}
-                            {{!-- <img src="/img/man-sitting-and-reading-book.png" alt="self help icon">
-                            <div class="containerCard">
-                                <h4>
-                                    <b>Self Help</b>
-                                </h4>
-                            </div> --}}
-                            {{!--
-                        </div> --}}
-                    </div>
                 </div>
             </div>
+            <a id="exploreMoreBtn" class="load-more">Explore More <i class="bi bi-arrow-right"></i></a>
+                <a id="exploreLessBtn" class="load-less">Explore Less </a>
+        </div>
     </section>
     <!-- Category Section End -->
 

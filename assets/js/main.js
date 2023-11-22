@@ -269,13 +269,14 @@
     } else {
       Swal.fire({
         icon: 'success',
-        title: 'New shop is added Successfully',
+        title: 'New shop is added Successfully! ',
         showConfirmButton: false,
         timer: 6000,
       })
     }
+  
   })
-
+  
   //update shop details
   $("#edit_shop").submit(function (event) {
     event.preventDefault();
@@ -1169,6 +1170,72 @@
         "paging": true,
         "pageLength": 10, 
     });
+  });
+
+// $(function () {
+//   $(".cardCat").slice(0, 4).show();
+//   $(".load-less").css('display', 'none');
+//   $("body").on('click touchstart', '.load-more', function (e) {
+//     e.preventDefault();
+//     $(".cardCat").slideDown();
+//     // if ($(".cardCat:hidden").length == 0) {
+//       $(".load-more").css('display', 'none');
+//       $(".cards").css('width', '90vw');
+//       $(".load-less").css('display', 'block');
+//       $("#slide-right-container").css('display', 'none');
+//     // }
+    
+//     $('html,body').animate({
+  
+//       scrollTop: $(this).offset().top
+//     }, 1000);
+//   });
+//   $("body").on('click touchstart', '.load-less', function (e) {
+//     e.preventDefault();
+//     $(".cardCat:visible").slice(5).slideUp();
+//     $(".load-less").css('display', 'none');
+//     $(".load-more").css('display', 'block');
+//     $("#slide-right-container").css('display', 'block');
+//   })
+// });
+
+
+$(function () {
+  // Initially show the first 4 categories
+  $(".cardCat").slice(0, 4).show();
+
+  // Hide the "Load Less" button initially
+  $(".load-less").css('display', 'none');
+
+  // Handle the "Load More" button click
+  $("body").on('click touchstart', '.load-more', function (e) {
+    e.preventDefault();
+    $(".cardCat:hidden").slideDown();
+
+    // Check if there are no hidden categories
+    if ($(".cardCat:hidden").length === 0) {
+      $(".load-more").css('display', 'none');
+      $(".cards").css('width', '90vw');
+      $(".load-less").css('display', 'block');
+      $("#slide-right-container").css('display', 'none');
+    }
+
+    // Scroll to the top of the "Load More" button
+    $('html, body').animate({
+      scrollTop: $(this).offset().top
+    }, 1000);
+  });
+
+  // Handle the "Load Less" button click
+  $("body").on('click touchstart', '.load-less', function (e) {
+    e.preventDefault();
+    $(".cardCat:visible").slice(5).slideUp();
+
+    // Show the "Load More" button
+    $(".load-less").css('display', 'none');
+    $(".load-more").css('display', 'block');
+    $("#slide-right-container").css('display', 'block');
+  });
 });
 
   
