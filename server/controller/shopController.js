@@ -1,6 +1,6 @@
 const { log } = require('handlebars');
 const Shopdb = require('../models/shopModel');
-const products = require('../models/products');
+const books = require('../models/products');
 const cloudinary = require('../services/cloudinary');
 const path = require('path')
 const multer = require('multer');
@@ -166,55 +166,4 @@ exports.delete = (req, res) => {
       message: "Error finding shop with id " + id
     });
   });
-}
-
-exports.getBooksForShop = async (req, res) => {
-  const targetShopId = req.query.id;
-  console.log(targetShopId) ;
-  const booksForShop = await getBooksByShopIdWithLookup(targetShopId);
-  console.log('Books for the shop:', booksForShop);
-  res.json(booksForShop); // Adjust the response according to your needs
-};
-
-async function getBooksByShopIdWithLookup(shopId) {
-  try {
-    const result = await Shopdb.aggregate([
-      {
-        $match: {
-          _id: new mongoose.Types.ObjectId(shopId),
-        },
-      },
-      {
-        $lookup: {
-          from: 'books',
-          localField: 'books',
-          foreignField: '_id',
-          as: 'booksData',
-        },
-      },
-      // {
-      //   $project: {
-      //     _id: 0,
-      //     shopId: '$_id',
-      //     shopName: '$name',
-      //     shopAddress: '$address',
-      //     books: {
-      //       _id: '$books._id',
-      //       bookName: '$books.bookName',
-      //       genre: '$books.genre',
-      //       author: '$books.author',
-      //     },
-      //   },
-      // },
-    ]);
-    
-
-console.log(result);
-    const booksForShop = result.length > 0 ? result[0].books : [];
-
-    return booksForShop;
-  } catch (error) {
-    console.error('Error getting books by shop ID with $lookup:', error);
-    return [];
-  }
 }

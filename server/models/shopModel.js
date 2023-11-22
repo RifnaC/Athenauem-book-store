@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 // shop collection
 const shopSchema = new mongoose.Schema({
-    _id:mongoose.Schema.Types.ObjectId,
     name:{
         type:String,
         required:true,
@@ -21,10 +20,6 @@ const shopSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    books:[{ 
-        type: Array,
-        ref: 'books', 
-    }]
 })
 
 const Shopdb = mongoose.model('Shop', shopSchema);

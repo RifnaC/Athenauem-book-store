@@ -2,7 +2,6 @@ const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
-    _id:mongoose.Schema.Types.ObjectId,
     bookName:{
         type: String,
         required: true,
@@ -47,8 +46,5 @@ const bookSchema = new mongoose.Schema({
     productImg:String,
     cloudinaryId:String
 });
-
 const Book = mongoose.model('Book', bookSchema);
-
-
 module.exports = Book;

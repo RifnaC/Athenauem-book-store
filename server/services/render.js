@@ -83,37 +83,19 @@ exports.edit_Shop = async (req, res)=>{
     .catch(err => {
         res.send(err);
     })
-    // res.render('editShop');
 }
-// exports.shopDetails = async (req, res)=>{
-//     const id = req.user.id;
-//     const admin = await adminCollection.findById(id);
-//     const name = admin.name.split(" ")[0];
-//     const booksForShop = getBooksForShop(id);
-//     console.log(booksForShop);
-//     axios.get('http://localhost:3000/api/shops',{params: {id:req.query.id}})
-//     .then(function(shopData){
-//         res.render('books',{shop:shopData.data, admin: name});
-//     })
-//     .catch(err => {
-//         res.send(err);
-//     })
-// }
-
 
 exports.shopDetails = async (req, res) => {
   try {
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
-    
-    // Corrected: Use await to call the asynchronous function
-    // const booksForShop = await getBooksForShop(id);
-    // console.log(booksForShop);
+    const shopId = req.query.id;
+    const books = await productCollection.find({ shopId: {$eq: shopId} });
 
     axios.get('http://localhost:3000/api/shops', { params: { id: req.query.id } })
       .then(function (shopData) {
-        res.render('books', { shop: shopData.data, admin: name });
+        res.render('books', { shop: shopData.data, admin: name , books});
       })
       .catch(err => {
         res.send(err);

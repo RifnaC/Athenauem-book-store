@@ -63,7 +63,7 @@ route.get("/editShop",auth.authMiddleware, services.edit_Shop)
 // API
 route.post('/api/shops',auth.authMiddleware, shopController.create);
 route.get('/api/shops',shopController.find);
-route.get ('/books', auth.authMiddleware, shopController.getBooksForShop, services.shopDetails);
+route.get ('/books', auth.authMiddleware,  services.shopDetails);
 // route.get('/api/shops/:id',shopController.findById);
 route.put('/api/shops/:id',auth.authMiddleware, shopController.update);
 route.delete('/api/shops/:id',auth.authMiddleware, shopController.delete)
