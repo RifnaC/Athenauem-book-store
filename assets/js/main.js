@@ -1172,33 +1172,6 @@
     });
   });
 
-// $(function () {
-//   $(".cardCat").slice(0, 4).show();
-//   $(".load-less").css('display', 'none');
-//   $("body").on('click touchstart', '.load-more', function (e) {
-//     e.preventDefault();
-//     $(".cardCat").slideDown();
-//     // if ($(".cardCat:hidden").length == 0) {
-//       $(".load-more").css('display', 'none');
-//       $(".cards").css('width', '90vw');
-//       $(".load-less").css('display', 'block');
-//       $("#slide-right-container").css('display', 'none');
-//     // }
-    
-//     $('html,body').animate({
-  
-//       scrollTop: $(this).offset().top
-//     }, 1000);
-//   });
-//   $("body").on('click touchstart', '.load-less', function (e) {
-//     e.preventDefault();
-//     $(".cardCat:visible").slice(5).slideUp();
-//     $(".load-less").css('display', 'none');
-//     $(".load-more").css('display', 'block');
-//     $("#slide-right-container").css('display', 'block');
-//   })
-// });
-
 
 $(function () {
   // Initially show the first 4 categories
