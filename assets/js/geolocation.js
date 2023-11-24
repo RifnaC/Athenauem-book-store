@@ -1,23 +1,12 @@
-const x = document.getElementById("address");
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.watchPosition(showPosition);
-  } else { 
-    swal.fire({
-        title: "Geolocation is not supported by this browser.",
-        confirmButtonColor: "#3085d6",
-    })
-  }
-}
+// 
     
-function showPosition(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
+// // function showPosition(position) {
+// //     const latitude = position.coords.latitude;
+// //     const longitude = position.coords.longitude;
 
-    // For example, you could update the value of the input field with the obtained coordinates:
-    document.getElementById("address").value = "Latitude: " + latitude + ", Longitude: " + longitude;
-}
+// //     // For example, you could update the value of the input field with the obtained coordinates:
+// //     document.getElementById("address").value = "Latitude: " + latitude + ", Longitude: " + longitude;
+// // }
 
 
 // const x = document.getElementById("address");
@@ -39,7 +28,7 @@ function showPosition(position) {
 //     const longitude = position.coords.longitude;
 
 //     // Make a reverse geocoding request to get the place name
-//     const geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&AIzaSyAFROiwMjkH3tIvHePQEwlzOkQ3bUkPZ7E`;
+//     const geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAFROiwMjkH3tIvHePQEwlzOkQ3bUkPZ7E`;
 
 //     fetch(geocodingUrl)
 //         .then(response => response.json())
@@ -99,3 +88,63 @@ function showPosition(position) {
 //     }
 // }
 
+
+
+
+// const x = document.getElementById("address");
+
+// // function getLocation() {
+// //   if (navigator.geolocation) {
+// //     navigator.geolocation.watchPosition(showPosition);
+// //   } else { 
+// //     swal.fire({
+// //         title: "Geolocation is not supported by this browser.",
+// //         confirmButtonColor: "#3085d6",
+// //     })
+// //   }
+// // }
+function getLocation() {
+  if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(showPosition);
+      } else { 
+        swal.fire({
+            title: "Geolocation is not supported by this browser.",
+            confirmButtonColor: "#3085d6",
+        })
+      }
+}
+
+function showPosition(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+  
+      // For example, you could update the value of the input field with the obtained coordinates:
+      document.getElementById("address").value = "Latitude: " + latitude + ", Longitude: " + longitude;
+  }
+// This function is called when the user clicks the UI button requesting
+// a geocode of a place ID.
+function geocodePlaceId(geocoder, map, infowindow) {
+  const placeId = document.getElementById("place-id").value;
+
+  geocoder
+    .geocode({ placeId: placeId })
+    .then(({ results }) => {
+      if (results[0]) {
+        map.setZoom(11);
+        map.setCenter(results[0].geometry.location);
+
+        const marker = new google.maps.Marker({
+          map,
+          position: results[0].geometry.location,
+        });
+
+        infowindow.setContent(results[0].formatted_address);
+        infowindow.open(map, marker);
+      } else {
+        window.alert("No results found");
+      }
+    })
+    .catch((e) => window.alert("Geocoder failed due to: " + e));
+}
+
+window.getLocation = getLocation;

@@ -629,7 +629,7 @@
   });
 
   // Delete the product
-  if (window.location.pathname === "/products" || window.location.pathname === "/books?id="+idFromURL) {
+  if (window.location.pathname === "/products" || window.location.pathname === "/books") {
     $(document).on("click", ".table tbody td a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
@@ -645,19 +645,18 @@
         cancelButtonText: 'cancel',
         confirmButtonColor: '#d33',
       })
-        .then((result) => {
-          if (result.isConfirmed) {
-            // The user clicked the "Yes, delete it" button
-            $.ajax(request).done(function (response) {
-              Swal.fire('Data deleted Successfully', '', 'success').then(() => {
-                location.reload();
-              });
+      .then((result) => {
+        if (result.isConfirmed) {
+          $.ajax(request).done(function (response) {
+            Swal.fire('Data deleted Successfully', '', 'success').then(() => {
+              location.reload();
             });
-          } else {
-            // The user clicked the "cancel" button or closed the dialog
-            Swal.fire('Action canceled', '', 'info');
-          }
-        });
+          });
+        } else {            
+          // The user clicked the "cancel" button or closed the dialog
+          Swal.fire('Action canceled', '', 'info');
+        }
+      });
     })
   }
   // validation for category
