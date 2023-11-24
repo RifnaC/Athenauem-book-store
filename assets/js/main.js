@@ -513,6 +513,7 @@
     formData.append('additionalField', 'additionalValue');
     // Extract the book's ID from the form data
     const bookId = formData.get('id');
+    const shopId = formData.get('shopId');
     // Validation
     if (!formData.get('bookName')) {
       Swal.fire({
@@ -524,13 +525,6 @@
     if (formData.get('bookName').length < 4) {
       Swal.fire({
         title: 'The book name should be at least 4 characters',
-        confirmButtonColor: '#15877C'
-      })
-      return;
-    }
-    if(!formData.get('shopId')){
-      Swal.fire({
-        title: 'Please select the shop!',
         confirmButtonColor: '#15877C'
       })
       return;
@@ -608,12 +602,20 @@
           if (result.isConfirmed) {
             Swal.fire('Saved!', 'Data updated successfully', 'success')
               .then(() => {
-                window.location.href = '/products';
+                if(!shopId){
+                  window.location.href = '/products';
+                }else{
+                  window.location.href = '/books?id='+shopId;
+                }
               })
           } else if (result.isDenied) {
             Swal.fire('Changes are not saved', '', 'info')
               .then(() => {
-                window.location.href = '/products';
+                if(!shopId){
+                  window.location.href = '/products';
+                }else{
+                  window.location.href = '/books?id='+shopId;
+                }
               })
           }
         }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -627,7 +629,7 @@
   });
 
   // Delete the product
-  if (window.location.pathname === "/products") {
+  if (window.location.pathname === "/products" || window.location.pathname === "/books?id="+idFromURL) {
     $(document).on("click", ".table tbody td a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');

@@ -144,8 +144,7 @@ exports.update = async (req, res) => {
       book.stock = req.body.stock || book.stock; 
       
       // Save the updated book to the database
-      await book.save();
-
+      await book.save()
       return res.status(200).json(book);
     } catch (err) {
       console.error(err);
