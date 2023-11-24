@@ -7,8 +7,8 @@ const bookSchema = new mongoose.Schema({
         required: true,
     },
     shopId:{
-        type: ObjectId,
-        required: true,
+        type: String,
+       default: '',
     },
     genre:{
         type: String,

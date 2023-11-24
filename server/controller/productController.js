@@ -7,6 +7,7 @@ const path = require('path')
 const multer = require('multer');
 const { response } = require('express');
 const { error } = require('console');
+const mongoose = require('mongoose');
 
 // access multer middleware storage
 const storage = multer.diskStorage({
@@ -54,7 +55,12 @@ exports.create = async (req, res) => {
       });
       product.save()
       .then(savedProduct => {
-        res.redirect('/products');
+        if(!shopId) {
+          res.redirect('/products');
+        }
+        else{
+          res.redirect('/books?id='+shopId);
+        }
       })
       .catch(savedErr => {
         res.status(500).send({ message: savedErr.message});

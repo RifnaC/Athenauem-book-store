@@ -381,19 +381,11 @@
     let quantity = document.forms["add_product"]["quantity"].value;
     let description = document.forms["add_product"]["description"].value;
     let price = document.forms["add_product"]["price"].value;
-    let shopId = document.forms["add_product"]["shopId"].value;
     let originalPrice = document.forms["add_product"]["originalPrice"].value;
     let discount = document.forms["add_product"]["discount"].value; 
     let stock = document.forms["add_product"]["stock"].value;
     
     // Check if book details are not empty
-    if(shopId === "") {
-      Swal.fire({
-        title: 'Please select the shop!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
-    }
     if (bookName === "") {
       Swal.fire({
         title: 'Please enter book name!',
@@ -480,6 +472,26 @@
     }
     return true;
   }
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    // alert('url' =  url);
+    name = name.replace(/[\[\]]/g, "\\$&");
+    // alert('name' =  name);
+    
+    const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+        // alert('results' =  results);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  const idFromURL = getParameterByName('id');
+  // alert('idFromURL' =  idFromURL);
+
+  
+  $('#shopId').val(idFromURL);
+
   // Add new book
   $("#add_product").submit(function (event) {
     if (!productValidation()) {

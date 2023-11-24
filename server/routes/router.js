@@ -76,8 +76,6 @@ route.delete('/api/shops/:id',auth.authMiddleware, shopController.delete)
 */
 
 route.get('/products',auth.authMiddleware, services.product)
-// route.get('/products',auth.authMiddleware, productController.renderShopDetails);
-// route.get('/products',auth.authMiddleware, productController.renderProducts);
 
 /** 
  * @description Add product 

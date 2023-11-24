@@ -44,7 +44,6 @@ exports.create = async (req, res) => {
         shopImg: result.secure_url,
         cloudinaryId: result.public_id,
         address,
-        books: [{}]
       });
       
       shop.save()
@@ -57,7 +56,8 @@ exports.create = async (req, res) => {
     });
   });
 };
-// retrieve and return all shop or  retrieve and return a single shop 
+
+// retrieve and return all shop or retrieve and return a single shop 
 exports.find = (req, res) => {
   if (req.query.id) {
     const id = req.query.id;
