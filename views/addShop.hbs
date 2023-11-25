@@ -102,10 +102,13 @@
                 <form action="/api/shops" method="POST" id="add_shop" onsubmit="return shopValidation"
                     enctype="multipart/form-data">
                     <div class="row m-2">
-                        <div class="form-group m-2">
+                        <div class="form-group mt-2">
                             <input type="hidden" name="id" value="">
                             <input type="text" class="form-control" id="name" name="name" value=""
                                 placeholder="Enter the shop name">
+                        </div>
+                    </div>
+                    <div class="row m-2">
                         <div class="input-group my-3">
                             <input type="text" class="form-control" id="address" name="address" placeholder="Enter the address of Shop"
                                 aria-label="Enter the address of Shop" aria-describedby="basic-addon2">
@@ -113,16 +116,20 @@
                                 <button class="btn btn-outline-secondary" onclick="getLocation()" type="button">Get location</button>
                             </div>
                         </div>
-                        <div class="form-group m-2 d-flex  justify-content-between">
-                            <div>
+                    </div>
+                    <div class="row m-2">
+                        <div class="form-group m-2 d-flex justify-content-between flex-wrap">
+                            <div class="col">
                                 <label for="opens">Opening Time:</label>
-                                <input type="time" class="" id="OpenTime" name="openingTime" value="">
+                                <input type="time"  id="OpenTime" name="openingTime" class="timeInput" value="">
                             </div>
-                            <div>
-                                <label class="ms-5" for="closes">Closing Time:</label>
-                                <input type="time" id="closeTime" name="closingTime" value="">
+                            <div class="col ">
+                                <label  for="closes">Closing Time:</label>
+                                <input type="time" id="closeTime" name="closingTime" class="timeInput" value="">
                             </div>
-                            <input type="file" name="shopImg" id="shopImg" class="ms-5">
+                            <div class="col  mt-3 mt-lg-1">
+                                <input type="file" name="shopImg" id="shopImg" class="">
+                           </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center mb-3">

@@ -35,12 +35,14 @@
 </head>
 
 <body>
-    <main class="container">
+    <main class="container loginBox">
         <div>
             <form action="/api/auth/signup" method="POST" class="login" id="signup" name="signupForm"
                 onsubmit="return signupValidation()">
-                <h2>Atheneuam</h2>
+                <div class="signUpInputs">
+                    <h2>Atheneuam</h2>
                 <p>Please fill the form</p>
+                </div>
                 <input type="text" name="name" id="name" placeholder="Name">
                 <input type="email" name="email" id="Email" placeholder="Email" />
                 <input type="password" name="password" id="Password" placeholder="Password" />
@@ -49,7 +51,7 @@
                     <input type="submit" value="sign Up" />
                 </div>
 
-                <div class="links">
+                <div class="links signUpLinks">
                     <a href="/login">Already have an account?</a>
                     <a class="linkText" href="/login">Login</a>
                 </div>

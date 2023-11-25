@@ -17,9 +17,16 @@ function showPosition(position) {
     const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`
 
     fetch(url).then(response => response.json()).then(data => {
-        // x.value =data.display_name;
-        x.value = (data.address.shop || data.address.suburb || data.address.road) + ", " + data.address.city + ", " + data.address.state;
+        x.value =data.display_name.split(",").slice(0, -2);
+        // x.value = (data.address.shop || data.address.suburb || data.address.road) + ", " + data.address.city + ", " + data.address.state;
         console.log(data)
+    }).catch(() => {
+      swal.fire({
+        title: "Error",
+        text: "Unable to fetch location!",
+        icon: "error",
+        confirmButtonColor: "#15877C",
+      })
     })
 
 }

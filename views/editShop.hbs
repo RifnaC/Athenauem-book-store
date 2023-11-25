@@ -102,40 +102,42 @@
             <div class="bg-secondary border rounded">
                 <form action="/api/shops/:id" method="POST" id="edit_shop" enctype="multipart/form-data">
                     <div class="row m-2">
-                        <div class="form-group m-2">
+                        <div class="form-group mt-2">
                             <input type="hidden" name="id" value="{{shop._id}}">
                             <input type="text" class="form-control" name="name" id="name" value="{{shop.name}}"
                                 placeholder="Enter the shop name">
                         </div>
-                        <div class="form-group d-flex justify-content-between m-2">
-                            <div>
-                                <label for="opens">Opening Time:</label>
-                                <input type="time" name="openingTime" class="" id="OpenTime"
-                                    value="{{shop.openingTime}}">
-                            </div>
-                            <div>
-                                <label for="closes">Closing Time:</label>
-                                <input type="time" name="closingTime" class="" id="closeTime"
-                                    value="{{shop.closingTime}}">
-                            </div>
-                            <input type="file" name="shopImg" id="shopImg" accept="image/*">
-                        </div>
-                        {{!-- <div class="form-group m-2">
-                            <input type="text" name="address" class="form-control" id="address" value="{{shop.address}}"
-                                placeholder="Enter the address of Shop">
-                        </div>
-                    </div> --}}
-                    <div class="input-group my-3">
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Enter the address of Shop"
-                                aria-label="Enter the address of Shop" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" onclick="getLocation()" type="button">Get location</button>
-                            </div>
-                        </div>
-                    <div class="d-flex justify-content-center mb-3">
-                        <a href="shop" class="btn btn-4 btn-outline-dark me-3 ">Cancel</a>
-                        <button class="btn btn-4 btn-primary">save</button>
                     </div>
+                    <div class="row m-2">
+                        <div class="input-group mt-2">
+                            <input type="text" class="form-control" id="address" name="address" value="{{shop.address}}"
+                                placeholder="Enter the address of Shop" aria-label="Enter the address of Shop"
+                                aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" onclick="getLocation()" type="button">Get
+                                    location</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-2">
+                        <div class="form-group m-2 d-flex justify-content-between flex-wrap">
+                            <div class="col">
+                                <label for="opens">Opening Time:</label>
+                                <input type="time"  id="OpenTime" name="openingTime" class="timeInput" value="{{shop.openingTime}}">
+                            </div>
+                            <div class="col ">
+                                <label  for="closes">Closing Time:</label>
+                                <input type="time" id="closeTime" name="closingTime" class="timeInput" value="{{shop.closingTime}}">
+                            </div>
+                            <div class="col  mt-3 mt-lg-1">
+                                <input type="file" name="shopImg" id="shopImg" accept="image/*">
+                           </div>
+                        </div>
+                    </div>
+                        <div class="d-flex justify-content-center mb-3">
+                            <a href="shop" class="btn btn-4 btn-outline-dark me-3 ">Cancel</a>
+                            <button class="btn btn-4 btn-primary">save</button>
+                        </div>
                 </form>
             </div>
         </div>

@@ -1160,13 +1160,13 @@
         title: 'Atheneuam',
         text: 'Please enter password!',
         confirmButtonColor: '#15877C',
-        borderradius:0
       })
       return false;
     }
     if (pswd.length < 6) {
       Swal.fire({
-        title: 'Banner Name should have at least six characters!',
+        title: 'Atheneuam',
+        text: 'Banner Name should have at least six characters!',
         confirmButtonColor: '#15877C',
       })
       return false;
