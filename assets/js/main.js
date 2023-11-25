@@ -1141,22 +1141,26 @@
     // Check if book details are not empty
     if (!email) {
       Swal.fire({
-        title: 'Please enter your email!',
+        title: 'Atheneuam',
+        text: 'Please enter your email!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
     if (!email.includes('.')) {
       Swal.fire({
-        title: 'Please Enter a valid email address!',
+        title: 'Atheneuam',
+        text: 'Please Enter a valid email address!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
     if (!pswd) {
       Swal.fire({
-        title: 'Please enter password!',
+        title: 'Atheneuam',
+        text: 'Please enter password!',
         confirmButtonColor: '#15877C',
+        borderradius:0
       })
       return false;
     }
