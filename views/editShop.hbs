@@ -120,12 +120,18 @@
                             </div>
                             <input type="file" name="shopImg" id="shopImg" accept="image/*">
                         </div>
-                        <div class="form-group m-2">
+                        {{!-- <div class="form-group m-2">
                             <input type="text" name="address" class="form-control" id="address" value="{{shop.address}}"
                                 placeholder="Enter the address of Shop">
-
                         </div>
-                    </div>
+                    </div> --}}
+                    <div class="input-group my-3">
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Enter the address of Shop"
+                                aria-label="Enter the address of Shop" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" onclick="getLocation()" type="button">Get location</button>
+                            </div>
+                        </div>
                     <div class="d-flex justify-content-center mb-3">
                         <a href="shop" class="btn btn-4 btn-outline-dark me-3 ">Cancel</a>
                         <button class="btn btn-4 btn-primary">save</button>
@@ -153,6 +159,7 @@
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
+    <script src="/js/geolocation.js"></script>
 </body>
 
 </html>

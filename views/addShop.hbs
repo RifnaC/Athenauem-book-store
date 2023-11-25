@@ -106,16 +106,11 @@
                             <input type="hidden" name="id" value="">
                             <input type="text" class="form-control" id="name" name="name" value=""
                                 placeholder="Enter the shop name">
-                        {{!-- </div>
-                        <div class="input-group m-2">
-                            <input type="text" class="form-control"  value=""
-                                placeholder="Enter the address of Shop">
-                        </div> --}}
                         <div class="input-group my-3">
                             <input type="text" class="form-control" id="address" name="address" placeholder="Enter the address of Shop"
                                 aria-label="Enter the address of Shop" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" id="submit" type="button">Get location</button>
+                                <button class="btn btn-outline-secondary" onclick="getLocation()" type="button">Get location</button>
                             </div>
                         </div>
                         <div class="form-group m-2 d-flex  justify-content-between">
@@ -135,7 +130,6 @@
                         <button type="submit" value="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
-                <div id="map"></div>
             </div>
         </div>
     </div>
@@ -152,8 +146,6 @@
     <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"></script>
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
