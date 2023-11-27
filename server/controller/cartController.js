@@ -4,62 +4,64 @@ const product = require('../models/products');
 const { category } = require('../services/render');
 const path = require('path')
 
-exports.cartView = async(req, res) => {
-    const userId  = req.user._id;
-    try{
-        const  cart = await cart.findOne({userId});
-        if(cart && cart.items.length > 0){
-            res.status(200).send(cart);
-        }else{
-            res.send(null);
-        }
-    }
-    catch (error){
-        res.status(500).send(error);
-    }
-}
+// exports.cartView = async(req, res) => {
+//     const userId  = req.user._id;
+//     try{
+//         const  cart = await cart.findOne({userId});
+//         if(cart && cart.items.length > 0){
+//             res.status(200).send(cart);
+//         }else{
+//             res.send(null);
+//         }
+//     }
+//     catch (error){
+//         res.status(500).send(error);
+//     }
+// }
 
 exports.addToCart = async(req, res) => {
-    // const userId = req.user._id;
-    // const {productId, quantity} = req.body;
-    // try{
-    //     const cart = await cart.findOne({userId});
-    //     const product = await product.findOne({_id: productId});
-    //     if(!product){
-    //         res.status(404).send('Product not found');
-    //         return;
-    //     }
-    //     const price = product.price;
-    //     const name = product.bookName;
-
-    //     if(cart){
-    //         const productIndex = cart.items.findIndex((item) => item.productId == productId);
-    //         if(productIndex > -1){
-    //             let product = cart.items[productIndex];
-    //                 product.quantity += quantity;
-    //                 cart.bill = cart.items.reduce((acc, curr) =>{
-    //                     return acc + curr.quantity * curr.price;
-    //                 }, 0);
-    //             }
-    //         }
-    //     }
-       
-    // }catch(err){
-    // }
+    const productId = req.params.id;
+    // const product = await product.find();
+    const userId = req.user.id;
+    console.log(userId + " " + productId);
     try {
-        const cart = new Cart({
-            productId: req.body.productId,
-            quantity: req.body.quantity,
-            price: req.body.price,
-            shopId: req.body.shopId
-        })
-        const savedCart = await cart.save();   
-        res.status(200).send({msg:"Cart saved successfully", data:savedCart})
-        
+        const product = await product.findById(productId);
+        if(!product){
+            return res.status(404).send('Product not found');
+        }
+
+        let cart = await Cart.findOne({ userId });
+        if (!cart) {
+            cart = new Cart({ userId });
+          }
+          cart.items.push({ item: product._id });
+
+          // Update the total price
+          cart.totalPrice += product.price;
+      
+          // Save the cart to the database
+          await cart.save();
+
+          res.redirect('/cart');
     } catch (error) {
-        res.status(400).send({
-            success: false, msg: error.message
-        })
+        console.error(error);
+          res.status(500).send('Internal Server Error');
+        }
+}
+
+
+exports.cartView = async(req, res) => {
+    const userId = req.user.id; // Adjust this based on your authentication logic
+        console.log(userId);
+    try {
+        // Find the user's cart (assuming you have user authentication)
         
+        const cart = await Cart.findOne({ userId }).populate('items.item');
+    
+        res.render('cart', { cart });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
     }
 }
+

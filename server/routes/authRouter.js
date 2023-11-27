@@ -17,6 +17,8 @@ route.post('/api/auth/signup', auth.register);
 route.post('/api/auth/signin', auth.login);
 
 route.get('/home', services.home);
+
+// route.get('/home',authMid.authMiddleware, services.userHome)
 route.get('/dashboard', authMid.authMiddleware, services.homeRoutes);
 
 

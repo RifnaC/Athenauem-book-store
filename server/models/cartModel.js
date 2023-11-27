@@ -1,37 +1,22 @@
 const mongoose = require('mongoose'); 
-
-const item = new mongoose.Schema({
-    productId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'books',
-    },
-    // total:{
-    //     type: Number,
-    //     required: true,
-    // },
-    quantity: {
-        type: Number,
-        min:[1, 'Quantity can not be less then 1.'],
-        required: true,
-    },
-    price:{
-        type: Number,
-        required: true,
-    },
-    shopId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'shops',
-    },
-},{
-    timestamps: true
-});
+const books = require('./products');
+const { ObjectId } = require('mongodb');
 
 const cartSchema = new mongoose.Schema({
-    items:[item],
-    subTotal:{
-        default: 0,
-        type: Number,
-    }
+    userId:{
+        type:  mongoose.Schema.Types.ObjectId,
+        ref: 'users'
+    },
+    items: [{
+        item: {
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'books'
+        },
+    }],  
+     totalPrice: {
+        type: Number, 
+        default: 0
+    },
 },{
     timestamps: true
 });

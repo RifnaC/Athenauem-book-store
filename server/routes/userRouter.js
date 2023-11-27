@@ -6,7 +6,10 @@ const cart = require('../controller/cartController');
 
 
 route.get("/wishlist", services.wishlist);
+// route.get ('/cart', services.cart);
 
-route.get("/api/carts", auth.authMiddleware, cart.cartView);
-route.post("/api/carts", auth.authMiddleware, cart.addToCart );
+route.get("/cart", auth.authMiddleware, services.cart);
+route.post("/api/carts/:id", auth.authMiddleware, cart.addToCart );
+route.get("/api/carts/:id", cart.cartView)
+
 module.exports = route
