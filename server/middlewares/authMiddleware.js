@@ -8,9 +8,9 @@ const saltRounds = 10;
 const JWT_SECRET = process.env.JWT_SECRET;
 
 
-exports.home = async (req, res) => {
-    res.render('home');
-}
+// exports.home = async (req, res) => {
+//     res.render('home');
+// }
 
 exports.authMiddleware = async(req, res, next) => {
     const token = req.session.token;

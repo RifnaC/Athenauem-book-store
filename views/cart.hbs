@@ -93,9 +93,9 @@
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link" data-bs-toggle="dropdown">
                                         <i class="bi bi-person"></i>
-                                        <div class="d-none d-lg-inline-flex text fs-5 display-6 ps-2">{{user}}</div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                                    <div
+                                        class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                                         <a href="profile" class="dropdown-item">My Profile</a>
                                         <a href="/logout" class="dropdown-item">Log Out</a>
                                     </div>
@@ -108,170 +108,18 @@
         </nav>
     </Header>
     <!-- Header End -->
-
-    <!-- Banner Section Start -->
-    <section>
-        <div class="container-fluid position-relative d-flex p-0">
-            <div class="bgImg">
-                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        {{#each images}}
-                        <div class="carousel-item {{#if @first}}active{{/if}}">
-                            <img src="{{this.bannerImg}}" alt="{{this.name}}">
-                        </div>
-                        {{/each}}
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                    <button class="carousel-control twenty-one py-1 mx-5 my-5 " type="button" id="shopNow"><span
-                            class="mx-2 my-5">Shop
-                            Now</span></button>
-                </div>
-            </div>
+    <main class="bg-primaryLight">
+        <div class="container-fluid">
+            <h1 class="text-primary">Wishlist</h1>
         </div>
-    </section>
-    <!-- Banner Section End -->
+        
 
-    <!-- Category Section Start -->
-    <section class="mx-lg-4">
-        <div class="m-5">
-            <h1 class="text-primary">Featured Category</h1>
-            <div class="slider">
-                <div id="slide-left-container">
-                    <div class="slide-left">
-                    </div>
-                </div>
-                <div id="slide-right-container">
-                    <div class="slide-right">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container mx-4 cardContainer">
-            <div id="cards-container">
-                <div class="cards row">
-                    {{#each category}}
-                    <div class="cardCat col-5">
-                        <img src="{{this.categoryImg}}" alt="{{this.genre}} icon">
-                        <div class="containerCard ">
-                            <h4><b>{{this.genre}}</b></h4>
-                        </div>
-                    </div>
-                    {{/each}}
-                </div>
-            </div>
-            <a id="exploreMoreBtn" class="load-more">Explore More <i class="bi bi-arrow-right"></i></a>
-                <a id="exploreLessBtn" class="load-less">Explore Less </a>
-        </div>
-    </section>
-    <!-- Category Section End -->
+    </main>
 
-    <!-- product Section Start -->
-    <section class="mx-lg-3">
-        <div class="container-fluid m-5 me-5">
-            <div class="m-0 mb-5">
-                <h1 class="text-primary">Popular Books</h1>
-            </div>
-            <div class="row me-5 pe-4">
-                {{#each product}}
-                <div class="col col-lg-2 productCard m-3 mb-5">
-                    <img src="{{this.productImg}}" alt="{{this.bookName}}" class="card-img">
-                    <div class="card-info">
-                        <p class="text-title text-center mb-0">{{this.bookName}} </p>
-                        <p class="text-center mb-0">By {{this.author}}</p>
-                        <div class="d-flex justify-content-center m-0">
-                            <div class="review-star me-1 ">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-half"></i>
-                                <i class="bi bi-star"></i>
 
-                            </div>
-                            <span class="review-count">(13)</span>
-                        </div>
 
-                        <div class="old-price text-center">
-                            &#8377 50.45
-                        </div>
-                        <div class="new-price text-center">
-                            &#8377 35.053455555
-                        </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <a href="cart">
-                            <div class="card-button">
-                                <b>Add to Cart</b>
-                            </div>
-                        </a>
-                        <a class="nav-link"><i class="bi bi-heart"></i></a>
-                    </div>
-                </div>
-                {{/each}}
-            </div>
-        </div>
 
-    </section>
-    <!-- product Section End -->
-
-    <!-- Author Section Start -->
-    <section class="mx-lg-4">
-        <div class="testim">
-            <div class="container-fluid">
-                <h2 class="text-primary">Testimonial</h2>
-                <div class="testim-content my-5 mx-0  row">
-
-                    <div class="testim-box col col-lg-3  ms-0">
-                        <div class="testim-box-content">
-                            <img src="https://i.postimg.cc/rpRQv1sc/3.jpg" alt="">
-                            <h3>Mahmoud Mohamed</h3>
-                            <p>FrontEnd Developer</p>
-                        </div>
-                        <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae iure non
-                            reiciendis
-                            reprehenderit? Dicta eaque illo ut beatae alias quod, distinctio ad, asperiores vitae culpa
-                            qui nisi rerum debitis modi.</p>
-
-                    </div>
-                    <div class="testim-box col col-lg-3">
-                        <div class="testim-box-content">
-                            <img src="https://i.postimg.cc/rpRQv1sc/3.jpg" alt="">
-                            <h3>Mahmoud Mohamed</h3>
-                            <p>FrontEnd Developer</p>
-                        </div>
-                        <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae iure non
-                            reiciendis
-                            reprehenderit? Dicta eaque illo ut beatae alias quod, distinctio ad, asperiores vitae culpa
-                            qui nisi rerum debitis modi.</p>
-
-                    </div>
-                    <div class="testim-box col col-lg-3">
-                        <div class="testim-box-content">
-                            <img src="https://i.postimg.cc/rpRQv1sc/3.jpg" alt="">
-                            <h3>Mahmoud Mohamed</h3>
-                            <p>FrontEnd Developer</p>
-                        </div>
-                        <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae iure non
-                            reiciendis
-                            reprehenderit? Dicta eaque illo ut beatae alias quod, distinctio ad, asperiores vitae culpa
-                            qui nisi rerum debitis modi.</p>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Author Section End -->
-    <footer class="footer pt-5 ">
+   <footer class="footer pt-5 ">
         <div class="container row mx-5 ">
             <a class="my-2" href="home">
                 <div class="d-flex me-5 pe-5">
@@ -321,7 +169,7 @@
         </div>
         <hr>
         <div class="text-center pt-4">
-            <small>&copy; 2023 athenauem.Inc.All rights reserved</small>
+            <small >&copy; 2023 athenauem.Inc.All rights reserved</small>
         </div>
     </footer>
 
@@ -340,8 +188,7 @@
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
-    <script src="/js/slider.js"></script>
-    <script src="/js/user.js"></script>
+     <script src="/js/user.js"></script>
 
 </body>
 
