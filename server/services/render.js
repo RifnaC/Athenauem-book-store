@@ -251,9 +251,9 @@ exports.wishlist= (req, res)=>{
 }
 
 exports.cart = (req, res)=>{
-    const user = req.user;
-    if(!user){
-        res.redirect('/login');
-    }
-    res.render('cart', {});
+    // const user = req.user;
+    // if(!user){
+    //     res.redirect('/login');
+    // }
+    res.render('cart');
 }
