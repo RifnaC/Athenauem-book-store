@@ -19,49 +19,93 @@ const path = require('path')
 //     }
 // }
 
-exports.addToCart = async(req, res) => {
-    const productId = req.params.id;
-    // const product = await product.find();
-    const userId = req.user.id;
-    console.log(userId + " " + productId);
-    try {
-        const product = await product.findById(productId);
-        if(!product){
-            return res.status(404).send('Product not found');
-        }
+// exports. = async(req, res) => {
+//     const productId = req.params.id;
+//     // const product = await product.find();
+//     const userId = req.user.id;
+//     console.log(userId + " " + productId);
+//     try {
+//         const product = await product.findById(productId);
+//         if(!product){
+//             return res.status(404).send('Product not found');
+//         }
 
-        let cart = await Cart.findOne({ userId });
-        if (!cart) {
-            cart = new Cart({ userId });
-          }
-          cart.items.push({ item: product._id });
+//         let cart = await Cart.findOne({ userId });
+//         if (!cart) {
+//             cart = new Cart({ userId });
+//           }
+//           cart.items.push({ item: product._id });
 
-          // Update the total price
-          cart.totalPrice += product.price;
+//           // Update the total price
+//           cart.totalPrice += product.price;
       
-          // Save the cart to the database
-          await cart.save();
+//           // Save the cart to the database
+//           const sd=await cart.save();
+//           console.log(sd);
 
-          res.redirect('/cart');
-    } catch (error) {
-        console.error(error);
-          res.status(500).send('Internal Server Error');
-        }
-}
+//           res.redirect('/cart');
+//     } catch (error) {
+//         console.error(error);
+//           res.status(500).send('Internal Server Error');
+//         }
+// }
 
 
-exports.cartView = async(req, res) => {
-    const userId = req.user.id; // Adjust this based on your authentication logic
-        console.log(userId);
+exports.addToCart = async(req, res) => {
+    const userId = req.user.id; 
+    const productId = req.params.id;
     try {
-        // Find the user's cart (assuming you have user authentication)
+        const cart = await Cart.findOne({ userId })
+        if(!cart){
+            const cart = new Cart({
+                userId,
+                items: [{ productId }],
+                totalPrice: 0,
+            });
+            cart.save().then (() => {
+                res.redirect('/cart');
+            })
+        }
+        const updateCart = await Cart.findOneAndUpdate({ userId }, {
+                $push:{items: {productId: productId}}
         
-        const cart = await Cart.findOne({ userId }).populate('items.item');
-    
-        res.render('cart', { cart });
+            });
+            console.log(updateCart);
+            updateCart.save().then(() => {
+                res.redirect('/cart');
+            })
+
+       
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 }
 
+
+exports.cartView = async (req, res) => {
+    const userId = req.user.id;
+    const cartItems = await Cart.find({ userId }).aggregate([
+        {
+            $match:{
+                userId: new ObjectId(userId)
+            },
+            lookup:{
+                from: 'books',
+                let: { items: '$items.productId'},
+                pipeline: [{
+                    $match: {
+                        $expr: {
+                            $in: ['$_id', '$$items']
+                        }
+                    }
+                }],
+                as: 'cartItems'
+            }
+        }
+    ]).toArray();
+
+    
+
+
+}

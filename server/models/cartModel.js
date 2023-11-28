@@ -7,16 +7,20 @@ const cartSchema = new mongoose.Schema({
         type:  mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
-    items: [{
-        item: {
-            type: mongoose.Schema.Types.ObjectId, 
+    items: [{ 
+        productId : {
+            type:  mongoose.Schema.Types.ObjectId,
             ref: 'books'
-        },
+        }
     }],  
      totalPrice: {
         type: Number, 
         default: 0
     },
+    quantity:{
+        type: Number,
+        default: 1
+    }
 },{
     timestamps: true
 });
