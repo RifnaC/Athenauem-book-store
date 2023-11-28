@@ -12,6 +12,6 @@ route.get("/wishlist", services.wishlist);
 // route.post("/api/carts/:id", auth.authMiddleware, cart.addToCart );
 
 route.get("/cart", auth.authMiddleware, cart.cartView);
-route.get("/carts/:id",  auth.authMiddleware, cart.addToCart)
+route.get("/carts/:id",  auth.authMiddleware, cart.addToCart);
 
 module.exports = route

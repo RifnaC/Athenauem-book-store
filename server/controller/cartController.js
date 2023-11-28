@@ -1,8 +1,11 @@
 const { log } = require('handlebars');
 const Cart = require('../models/cartModel');
-const books = require('../models/products');
+const Books = require('../models/products');
 const { category } = require('../services/render');
-const path = require('path')
+const path = require('path');
+const mongoose = require('mongoose');
+
+
 
 // exports.cartView = async(req, res) => {
 //     const userId  = req.user._id;
@@ -55,7 +58,7 @@ exports.addToCart = async(req, res) => {
     const userId = req.user.id; 
     const productId = req.params.id;
     try {
-        const cart = await Cart.findOne({ userId })
+        const cart = await Cart.findOne({ userId });
         if(!cart){
             const cart = new Cart({
                 userId,
@@ -84,36 +87,30 @@ exports.addToCart = async(req, res) => {
 
 exports.cartView = async (req, res) => {
     const userId = req.user.id;
+    // console.log("userId", userId, );
     const cartItems = await Cart.aggregate([
         {
-            $match:{
-                userId: userId
+            $match: { 
+                userId: new mongoose.Types.ObjectId(userId),
             }
         },
-        {
+        {  
             $lookup:{
                 from: 'books',
                 localField: 'items.productId',
                 foreignField: '_id',
-                let: { items: '$items.productId' },
-                pipeline: [{                        
+                as: 'cartItems',
+                let:{items:'$items.productId'},
+                pipeline: [{
                     $match: {
-                        $expr: {
-                            $in: ['$_id', '$$items']
+                        $expr:{
+                            $in:['$_id', '$$items'] 
                         }
-                    }
-                }],                    
-                as: 'cartItems'
-
+                    }      
+                }]
             }
         }
-    ])
-
-    console.log("cartItems" , cartItems);
+    ]);
+    console.log("cartItems" , cartItems[0].cartItems);
     res.render('cart');
-
-
-    
-
-
 }
