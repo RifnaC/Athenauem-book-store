@@ -271,10 +271,10 @@ exports.wishlist= (req, res)=>{
     res.render('wishlist');
 }
 
-exports.cart = (req, res)=>{
-    const user = req.user;
-    if(!user){
-        res.redirect('/login');
-    }
-    res.render('cart');
-}
+// exports.cart = (req, res)=>{
+//     const user = req.user;
+//     if(!user){
+//         res.redirect('/login');
+//     }
+//     res.render('cart');
+// }

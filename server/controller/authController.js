@@ -71,7 +71,7 @@ exports.login = async(req, res) => {
             name: (user || admin).name
         };
         const token = signToken((user || admin)._id, data);
-        console.log(token)
+        // console.log(token)
         req.session.token = token;
         if (admin) {
             res.redirect('/dashboard');

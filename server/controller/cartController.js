@@ -1,6 +1,6 @@
 const { log } = require('handlebars');
 const Cart = require('../models/cartModel');
-const product = require('../models/products');
+const books = require('../models/products');
 const { category } = require('../services/render');
 const path = require('path')
 
@@ -70,7 +70,6 @@ exports.addToCart = async(req, res) => {
                 $push:{items: {productId: productId}}
         
             });
-            console.log(updateCart);
             updateCart.save().then(() => {
                 res.redirect('/cart');
             })
@@ -85,25 +84,34 @@ exports.addToCart = async(req, res) => {
 
 exports.cartView = async (req, res) => {
     const userId = req.user.id;
-    const cartItems = await Cart.find({ userId }).aggregate([
+    const cartItems = await Cart.aggregate([
         {
             $match:{
-                userId: new ObjectId(userId)
-            },
-            lookup:{
+                userId: userId
+            }
+        },
+        {
+            $lookup:{
                 from: 'books',
-                let: { items: '$items.productId'},
-                pipeline: [{
+                localField: 'items.productId',
+                foreignField: '_id',
+                let: { items: '$items.productId' },
+                pipeline: [{                        
                     $match: {
                         $expr: {
                             $in: ['$_id', '$$items']
                         }
                     }
-                }],
+                }],                    
                 as: 'cartItems'
+
             }
         }
-    ]).toArray();
+    ])
+
+    console.log("cartItems" , cartItems);
+    res.render('cart');
+
 
     
 
