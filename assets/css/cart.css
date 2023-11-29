@@ -5,13 +5,13 @@ button {
 }
 
 button {
-  background-color: #666;
-  color: #fff;
+  background-color: #15778C;
+  color: #F5F5F5;
 }
 
 button:hover,
 button:focus {
-  background-color: #555;
+  background-color: #1c8aa3;
 }
 
 img,
@@ -51,10 +51,9 @@ button,
 main {
   clear: both;
   font-size: 0.75rem;
-  margin: 0 auto;
+
   overflow: hidden;
   padding: 1rem 0;
-  width: 960px;
 }
 
 .basket,
@@ -79,7 +78,7 @@ label {
 }
 
 .promo-code-field {
-  border: 1px solid #ccc;
+  border: 1px solid #15778C;
   padding: 0.5rem;
   text-transform: uppercase;
   transition: all 0.2s linear;
@@ -92,7 +91,7 @@ label {
 
 .promo-code-field:hover,
 .promo-code-field:focus {
-  border: 1px solid #999;
+  border: 1px solid #15778C;
 }
 
 .promo-code-cta {
@@ -110,17 +109,13 @@ label {
   line-height: 1.6rem;
 }
 
-
-
- 
-
 li.price:before,
 li.subtotal:before {
   content: "";
 }
 
 .item {
-  width: 55%;
+  width: 40%;
 }
 
 .price,
@@ -128,26 +123,38 @@ li.subtotal:before {
 .subtotal {
   width: 15%;
 }
-
+.rate{
+  margin-left: -400px;
+}
 .subtotal {
   text-align: right;
 }
 
-.remove {
-  bottom: 1.125rem;
-  float: right;
-  position: absolute;
-  right: 0;
-  text-align: right;
-  width: 45%;
+.CouponSection{
+ 
+  margin-top: -8px;
+}
+.inputField{
+  width: 380px;
 }
 
 .remove button {
   background-color: transparent;
-  color: #777;
+  color: #131213;
   float: none;
-  text-decoration: underline;
-  text-transform: uppercase;
+}
+.table-left{
+  float: left;
+  width: 800px
+
+}
+.input-qty{
+  width: 16%;
+  text-align: center;
+}
+.qty-container{
+  display: flex;
+  justify-content: center;
 }
 
 .item-heading {
@@ -201,7 +208,6 @@ aside {
   background-color: #eee;
   border: 1px solid #aaa;
   padding: 1rem;
-  position: fixed;
   width: 250px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -216,8 +222,8 @@ aside {
 
 .summary-subtotal,
 .summary-total {
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #15778C;
+  border-bottom: 1px solid #15778C;
   clear: both;
   margin: 1rem 0;
   overflow: hidden;
@@ -291,6 +297,9 @@ aside {
   height: 34px;
   width: 100%;
 }
+.cartItem{
+  margin-left: 32px;
+}
 
 @media screen and (max-width: 640px) {
   aside,
@@ -327,9 +336,10 @@ aside {
     float: none;
   }
   .remove {
-    bottom: 0;
+    /* bottom: 0; */
+
     text-align: left;
-    margin-top: 0.75rem;
+    margin-top: 1.6rem;
     position: relative;
   }
   .remove button {

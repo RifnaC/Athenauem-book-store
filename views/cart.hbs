@@ -62,8 +62,8 @@
                 <div class="collapse navbar-collapse d-lg-flex justify-content-lg-between" id="navbarTogglerDemo02">
                     <div class="mx-lg-5 px-lg-5">
                         <ul class="navbar-nav mx-lg-5 me-auto mb-2 mb-lg-0 home-nav ">
-                            <li class="nav-item ">
-                                <a class="nav-link active" aria-current="page" href="home">Home</a>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link "  href="home">Home</a>
                             </li>
                             <li class="nav-item homeNav">
                                 <a class="nav-link" href="shop-page">Shop</a>
@@ -81,8 +81,8 @@
                     </div>
                     <div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
-                            <li class="nav-item homeNav">
-                                <a class="nav-link" href="cart">
+                            <li class="nav-item ">
+                                <a class="nav-link active text-primary" aria-current="page" href="cart">
                                     <i class="bi bi-cart3"></i>
                                 </a>
 
@@ -109,98 +109,96 @@
         </nav>
     </Header>
     <!-- Header End -->
-    <main>
-        <div class="container-fluid my-5">
-            <div class="row  ">
+    <main class="m-5">
+        <div class="container-fluid ">
+            <div class="row ">
                 <h1 class="text-primary my-5 text-center">Carts</h1>
             </div>
-            <div class="basket">
-                <div class="basket-labels">
-                    <ul>
-                        <li class="item item-heading">Item</li>
-                        <li class="price">Price</li>
-                        <li class="quantity">Quantity</li>
-                        <li class="subtotal">Subtotal</li>
-                    </ul>
+            <div class="row m-0">
+                <div class="col">
+                    <table class="table table-left fs-5 mx-3">
+                        <thead class="table-primary">
+                            <tr class="fs-5">
+                                <th></th>
+                                <th>Item</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-danger">
+                            {{#each cartItems}}
+                            <tr>
+                                <td class="remove align-middle">
+                                    <div class=" d-flex align-items-center justify-content-center fs-2">
+                                        <button class=""><i class="bi bi-x-circle"></i></button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="product-image d-flex">
+                                        <img src="{{cartItem}}" alt="">
+                                        <h5 class="ms-3 text-dark ">Thrrreee</h5>
+                                    </div>
+                                </td>
+                                <td class="text-center"> &#8377 100</td>
+                                <td class="text-center">
+                                    <div class="qty-container">
+                                        <button class="qty-btn-minus btn-primary" type="button"><i
+                                                class="fa fa-minus"></i></button>
+                                        <input type="text" name="qty" value="0" class="input-qty" />
+                                        <button class="qty-btn-plus btn-primary" type="button"><i
+                                                class="fa fa-plus"></i></button>
+                                </td>
+                                <td class="text-center"> &#8377 700</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                        <caption>
+                            <div class="bg-secondary d-flex CouponSection">
+                                <div class="d-flex m-2">
+                                    <h4 class="text-dark mx-3 my-1">Coupon: </h4>
+                                    <div class="mx-1">
+                                        <input type="text" class="form-control inputField">
+                                    </div>
+                                </div>
+                                <div class="d-flex m-2">
+                                    <a href="" class="btn btn-primary"> Apply</a>
+                                </div>
+                            </div>
+                        </caption>
+                    </table>
                 </div>
-                <div class="basket-product">
-                    <div class="item">
-                        <div class="product-image">
-                            <img src="http://placehold.it/120x166" alt="Placholder Image 2" class="product-frame">
-                        </div>
-                        <div class="product-details">
-                            <h3><strong><span class="item-quantity">4</span> x Eliza J</strong> Lace Sleeve Cuff Dress
-                            </h3>
-                            <p><strong>Navy, Size 18</strong></p>
-                            <p>Product Code - 232321939</p>
-                        </div>
-                    </div>
-                    <div class="price">26.00</div>
-                    <div class="quantity">
-                        <input type="number" value="4" min="1" class="quantity-field">
-                    </div>
-                    <div class="subtotal">104.00</div>
-                    <div class="remove">
-                        <button>Remove</button>
-                    </div>
-                </div>
-                <div class="basket-product">
-                    <div class="item">
-                        <div class="product-image">
-                            <img src="http://placehold.it/120x166" alt="Placholder Image 2" class="product-frame">
-                        </div>
-                        <div class="product-details">
-                            <h3><strong><span class="item-quantity">1</span> x Whistles</strong> Amella Lace Midi Dress
-                            </h3>
-                            <p><strong>Navy, Size 10</strong></p>
-                            <p>Product Code - 232321939</p>
-                        </div>
-                    </div>
-                    <div class="price">26.00</div>
-                    <div class="quantity">
-                        <input type="number" value="1" min="1" class="quantity-field">
-                    </div>
-                    <div class="subtotal">26.00</div>
-                    <div class="remove">
-                        <button>Remove</button>
-                    </div>
+                <div class="col">
+                    <table class="table table-right">
+                        <thead class="table-primary fs-5">
+                            <tr>
+                                <th class="">Cart Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-danger fs-5">
+                            <tr>
+                                <td>Subtotal</td>
+                                <td>&#8377 700</td>
+                            </tr>
+                            <tr>
+                                <td> Discount</td>
+                                <td>&#8377 0</td>
+                            </tr>
+                            <tr>
+                                <td>Delivery Charge</td>
+                                <td>&#8377 0</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="fs-4 bg-secondary text-dark">
+                                <td>Total</td>
+                                <td>&#8377 700</td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
-            
-            <aside>
-                <div class="summary">
-                    <div class="summary-total-items"><span class="total-items"></span> Items in your Bag</div>
-                    <div class="summary-subtotal">
-                        <div class="subtotal-title">Subtotal</div>
-                        <div class="subtotal-value final-value" id="basket-subtotal">130.00</div>
-                        <div class="summary-promo hide">
-                            <div class="promo-title">Promotion</div>
-                            <div class="promo-value final-value" id="basket-promo"></div>
-                        </div>
-                    </div>
-                    <div class="summary-delivery">
-                        <select name="delivery-collection" class="summary-delivery-selection">
-                            <option value="0" selected="selected">Select Collection or Delivery</option>
-                            <option value="collection">Collection</option>
-                            <option value="first-class">Royal Mail 1st Class</option>
-                            <option value="second-class">Royal Mail 2nd Class</option>
-                            <option value="signed-for">Royal Mail Special Delivery</option>
-                        </select>
-                    </div>
-                    <div class="summary-total">
-                        <div class="total-title">Total</div>
-                        <div class="total-value final-value" id="basket-total">130.00</div>
-                    </div>
-                    <div class="summary-checkout">
-                        <button class="checkout-cta">Go to Secure Checkout</button>
-                    </div>
-                </div>
-            </aside>
-            <div class="basket-module">
-                    <label for="promo-code">Enter a promotional code</label>
-                    <input id="promo-code" type="text" name="promo-code" maxlength="5" class="promo-code-field">
-                    <button class="promo-code-cta">Apply</button>
-                </div>
 
 
         </div>

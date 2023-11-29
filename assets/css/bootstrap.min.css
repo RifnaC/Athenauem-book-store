@@ -1969,7 +1969,7 @@ progress {
 }
 
 .table-danger {
-    --bs-table-bg: #f8d7da;
+    --bs-table-bg: #f5f5f5;
     --bs-table-striped-bg: #eccccf;
     --bs-table-striped-color: #000;
     --bs-table-active-bg: #dfc2c4;
