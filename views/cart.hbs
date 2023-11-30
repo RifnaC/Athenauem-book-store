@@ -63,7 +63,7 @@
                     <div class="mx-lg-5 px-lg-5">
                         <ul class="navbar-nav mx-lg-5 me-auto mb-2 mb-lg-0 home-nav ">
                             <li class="nav-item homeNav">
-                                <a class="nav-link "  href="home">Home</a>
+                                <a class="nav-link " href="home">Home</a>
                             </li>
                             <li class="nav-item homeNav">
                                 <a class="nav-link" href="shop-page">Shop</a>
@@ -131,25 +131,29 @@
                             <tr>
                                 <td class="remove align-middle">
                                     <div class=" d-flex align-items-center justify-content-center fs-2">
-                                        <button class=""><i class="bi bi-x-circle"></i></button>
+                                        <a href="" class=""><i class="bi bi-x-circle"></i></a>
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="product-image d-flex">
-                                        <img src="{{cartItem}}" alt="">
-                                        <h5 class="ms-3 text-dark ">Thrrreee</h5>
+                                    <div class="product-image d-flex me-3">
+                                        <img src="{{this.cartItem.productImg}}" alt="">
                                     </div>
+                                    <h5 class=" text-dark ">{{this.cartItem.bookName}}</h5>
                                 </td>
-                                <td class="text-center"> &#8377 100</td>
+                                <td class="text-center"> &#8377 {{this.cartItem.price}}</td>
                                 <td class="text-center">
                                     <div class="qty-container">
-                                        <button class="qty-btn-minus btn-primary" type="button"><i
-                                                class="fa fa-minus"></i></button>
-                                        <input type="text" name="qty" value="0" class="input-qty" />
-                                        <button class="qty-btn-plus btn-primary" type="button"><i
-                                                class="fa fa-plus"></i></button>
+                                        <button class="qty-btn-minus btn-primary"
+                                            onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',-1, -{{this.cartItem.price}})"
+                                            type="button" id="decBtn"><i class="fa fa-minus"></i>
+                                        </button>
+                                        <input type="text" name="qty" value="{{this.quantity}}" class="input-qty" readonly/>
+                                        <button class="qty-btn-plus btn-primary"
+                                            onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',1,  {{this.cartItem.price}})"
+                                            type="button"><i class="fa fa-plus"></i>
+                                        </button>
                                 </td>
-                                <td class="text-center"> &#8377 700</td>
+                                <td class="text-center"> &#8377 {{this.subTotal}}</td>
                             </tr>
                             {{/each}}
                         </tbody>
@@ -199,8 +203,6 @@
                     </table>
                 </div>
             </div>
-
-
         </div>
 
     </main>
@@ -277,7 +279,6 @@
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
-    <script src="/js/user.js"></script>
     <script src="/js/cart.js"></script>
 
 </body>

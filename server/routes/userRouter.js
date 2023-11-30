@@ -9,5 +9,6 @@ route.get("/wishlist", services.wishlist);
 
 route.get("/cart", auth.authMiddleware, cart.cartView);
 route.get("/carts/:id",  auth.authMiddleware, cart.addToCart);
+route.post("/changeInQuantity", cart.changeQuantity);
 
 module.exports = route

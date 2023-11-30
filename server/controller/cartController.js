@@ -8,13 +8,17 @@ const mongoose = require('mongoose');
 exports.addToCart = async(req, res) => {
     const userId = req.user.id; 
     const productId = req.params.id;
-    const {quantity, subTotal} = req.body;
+    const  quantity = req.body.quantity;
+    const price = await Books.find({_id: new mongoose.Types.ObjectId(productId)},{price:1, _id:0});
+    const subTotal = price[0].price;
+    console.log(subTotal);
+
     try {
         const cart = await Cart.findOne({ userId });
         if(!cart){
             const cart = new Cart({
                 userId,
-                items: [{ productId, quantity, subTotal }],
+                items: [{ productId, quantity, subTotal}],
                 totalPrice: 0,
             });
             cart.save().then (() => {
@@ -23,18 +27,22 @@ exports.addToCart = async(req, res) => {
         }else{
             const productExist = cart.items.findIndex(items => items.productId == productId);
             if(productExist !== -1){
-                const incQty = cart.updateOne({'items.productId': productId}, {
-                    $inc: { 'items.$.quantity': 1, 'items.$.subTotal': subTotal}
+                await Cart.findOneAndUpdate(
+                    {'userId': userId, 'items.productId':productId}, 
+                    {$inc: {'items.$.quantity': 1, 'items.$.subTotal': subTotal}},
+                    
+                ).then(() => {
+                    res.redirect('/cart');
                 })
-                console.log(incQty);
+            }else{
+                const updateCart = await Cart.findOneAndUpdate({ userId }, {
+                    $push:{items: {productId: productId, quantity: quantity, subTotal: subTotal}},
+                })
+                updateCart.save().then(() => {
+                    res.redirect('/cart');
+                });
             }
-        }        
-        // const updateCart = await Cart.findOneAndUpdate({ userId }, {
-            //     $push:{items: {productId: productId, quantity: quantity, subTotal: subTotal}},
-            // });
-            // updateCart.save().then(() => {
-            //     res.redirect('/cart');
-            // });
+        }         
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
@@ -44,30 +52,53 @@ exports.addToCart = async(req, res) => {
 
 exports.cartView = async (req, res) => {
     const userId = req.user.id; 
-    // console.log("userId", userId, );
     const cartItems = await Cart.aggregate([
         {
             $match: { 
                 userId: new mongoose.Types.ObjectId(userId),
             }
         },
+        {
+            $unwind: '$items'
+        },
+        {
+            $project: {
+                productId: '$items.productId',
+                quantity: '$items.quantity',
+                subTotal: '$items.subTotal',
+            }
+        },
         {  
             $lookup:{
                 from: 'books',
-                localField: 'items.productId',
+                localField: 'productId',
                 foreignField: '_id',
-                as: 'cartItems',
-                let:{items:'$items.productId'},
-                pipeline: [{
-                    $match: {
-                        $expr:{
-                            $in:['$_id', '$$items'] 
-                        }
-                    }      
-                }]
+                as: 'cartItem',
             }
-        }
-    ]);
-    // console.log("cartItems" , cartItems[0].cartItems);
+        },
+        {
+            $project: {
+                productId: 1,
+                quantity: 1,
+                subTotal: 1,
+                cartItem: { $arrayElemAt: ['$cartItem', 0] },
+            }
+        },
+    ])
+    // console.log("cartItems" , cartItems[0].cartItem);
     res.render('cart', {cartItems});
+}
+
+exports.changeQuantity = async (req, res) => {
+    let {cartId, productId, count, subTotal} = req.body;
+    count = Number(count);
+    subTotal = Number(subTotal)
+    
+    
+    await Cart.findOneAndUpdate(
+        {_id: new mongoose.Types.ObjectId(cartId),'items.productId':productId}, 
+        {$inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal}}
+    ).then(() => {
+        res.redirect('/cart');
+    }) 
 }
