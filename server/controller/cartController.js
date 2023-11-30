@@ -21,9 +21,7 @@ exports.addToCart = async(req, res) => {
                 items: [{ productId, quantity, subTotal}],
                 totalPrice: 0,
             });
-            cart.save().then (() => {
-                res.redirect('/cart');
-            })
+            cart.save();
         }else{
             const productExist = cart.items.findIndex(items => items.productId == productId);
             if(productExist !== -1){
@@ -31,16 +29,12 @@ exports.addToCart = async(req, res) => {
                     {'userId': userId, 'items.productId':productId}, 
                     {$inc: {'items.$.quantity': 1, 'items.$.subTotal': subTotal}},
                     
-                ).then(() => {
-                    res.redirect('/cart');
-                })
+                );
             }else{
                 const updateCart = await Cart.findOneAndUpdate({ userId }, {
                     $push:{items: {productId: productId, quantity: quantity, subTotal: subTotal}},
                 })
-                updateCart.save().then(() => {
-                    res.redirect('/cart');
-                });
+                updateCart.save();
             }
         }         
     } catch (error) {
@@ -101,4 +95,20 @@ exports.changeQuantity = async (req, res) => {
     ).then(() => {
         res.redirect('/cart');
     }) 
+}
+
+exports.deleteCartItem = async (req, res) => {
+    const { cartId, productId } = req.body;
+    try{
+        await Cart.findOneAndUpdate(
+            { _id: new mongoose.Types.ObjectId(cartId) },
+            { $pull: { 'items': { productId: productId } } }
+        ).then(() => {
+            res.json({ success: true });
+        })
+    }catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+    // console.log(cartId, productId);
 }

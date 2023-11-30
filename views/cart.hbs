@@ -129,16 +129,16 @@
                         <tbody class="table-danger">
                             {{#each cartItems}}
                             <tr>
-                                <td class="remove align-middle">
+                                <td class=" align-middle">
                                     <div class=" d-flex align-items-center justify-content-center fs-2">
-                                        <a href="" class=""><i class="bi bi-x-circle"></i></a>
+                                        <a href="" class="remove"  onclick="return removeItem('{{this._id}}', '{{this.cartItem._id}}')"><i class="bi bi-x-circle"></i></a>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="product-image d-flex me-3">
                                         <img src="{{this.cartItem.productImg}}" alt="">
                                     </div>
-                                    <h5 class=" text-dark ">{{this.cartItem.bookName}}</h5>
+                                    <h5 class="text-dark">{{this.cartItem.bookName}}</h5>
                                 </td>
                                 <td class="text-center"> &#8377 {{this.cartItem.price}}</td>
                                 <td class="text-center">
@@ -152,6 +152,7 @@
                                             onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',1,  {{this.cartItem.price}})"
                                             type="button"><i class="fa fa-plus"></i>
                                         </button>
+                                    </div>
                                 </td>
                                 <td class="text-center"> &#8377 {{this.subTotal}}</td>
                             </tr>
@@ -206,10 +207,6 @@
         </div>
 
     </main>
-
-
-
-
     <footer class="footer pt-5 ">
         <div class="container row mx-5 ">
             <a class="my-2" href="home">

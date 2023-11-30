@@ -10,5 +10,6 @@ route.get("/wishlist", services.wishlist);
 route.get("/cart", auth.authMiddleware, cart.cartView);
 route.get("/carts/:id",  auth.authMiddleware, cart.addToCart);
 route.post("/changeInQuantity", cart.changeQuantity);
+route.post("/removeItem", cart.deleteCartItem);
 
 module.exports = route
