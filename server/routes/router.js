@@ -148,7 +148,7 @@ route.put('/api/banner/:id',auth.authMiddleware, bannerController.update);
 route.delete('/api/banner/:id',auth.authMiddleware, bannerController.delete);
 
 
-// route.get("/home", services.home);
+route.get("/offers",  services.offers);
 
 
 module.exports = route

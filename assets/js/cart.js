@@ -1,3 +1,5 @@
+
+
 // cart quantity 
 function changeQty(cartId, productId, count, subTotal) {
     $.ajax({
@@ -25,14 +27,14 @@ function removeItem(cartId, productId) {
         method: 'POST',
         success: (data) => {
             if (data.success) {
-                // alert('Successfully removed item from cart!');
+                // alert('Successfully removed item from cart!', data);
                 Swal.fire({
                     title:'Atheneuam',
                     text:'Item removed successfully!',
                     confirmButtonColor: '#15877C',
-                })
+                });
+                window.location.reload();
             }
-            // window.location.reload();
         }
     })
 }

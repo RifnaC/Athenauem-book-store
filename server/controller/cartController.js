@@ -11,7 +11,7 @@ exports.addToCart = async(req, res) => {
     const  quantity = req.body.quantity;
     const price = await Books.find({_id: new mongoose.Types.ObjectId(productId)},{price:1, _id:0});
     const subTotal = price[0].price;
-    console.log(subTotal);
+    // console.log(subTotal);
 
     try {
         const cart = await Cart.findOne({ userId });
@@ -27,7 +27,7 @@ exports.addToCart = async(req, res) => {
             if(productExist !== -1){
                 await Cart.findOneAndUpdate(
                     {'userId': userId, 'items.productId':productId}, 
-                    {$inc: {'items.$.quantity': 1, 'items.$.subTotal': subTotal}},
+                    {$inc: {'items.$.quantity': 1, 'items.$.subTotal': subTotal}}
                 );
             }else{
                 const updateCart = await Cart.findOneAndUpdate({ userId }, {
@@ -41,7 +41,6 @@ exports.addToCart = async(req, res) => {
         res.status(500).send('Internal Server Error');
     }
 }
-
 
 exports.cartView = async (req, res) => {
     const userId = req.user.id; 
@@ -77,8 +76,10 @@ exports.cartView = async (req, res) => {
                 cartItem: { $arrayElemAt: ['$cartItem', 0] },
             }
         },
-    ])
-    // console.log("cartItems" , cartItems[0].cartItem);
+    ]);
+    cartItems.forEach(cartItem => {
+        cartItem.totalPrice = cartItem.subTotal;
+    });
     res.render('cart', {cartItems});
 }
 
@@ -111,3 +112,53 @@ exports.deleteCartItem = async (req, res) => {
     }
     // console.log(cartId, productId);
 }
+
+
+// exports.getPlaceOrder = async (req, res) => {
+//     let userId = req.user.id;
+//     const total = await Cart.aggregate([
+//         {
+//             $match: { 
+//                 userId: new mongoose.Types.ObjectId(userId),
+//             }
+//         },
+//         {
+//             $unwind: '$items'
+//         },
+//         {
+//             $project: {
+//                 productId: '$items.productId',
+//                 quantity: '$items.quantity',
+//                 subTotal: '$items.subTotal',
+//             }
+//         },
+//         {  
+//             $lookup:{
+//                 from: 'books',
+//                 localField: 'productId',
+//                 foreignField: '_id',
+//                 as: 'cartItem',
+//             }
+//         },
+//         {
+//             $project: {
+//                 productId: 1,
+//                 quantity: 1,
+//                 subTotal: 1,
+//                 cartItem: { $arrayElemAt: ['$cartItem', 0] },
+//             }
+//         },
+//         {
+//             $group: {
+//                 _id: null,
+//                 totalPrice:{
+//                     $sum: '$subTotal'
+//                 },
+//             }
+//         }
+//     ])
+//     // console.log(total[0].totalPrice);
+//     const totalPrice = total[0].totalPrice;
+//     console.log(totalPrice);
+//     res.render('cart',{totalPrice});
+// }
