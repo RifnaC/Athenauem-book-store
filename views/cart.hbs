@@ -174,7 +174,7 @@
                     </table>
                 </div>
                 <div class="col">
-                    <table class="table table-right">
+                    <table class="table table-right  table-borderless">
                         <thead class="table-primary fs-5">
                             <tr>
                                 <th class="">Cart Total</th>
@@ -182,25 +182,19 @@
                             </tr>
                         </thead>
                         <tbody class="table-danger fs-5">
-                            {{#each cartItems}}
                             <tr>
                                 <td>Subtotal</td>
-                                <td>&#8377 {{this.totalPrice}}</td>
+                                <td>&#8377 {{cartItems.totalPrice}}</td>
                             </tr>
-                            {{/each}}
                             <tr>
                                 <td> Discount</td>
-                                <td>&#8377 0</td>
-                            </tr>
-                            <tr>
-                                <td>Delivery Charge</td>
                                 <td>&#8377 0</td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr class="fs-4 bg-secondary text-dark">
                                 <td>Total</td>
-                                <td>&#8377 700</td>
+                                <td>&#8377 {{cartItems.totalPrice}}</td>
                             </tr>
                             <tr class="d-flex justify-content-end ">
                                <td> <a href="/cart" class="btn btn-primary">Proceed to Checkout</a></td>

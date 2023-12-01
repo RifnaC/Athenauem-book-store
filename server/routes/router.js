@@ -7,7 +7,7 @@ const productController = require('../controller/productController');
 const categoryController = require('../controller/categoryController');
 const bannerController = require('../controller/bannerController');
 const auth = require('../middlewares/authMiddleware')
-
+const offer = require('../controller/offerController');
 
 // ***********************Admin Management********************************
 /** 
@@ -148,7 +148,7 @@ route.put('/api/banner/:id',auth.authMiddleware, bannerController.update);
 route.delete('/api/banner/:id',auth.authMiddleware, bannerController.delete);
 
 
-route.get("/offers",  services.offers);
+route.get("/offers",  );
 
 
 module.exports = route

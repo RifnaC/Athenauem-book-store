@@ -5,7 +5,7 @@ const bannerCollection = require('../models/bannerModel');
 const categoryCollection = require('../models/categoryModel');
 const productCollection  = require('../models/products');
 const user = require('../models/userModel');
-const getBooksForShop = require('../controller/shopController')
+const Cart = require('../models/cartModel');
 // ***********************Admin Management********************************
 exports.homeRoutes = async(req, res)=>{
     if(!req.session.token){
@@ -51,7 +51,6 @@ exports.edit_admin= async (req, res)=>{
 }
 
 // ***********************Shop Management********************************
-
 exports.shop = async(req, res)=>{
     const id = req.user.id;
     const admin = await adminCollection.findById(id);

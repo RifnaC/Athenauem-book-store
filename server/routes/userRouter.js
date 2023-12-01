@@ -7,11 +7,13 @@ const cart = require('../controller/cartController');
 
 route.get("/wishlist", services.wishlist);
 
+// cart Routes
 route.get("/cart", auth.authMiddleware, cart.cartView);
 route.get("/carts/:id",  auth.authMiddleware, cart.addToCart);
 route.post("/changeInQuantity", cart.changeQuantity);
 route.post("/removeItem", cart.deleteCartItem);
 
-// route.get ('/placeOrder',auth.authMiddleware, cart.getPlaceOrder)
+
+
 
 module.exports = route

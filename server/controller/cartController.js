@@ -78,8 +78,10 @@ exports.cartView = async (req, res) => {
         },
     ]);
     cartItems.forEach(cartItem => {
-        cartItem.totalPrice = cartItem.subTotal;
-    });
+        cartItem.totalPrice = cartItem.subTotal
+    })
+    cartItems.totalPrice = cartItems.reduce((total, item) => total + item.subTotal, 0);
+    const count = cartItems.length;
     res.render('cart', {cartItems});
 }
 

@@ -42,7 +42,7 @@
     // Check if name, email, password, and confirmPassword are not empty
     if (name === "") {
       Swal.fire({
-        title: 'Athenuam',
+        title: 'Atheneuam',
         text:'Please enter your name!',
         confirmButtonColor: '#15877C',
       })
@@ -50,7 +50,7 @@
     }
     if (name.length < 3) {
       Swal.fire({
-        title: 'Athenuam',
+        title: 'Atheneuam',
         text: 'Name should have at least 3 characters!',
         confirmButtonColor: '#15877C',
       })
@@ -58,7 +58,7 @@
     }
     if (email === "") {
       Swal.fire({
-        title: 'Athenuam',
+        title: 'Atheneuam',
         text: 'Please enter your email!',
         confirmButtonColor: '#15877C',
       })
@@ -66,7 +66,7 @@
     }
     if (password === "") {
       Swal.fire({
-        title: 'Athenuam',
+        title: 'Atheneuam',
         text: 'Please enter your password!',
         confirmButtonColor: '#15877C',
       })
@@ -74,7 +74,7 @@
     }
     if (confirmPassword === "") {
       Swal.fire({
-        title: 'Athenuam',
+        title: 'Atheneuam',
         text: 'Please enter your  confirm password!',
         confirmButtonColor: '#15877C',
       })
@@ -82,7 +82,7 @@
     }
     if (password.length < 6) {
       Swal.fire({
-        title: 'Athenuam',
+        title: 'Atheneuam',
         text: 'Passwords should have at least 6 characters!',
         confirmButtonColor: '#15877C',
       })
@@ -90,7 +90,7 @@
     }
     if (password !== confirmPassword) {
       Swal.fire({
-        title: 'Athenuam',
+        title: 'Atheneuam',
         text: 'Password and the confirm password should be same!',
         confirmButtonColor: '#15877C',
       })
@@ -199,6 +199,7 @@
         "method": "DELETE"
       };
       Swal.fire({
+        title: 'Atheneuam',
         text: 'Do you really want to delete this record?',
         icon: 'warning',
         showCancelButton: true,
@@ -212,16 +213,17 @@
             $.ajax(request).done(function (response) {
               Swal.fire({
                 icon: 'success',
-                title: 'Athenuam',
+                title: 'Atheneuam',
                 text: 'Data deleted Successfully',
               }).then(() => {
-                location.reload();
+                location.reload(); 
               });
             });
           } else {
             // The user clicked the "cancel" button or closed the dialog
             Swal.fire({
               icon: 'info',
+              title: 'Atheneuam',
               text: 'Action canceled',
             });
           }
@@ -307,6 +309,7 @@
     } else {
       Swal.fire({
         icon: 'success',
+        title: 'Atheneuam',
         text: 'New shop is added Successfully! ',
         showConfirmButton: false,
         timer: 6000,
@@ -383,6 +386,7 @@
           if (result.isConfirmed) {
             Swal.fire({
               icon: 'success',
+              title: 'Atheneuam',
               text: 'Shop is updated Successfully! ',
               showConfirmButton: true,
               confirmButtonColor: '#15877C',
@@ -392,6 +396,7 @@
           } else if (result.isDenied) {
             Swal.fire({
               icon: 'info',
+              title: 'Atheneuam',
               text: 'Changes are not saved! ',
               showConfirmButton: true,
               confirmButtonColor: '#15877C',
@@ -412,7 +417,7 @@
   });
 
   // Delete the shop
-  if (window.location.pathname === "/shop") {
+  if (window.location.pathname === "/shop") {D
     $(document).on("click", ".shopCard a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
@@ -582,11 +587,10 @@
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
-
   const idFromURL = getParameterByName('id');
-  
   $('#shopId').val(idFromURL);
 
+  // ALERT MODIFICATION
   // Add new book
   $("#add_product").submit(function (event) {
     if (!productValidation()) {
@@ -594,6 +598,7 @@
     } else {
       Swal.fire({
         icon: 'success',
+
         title: 'New Book is added Successfully',
         showConfirmButton: false,
         timer: 6000
@@ -1323,7 +1328,22 @@ $(function () {
   });
 });
 
-
+// cart quantity 
+function changeQty(cartId, productId, count, subTotal) {
+  $.ajax({
+    url:'/changeInQuantity',
+    data:{
+      cart: cartId,
+      product: productId,
+      count: count,
+      subTotal: subTotal,
+    },
+    method: 'POST',
+    success: (data) => {
+      alert(data)
+    }
+  })
+}
 
 
 // Chart Global Color

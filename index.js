@@ -53,6 +53,7 @@ app.use('/lib', express.static(path.resolve(__dirname,"assets/lib")))
 app.use('/',require('./server/routes/router'))
 app.use('/',require('./server/routes/authRouter'));
 app.use('/',require('./server/routes/userRouter'));
+app.use('/',require('./server/routes/couponRouter')); 
 
 app.listen(port , ()=> {
     console.log('> Server is up and running on port : ' + port)
