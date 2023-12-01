@@ -31,26 +31,21 @@ function removeItem(cartId, productId) {
                     text:'Item removed successfully!',
                     confirmButtonColor: '#15877C',
                 })
-            } else {
-                Swal.fire({
-                    title:'Atheneuam',
-                    text:'Item removed successfully!',
-                    confirmButtonColor: '#15877C',
-                });
             }
             // window.location.reload();
         }
     })
 }
-
+// disable the decrement button when the quantity is less than one
 $(document).ready(() => {
-    const quantity = document.querySelectorAll('.quantity').value;
-const decBtn = document.querySelectorAll('.qty-btn-minus');
+    $('.input-qty').each(function() {
+        const quantity = parseInt($(this).val());
 
-if(quantity < 1){
-    $(".qty-btn-minus").css('display', 'none');
-}
-})
+        if (quantity <= 1) {
+            $(this).siblings('#decBtn').prop('disabled', true);
+        }
+    });
+});
 
 
 
