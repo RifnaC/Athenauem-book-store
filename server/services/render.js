@@ -277,3 +277,9 @@ exports.wishlist= (req, res)=>{
 //     }
 //     res.render('cart');
 // }
+
+
+
+exports.offers = (req, res)=>{
+    res.render('offers');
+}

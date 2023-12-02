@@ -7,7 +7,6 @@ const productController = require('../controller/productController');
 const categoryController = require('../controller/categoryController');
 const bannerController = require('../controller/bannerController');
 const auth = require('../middlewares/authMiddleware')
-const offer = require('../controller/offerController');
 
 // ***********************Admin Management********************************
 /** 
