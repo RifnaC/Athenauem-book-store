@@ -30,17 +30,29 @@ exports.getAllCoupon = asyncHandler(async (req, res) => {
     }
 });
 
-// exports.updateCoupon = asyncHandler(async (req, res) => {
-//     try{
-//         const id = req.params
-//         const { couponCode, expireDate, discount } = req.body;
-//         const coupon = await Coupon.findByIdAndUpdate(req.params.id, {
-//             couponCode,
-//             expireDate,
-//             discount
-//         });
-//         res.status(200).redirect('/offer');
-//     }catch(error){
-//         throw new Error(error);
-//     }
-// })
+exports.updateCoupon = asyncHandler(async (req, res) => {
+    try{
+        const coupons = await Coupon.find();
+        const { couponCode, expireDate, discount } = req.body;
+        const coupon = await Coupon.findByIdAndUpdate(req.params.id, {
+            couponCode,
+            expireDate,
+            discount
+        }).then(coupon =>{
+            res.status(200).render('offer', { offer:coupon});
+        })
+        
+    }catch(error){
+        throw new Error(error);
+    }
+})
+
+exports.deleteCoupon = asyncHandler(async (req, res) => {
+    try{
+        await Coupon.findByIdAndDelete(req.params.id,);
+        res.status(200).render('offer');
+        
+    }catch(error){
+        throw new Error(error);
+    }
+})

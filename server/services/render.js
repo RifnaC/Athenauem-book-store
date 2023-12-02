@@ -277,9 +277,16 @@ exports.wishlist= (req, res)=>{
 //     }
 //     res.render('cart');
 // }
-
-
-
 exports.offers = (req, res)=>{
     res.render('offers');
 }
+
+exports.updateOffer = async(req, res)=>{
+    const id = req.user.id;
+    const admin = await adminCollection.findById(id);
+    const name = admin.name.split(" ")[0];
+    
+    
+    res.render('coupon',{ admin: name});
+}
+
