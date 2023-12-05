@@ -222,6 +222,27 @@ exports.login= (req, res)=>{
 exports.signup= (req, res)=>{
     res.render('signUp');
 }
+// ***********************Customer CRUD Section*******************************
+exports.user= async(req, res)=>{ 
+    const id = req.user.id;
+    const admin = await adminCollection.findById(id);
+    const name = admin.name.split(" ")[0];
+    const user = await userCollection.find();
+    res.render('user', {admin: name, users:user});
+}
+
+exports.edit_admin= async (req, res)=>{
+    const id = req.user.id;
+    const admin = await adminCollection.findById(id);
+    const name = admin.name.split(" ")[0];
+    axios.get('http://localhost:3000/users',{params:{id:req.query.id}})
+    .then(function(userData){
+        res.render('editUser',{user:userData.data, admin: name});
+    })
+    .catch(err => {
+        res.send(err);
+    })
+}
 
 exports.home= async(req, res)=>{
     try {
@@ -269,6 +290,7 @@ exports.home= async(req, res)=>{
 exports.wishlist= (req, res)=>{
     res.render('wishlist');
 }
+
 
 // exports.cart = (req, res)=>{
 //     const user = req.user;

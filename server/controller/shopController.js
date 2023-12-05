@@ -49,7 +49,7 @@ exports.create = async (req, res) => {
       shop.save()
       .then(savedShop => {
         res.redirect('/shop');
-       })
+      })
       .catch(saveErr => {
         res.status(500).send({ message: saveErr.message });
       });

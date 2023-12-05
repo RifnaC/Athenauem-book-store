@@ -16,7 +16,10 @@ const schema = new mongoose.Schema({
         type:String,
         required: true,
     },
-    token:String,
+    status:{
+        type: String,
+        default: 'Active',
+    },
     role: { 
         type: String, 
         enum: ['admin', 'superAdmin'], 

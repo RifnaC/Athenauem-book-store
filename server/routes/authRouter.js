@@ -12,7 +12,7 @@ route.get('/signup',services.signup);
 route.get('/logout', auth.logout);
 
 route.post('/api/auth/signup', auth.register);
-route.post('/api/auth/signin', auth.login);
+route.post('/login', auth.login);
 
 route.get('/home', services.home);
 

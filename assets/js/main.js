@@ -417,7 +417,7 @@
   });
 
   // Delete the shop
-  if (window.location.pathname === "/shop") {D
+  if (window.location.pathname === "/shop") {
     $(document).on("click", ".shopCard a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
@@ -434,31 +434,31 @@
         cancelButtonText: 'cancel',
         confirmButtonColor: '#d33',
       })
-        .then((result) => {
-          if (result.isConfirmed) {
+      .then((result) => {
+        if (result.isConfirmed) {
             // The user clicked the "Yes, delete it" button
-            $.ajax(request).done(function (response) {
-              Swal.fire({
-                icon: 'success',
+          $.ajax(request).done(function (response) {
+            Swal.fire({
+              icon: 'success',
               title: 'Atheneuam',
               text: 'Data deleted Successfully!',
               showConfirmButton: true,
               confirmButtonColor: '#15877C',
-              }).then(() => {
+            }).then(() => {
                 location.reload();
-              });
             });
-          } else {
-            // The user clicked the "cancel" button or closed the dialog
-            Swal.fire({
-              icon: 'info',
-              title: 'Atheneuam',
-              text: 'Action canceled!',
-              showConfirmButton: true,
-              confirmButtonColor: '#15877C',
-            });
-          }
-        });
+          });
+        } else {
+          // The user clicked the "cancel" button or closed the dialog
+          Swal.fire({
+            icon: 'info',
+            title: 'Atheneuam',
+            text: 'Action canceled!',
+            showConfirmButton: true,
+            confirmButtonColor: '#15877C',
+          });
+        }
+      });
     })
   }
 
@@ -590,7 +590,7 @@
   const idFromURL = getParameterByName('id');
   $('#shopId').val(idFromURL);
 
-  // ALERT MODIFICATION
+  // *************************************ALERT MODIFICATION****************************************/
   // Add new book
   $("#add_product").submit(function (event) {
     if (!productValidation()) {
@@ -1345,6 +1345,92 @@ function changeQty(cartId, productId, count, subTotal) {
   })
 }
 
+
+// update customer
+$("#editUser").submit(function (event) {
+  event.preventDefault();
+  let unindexed_array = $(this).serializeArray();
+  let data = {};
+
+  $.map(unindexed_array, function (n, i) {
+    if ($('[name="' + n['name'] + '"]').is(':radio')) {
+      if ($('[name="' + n['name'] + '"]:checked').length > 0) {
+        data[n['name']] = $('[name="' + n['name'] + '"]:checked').val();
+      } else {
+          // Set a default value for radio buttons if none are checked
+        data[n['name']] = '';
+      }
+    } else {
+      data[n['name']] = n['value'];
+    }
+  });
+  // Extract the customer's ID from the form data
+  const userId = data.id;
+  // Validation: Check if the name and email fields are empty
+  if (!data.name) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Please enter the name!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (data.name.length < 3) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Name should be at least 3 characters',
+      confirmButtonColor: '#15877C',
+    });
+    return;
+  }
+  if (!data.email) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Please enter the name!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+
+  let request = {
+    "url": `http://localhost:3000/users/${userId}`,
+    "method": "PUT",
+    "data": data
+  };
+  // Send the PUT request
+  $.ajax(request).done(function (response) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+      confirmButtonColor: '#15877C'
+    })
+      .then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Athenuam',
+            text: 'Data updated successfully',
+          }).then((result) => {
+              window.location.href = '/user';
+            })
+        } else if (result.isDenied) {
+          Swal.fire({
+            icon: 'info',
+            title: 'Athenuam',
+            text: 'Changes are not saved',
+          })
+            .then((result) => {
+              window.location.href = '/user';
+            })
+        }
+      })
+  });
+});
 
 // Chart Global Color
 Chart.defaults.color = "#6C7293";

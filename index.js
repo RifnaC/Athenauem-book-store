@@ -12,11 +12,10 @@ const connectDB = require('./server/database/connection');
 
 const app = express();
 
-
 const port = process.env.PORT || 5000
 
 app.use(session({
-    secret: 'session-rifna',
+    secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: true,
 }));
@@ -31,6 +30,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 
 // set view engines
+app.use (express.static(path.join(__dirname,'views')));
 app.set('view engine','hbs')
   
 
@@ -40,7 +40,7 @@ app.set('view engine','hbs')
 //     layoutDir: __dirname + '/views/layouts/',
 //     partialsDir: __dirname + '/views/partials/',
 // }));
-// // app.set ('views', path.resolve(__dirname,'views'))
+
 
 // load assets
 app.use('/css', express.static(path.resolve(__dirname,"assets/css")))

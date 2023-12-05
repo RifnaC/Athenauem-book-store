@@ -16,11 +16,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         required: true,
     },
-    token:String,
-    role: { 
-        type: String, 
-        default: 'user' 
-    }
+    status:{
+        type: String,
+        default: 'active',
+    },
 })
 
 const user = mongoose.model('users', userSchema);

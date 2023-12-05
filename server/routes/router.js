@@ -63,7 +63,6 @@ route.get("/editShop",auth.authMiddleware, services.edit_Shop)
 route.post('/api/shops',auth.authMiddleware, shopController.create);
 route.get('/api/shops',shopController.find);
 route.get ('/books', auth.authMiddleware,  services.shopDetails);
-// route.get('/api/shops/:id',shopController.findById);
 route.put('/api/shops/:id',auth.authMiddleware, shopController.update);
 route.delete('/api/shops/:id',auth.authMiddleware, shopController.delete)
 
@@ -146,8 +145,7 @@ route.get('/api/banner', bannerController.find);
 route.put('/api/banner/:id',auth.authMiddleware, bannerController.update);
 route.delete('/api/banner/:id',auth.authMiddleware, bannerController.delete);
 
-
-route.get("/offers",  );
+route.get('/user',auth.authMiddleware, services.user)
 
 
 module.exports = route

@@ -33,7 +33,8 @@ exports.register = async(req, res) => {
         const user = new userCollection({
             name: req.body.name,
             email: req.body.email,                
-            password:  hashedPassword
+            password:  hashedPassword,
+            status: req.body.status,
         });
         const token = signToken(user._id);
         // save user in database
@@ -51,9 +52,7 @@ exports.register = async(req, res) => {
 //login section
 exports.login = async(req, res) => {
     try{
-        const user = await userCollection.findOne({
-            email: req.body.email
-        });
+        const user = await userCollection.findOne({email: req.body.email});
         const admin = await adminCollection.findOne({email:req.body.email});
         if(!user && !admin){
             res.status(404).send({message: "This email is not found."})
@@ -68,15 +67,19 @@ exports.login = async(req, res) => {
             id: (user || admin).id,
             email: (user || admin).email,
             isSuperAdmin: admin ? admin.isSuperAdmin:false,
-            name: (user || admin).name
+            name: (user || admin).name,
+            status: (user || admin).status
         };
         const token = signToken((user || admin)._id, data);
-        // console.log(token)
         req.session.token = token;
         if (admin) {
             res.redirect('/dashboard');
         } else {
+           if(user.status === 'block'){
+            res.render('login',{Blocked: true});
+           }else{
             res.redirect('/home');
+           }
         }
     }catch (e) {
         console.error(e);
