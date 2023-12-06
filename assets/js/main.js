@@ -1542,7 +1542,7 @@ function offerValidation () {
   }
   return true;
 }
-// Add 2new coupon
+// Add new coupon
 $("#addCoupon").submit(function (event) {
   if (!offerValidation()) {
     event.preventDefault();
@@ -1652,13 +1652,13 @@ $("#editCoupon").submit(function (event) {
 });
 
 //delete admin
-if (window.location.pathname === "/admin") {
+if (window.location.pathname === "/offer") {
   $(document).on("click", ".table tbody td a.delete", function (event) {
     event.preventDefault();
     const id = $(this).attr('data-id');
     const request = {
-      "url": `http://localhost:3000/api/admins/${id}`,
-      "method": "DELETE"
+      "url": `http://localhost:3000/coupon/${id}`,
+      "method": "DELETE",
     };
     Swal.fire({
       title: 'Atheneuam',
