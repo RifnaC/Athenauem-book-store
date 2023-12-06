@@ -1286,6 +1286,7 @@
     }
   })
 
+// pagination 
   $(document).ready(function () {
     $('#categoryTable').DataTable({
         "paging": true,
@@ -1491,6 +1492,210 @@ if (window.location.pathname === "/user") {
       });
   })
 }
+// ***********************Offer CRUD Section*******************************
+// add offer
+function offerValidation () {
+  let couponCode = document.forms["addCoupon"]["couponCode"].value;
+  let expireDate = document.forms["addCoupon"]["expireDate"].value;
+  let discount = document.forms["addCoupon"]["discount"].value;
+
+  // Check if couponCode, expireDate and discount are not empty
+  if (!couponCode ) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text:'Please enter your coupon code!',
+      confirmButtonColor: '#15877C',
+    })
+    return false;
+  }
+  if (couponCode.length < 3) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Coupon Code should have at least 3 characters!',
+      confirmButtonColor: '#15877C',
+    })
+    return false;
+  }
+  if (couponCode !== couponCode.toUpperCase()) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Coupon Code Capital letters!',
+      confirmButtonColor: '#15877C',
+    })
+    return false;
+  }
+  if (!expireDate) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter expire date of the coupon!',
+      confirmButtonColor: '#15877C',
+    })
+    return false;
+  }
+  if (!discount) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter discount!',
+      confirmButtonColor: '#15877C',
+    })
+    return false;
+  }
+  return true;
+}
+// Add 2new coupon
+$("#addCoupon").submit(function (event) {
+  if (!offerValidation()) {
+    event.preventDefault();
+  } else {
+    Swal.fire({
+      icon: 'success',
+      title: 'Athenuam',
+      text: 'New coupon is created Successfully',
+      showConfirmButton: true,
+      confirmButtonColor: '#15877C',
+    })
+  }
+})
+// update admin
+$("#editCoupon").submit(function (event) {
+  event.preventDefault();
+  let unindexed_array = $(this).serializeArray();
+  let data = {};
+
+  $.map(unindexed_array, function (n, i) {
+    data[n['name']] = n['value'];
+  });
+  // Extract the coupon id from the form data
+  const couponId = data.id;
+  // Validation: Check if the coupon fields are empty
+  if (!data.couponCode) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your coupon code!',
+      confirmButtonColor: '#15877C',
+    })
+    return false;
+  }
+  if (data.couponCode.length < 3) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Coupon Code should have at least 3 characters!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (data.couponCode !== data.couponCode.toUpperCase()) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Coupon Code Capital letters!',
+      confirmButtonColor: '#15877C',
+    })
+    return;    
+  }
+  if (!data.expireDate) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter expire date of the coupon!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.discount) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter discount!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+
+  let request = {
+    "url": `http://localhost:3000/coupon/${couponId}`,
+    "method": "PUT",
+    "data": data
+  };
+  // Send the PUT request
+  $.ajax(request).done(function (response) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+      confirmButtonColor: '#15877C'
+    })
+      .then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Athenuam',
+            confirmButtonColor: '#15877C',
+            text: 'Data updated successfully',
+          }).then((result) => {
+              window.location.href = '/offer';
+            })
+        } else if (result.isDenied) {
+          Swal.fire({
+            icon: 'info',
+            title: 'Athenuam',
+            text: 'Changes are not saved',
+            confirmButtonColor: '#15877C',
+          })
+            .then((result) => {
+              window.location.href = '/offer';
+            })
+        }
+      })
+  });
+});
+
+//delete admin
+if (window.location.pathname === "/admin") {
+  $(document).on("click", ".table tbody td a.delete", function (event) {
+    event.preventDefault();
+    const id = $(this).attr('data-id');
+    const request = {
+      "url": `http://localhost:3000/api/admins/${id}`,
+      "method": "DELETE"
+    };
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Do you really want to delete this record?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'cancel',
+      confirmButtonColor: '#d33',
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // The user clicked the "Yes, delete it" button
+          $.ajax(request).done(function (response) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Atheneuam',
+              text: 'Data deleted Successfully',
+              confirmButtonColor: '#15877C'
+            }).then(() => {
+              location.reload(); 
+            });
+          });
+        } else {
+          // The user clicked the "cancel" button or closed the dialog
+          Swal.fire({
+            icon: 'info',
+            title: 'Atheneuam',
+            text: 'Action canceled',
+            confirmButtonColor: '#15877C'
+          });
+        }
+      });
+  })
+}
+
+// ***********************Chart Section*******************************
 // Chart Global Color
 Chart.defaults.color = "#6C7293";
 Chart.defaults.borderColor = "#ffffffff";

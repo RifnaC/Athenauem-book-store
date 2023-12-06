@@ -80,13 +80,13 @@
       <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary border rounded">
           <div class="m-4">
-            <form action="coupon" method="POST" id="uploadUser" onsubmit="return offerValidation()">
+            <form action="coupon" method="POST" id="addCoupon" onsubmit="return offerValidation()">
               <div>
                 <div class="form-group m-2">
-                  <label for="couponCode" class="text-light m-1">Name</label>
+                  <label for="couponCode" class="text-light m-1">Coupon Code</label>
                   <input type="hidden" name="id" value="">
                   <input type="text" class="form-control" name="couponCode" pattern="[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])" value=""
-                    placeholder="Name">
+                    placeholder="Coupon Code">
                 </div>
                 <div class="row ">
                     <div class="form-group col-4 m-1 mx-2">

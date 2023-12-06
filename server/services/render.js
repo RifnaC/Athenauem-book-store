@@ -6,6 +6,7 @@ const categoryCollection = require('../models/categoryModel');
 const productCollection  = require('../models/products');
 const user = require('../models/userModel');
 const Cart = require('../models/cartModel');
+const Coupon = require('../models/couponModel');
 // ***********************Admin Management********************************
 exports.homeRoutes = async(req, res)=>{
     if(!req.session.token){
@@ -231,18 +232,6 @@ exports.user= async(req, res)=>{
     res.render('user', {admin: name, users:user});
 }
 
-exports.edit_admin= async (req, res)=>{
-    const id = req.user.id;
-    const admin = await adminCollection.findById(id);
-    const name = admin.name.split(" ")[0];
-    axios.get('http://localhost:3000/users',{params:{id:req.query.id}})
-    .then(function(userData){
-        res.render('editUser',{user:userData.data, admin: name});
-    })
-    .catch(err => {
-        res.send(err);
-    })
-}
 
 exports.home= async(req, res)=>{
     try {
@@ -307,8 +296,7 @@ exports.updateOffer = async(req, res)=>{
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
-    
-    
-    res.render('coupon',{ admin: name});
+    const coupon = await Coupon.findById(req.query.id);
+    res.render('coupon', {offer:coupon, admin: name});
 }
 

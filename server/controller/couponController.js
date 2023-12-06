@@ -1,7 +1,7 @@
 const Coupon = require('../models/couponModel');
 const adminCollection = require('../models/model');
 const asyncHandler = require('express-async-handler');
-
+// create  coupon
 exports.createCoupon = asyncHandler(async (req, res) => {
     try{
         const { couponCode, expireDate, discount } = req.body;
@@ -13,11 +13,11 @@ exports.createCoupon = asyncHandler(async (req, res) => {
         await coupon.save();
         res.status(200).redirect('/offer');
     }catch(error){
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        throw new Error(error);
     }
 })
 
+// get coupon
 exports.getAllCoupon = asyncHandler(async (req, res) => {
     try {
         const id = req.user.id;
@@ -30,6 +30,7 @@ exports.getAllCoupon = asyncHandler(async (req, res) => {
     }
 });
 
+// Edit coupon
 exports.updateCoupon = asyncHandler(async (req, res) => {
     try{
         const coupons = await Coupon.find();
@@ -40,13 +41,17 @@ exports.updateCoupon = asyncHandler(async (req, res) => {
             discount
         }).then(coupon =>{
             res.status(200).render('offer', { offer:coupon});
-        })
+        });
+        console.log(coupon)
         
     }catch(error){
         throw new Error(error);
     }
 })
+// coupon editing form
 
+
+// Delete coupon
 exports.deleteCoupon = asyncHandler(async (req, res) => {
     try{
         await Coupon.findByIdAndDelete(req.params.id,);

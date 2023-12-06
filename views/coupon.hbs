@@ -109,10 +109,10 @@
                                 <form id="editCoupon">
                                     <div class="row mb-2">
                                         <div class="form-group">
-                                            <label for="name">Name</label>
+                                            <label for="couponCode">Coupon Code</label>
                                             <input type="hidden" name="id" value="{{offer._id}}">
-                                            <input type="text" name="name" class="form-control" id="name"
-                                                pattern="[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])" value="{{offer.couponCode}}">
+                                            <input type="text" name="couponCode" class="form-control" id="name"
+                                                pattern="[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])" value="{{offer.couponCode}}" placeholder="Coupon Code">
                                         </div>
                                     </div>
                                     <div class="row">

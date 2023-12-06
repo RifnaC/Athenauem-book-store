@@ -98,37 +98,14 @@
     <!-- Navbar End -->
     <!-- Button Start -->
     <div class="container-fluid pt-4 px-4">
-      <div class="d-flex justify-content-between ">
-        <h2 class="text-primary text-center ">Customers</h2>
+      <div class="d-flex justify-content-between">
+        <h2 class="text-primary text-center ">{{user.name}}</h2>
       </div>
       <div class="bg-secondary mb-5">
         <div class="row no-gutters">
           <div class="col-lg-12 col-xl-12">
-            <div class="card-body table-responsive pt-0 pb-5 mx-0 px-0">
-              <table id="categoryTable" class="table card-table text-center" style="width:100%">
-                <thead>
-                  <tr class="table-primary">
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {{#each users}}
-                  <tr>
-                    <td class="text-dark ">{{this.name}}</td>
-                    <td class="text-dark">{{this.email}}</td>
-                    <td class="text-dark">{{this.status}}</td>
-                    <td class="text-dark">
-                      <a href="editUser?id={{_id}}"><i class="bi bi-pencil-square mx-2"></i></a>
-                      <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger mx-2"></i></a>
-                      <a href="/userDetails?id={{_id}}"><i class="bi bi-eye-fill mx-1"></i></a>
-                    </td>
-                  </tr>
-                  {{/each}}
-                </tbody>
-              </table>
+            <div class="card-body pt-0 pb-5 mx-0 px-0">
+              
             </div>
           </div>
         </div>

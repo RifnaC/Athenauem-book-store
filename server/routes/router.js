@@ -151,7 +151,7 @@ route.get('/user',auth.authMiddleware, services.user)
 route.get("/editUser" ,auth.authMiddleware, user.editUser);
 route.put('/users/:id', auth.authMiddleware, user.update);
 route.delete('/users/:id', auth.authMiddleware, user.delete);
-route.get('/users', auth.authMiddleware, user.userDetails);
+route.get('/userDetails', auth.authMiddleware, user.userDetails);
 
 
 module.exports = route

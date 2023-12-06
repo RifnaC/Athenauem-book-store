@@ -20,7 +20,7 @@ exports.update = (req, res) => {
         res.status(500).send({message: "Error Update user information"})
     })
 }
-
+// Edit user information
 exports.editUser = async(req, res)=>{
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
@@ -29,6 +29,7 @@ exports.editUser = async(req, res)=>{
     res.render('editUser', {user:userData, admin: name});
 }
 
+// Delete customer information
 exports.delete = async(req, res)=>{
     const id = req.params.id;
     userCollection.findByIdAndDelete(id).then(data =>{
@@ -44,7 +45,14 @@ exports.delete = async(req, res)=>{
 
 }
 
-
+exports.userDetails = async(req, res)=>{
+    const id = req.user.id;
+    const admin = await adminCollection.findById(id);
+    const name = admin.name.split(" ")[0];
+    const userData = await userCollection.findById(req.query.id);
+    console.log(userData);
+    res.render('userDetails', {user:userData, admin: name});
+}
     
     
 
