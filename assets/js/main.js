@@ -107,8 +107,8 @@
         icon: 'success',
         title: 'Athenuam',
         text: 'New admin data is inserted Successfully',
-        showConfirmButton: false,
-        timer: 6000
+        showConfirmButton: true,
+        confirmButtonColor: '#15877C',
       })
     }
   })
@@ -171,6 +171,7 @@
             Swal.fire({
               icon: 'success',
               title: 'Athenuam',
+              confirmButtonColor: '#15877C',
               text: 'Data updated successfully',
             }).then((result) => {
                 window.location.href = '/admin';
@@ -180,6 +181,7 @@
               icon: 'info',
               title: 'Athenuam',
               text: 'Changes are not saved',
+              confirmButtonColor: '#15877C',
             })
               .then((result) => {
                 window.location.href = '/admin';
@@ -215,6 +217,7 @@
                 icon: 'success',
                 title: 'Atheneuam',
                 text: 'Data deleted Successfully',
+                confirmButtonColor: '#15877C'
               }).then(() => {
                 location.reload(); 
               });
@@ -225,6 +228,7 @@
               icon: 'info',
               title: 'Atheneuam',
               text: 'Action canceled',
+              confirmButtonColor: '#15877C'
             });
           }
         });
@@ -311,8 +315,8 @@
         icon: 'success',
         title: 'Atheneuam',
         text: 'New shop is added Successfully! ',
-        showConfirmButton: false,
-        timer: 6000,
+        showConfirmButton: true,
+        confirmButtonColor: '#15877C'
       })
     }
   })
@@ -1345,25 +1349,36 @@ function changeQty(cartId, productId, count, subTotal) {
   })
 }
 
+// radio button value
+$(document).ready(function() {
+  const selectedStatus = 'Active' || 'Block';
+  const selectedRadio = $(`input[name="status"][value="${selectedStatus}"]`);
+  selectedRadio.prop('checked', true);
+});
+
 
 // update customer
 $("#editUser").submit(function (event) {
   event.preventDefault();
-  let unindexed_array = $(this).serializeArray();
-  let data = {};
+  const formData = $(this).serializeArray();
+  const data = {};
 
-  $.map(unindexed_array, function (n, i) {
-    if ($('[name="' + n['name'] + '"]').is(':radio')) {
-      if ($('[name="' + n['name'] + '"]:checked').length > 0) {
-        data[n['name']] = $('[name="' + n['name'] + '"]:checked').val();
-      } else {
-          // Set a default value for radio buttons if none are checked
-        data[n['name']] = '';
+  $.each(formData, function () {
+    if (this.type === 'radio') {
+      const status =  $(`input[name="${this.name}"]`);
+      const selectedValues = [];
+      for(const radioValue of status){
+        if(radioValue.checked){
+          selectedValues.push(radioValue.value);
+        }
       }
+      data[this.name] =selectedValues;
+      
     } else {
-      data[n['name']] = n['value'];
-    }
+      data[this.name] = this.value;
+    } 
   });
+
   // Extract the customer's ID from the form data
   const userId = data.id;
   // Validation: Check if the name and email fields are empty
@@ -1414,6 +1429,7 @@ $("#editUser").submit(function (event) {
           Swal.fire({
             icon: 'success',
             title: 'Athenuam',
+            confirmButtonColor: '#15877C',
             text: 'Data updated successfully',
           }).then((result) => {
               window.location.href = '/user';
@@ -1432,6 +1448,49 @@ $("#editUser").submit(function (event) {
   });
 });
 
+// Delete the customer
+if (window.location.pathname === "/user") {
+  $(document).on("click", ".table tbody td a.delete", function (event) {
+    event.preventDefault();
+    const id = $(this).attr('data-id');
+    const request = {
+      "url": `http://localhost:3000/users/${id}`,
+      "method": "DELETE"
+    };
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Do you really want to delete this record?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'cancel',
+      confirmButtonColor: '#d33',
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // The user clicked the "Yes, delete it" button
+          $.ajax(request).done(function (response) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Atheneuam',
+              confirmButtonColor: '#15877C',
+              text: 'Data deleted Successfully',
+            }).then(() => {
+              location.reload(); 
+            });
+          });
+        } else {
+          // The user clicked the "cancel" button or closed the dialog
+          Swal.fire({
+            icon: 'info',
+            title: 'Atheneuam',
+            confirmButtonColor: '#15877C',
+            text: 'Action canceled',
+          });
+        }
+      });
+  })
+}
 // Chart Global Color
 Chart.defaults.color = "#6C7293";
 Chart.defaults.borderColor = "#ffffffff";
