@@ -8,25 +8,24 @@ const categoryController = require('../controller/categoryController');
 const bannerController = require('../controller/bannerController');
 const auth = require('../middlewares/authMiddleware')
 const user = require('../controller/userController');
-
 // ***********************Admin Management********************************
 /** 
  * @description Root Route
  * @method GET/
 */
-// route.get("/dashboard", services.homeRoutes)
 
+route.get('/dashboard', auth.authMiddleware, auth.isAdmin, services.homeRoutes);
 /** 
  * @description Admin Route
  * @method GET/
 */
-route.get("/admin" , auth.authMiddleware, services.admin)
+route.get("/admin" , auth.authMiddleware, auth.isAdmin, services.admin)
 
 /** 
  * @description Add Admin
  * @method GET/
 */
-route.get("/addAdmin" ,auth.authMiddleware, services.addedAdmin)
+route.get("/addAdmin" ,auth.authMiddleware,auth.isAdmin, services.addedAdmin)
 
 /** 
  * @description Update Admin
@@ -36,10 +35,10 @@ route.get("/editAdmin" ,auth.authMiddleware, services.edit_admin)
 
 // API
 
-route.post('/api/admins',auth.authMiddleware, controller.create);
+route.post('/api/admins',auth.authMiddleware, auth.isAdmin, controller.create);
 route.get('/api/admins', controller.find);
-route.put('/api/admins/:id',auth.authMiddleware, controller.update);
-route.delete('/api/admins/:id',auth.authMiddleware, controller.delete);
+route.put('/api/admins/:id',auth.authMiddleware, auth.isAdmin, controller.update);
+route.delete('/api/admins/:id',auth.authMiddleware,auth.isAdmin, controller.delete);
 
 // ***********************Shop Management********************************
 /** 
@@ -52,18 +51,18 @@ route.get('/shop',auth.authMiddleware, services.shop)
  * @description Add shop
  * @method GET/
 */
-route.get("/addShop",auth.authMiddleware, services.add_Shop)
+route.get("/addShop",auth.authMiddleware, auth.isVendor, services.add_Shop)
 
 /** 
  * @description Edit shop
  * @method GET/
 */
-route.get("/editShop",auth.authMiddleware, services.edit_Shop)
+route.get("/editShop",auth.authMiddleware, auth.isAdmin, services.edit_Shop)
 
 // API
-route.post('/api/shops',auth.authMiddleware, shopController.create);
+route.post('/api/shops',auth.authMiddleware, auth.isAdmin, shopController.create);
 route.get('/api/shops',shopController.find);
-route.get ('/books', auth.authMiddleware,  services.shopDetails);
+route.get ('/books', auth.authMiddleware, auth.isAdmin, services.shopDetails);
 route.put('/api/shops/:id',auth.authMiddleware, shopController.update);
 route.delete('/api/shops/:id',auth.authMiddleware, shopController.delete)
 
@@ -152,6 +151,9 @@ route.get("/editUser" ,auth.authMiddleware, user.editUser);
 route.put('/users/:id', auth.authMiddleware, user.update);
 route.delete('/users/:id', auth.authMiddleware, user.delete);
 route.get('/userDetails', auth.authMiddleware, user.userDetails);
+
+// Error page
+route.get('/error', services.error);
 
 
 module.exports = route

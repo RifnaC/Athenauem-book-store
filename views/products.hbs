@@ -59,7 +59,8 @@
             <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
             <a href="shop" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Shops</a>
             <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-            <a href="products" class="nav-item nav-link active" id="productSection"><i class="bi bi-book"></i>Products</a>
+            <a href="products" class="nav-item nav-link active" id="productSection"><i
+                class="bi bi-book"></i>Products</a>
             <a href="category" class="nav-item nav-link"><i class="bi bi-book"></i>Category</a>
             <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
             <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
@@ -87,23 +88,19 @@
         </h6>
         <div class="nav-item dropdown">
           <a href="" class="dropdown-item">
-            <h3><i class="bi bi-person text-dark"></i></h3>        
+            <h3><i class="bi bi-person text-dark"></i></h3>
           </a>
         </div>
         <div class="mt-2 text-primary">
           <p class="">{{admin}}</p>
-        </div> 
+        </div>
       </div>
     </nav>
     <!-- Navbar End -->
     <!-- Button Start -->
     <div class="container-fluid pt-4 px-4">
       <div class="d-flex justify-content-between ">
-        <h2 class="text-primary text-center ">Products{{shop.name}}</h2>
-        <div>
-          <a href="addProduct" class="btn btn-4 btn-outline-primary mx-2">add</a>
-          <a href="" class="btn btn-4 btn-outline-primary ">Import File</a>
-        </div>
+        <h2 class="text-primary text-center ">Products</h2>
       </div>
       <div class="bg-secondary mb-5">
         <div class="row no-gutters">
@@ -119,7 +116,6 @@
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Availability</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -132,10 +128,6 @@
                     <td class="text-dark">&#8377 {{this.price}}</td>
                     <td class="text-dark">{{this.quantity}}</td>
                     <td class="text-dark">{{this.stock}}</td>
-                    <td class="text-dark">
-                      <a href="editProduct?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
-                      <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
-                    </td>
                   </tr>
                   {{/each}}
                 </tbody>

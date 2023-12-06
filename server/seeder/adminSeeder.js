@@ -12,7 +12,7 @@ const superAdmin = async() => {
                 name: 'Rishad',
                 email: 'admin@admin.com',
                 password: password,
-                isSuperAdmin: true,
+                role: 'admin',
             })
             console.log('Super Admin created successfully')
         }

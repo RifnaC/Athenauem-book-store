@@ -602,10 +602,9 @@
     } else {
       Swal.fire({
         icon: 'success',
-
-        title: 'New Book is added Successfully',
-        showConfirmButton: false,
-        timer: 6000
+        title: 'Atheneaum',
+        text: 'New Book is added Successfully',
+        showConfirmColor: '#15877C', 
       })
     }
   })
@@ -621,42 +620,48 @@
     // Validation
     if (!formData.get('bookName')) {
       Swal.fire({
-        title: 'Please enter the book name',
-        confirmButtonColor: '#15877C'
+        title: 'Athenuam',
+        text: 'Please enter book name!',
+        confirmButtonColor: '#15877C',
       })
       return;
     }
     if (formData.get('bookName').length < 4) {
       Swal.fire({
-        title: 'The book name should be at least 4 characters',
-        confirmButtonColor: '#15877C'
+        title: 'Athenuam',
+        text: ' The book name should be at least 4 characters',
+        confirmButtonColor: '#15877C',
       })
       return;
     }
     if (!formData.get('author')) {
       Swal.fire({
-        title: 'Please enter Author of the book!',
+        title: 'Athenuam',
+        text: 'Please enter Author of the book!',
         confirmButtonColor: '#15877C'
       })
       return;
     }
-    if (formData.get('author').length < 4) {
+    if (formData.get('author').length < 3) {
       Swal.fire({
-        title: 'The Author should be at least 4 characters',
+        title:'Athenuam',
+        text: 'The Author should be at least 3 characters',
         confirmButtonColor: '#15877C'
       })
       return;
     } 
     if (!formData.get('description')) {
       Swal.fire({
-        title: "Please enter the description of the book",
+        title: 'Athenuam',
+        text: "Please enter the description of the book",
         confirmButtonColor: '#15877C'
       })
       return;
     }
     if(!formData.get('originalPrice')){
       Swal.fire({
-        title: "Please enter the original price of the book",
+        title: 'Athenuam',
+        text: "Please enter the original price of the book",
         confirmButtonColor: '#15877C'
       })
       return;
@@ -664,21 +669,24 @@
     }
     if(!formData.get('discount')){
       Swal.fire({
-        title: "Please enter the discount of the book",
+        title: 'Athenuam',
+        text: "Please enter the discount of the book",
         confirmButtonColor: '#15877C'
       })
       return;
     }
     if(!formData.get('stock')){
       Swal.fire({
-        title: "Please enter the stock of the book",
+        title: 'Athenuam',
+        text: "Please enter the stock of the book",
         confirmButtonColor: '#15877C'
       })
       return;
     }
     if (!formData.get('price')) {
       Swal.fire({
-        title: "Please enter the price of the book!",
+        title: 'Athenuam',
+        text: "Please enter the price of the book!",
         confirmButtonColor: '#15877C'
       })
       return;
@@ -704,7 +712,12 @@
         .then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
-            Swal.fire('Saved!', 'Data updated successfully', 'success')
+            Swal.fire({
+              icon:'success', 
+              title: 'Atheneaum',
+              text: 'Data updated successfully',
+              confirmButtonColor: '#15877C'
+            })
               .then(() => {
                 if(!shopId){
                   window.location.href = '/products';
@@ -713,7 +726,11 @@
                 }
               })
           } else if (result.isDenied) {
-            Swal.fire('Changes are not saved', '', 'info')
+            Swal.fire({
+              icon:'info',
+              title:'Atheneuam',
+              text: 'Changes are not saved', 
+              confirmButtonColor:'#15877C' })
               .then(() => {
                 if(!shopId){
                   window.location.href = '/products';

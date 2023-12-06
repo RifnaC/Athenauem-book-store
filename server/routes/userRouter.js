@@ -4,7 +4,7 @@ const services = require('../services/render');
 const auth = require('../middlewares/authMiddleware');
 const cart = require('../controller/cartController');
 
-
+route.get('/home', services.home);
 
 route.get("/wishlist", services.wishlist);
 

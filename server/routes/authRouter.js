@@ -14,10 +14,7 @@ route.get('/logout', auth.logout);
 route.post('/api/auth/signup', auth.register);
 route.post('/login', auth.login);
 
-route.get('/home', services.home);
 
-// route.get('/home',authMid.authMiddleware, services.userHome)
-route.get('/dashboard', authMid.authMiddleware, services.homeRoutes);
 
 
 module.exports = route

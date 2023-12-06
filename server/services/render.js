@@ -279,7 +279,9 @@ exports.home= async(req, res)=>{
 exports.wishlist= (req, res)=>{
     res.render('wishlist');
 }
-
+exports.error = (req, res)=>{
+    res.render('error');
+}
 
 // exports.cart = (req, res)=>{
 //     const user = req.user;
