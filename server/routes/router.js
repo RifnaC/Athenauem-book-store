@@ -25,7 +25,7 @@ route.get("/admin" , auth.authMiddleware, auth.isAdmin, services.admin)
  * @description Add Admin
  * @method GET/
 */
-route.get("/addAdmin" ,auth.authMiddleware,auth.isAdmin, services.addedAdmin)
+route.get("/addAdmin" ,auth.authMiddleware, auth.isAdmin, services.addedAdmin)
 
 /** 
  * @description Update Admin
@@ -36,7 +36,7 @@ route.get("/editAdmin" ,auth.authMiddleware, services.edit_admin)
 // API
 
 route.post('/api/admins',auth.authMiddleware, controller.create);
-route.get('/api/admins',  auth.isAdmin, controller.find);
+route.get('/api/admins',  controller.find);
 route.put('/api/admins/:id',auth.authMiddleware, auth.isAdmin, controller.update);
 route.delete('/api/admins/:id',auth.authMiddleware,auth.isAdmin, controller.delete);
 
@@ -90,7 +90,7 @@ route.get('/products',auth.authMiddleware, auth.isAdmin, services.product)
 
 
 // route.post('/api/products', auth.authMiddleware, productController.create);
-// route.get('/api/products',productController.find);
+route.get('/api/products',productController.find);
 // route.put('/api/products/:id', auth.authMiddleware, productController.update);
 // route.delete('/api/products/:id', auth.authMiddleware, productController.delete)
 
@@ -117,7 +117,7 @@ route.get("/editCategory",auth.authMiddleware, auth.isAdmin, services.edit_categ
 
 
 route.post('/api/categories',auth.authMiddleware, categoryController.create);
-route.get('/api/categories',auth.isAdmin, categoryController.find);
+route.get('/api/categories', categoryController.find);
 route.put('/api/categories/:id', auth.authMiddleware, auth.isAdmin, categoryController.update);
 route.delete('/api/categories/:id', auth.authMiddleware, auth.isAdmin, categoryController.delete)
 

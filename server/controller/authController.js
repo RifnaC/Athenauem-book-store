@@ -66,7 +66,7 @@ exports.login = async(req, res) => {
         const data = {
             id: (user || admin).id,
             email: (user || admin).email,
-            role: admin ? admin.role : vendor,
+            role: admin ? admin.role : false,
             name: (user || admin).name,
             status: (user || admin).status
         };
