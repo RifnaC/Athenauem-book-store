@@ -21,9 +21,6 @@ exports.authMiddleware = async(req, res, next) => {
 }
 // Middleware to check if the user is an admin
 exports.isAdmin = (req, res, next) => {
-    console.log(req.user);
-    console.log(req.user.role);
-    
     if (req.user && req.user.role === 'admin') {
       return next();
     }else{

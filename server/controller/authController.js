@@ -8,8 +8,8 @@ const session = require('express-session');
 const JWT_SECRET = process.env.JWT_SECRET;
 // ***********************user Management********************************
 // Register and save new user
-const signToken = id => {
-    return jwt.sign({id}, JWT_SECRET, {expiresIn: process.env.JWT_EXPIRE});
+const signToken = (id,user)=> {
+    return jwt.sign({id,role: user.role}, JWT_SECRET, {expiresIn: process.env.JWT_EXPIRE});
 }
 
 exports.register = async(req, res) => {
@@ -66,12 +66,13 @@ exports.login = async(req, res) => {
         const data = {
             id: (user || admin).id,
             email: (user || admin).email,
-            isSuperAdmin: admin ? admin.isSuperAdmin:false,
+            role: admin ? admin.role : vendor,
             name: (user || admin).name,
             status: (user || admin).status
         };
         const token = signToken((user || admin)._id, data);
         req.session.token = token;
+        // console.log(token);
         if (admin) {
             res.redirect('/dashboard');
         } else {

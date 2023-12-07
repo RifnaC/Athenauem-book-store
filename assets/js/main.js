@@ -730,7 +730,7 @@
               icon:'info',
               title:'Atheneuam',
               text: 'Changes are not saved', 
-              confirmButtonColor:'#15877C' })
+              confirmButtonColor:'#15877C'})
               .then(() => {
                 if(!shopId){
                   window.location.href = '/products';
