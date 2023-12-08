@@ -18,7 +18,8 @@ const schema = new mongoose.Schema({
     },
     status:{
         type: String,
-        default: 'Active',
+        enum: ['Active', 'Pending', 'Block'],
+        default: 'Pending',
     },
     role: { 
         type: String, 

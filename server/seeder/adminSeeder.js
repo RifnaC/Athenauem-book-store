@@ -6,13 +6,14 @@ const saltRounds = 10;
 // seeding super-admin
 const superAdmin = async() => {
         const password = await bcrypt.hash('admin@22', saltRounds);
-        const admin = await Admindb.findOne({email:'admin@admin.com'})
+        const admin = await Admindb.findOne({email:'atheneuambookstore@gmail.com'})
         if(!admin){
             Admindb.create({
                 name: 'Rishad',
-                email: 'admin@admin.com',
+                email: 'atheneuambookstore@gmail.com',
                 password: password,
                 role: 'admin',
+                status: 'Active',
             })
             console.log('Super Admin created successfully')
         }

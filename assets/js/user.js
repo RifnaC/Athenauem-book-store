@@ -1,3 +1,4 @@
+
 Swal.fire({
     title: "Atheneuam",
     text: "This account is blocked. Please contact with admin.",
@@ -5,5 +6,6 @@ Swal.fire({
     confirmButtonColor: "#15877C"
 
 });
+
 
 

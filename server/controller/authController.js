@@ -76,7 +76,7 @@ exports.login = async(req, res) => {
         if (admin) {
             res.redirect('/dashboard');
         } else {
-           if(user.status === 'block'){
+           if(user.status === 'Block'){
             res.render('login',{Blocked: true});
            }else{
             res.redirect('/home');

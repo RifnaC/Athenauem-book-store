@@ -62,7 +62,7 @@ route.get("/editShop",auth.authMiddleware, auth.isVendor, services.edit_Shop)
 // API
 route.post('/api/shops', auth.authMiddleware, auth.isVendor, shopController.create);
 route.get('/api/shops', shopController.find);
-route.get ('/books', auth.authMiddleware, auth.isVendor, services.shopDetails);
+route.get ('/books', auth.authMiddleware, services.shopDetails);
 route.put('/api/shops/:id',auth.authMiddleware, auth.isVendor, shopController.update);
 route.delete('/api/shops/:id',auth.authMiddleware, auth.isAdmin,shopController.delete)
 
@@ -79,20 +79,20 @@ route.get('/products',auth.authMiddleware, auth.isAdmin, services.product)
 //  * @description Add product 
 //  * @method GET/
 // */
-// route.get("/addProduct",auth.authMiddleware, services.add_product)
+route.get("/addProduct",auth.authMiddleware, auth.isVendor, services.add_product)
 
 
 // /** 
 //  * @description Edit product 
 //  * @method GET/
 // */
-// route.get("/editProduct", auth.authMiddleware, services.edit_product)
+route.get("/editProduct", auth.authMiddleware, auth.isVendor, services.edit_product)
 
 
-// route.post('/api/products', auth.authMiddleware, productController.create);
+route.post('/api/products', auth.authMiddleware, auth.isVendor, productController.create);
 route.get('/api/products',productController.find);
-// route.put('/api/products/:id', auth.authMiddleware, productController.update);
-// route.delete('/api/products/:id', auth.authMiddleware, productController.delete)
+route.put('/api/products/:id', auth.authMiddleware, auth.isVendor, productController.update);
+route.delete('/api/products/:id', auth.authMiddleware, auth.isVendor, productController.delete)
 
 
 // ***********************Category Management********************************

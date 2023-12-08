@@ -13,29 +13,36 @@ exports.homeRoutes = async(req, res)=>{
         return res.render('home')
     }
     const id = req.user.id;
-    const admin = await adminCollection.findById(id);
-    const name = admin.name.split(" ")[0];
-    res.render('dashboard',{admin: name});
+    if( req.user.role === 'admin' ){
+        const admin = await adminCollection.findById(id);
+        const name = admin.name.split(" ")[0];
+        res.render('dashboard',{isAdmin:true, admin: name});
+    }
 }
 
 exports.admin= async (req, res)=>{
     const id = req.user.id;
-    const admin = await adminCollection.findById(id);
-    const name = admin.name.split(" ")[0];
-    axios.get('http://localhost:3000/api/admins')
-    .then(function (response) {
-        res.render('admin',{admins: response.data, admin: name});
-    })
-    .catch(err =>{
-        res.send(err);
-    } )
+    if(req.user.role === 'admin'){
+        const admin = await adminCollection.findById(id);
+        const name = admin.name.split(" ")[0];
+        const admins = await adminCollection.find({role: { $ne: 'admin' } });
+        axios.get('http://localhost:3000/api/admins')
+        .then(function () {
+            res.render('admin',{isAdmin: true, admins: admins, admin: name});
+        })
+        .catch(err =>{
+            res.send(err);
+        })
+    }
 }
 
 exports.addedAdmin = async (req, res)=> {
     const id = req.user.id;
-    const admin = await adminCollection.findById(id);
-    const name = admin.name.split(" ")[0];
-    res.render('addAdmin', {admin: name})
+    if(req.user.role === 'admin'){
+        const admin = await adminCollection.findById(id);
+        const name = admin.name.split(" ")[0];
+        res.render('addAdmin', {isAdmin: true, admin: name})
+    }
 };
 
 exports.edit_admin= async (req, res)=>{
@@ -44,7 +51,8 @@ exports.edit_admin= async (req, res)=>{
     const name = admin.name.split(" ")[0];
     axios.get('http://localhost:3000/api/admins',{params:{id:req.query.id}})
     .then(function(AdminData){
-        res.render('editAdmin',{admin:AdminData.data, admin: name});
+        console.log(AdminData.data);
+        res.render('editAdmin',{admins:AdminData.data , admin: name});
     })
     .catch(err => {
         res.send(err);
@@ -56,8 +64,11 @@ exports.shop = async(req, res)=>{
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
-     axios.get('http://localhost:3000/api/shops')
+    axios.get('http://localhost:3000/api/shops')
     .then(function (response) {
+        if(req.user.role === 'vendor'){
+            res.render('shop', {isVendor: true, shops: response.data, admin: name});
+        }
         res.render('shop', {shops: response.data, admin: name});
     })
     .catch(error=>{
@@ -88,22 +99,25 @@ exports.edit_Shop = async (req, res)=>{
 exports.shopDetails = async (req, res) => {
   try {
     const id = req.user.id;
-    const admin = await adminCollection.findById(id);
-    const name = admin.name.split(" ")[0];
-    const shopId = req.query.id;
-    const books = await productCollection.find({ shopId: {$eq: shopId} });
-
-    axios.get('http://localhost:3000/api/shops', { params: { id: req.query.id } })
-      .then(function (shopData) {
-        res.render('books', { shop: shopData.data, admin: name , books});
-      })
-      .catch(err => {
-        res.send(err);
-      });
-  } catch (error) {
-    console.error('Error in shopDetails:', error);
-    res.status(500).send({ message: 'Internal Server Error' });
-  }
+    
+        const admin = await adminCollection.findById(id);
+        const name = admin.name.split(" ")[0];
+        const shopId = req.query.id;
+        const books = await productCollection.find({ shopId: {$eq: shopId} });
+        axios.get('http://localhost:3000/api/shops', { params: { id: req.query.id } })
+        .then(function (shopData) {
+            if (req.user.role === 'vendor') {
+                res.render('books', { isVendor: true, shop: shopData.data, admin: name, books });
+            }
+            res.render('books', { shop: shopData.data, admin: name , books});
+        })
+        .catch(err => {
+            res.send(err);
+        }); 
+    }catch (error) {
+        console.error('Error in shopDetails:', error);
+        res.status(500).send({ message: 'Internal Server Error' });
+    }
 };
 
 
@@ -114,7 +128,10 @@ exports.product= async (req, res)=>{
     const name = admin.name.split(" ")[0];
     axios.get('http://localhost:3000/api/products')
     .then(function (response) {
-        res.render('products', {books: response.data , admin: name});
+        if (req.user.role !== 'admin') {
+            res.render('products', { isVendor:true, books: response.data , admin: name});
+        }
+        res.render('products', { books: response.data , admin: name});
     })
     .catch(error=>{
         res.status(500).send("<script>alert('Something Went Wrong'); window.location.href ='/addProduct';</script>");
@@ -126,7 +143,9 @@ exports.add_product = async (req, res)=>{
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
     const category = await categoryCollection.find();
-    res.render('addProduct', {admin: name, category});
+    if (req.user.role !== 'vendor'){
+        res.render('addProduct', { admin: name, category});
+    }
 }
 
 exports.edit_product = async (req, res)=>{
