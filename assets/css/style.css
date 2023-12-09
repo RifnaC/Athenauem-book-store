@@ -575,7 +575,49 @@ ul {
 button{
     border-radius: 0px;
 }
+  .search-bar-container {
+    display: flex;
+    align-items: start !important;
+    padding: 5px;
+    width: 240px;
+    height: 40px;
+    margin-top: 8px;
+    position: relative;
+    transition: width 1.5s;
+  }
+  
+  .magnifier {
+    width: 25px;
+    cursor: pointer;
+    position: absolute;
+    left: 12px;
+  }
 
+  
+  .input {
+    background-color: transparent;
+    border: none;
+    margin: 1px 40px;
+    width: 100%;
+    outline: none;
+    color: rgb(100, 100, 100);
+    transition: width 1s;
+    transition-delay: 0.5s;
+  }
+  
+  .active.search-bar-container {
+    width: 40px;
+  }
+
+  .active.space{
+    display: none;
+  }
+  
+  .active .input {
+    width: 0;
+  }
+
+  
 
 @media(max-width: 767px) {
 	.footer-col,  .testim-box {

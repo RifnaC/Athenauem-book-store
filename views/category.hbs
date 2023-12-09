@@ -103,17 +103,21 @@
         <div class="row no-gutters">
           <div class="col-lg-12 col-xl-12">
             <div class="card-body pt-0 pb-4 table-responsive px-0">
-              <div class="d-flex justify-content-end mt-1">
-                <a href="addCategory" id="addBtn" class="btn btn-4 btn-outline-primary ">add</a>
-              </div>
-              <table id="categoryTable" class="table card-table text-center" style="width:100%">
+              {{#if isVendor}}
+                <div class="d-flex justify-content-end mt-1">
+                  <a href="addCategory" id="addBtn" class="btn btn-4 btn-outline-primary ">add</a>
+                </div>
+              {{/if}}
+              <table id="categoryTable" class="table card-table text-center pt-2" style="width:100%">
                 <thead>
                   <tr class="table-primary">
                     <th>Category Image</th>
                     <th>Categories </th>
                     <th>Total Books</th>
                     <th>Description</th>
-                    <th>Action</th>
+                    {{#if isAdmin}}
+                      <th>Action</th>
+                    {{/if}}
                   </tr>
                 </thead>
                 <tbody>
@@ -123,10 +127,12 @@
                     <td class="text-dark">{{this.genre}}</td>
                     <td class="text-dark">{{this.totalBooks}}</td>
                     <td class="text-dark">{{this.description}}</td>
-                    <td class="text-dark">
-                      <a href="editCategory?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
-                      <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
-                    </td>
+                    {{#if isAdmin}}
+                      <td class="text-dark">
+                        <a href="editCategory?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
+                        <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
+                      </td>
+                    {{/if}}
                   </tr>
                   {{/each}}
                 </tbody>

@@ -160,7 +160,6 @@ exports.edit_product = async (req, res)=>{
     .catch(err => {
         res.send(err);
     })
-    // res.render('editProduct');
 }
 
 // ***********************Category Management********************************
@@ -169,12 +168,14 @@ exports.category = async (req, res)=>{
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
     axios.get('http://localhost:3000/api/categories')
-    // console.log(response.data);
     .then(function (response) {
-        res.render('category', {categories: response.data, admin: name});
+        if(req.user.role === 'vendor'){
+            res.render('category', {isVendor: true, categories: response.data, admin: name});
+        }else{
+            res.render('category', {isAdmin: true, categories: response.data, admin: name});
+        }
     })
     .catch(error=>{
-        // console.error("An error occurred:", error);
         res.status(500).send("<script>alert('Something Went Wrong'); window.location.href ='/addCategory';</script>");
     });
     // res.render('category');
@@ -302,13 +303,9 @@ exports.error = (req, res)=>{
     res.render('error');
 }
 
-// exports.cart = (req, res)=>{
-//     const user = req.user;
-//     if(!user){
-//         res.redirect('/login');
-//     }
-//     res.render('cart');
-// }
+exports.profile = (req, res)=>{
+    res.render('profile');
+}
 exports.offers = (req, res)=>{
     res.render('offers');
 }

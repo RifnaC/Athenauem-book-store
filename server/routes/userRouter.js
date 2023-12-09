@@ -8,6 +8,8 @@ route.get('/home', services.home);
 
 route.get("/wishlist", services.wishlist);
 
+route.get("/profile", auth.authMiddleware, services.profile);
+
 // cart Routes
 route.get("/cart", auth.authMiddleware, cart.cartView);
 route.get("/carts/:id",  auth.authMiddleware, cart.addToCart);
