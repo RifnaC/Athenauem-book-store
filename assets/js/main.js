@@ -1668,7 +1668,7 @@ $("#editCoupon").submit(function (event) {
   });
 });
 
-//delete admin
+//delete offer
 if (window.location.pathname === "/offer") {
   $(document).on("click", ".table tbody td a.delete", function (event) {
     event.preventDefault();
@@ -1712,7 +1712,7 @@ if (window.location.pathname === "/offer") {
   })
 }
 
-// ***********************Chart Section*******************************
+// ***********************user profile Section*******************************
 $("#userProfile").submit(function (event) {
   event.preventDefault();
   let unindexed_array = $(this).serializeArray();
@@ -1721,8 +1721,10 @@ $("#userProfile").submit(function (event) {
   $.map(unindexed_array, function (n, i) {
     data[n['name']] = n['value'];
   });
-  // Extract the admin's ID from the form data
+
+  // Extract the user's ID from the form data
   const userId = data.id;
+ 
   // Validation: Check if the name and email fields are empty
   if (!data.name) {
     Swal.fire({
@@ -1750,10 +1752,11 @@ $("#userProfile").submit(function (event) {
   }
 
   let request = {
-    "url": `http://localhost:3000/profile/${userId}`,
+    "url": `http://localhost:8080/profile/${userId}`,
     "method": "PUT",
     "data": data
   };
+  alert(request)
   // Send the PUT request
   $.ajax(request).done(function (response) {
     Swal.fire({
@@ -1774,7 +1777,7 @@ $("#userProfile").submit(function (event) {
             confirmButtonColor: '#15877C',
             text: 'Data updated successfully',
           }).then((result) => {
-              window.location.href = '/admin';
+              window.location.href = '/profile';
             })
         } else if (result.isDenied) {
           Swal.fire({
@@ -1789,6 +1792,13 @@ $("#userProfile").submit(function (event) {
         }
       })
   });
+});
+
+// radio button value for gender
+$(document).ready(function() {
+  const selectedStatus = 'Male' || 'Female';
+  const selectedRadio = $(`input[name="gender"][value="${selectedStatus}"]`);
+  selectedRadio.prop('checked', true);
 });
 
 // ***********************Chart Section*******************************

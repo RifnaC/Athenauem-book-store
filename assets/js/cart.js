@@ -1,5 +1,3 @@
-
-
 // cart quantity 
 function changeQty(cartId, productId, count, subTotal) {
     $.ajax({
