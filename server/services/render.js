@@ -303,9 +303,7 @@ exports.error = (req, res)=>{
     res.render('error');
 }
 
-exports.profile = (req, res)=>{
-    res.render('profile');
-}
+
 exports.offers = (req, res)=>{
     res.render('offers');
 }

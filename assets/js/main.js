@@ -1713,6 +1713,85 @@ if (window.location.pathname === "/offer") {
 }
 
 // ***********************Chart Section*******************************
+$("#userProfile").submit(function (event) {
+  event.preventDefault();
+  let unindexed_array = $(this).serializeArray();
+  let data = {};
+
+  $.map(unindexed_array, function (n, i) {
+    data[n['name']] = n['value'];
+  });
+  // Extract the admin's ID from the form data
+  const userId = data.id;
+  // Validation: Check if the name and email fields are empty
+  if (!data.name) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Please enter the name!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (data.name.length < 4) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Name should be at least 4 characters',
+      confirmButtonColor: '#15877C',
+    });
+    return;
+  }
+  if (!data.email) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Please enter the name!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+
+  let request = {
+    "url": `http://localhost:3000/profile/${userId}`,
+    "method": "PUT",
+    "data": data
+  };
+  // Send the PUT request
+  $.ajax(request).done(function (response) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+      confirmButtonColor: '#15877C'
+    })
+      .then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Athenuam',
+            confirmButtonColor: '#15877C',
+            text: 'Data updated successfully',
+          }).then((result) => {
+              window.location.href = '/admin';
+            })
+        } else if (result.isDenied) {
+          Swal.fire({
+            icon: 'info',
+            title: 'Athenuam',
+            text: 'Changes are not saved',
+            confirmButtonColor: '#15877C',
+          })
+            .then((result) => {
+              window.location.href = '/admin';
+            })
+        }
+      })
+  });
+});
+
+// ***********************Chart Section*******************************
 // Chart Global Color
 Chart.defaults.color = "#6C7293";
 Chart.defaults.borderColor = "#ffffffff";

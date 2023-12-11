@@ -622,41 +622,47 @@ button{
 }
 
 .profile-button {
-    background: rgb(99, 39, 120);
+
     box-shadow: none;
-    border: none
+    border: none;
+
 }
 
 .profile-button:hover {
-    background: #682773
+    background: #15877C
 }
 
 .profile-button:focus {
-    background: #682773;
+    background: #1e3838;
     box-shadow: none
 }
 
 .profile-button:active {
-    background: #682773;
+    background: #1e3838;
     box-shadow: none
 }
 
 .back:hover {
-    color: #682773;
+    color: #1e3838;
     cursor: pointer
 }
 
 .labels {
-    font-size: 11px
+    font-size: 11px;
 }
 
 .add-experience:hover {
-    background: #BA68C8;
+    background: #1e3838;
     color: #fff;
     cursor: pointer;
-    border: solid 1px #BA68C8
+    border: solid 1px #15877C
 }
-  
+.edit{
+    cursor: pointer;
+}
+.addressCard{
+    outline: 1px solid #F5F5F5;
+}
 
 @media(max-width: 767px) {
 	.footer-col,  .testim-box {

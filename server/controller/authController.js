@@ -9,7 +9,8 @@ const JWT_SECRET = process.env.JWT_SECRET;
 // ***********************user Management********************************
 // Register and save new user
 const signToken = (id,user)=> {
-    return jwt.sign({id,role: user.role}, JWT_SECRET, {expiresIn: process.env.JWT_EXPIRE});
+    if(!user) return jwt.sign(id, JWT_SECRET, {expiresIn: process.env.JWT_EXPIRE});
+    else return jwt.sign({id,role:user.role}, JWT_SECRET, {expiresIn: process.env.JWT_EXPIRE});
 }
 
 exports.register = async(req, res) => {
@@ -34,9 +35,10 @@ exports.register = async(req, res) => {
             name: req.body.name,
             email: req.body.email,                
             password:  hashedPassword,
+            role: 'User',
             status: req.body.status,
         });
-        const token = signToken(user._id);
+        const token = signToken({id:user._id, role: user.role});
         // save user in database
         const savedUser = await user.save();
         if(token){
@@ -66,11 +68,11 @@ exports.login = async(req, res) => {
         const data = {
             id: (user || admin).id,
             email: (user || admin).email,
-            role: admin ? admin.role : false,
+            role: admin ? admin.role : 'User',
             name: (user || admin).name,
             status: (user || admin).status
         };
-        const token = signToken((user || admin)._id, data);
+        const token = signToken((user || admin)._id,data);
         req.session.token = token;
         // console.log(token);
         if (admin) {
