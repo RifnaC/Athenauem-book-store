@@ -16,3 +16,8 @@ exports.updateProfile = async(req, res)=>{
     });
 }
 
+
+exports.address = (req, res)=>{
+    res.render('address');
+
+}

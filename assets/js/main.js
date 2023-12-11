@@ -1756,7 +1756,6 @@ $("#userProfile").submit(function (event) {
     "method": "PUT",
     "data": data
   };
-  alert(request)
   // Send the PUT request
   $.ajax(request).done(function (response) {
     Swal.fire({
@@ -1796,9 +1795,13 @@ $("#userProfile").submit(function (event) {
 
 // radio button value for gender
 $(document).ready(function() {
-  const selectedStatus = 'Male' || 'Female';
+  const selectedStatus = document.querySelector('#gender').value;
   const selectedRadio = $(`input[name="gender"][value="${selectedStatus}"]`);
   selectedRadio.prop('checked', true);
+  if(selectedStatus === 'Female'){
+    document.querySelector("#profileImg").src = 'https://i.pinimg.com/564x/3f/4b/cd/3f4bcd8a42877276895c8faf702f5773.jpg';
+  }
+
 });
 
 // ***********************Chart Section*******************************

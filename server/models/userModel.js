@@ -30,8 +30,12 @@ const userSchema = new mongoose.Schema({
     },
     address:[
         {
-            type: String,
-            default: '',
+            phone:Number,
+            address:String,
+            city:String,
+            district:String,
+            state:String,
+            pincode:Number,
         }
     ],
 })

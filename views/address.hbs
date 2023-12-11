@@ -118,8 +118,8 @@
             <div class="row">
                 <div class="col-md-3 border-right bg-light">
                     <div class="d-flex  m-5 mb-0">
-                        <img class="rounded-circle" width="40px"  
-                            src="https://i.pinimg.com/564x/3f/4b/cd/3f4bcd8a42877276895c8faf702f5773.jpg">
+                        <img class="rounded-circle" width="40px" id="profileImg"
+                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                         <div class="d-flex  flex-column px-3">
                             <p class="text-black-50">Hello</p>
                             <div class="font-weight-bold fs-4">{{user.name}}</div>
@@ -145,37 +145,101 @@
                 </div>
                 <div class="col-md-9 border-right">
                     <div class="p-3 pb-0 py-5">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="text-right text-dark">Personal Information</h4>
-                            <a href="profiles?id={{user.id}}" class="edit">Edit</a>
-                        </div>
-                        <div class="row mt-2 profileEdit">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" placeholder="Name" value="{{user.name}}"
-                                    readonly>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" placeholder="Email " value="{{user.email}}"
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="mt-5 text-center ">
-                            <button class="btn btn-primary profile-button" type="button">Save
-                            </button>
-                        </div>
-                    </div>
-                    <div class="p-3 pb-0 py-0">
-                        <div class="d-flex mb-3">
-                            <h4 class="text-right text-dark">Address Manage</h4>
-                        </div>
-                        <a href="address" class="col-12 btn btn-light text-start" type="button">Add Address</a>
-                        <div class="d-flex card  addressCard my-3 col-12">
-                            <div class="card-body mt-0 ">
-                                <h5 class="card-title">Home</h5>
-                                <p class="card-text">1998 Wall Street 707, Washington DC, USA</p>
-                                <div class="d-flex justify-content-end">
-                                    <a href="address" class="mx-3"><i class="bi bi-pencil"></i></a>
-                                    <a href="address" class=""><i class="bi bi-trash"></i></a>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="d-flex justify-content-between">
+                                            <h2>Address</h2>
+                                            <button type="button" class="btn btn-primary" onclick="getUserLocation()">Use current location</button>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputFullName" class="labels">Full Name</label>
+                                            <div class="col-6 col-sm-10">
+                                                <input type="text" class="form-control" id="inputFullName"
+                                                    name="full-name" placeholder="Full Name">
+                                            </div>
+                                            <div class="col-6 col-sm-10">
+                                                <label for="Number" class="labels">Phone</label>
+                                                <input type="number" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone Number">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="address" class="labels">Address</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="userAddress"
+                                                    name="address" placeholder="Address">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="cityTown" class="labels">City /
+                                                Town</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="cityTown"
+                                                    name="city-town" placeholder="City / Town">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="districtRegion" class="labels">District/ Region</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="districtRegion"
+                                                    name="district-region"
+                                                    placeholder="State / Province / Region">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="pincode" class="labels">Zip / Postal
+                                                Code</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="pincode"
+                                                    name="zip-postal-code" placeholder="Zip / Postal Code">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="selectState" class="labels">State</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control" id="selectState" name="state">
+                                                    <option value="" selected="selected">Please select the state
+                                                    </option>
+                                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                    <option value="Assam">Assam</option>
+                                                    <option value="Bihar">Bihar</option>
+                                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                                    <option value="Goa">Goa</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                    <option value="Haryana">Haryana</option>
+                                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                    <option value="Jharkhand">Jharkhand</option>
+                                                    <option value="Karnataka">Karnataka</option>
+                                                    <option value="Kerala">Kerala</option>
+                                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                    <option value="Maharashtra">Maharashtra</option>
+                                                    <option value="Manipur">Manipur</option>
+                                                    <option value="Meghalaya">Meghalaya</option>
+                                                    <option value="Mizoram">Mizoram</option>
+                                                    <option value="Nagaland">Nagaland</option>
+                                                    <option value="Odisha">Odisha</option>
+                                                    <option value="Punjab">Punjab</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                    <option value="Sikkim">Sikkim</option>
+                                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                                    <option value="Telengana">Telangana</option>
+                                                    <option value="Tripura">Tripura</option>
+                                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                    <option value="Uttarakhand">Uttarakhand</option>
+                                                    <option value="West Bengal">West Bengal</option>
+                                                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -200,6 +264,7 @@
                     <div class="row mt-2 profileEdit">
                         <form id="userProfile">
                             <div class="col-md-6">
+                                <input type="hidden" name="id" value="{{user._id}}">
                                 <label class="labels" id="userName">Name</label>
                                 <input type="text" class="form-control" name="name" placeholder="Name"
                                     value="{{user.name}}">
@@ -209,8 +274,19 @@
                                 <input type="text" class="form-control" name="email" placeholder="Email "
                                     value="{{user.email}}">
                             </div>
-                            <div class="mt-5 text-center ">
-                                <button class="btn btn-primary profile-button" type="button">Save
+                            <div class="d-flex col-lg-6 mt-5 pt-2">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="male" value="Male">
+                                    <label class="form-check-label stockRadioBtn" for="Male">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="female"
+                                        value="Female">
+                                    <label class="form-check-label stockRadioBtn" for="Female">Female</label>
+                                </div>
+                            </div>
+                            <div class="mt-5 ">
+                                <button class="btn btn-primary profile-button" type="sumbit">Save
                                 </button>
                             </div>
                         </form>
@@ -293,6 +369,7 @@
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
     <script src="/js/search.js"></script>
+    <script src="/js/geolocation.js"></script>
 
 </body>
 

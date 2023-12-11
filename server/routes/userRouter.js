@@ -21,5 +21,6 @@ route.post("/removeItem", cart.deleteCartItem);
 // profile Routes
 route.get("/profile", auth.authMiddleware, user.profile);
 route.put("/profile/:id", auth.authMiddleware, user.updateProfile);
+route.get("/address", auth.authMiddleware, user.address);
 
 module.exports = route
