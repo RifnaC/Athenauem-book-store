@@ -161,9 +161,11 @@
                             </div>
                         </div>
                         <div class="d-flex col-lg-6 mt-5 pt-2">
-                            <div class="form-check form-check-inline" >
-                            <input class="form-check-input" type="radio" name="gender" id="gender" value="{{user.gender}}" disabled>
-                                <label class="form-check-label stockRadioBtn" for="{{user.gender}}">{{user.gender}}</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="gender"
+                                    value="{{user.gender}}" disabled>
+                                <label class="form-check-label stockRadioBtn"
+                                    for="{{user.gender}}">{{user.gender}}</label>
                             </div>
                         </div>
                     </div>
@@ -172,16 +174,18 @@
                             <h4 class="text-right text-dark">Address Manage</h4>
                         </div>
                         <a href="address" class="col-12 btn btn-light text-start" type="button">Add Address</a>
+                        {{#each userAddress}}
                         <div class="d-flex card  addressCard my-3 col-12">
                             <div class="card-body mt-0 ">
-                                <h5 class="card-title">Home</h5>
-                                <p class="card-text">1998 Wall Street 707, Washington DC, USA</p>
-                                <div class="d-flex justify-content-end">
-                                    <a href="address" class="mx-3"><i class="bi bi-pencil"></i></a>
-                                    <a href="address" class=""><i class="bi bi-trash"></i></a>
+                                <h5 class="card-title text-dark">{{fullName}}.</h5>
+                                <p class="card-text">{{this.address}}, {{this.district}}, {{this.state}}</p>
+                                <div class="d-flex addressFooter justify-content-end">
+                                    <a href="addresses?id={{this._id}}" class="mx-3"><i class="bi bi-pencil"></i></a>
+                                    <a href="" class="delete" data-id={{this._id}}><i class="bi bi-trash"></i></a>
                                 </div>
                             </div>
                         </div>
+                        {{/each}}
                     </div>
                 </div>
             </div>

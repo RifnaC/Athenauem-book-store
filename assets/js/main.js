@@ -1804,6 +1804,294 @@ $(document).ready(function() {
 
 });
 
+$("#userAddress").submit(function (event) {
+  event.preventDefault();
+  let unindexed_array = $(this).serializeArray();
+  let data = {};
+
+  $.map(unindexed_array, function (n, i) {
+    data[n['name']] = n['value'];
+  });
+  // Extract the admin's ID from the form data
+  const userId = data.id;
+  // Validation: Check if the name and email fields are empty
+  if (!data.fullName) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text:'Please enter your name!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (data.fullName.length < 3) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Name should have at least 3 characters!',
+      confirmButtonColor: '#15877C',
+    })
+    return 
+  }
+  if (!data.phone) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your phone Number!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (data.phone.length !==10  ) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter Valid Phone Number!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.address) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your  Address!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.city) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your City!',
+      confirmButtonColor: '#15877C',
+    })
+    return 
+  }
+  if (!data.district) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your District!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.state) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please select your State!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.pincode) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your Pincode!',
+      confirmButtonColor: '#15877C',
+    })
+    return ;
+  }
+  if (data.pincode.length !== 6) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter Valid Pincode!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  let request = {
+    "url": `http://localhost:8080/address/${userId}`,
+    "method": "PUT",
+    "data": data
+  };
+  // Send the PUT request
+  $.ajax(request).done(function (response) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Athenuam',
+        text: 'New Address data is inserted Successfully',
+        showConfirmButton: true,
+        confirmButtonColor: '#15877C',
+    }).then((result) => {
+      window.location.href = '/profile';
+    })
+  });
+});
+
+$("#userAddressEdit").submit(function (event) {
+  event.preventDefault();
+  let unindexed_array = $(this).serializeArray();
+  let data = {};
+
+  $.map(unindexed_array, function (n, i) {
+    data[n['name']] = n['value'];
+  });
+  // Extract the admin's ID from the form data
+  const addressId = data.id;
+  // Validation: Check if the name and email fields are empty
+  if (!data.fullName) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text:'Please enter your name!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (data.fullName.length < 3) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Name should have at least 3 characters!',
+      confirmButtonColor: '#15877C',
+    })
+    return 
+  }
+  if (!data.phone) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your phone Number!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (data.phone.length !==10  ) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter Valid Phone Number!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.address) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your  Address!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.city) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your City!',
+      confirmButtonColor: '#15877C',
+    })
+    return 
+  }
+  if (!data.district) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your District!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.state) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please select your State!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.pincode) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your Pincode!',
+      confirmButtonColor: '#15877C',
+    })
+    return ;
+  }
+  if (data.pincode.length !== 6) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter Valid Pincode!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+
+  let request = {
+    "url": `http://localhost:8080/addresses/${addressId}`,
+    "method": "PUT",
+    "data": data
+  };
+  // Send the PUT request
+  $.ajax(request).done(function (response) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+      confirmButtonColor: '#15877C'
+    })
+      .then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Athenuam',
+            confirmButtonColor: '#15877C',
+            text: 'Data updated successfully',
+          }).then((result) => {
+              window.location.href = '/profile';
+            })
+        } else if (result.isDenied) {
+          Swal.fire({
+            icon: 'info',
+            title: 'Athenuam',
+            text: 'Changes are not saved',
+            confirmButtonColor: '#15877C',
+          })
+            .then((result) => {
+              window.location.href = '/profile';
+            })
+        }
+      })
+  });
+});
+
+if (window.location.pathname === "/profile") {
+  $(document).on("click", ".addressCard card-body addressFooter a.delete", function (event) {
+    event.preventDefault();
+    const id = $(this).attr('data-id');
+    const request = {
+      "url": `http://localhost:8080/profile/${id}`,
+      "method": "PUT"
+    };
+    alert("Hello");
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Do you really want to delete this record?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'cancel',
+      confirmButtonColor: '#d33',
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // The user clicked the "Yes, delete it" button
+          $.ajax(request).done(function (response) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Atheneuam',
+              text: 'Data deleted Successfully',
+              confirmButtonColor: '#15877C'
+            }).then(() => {
+              location.reload(); 
+            });
+          });
+        } else {
+          // The user clicked the "cancel" button or closed the dialog
+          Swal.fire({
+            icon: 'info',
+            title: 'Atheneuam',
+            text: 'Action canceled',
+            confirmButtonColor: '#15877C'
+          });
+        }
+      });
+  })
+}
+
 // ***********************Chart Section*******************************
 // Chart Global Color
 Chart.defaults.color = "#6C7293";
