@@ -1,14 +1,17 @@
-const express = require('express')
+const express = require('express');
 const route = express.Router();
 const services = require('../services/render');
 const auth = require('../middlewares/authMiddleware');
 const cart = require('../controller/cartController');
 const user = require('../controller/userProfile');
 const userController = require('../controller/userController');
+const wishlistController = require('../controller/wishlistController');
 
 route.get('/home', services.home);
 
-route.get("/wishlist", services.wishlist);
+route.get("/wishlist",auth.authMiddleware, wishlistController.wishlist);
+route.get("/wishlist/:id",auth.authMiddleware, wishlistController.addToWishlist);
+route.post("/wishlists", wishlistController.deleteWishlistItem);
 
 
 

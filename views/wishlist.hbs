@@ -61,8 +61,8 @@
                 <div class="collapse navbar-collapse d-lg-flex justify-content-lg-between" id="navbarTogglerDemo02">
                     <div class="mx-lg-5 px-lg-5">
                         <ul class="navbar-nav mx-lg-5 me-auto mb-2 mb-lg-0 home-nav ">
-                            <li class="nav-item ">
-                                <a class="nav-link active" aria-current="page" href="home">Home</a>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link "  href="home">Home</a>
                             </li>
                             <li class="nav-item homeNav">
                                 <a class="nav-link" href="shop-page">Shop</a>
@@ -86,8 +86,8 @@
                                 </a>
 
                             </li>
-                            <li class="nav-item homeNav">
-                                <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
+                            <li class="nav-item ">
+                                <a class="nav-link text-primary" href="wishlist"><i class="bi bi-heart"></i></a>
                             </li>
                             <li class="nav-item homeNav">
                                 <div class="nav-item dropdown">
@@ -108,121 +108,68 @@
         </nav>
     </Header>
     <!-- Header End -->
-    <main class="bg-primaryLight">
-        <div class="container-fluid">
-            <h1 class="text-primary">Wishlist</h1>
-        </div>
+    <main class="bg-light">
         <div class="py-3 py-md-5 bg-light">
             <div class="container">
-
+                <div class="text-center  mt-5">
+                    <h1 class="text-primary">Wishlist</h1>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="shopping-cart">
                             <div class="cart-header d-none d-sm-none d-mb-block d-lg-block">
-                                <div class="row">
+                                <div class="row bg-primary py-2 ">
+                                    <div class="col-md-1">
+                                        <h4></h4>
+                                    </div>
                                     <div class="col-md-6">
-                                        <h4>Products</h4>
+                                        <h4 class="text-dark">Products</h4>
                                     </div>
                                     <div class="col-md-2">
-                                        <h4>Price</h4>
+                                        <h4 class="text-dark">Price</h4>
                                     </div>
                                     <div class="col-md-2">
-                                        <h4>Quantity</h4>
+                                        <h4 class="text-dark">Quantity</h4>
                                     </div>
                                 </div>
                             </div>
+                            {{#each wishlistItems}}
                             <div class="cart-item">
                                 <div class="row">
+                                    <div class="col-md-1 my-auto  fs-5">
+                                        <a href="" class="remove ms-4"
+                                            onclick="return removeWishlistItem('{{this._id}}', '{{this.wishlistItem._id}}')"><i class="bi bi-x-circle"></i></a>
+                                    </div>
                                     <div class="col-md-6 my-auto">
                                         <a href="">
                                             <label class="product-name">
-                                                <img src="hp-laptop.jpg" style="width: 50px; height: 50px" alt="">
-                                                Hp Laptop
+                                                <img src={{this.wishlistItem.productImg}} style="width: 50px; height: 50px" alt="">
+                                                {{this.wishlistItem.bookName}}
                                             </label>
                                         </a>
                                     </div>
                                     <div class="col-md-2 my-auto">
-                                        <label class="price">$569 </label>
+                                        <label class="price">&#8377 {{this.wishlistItem.price}} </label>
                                     </div>
                                     <div class="col-md-2 col-7 my-auto">
                                         <div class="quantity">
                                             <div class="input-group">
-                                                <span class="btn btn1"><i class="fa fa-minus"></i></span>
-                                                <input type="text" value="1" class="input-quantity" />
-                                                <span class="btn btn1"><i class="fa fa-plus"></i></span>
+                                                <a href="/carts/{{this.wishlistItem._id}}">
+                                                    <div class="card-button">
+                                                        <b>Add to Cart</b>
+                                                    </div>
+                                                </a>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 col-5 my-auto">
-                                        <div class="remove">
-                                            <a href="" class="btn btn-danger btn-sm">
-                                                <i class="fa fa-trash"></i> Remove
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="cart-item">
-                                <div class="row">
-                                    <div class="col-md-6 my-auto">
-                                        <a href="">
-                                            <label class="product-name">
-                                                <img src="hp-laptop.jpg" style="width: 50px; height: 50px" alt="">
-                                                Hp Laptop
-                                            </label>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-2 my-auto">
-                                        <label class="price">$569 </label>
-                                    </div>
-                                    <div class="col-md-2 col-7 my-auto">
-                                        <div class="quantity">
-                                            <div class="input-group">
-                                                <span class="btn btn1"><i class="fa fa-minus"></i></span>
-                                                <input type="text" value="1" class="input-quantity" />
-                                                <span class="btn btn1"><i class="fa fa-plus"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 col-5 my-auto">
-                                        <div class="remove">
-                                            <a href="" class="btn btn-danger btn-sm">
-                                                <i class="fa fa-trash"></i> Remove
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="cart-item">
-                                <div class="row">
-                                    <div class="col-md-6 my-auto">
-                                        <a href="">
-                                            <label class="product-name">
-                                                <img src="hp-laptop.jpg" style="width: 50px; height: 50px" alt="">
-                                                Hp Laptop
-                                            </label>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-2 my-auto">
-                                        <label class="price">$569 </label>
-                                    </div>
-                                    <div class="col-md-2 col-7 my-auto">
-                                        <div class="quantity">
-                                            <div class="input-group">
-                                                <span class="btn btn1"><i class="fa fa-minus"></i></span>
-                                                <input type="text" value="1" class="input-quantity" />
-                                                <span class="btn btn1"><i class="fa fa-plus"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 col-5 my-auto">
-                                        <div class="remove">
-                                            <a href="" class="btn btn-danger btn-sm">
-                                                <i class="fa fa-trash"></i> Remove
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                            {{/each}}
+                            <div class="py-2 border">
+                               <div class="d-flex justify-content-between mx-5">
+                                    <a href="">Clear All</a>
+                                    <a href="" class="me-5 pe-5">Add All to cart</a>
+                               </div>
                             </div>
                         </div>
                     </div>
@@ -305,6 +252,7 @@
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
     <script src="/js/slider.js"></script>
+    <script src="/js/cart.js"></script>
 
 </body>
 

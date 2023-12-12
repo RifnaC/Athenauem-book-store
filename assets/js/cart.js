@@ -48,6 +48,29 @@ $(document).ready(() => {
 });
 
 
+function removeWishlistItem(wishlistId, productId) {
+    $.ajax({
+        url: '/wishlists',           
+        data: {
+            wishlistId: wishlistId,
+            productId: productId,
+        },
+        method: 'POST',
+        success: (data) => {                
+            if (data.success) {
+                Swal.fire({
+                    title:'Atheneuam',
+                    text:'Item removed successfully!',
+                    confirmButtonColor: '#15877C',
+                }).then(() => {
+                    window.location.reload();
+                })            
+            }
+        }
+    })
+}
+
+
 
 
 

@@ -120,8 +120,9 @@
                         <img class="rounded-circle" width="40px" id="profileImg"
                             src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                         <div class="d-flex  flex-column px-3">
-                            <p class="text-black-50">Hello</p>
-                            <div class="font-weight-bold fs-4">{{user.name}}</div>
+                            <input type="hidden" id="gender" value="{{user.gender}}">
+                            <p class="text-black-50 mb-0">Hello</p>
+                            <div class="font-weight-bold fs-5">{{user.name}}</div>
                         </div>
                     </div>
                     <hr>
@@ -146,7 +147,7 @@
                     <div class="p-3 pb-0 py-5">
                         <div class="container">
                             <div class="row">
-                                <div class="col-xs-12">
+                                <div class="col-12">
                                     <form class="form-horizontal" role="form" id="userAddressEdit">
                                         <div class="d-flex justify-content-between">
                                             <h2>Address</h2>
@@ -154,57 +155,49 @@
                                                 current location</button>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group d-flex">
                                             <input type="hidden" name="id" value={{userAddress._id}}>
-                                            <label for="inputFullName" class="labels">Full Name</label>
-                                            <div class="col-6 col-sm-10">
+                                            <div class="col-6 me-2">
+                                                 <label for="inputFullName" class="labels">Full Name</label>
                                                 <input type="text" class="form-control" id="inputFullName"
                                                     name="fullName" placeholder=" Name" value={{userAddress.fullName}}>
                                             </div>
-                                            <div class="col-6 col-sm-10">
+                                            <div class="col-6 ">
                                                 <label for="Number" class="labels">Phone</label>
                                                 <input type="number" class="form-control" id="phoneNumber" name="phone"
                                                     placeholder="Phone Number" value={{userAddress.phone}}>
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="address" class="labels">Address</label>
-                                            <div class="col-sm-10">
+                                        <div class="form-group d-flex">
+                                            <div class="col-6 me-2">
+                                                <label for="address" class="labels">Address</label>
                                                 <input type="text" class="form-control" id="userAddress" name="address"
                                                     placeholder="Address" value={{userAddress.address}}>
                                             </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="cityTown" class="labels">City /
-                                                Town</label>
-                                            <div class="col-sm-10">
+                                            <div class="col-6">
+                                                <label for="cityTown" class="labels">City / Town</label>
                                                 <input type="text" class="form-control" id="cityTown" name="city"
                                                     placeholder="City / Town" value="{{userAddress.city}}">
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="districtRegion" class="labels">District/ Region</label>
-                                            <div class="col-sm-10">
+                                        <div class="form-group d-flex">
+                                            <div class="col-6 me-2">
+                                                <label for="districtRegion" class="labels">District/ Region</label>
                                                 <input type="text" class="form-control" id="districtRegion"
                                                     name="district" placeholder="State / Province / Region" value="{{userAddress.district}}">
                                             </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="pincode" class="labels">Zip / Postal
-                                                Code</label>
-                                            <div class="col-sm-10">
+                                            <div class="col-6 ">
+                                                <label for="pincode" class="labels">Zip / Postal Code</label>
                                                 <input type="text" class="form-control" id="pincode" name="pincode"
                                                     placeholder="Zip / Postal Code" value="{{userAddress.pincode}}">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="selectState" class="labels">State</label>
-                                            <div class="col-sm-10">
+                                            <div class="col-12 ">
+                                                <label for="selectState" class="labels">State</label>
                                                 <select class="form-control" id="selectState" name="state">
                                                     <option value="{{userAddress.state}}" selected="selected">Please select the state
                                                     </option>

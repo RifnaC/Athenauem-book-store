@@ -2093,6 +2093,11 @@ if (window.location.pathname === "/profile") {
   })
 }
 
+// ***********************Wishlist Section*******************************
+$('.icon-wishlist').on('click', function(){
+  $(this).toggleClass('in-wishlist');
+});
+
 // ***********************Chart Section*******************************
 // Chart Global Color
 Chart.defaults.color = "#6C7293";

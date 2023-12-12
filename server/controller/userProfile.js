@@ -51,6 +51,7 @@ exports.editAddress = async(req, res)=>{
     const userAddress = user.addresses.find(address=> address._id == addressId);   
     res.render('addresses',{user, userAddress});
 }
+
 exports.updateAddress = async(req, res)=>{
     const id = req.user.id;
     const addressId = req.params.id;
