@@ -10,7 +10,7 @@ exports.profile = async(req, res)=>{
 exports.updateProfile = async(req, res)=>{
     const id = req.params.id;
     const user = await users.findByIdAndUpdate(id, req.body, {new: true});
-    user.save().then(()=>{
+    await user.save().then(()=>{
         res.render('profile');
     }).catch(err=>{
         console.log(err);
@@ -76,8 +76,7 @@ exports.deleteAddress = async(req, res)=>{
             _id:addressId
         }
     }});
-    console.log('hhhhhhhh')
-    newAddress.save().then(()=>{
+    await newAddress.save().then(()=>{
         res.render('profile');
     })
 }

@@ -7,17 +7,18 @@ const productCollection  = require('../models/products');
 const user = require('../models/userModel');
 const Cart = require('../models/cartModel');
 const Coupon = require('../models/couponModel');
+
 // ***********************Admin Management********************************
 exports.homeRoutes = async(req, res)=>{
     if(!req.session.token){
         return res.render('home')
     }
     const id = req.user.id;
-    if( req.user.role === 'admin' ){
+    
         const admin = await adminCollection.findById(id);
         const name = admin.name.split(" ")[0];
-        res.render('dashboard',{isAdmin:true, admin: name});
-    }
+        res.render('dashboard',{admin: name});
+    
 }
 
 exports.admin= async (req, res)=>{

@@ -70,12 +70,12 @@ exports.login = async(req, res) => {
             email: (user || admin).email,
             role: admin ? admin.role : 'User',
             name: (user || admin).name,
-            status: (user || admin).status
+            status: (user || admin).status,
         };
         const token = signToken((user || admin)._id,data);
         req.session.token = token;
         // console.log(token);
-        if (admin) {
+        if (data.role !== 'User') {
             res.redirect('/dashboard');
         } else {
            if(user.status === 'Block'){

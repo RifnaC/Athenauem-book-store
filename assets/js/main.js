@@ -1713,6 +1713,7 @@ if (window.location.pathname === "/offer") {
 }
 
 // ***********************user profile Section*******************************
+// updating the user profile
 $("#userProfile").submit(function (event) {
   event.preventDefault();
   let unindexed_array = $(this).serializeArray();
@@ -1752,7 +1753,7 @@ $("#userProfile").submit(function (event) {
   }
 
   let request = {
-    "url": `http://localhost:8080/profile/${userId}`,
+    "url": `http://localhost:8080/profiles/${userId}`,
     "method": "PUT",
     "data": data
   };
@@ -1803,7 +1804,7 @@ $(document).ready(function() {
   }
 
 });
-
+// updation for adding address
 $("#userAddress").submit(function (event) {
   event.preventDefault();
   let unindexed_array = $(this).serializeArray();
@@ -1914,6 +1915,7 @@ $("#userAddress").submit(function (event) {
   });
 });
 
+// updating address
 $("#userAddressEdit").submit(function (event) {
   event.preventDefault();
   let unindexed_array = $(this).serializeArray();
@@ -2049,14 +2051,13 @@ $("#userAddressEdit").submit(function (event) {
 });
 
 if (window.location.pathname === "/profile") {
-  $(document).on("click", ".addressCard card-body addressFooter a.delete", function (event) {
+  $(document).on("click", ".addressCard .card-body .addressFooter a.delete", function (event) {
     event.preventDefault();
     const id = $(this).attr('data-id');
     const request = {
       "url": `http://localhost:8080/profile/${id}`,
       "method": "PUT"
     };
-    alert("Hello");
     Swal.fire({
       title: 'Atheneuam',
       text: 'Do you really want to delete this record?',
