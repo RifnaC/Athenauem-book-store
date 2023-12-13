@@ -28,13 +28,11 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 
-
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/cart.css" rel="stylesheet">
 </head>
 
-<body class="bg-primaryLight">
+<body>
     <!-- Spinner Start -->
     <div id="spinner"
         class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -64,7 +62,7 @@
                     <div class="mx-lg-5 px-lg-5">
                         <ul class="navbar-nav mx-lg-5 me-auto mb-2 mb-lg-0 home-nav ">
                             <li class="nav-item homeNav">
-                                <a class="nav-link " href="home">Home</a>
+                                <a class="nav-link "  href="home">Home</a>
                             </li>
                             <li class="nav-item homeNav">
                                 <a class="nav-link" href="shop-page">Shop</a>
@@ -89,13 +87,14 @@
                                     <input type="text" class="input" placeholder="Search ..." />
                                 </div>
                             </li>
-                            <li class="nav-item space">
-                                <a class="nav-link active text-primary" aria-current="page" href="cart">
+                            <li class="nav-item homeNav space">
+                                <a class="nav-link" href="cart">
                                     <i class="bi bi-cart3"></i>
                                 </a>
+
                             </li>
-                            <li class="nav-item homeNav space">
-                                <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
+                            <li class="nav-item space">
+                                <a class="nav-link text-primary" href="wishlist"><i class="bi bi-heart"></i></a>
                             </li>
                             <li class="nav-item homeNav space">
                                 <div class="nav-item dropdown">
@@ -116,12 +115,11 @@
         </nav>
     </Header>
     <!-- Header End -->
-
-    <main class="bg-light">
+     <main class="bg-light">
         <div class="py-3 py-md-5 bg-light">
             <div class="container">
                 <div class="text-center  mt-5">
-                    <h1 class="text-primary">Cart</h1>
+                    <h1 class="text-primary">Wishlist</h1>
                 </div>
                 <div class="row">
                     <div class="col-md-12 ">
@@ -131,7 +129,7 @@
                                     <div class="col-md-1">
                                         <h4></h4>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-6">
                                         <h4 class="text-white">Products</h4>
                                     </div>
                                     <div class="col-md-2">
@@ -140,62 +138,48 @@
                                     <div class="col-md-2">
                                         <h4 class="text-white">Quantity</h4>
                                     </div>
-                                    <div class="col-md-2">
-                                        <h4 class="text-white">Sub Total</h4>
-                                    </div>
                                 </div>
                             </div>
-                            {{#each cartItems}}
+                            {{#each wishlistItems}}
                             <div class="cart-item">
                                 <div class="row">
                                     <div class="col-md-1 my-auto  fs-5">
                                         <a href="" class="remove ms-4"
-                                            onclick="return removeItem('{{this._id}}', '{{this.cartItem._id}}')"><i
-                                                class="bi bi-x-circle"></i></a>
+                                            onclick="return removeWishlistItem('{{this._id}}', '{{this.wishlistItem._id}}')"><i class="bi bi-x-circle"></i></a>
                                     </div>
-                                    <div class="col-md-5 my-auto">
+                                    <div class="col-md-6 my-auto">
                                         <a href="">
-                                            <label class="product-name d-flex">
-                                                <img src={{this.cartItem.productImg}} style="width: 80px; height: 80px"
-                                                    alt="">
-                                                <div class="d-flex flex-column ms-1 ">
-                                                    <div class="fs-5 text-dark">{{this.cartItem.bookName}}</div>
-                                                    <div class="fs-6 text-light">By {{this.cartItem.author}}</div>
+                                            <label class="product-name">
+                                                <img src={{this.wishlistItem.productImg}} style="width: 80px; height: 80px" alt="">
+                                                <div class="d-flex flex-column mx-1 ">
+                                                   <div class="fs-5 text-dark"> {{this.wishlistItem.bookName}}</div>
+                                                    <div class="fs-6 text-light">By {{this.wishlistItem.author}}</div>
                                                 </div>
                                             </label>
                                         </a>
                                     </div>
                                     <div class="col-md-2 my-auto">
-                                        <label class="price d-flex"><span class="me-1">&#8377</span> {{this.cartItem.price}}</label>
+                                        <label class="price">&#8377 {{this.wishlistItem.price}} </label>
                                     </div>
-                                    <div class="col-md-2 col-7 my-auto d-flex">
-                                        <div class="qty-container">
-                                            <button class="qty-btn-minus btn-primary"
-                                                onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',-1, -{{this.cartItem.price}})"
-                                                type="button" id="decBtn"><i class="fa fa-minus"></i>
-                                            </button>
-                                            <input type="text" name="qty" value="{{this.quantity}}" class="input-qty"
-                                                readonly />
-                                            <button class="qty-btn-plus btn-primary"
-                                                onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',1,  {{this.cartItem.price}})"
-                                                type="button"><i class="fa fa-plus"></i>
-                                            </button>
+                                    <div class="col-md-2 col-7 my-auto">
+                                        <div class="quantity">
+                                            <div class="input-group">
+                                                <a href="/carts/{{this.wishlistItem._id}}">
+                                                    <div class="card-button">
+                                                        <b>Add to Cart</b>
+                                                    </div>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2 my-auto ">
-                                        <label class="price d-flex"><span class="me-1">&#8377</span> {{this.subTotal}}</label>
                                     </div>
                                 </div>
                             </div>
                             {{/each}}
-                            <div class="py-2 my-2">
-                                <div class="d-flex justify-content-between  border" >
-                                    <h5 class="text-dark mt-2">
-                                        <span class="mx-3">Total Price:</span>
-                                        <span>&#8377 {{cartItems.totalPrice}}</span>
-                                        </h5>
-                                    <a href="/checkout" class="btn btn-outline-dark col-3">Proceed to Checkout</a>
-                                </div>
+                            <div class="py-2 border">
+                               <div class="d-flex justify-content-between mx-2">
+                                    <a href="/clearWishlist" class="btn btn-outline-dark" onclick="return clearWishlist()">Clear</a>
+                                    <a href="/wishlists" class="btn btn-outline-primary ">Add All to cart</a>
+                               </div>
                             </div>
                         </div>
                     </div>
@@ -204,14 +188,8 @@
             </div>
         </div>
     </main>
-
-  
-    </div>
-    </div>
-    </div>
-
-    </main>
-
+    
+    
 
     <footer class="footer pt-5 ">
         <div class="container row mx-5 ">
@@ -266,7 +244,6 @@
             <small>&copy; 2023 athenauem.Inc.All rights reserved</small>
         </div>
     </footer>
-
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -282,7 +259,9 @@
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
+    <script src="/js/slider.js"></script>
     <script src="/js/cart.js"></script>
+    <script src="/js/search.js"></script>
 
 </body>
 
