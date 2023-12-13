@@ -20,7 +20,9 @@ exports.addToCart = async(req, res) => {
                 items: [{ productId, quantity, subTotal}],
                 totalPrice: 0,
             });
-            cart.save();
+            await cart.save().then(()=>{
+                res.json(cart);
+            })
         }else{
             const productExist = cart.items.findIndex(items => items.productId == productId);
             if(productExist !== -1){
@@ -32,7 +34,9 @@ exports.addToCart = async(req, res) => {
                 const updateCart = await Cart.findOneAndUpdate({ userId }, {
                     $push:{items: {productId: productId, quantity: quantity, subTotal: subTotal}},
                 })
-                updateCart.save();
+                await updateCart.save().then(()=>{
+                    res.redirect('/cart');
+                })
             }
         }         
     } catch (error) {
@@ -88,15 +92,21 @@ exports.changeQuantity = async (req, res) => {
     let {cartId, productId, count, subTotal} = req.body;
     count = Number(count);
     subTotal = Number(subTotal)
-    
-    
     await Cart.findOneAndUpdate(
         {_id: new mongoose.Types.ObjectId(cartId),'items.productId':productId}, 
-        {$inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal}}
-    ).then(() => {
-        res.redirect('/cart');
-    }) 
-}
+        {
+            $inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal}
+        }
+    )
+    await Cart.updateMany(
+        { _id: new mongoose.Types.ObjectId(cartId) },
+        { $pull: { items: { quantity: { $lt: 1 } } } },
+      );
+    res.redirect('/cart')
+};
+    
+ 
+  
 
 exports.deleteCartItem = async (req, res) => {
     const { cartId, productId } = req.body;

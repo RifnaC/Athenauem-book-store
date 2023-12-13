@@ -20,7 +20,7 @@ exports.addToWishlist = async(req, res) => {
                 userId,
                 items: [{productId}],
             });
-            wishlist.save();
+            wishlist.save()
         }else{
             const productExist = wishlist.items.findIndex(items => items.productId == productId);
             if(productExist === -1){
@@ -78,8 +78,7 @@ exports.deleteWishlistItem = async (req, res) => {
             { $pull: { 'items': { productId: productId } } }
         );
         wishlist.save().then(() => {
-           
-            res.render('wishlist');
+            res.json({ success: true });
         });
     }catch (error) {
         console.error(error);
@@ -139,7 +138,7 @@ exports.clearWishlist = async (req, res) => {
         wishlist.items = [];
         await wishlist.save();
   
-        res.status(200).render('wishlist')
+        res.status(200).render('wishlist');
       } else {
         res.status(404).json({success: false});
       }

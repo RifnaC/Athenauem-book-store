@@ -1350,22 +1350,7 @@ $(function () {
   });
 });
 
-// cart quantity 
-function changeQty(cartId, productId, count, subTotal) {
-  $.ajax({
-    url:'/changeInQuantity',
-    data:{
-      cart: cartId,
-      product: productId,
-      count: count,
-      subTotal: subTotal,
-    },
-    method: 'POST',
-    success: (data) => {
-      alert(data)
-    }
-  })
-}
+
 
 // radio button value
 $(document).ready(function() {

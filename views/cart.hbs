@@ -132,16 +132,16 @@
                                         <h4></h4>
                                     </div>
                                     <div class="col-md-5">
-                                        <h4 class="text-dark">Products</h4>
+                                        <h4 class="text-white">Products</h4>
                                     </div>
                                     <div class="col-md-2">
-                                        <h4 class="text-dark">Price</h4>
+                                        <h4 class="text-white">Price</h4>
                                     </div>
                                     <div class="col-md-2">
-                                        <h4 class="text-dark">Quantity</h4>
+                                        <h4 class="text-white">Quantity</h4>
                                     </div>
                                     <div class="col-md-2">
-                                        <h4 class="text-dark">Sub Total</h4>
+                                        <h4 class="text-white">Sub Total</h4>
                                     </div>
                                 </div>
                             </div>
@@ -188,10 +188,13 @@
                                 </div>
                             </div>
                             {{/each}}
-                            <div class="py-2 border">
-                                <div class="d-flex justify-content-end mx-3">
-                                    <h5 class="text-dark me-4 mt-2">Total Price: &#8377 {{cartItems.totalPrice}}</h5>
-                                    <a href="/cart" class="btn btn-primary">Proceed to Checkout</a>
+                            <div class="py-2 my-2">
+                                <div class="d-flex justify-content-between  border" >
+                                    <h5 class="text-dark mt-2">
+                                        <span class="mx-3">Total Price:</span>
+                                        <span>&#8377 {{cartItems.totalPrice}}</span>
+                                        </h5>
+                                    <a href="/cart" class="btn btn-outline-dark col-3">Proceed to Checkout</a>
                                 </div>
                             </div>
                         </div>

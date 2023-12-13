@@ -14,6 +14,14 @@ function changeQty(cartId, productId, count, subTotal) {
       }
     })
 }
+function addToCart(){
+    Swal.fire({
+        icon:'success',
+        title:'Atheneuam',
+        text:'Item added to cart successfully!',
+        confirmButtonColor: '#15877C',
+    });
+}
 // Function to change cart quantity
 function removeItem(cartId, productId) {
     $.ajax({
@@ -36,16 +44,7 @@ function removeItem(cartId, productId) {
         }
     })
 }
-// disable the decrement button when the quantity is less than one
-$(document).ready(() => {
-    $('.input-qty').each(function() {
-        const quantity = parseInt($(this).val());
 
-        if (quantity <= 1) {
-            $(this).siblings('#decBtn').prop('disabled', true);
-        }
-    });
-});
 
 // remove item from the wishlist
 function removeWishlistItem(wishlistId, productId) {
@@ -71,7 +70,19 @@ function removeWishlistItem(wishlistId, productId) {
     })
 }
 
-
-
-
-
+function clearWishlist(){
+    $.ajax({
+        url: '/wishlist',
+        method: 'GET',
+        success: (data) => {
+            Swal.fire({
+                title:'Atheneuam',
+                text:'Wishlist cleared successfully!',
+                confirmButtonColor: '#15877C',
+            })
+            if (data.success) {
+                window.location.reload();
+            }
+        }
+    })
+}
