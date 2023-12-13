@@ -16,11 +16,15 @@ const schema = new mongoose.Schema({
         type:String,
         required: true,
     },
-    token:String,
+    status:{
+        type: String,
+        enum: ['Active', 'Pending', 'Block'],
+        default: 'Pending',
+    },
     role: { 
         type: String, 
-        enum: ['admin', 'superAdmin'], 
-        default: 'admin' 
+        enum: ['vendor', 'admin'], 
+        default: 'vendor' 
     }
 })
 

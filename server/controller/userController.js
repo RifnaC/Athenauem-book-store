@@ -1,51 +1,58 @@
 const { log } = require('handlebars');
 const userCollection = require('../models/userModel');
 const adminCollection = require('../models/model');
-// const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
-// const util = require('util');
-// const saltRounds = 10;
-// const JWT_SECRET = process.env.JWT_SECRET;
+const axios = require('axios');
 
 
-// exports.home = async (req, res) => {
-//     res.render('home');
-// }
+exports.update = (req, res) => {
+    if(!req.body){
+        return res.status(400).send({message:"Data to update can not be empty"})
+    }
+    const id = req.params.id;
+    userCollection.findByIdAndUpdate(id,  req.body, {new: true}).then(data =>{
+        if(!data){
+            return res.status(404).send({message:`User with ${id} is not found`})
+        }else{
+            res.send(data);
+        }
+    })
+    .catch(err => {
+        res.status(500).send({message: "Error Update user information"})
+    })
+}
+// Edit user information
+exports.editUser = async(req, res)=>{
+    const id = req.user.id;
+    const admin = await adminCollection.findById(id);
+    const name = admin.name.split(" ")[0];
+    const userData = await userCollection.findById(req.query.id);
+    res.render('editUser', {user:userData, admin: name});
+}
 
-// exports.authMiddleware = async(req, res, next) => {
-//      const token = req.session.token;
+// Delete customer information
+exports.delete = async(req, res)=>{
+    const id = req.params.id;
+    userCollection.findByIdAndDelete(id).then(data =>{
+        if(!data){
+            return res.status(404).send({message:`User with ${id} is not found`})
+        }else{
+            res.send({message:"User was deleted successfully"});
+        }
+    })
+    .catch(err => {
+        res.status(500).send({message: "Could not delete user with id=" + id})
+    })
 
-//     if (!token) {
-//         return res.redirect('/login');
-//     }
-//     jwt.verify(token, JWT_SECRET, (err, user) => {
-//         if (err) {
-//             console.error('Token Verification Error:', err);
-//             return res.redirect('/login');
-//         }
-//         req.user = user;
-//         next();
-//     });
-// }
+}
 
-// exports.dashboard = async (req, res) => {
-//         try {
-//             // Assuming user data is available in req.user or req.session.user
-//             const admin = await adminCollection.findOne({ where: { email: email } });
-//             console.log(admin)
-//             if (!admin) {
-//                 // Redirect to login if user data is not available
-//                 return res.redirect('/login');
-//             }
+exports.userDetails = async(req, res)=>{
+    const id = req.user.id;
+    const admin = await adminCollection.findById(id);
+    const name = admin.name.split(" ")[0];
+    const userData = await userCollection.findById(req.query.id);
+    console.log(userData);
+    res.render('userDetails', {user:userData, admin: name});
+}
     
-//             // Render the profile view and pass the user data
-//             res.render('dashboard', { admin });
-//         } catch (error) {
-//             console.error(error);
-//             res.status(500).send('Internal Server Error');
-//         }
     
-// }
-
-
 

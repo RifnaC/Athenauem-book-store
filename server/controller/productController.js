@@ -7,6 +7,7 @@ const path = require('path')
 const multer = require('multer');
 const { response } = require('express');
 const { error } = require('console');
+const mongoose = require('mongoose');
 
 // access multer middleware storage
 const storage = multer.diskStorage({
@@ -20,41 +21,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-exports.fetchShopDetails = async(shopId) => {
-  try {
-    const shop = await Shopdb.findById(shopId);      
-    return shop;
-  } catch (error) {
-    console.error('Error fetching shop details:', error);
-    throw error;
-  }
-};
-
-exports.renderShopDetails = async(req, res) =>{
-  const shopId = req.query.id;
-  const shopDetails = await this.fetchShopDetails(shopId);
-  res.render('products', {shop: shopDetails})
-};
-   
-// Function to fetch books for a shop by shop ID
-exports.fetchBooksForShop = async (shopId) => {
-  try {
-    const books = await Productdb.find({ shopId: shopId });
-    return books;
-  } catch (error) {
-    console.error('Error fetching books for shop:', error);
-    throw error;
-  }
-};
-
-// Function to render the products page
-exports.renderProducts = async (req, res) => {
-  const shopId = req.query.id;
-  const books = await this.fetchBooksForShop(shopId);
-  res.locals.books = books;
-  res.render('products');
-};
-
 // create and save new product
 exports.create = async (req, res) => {
   upload.single('productImg')(req, res, async(err) => {
@@ -66,7 +32,7 @@ exports.create = async (req, res) => {
       res.status(400).send({ message:'Content can not be empty' });
       return;
     }
-    const {bookName, genre, author, price, quantity, description} = req.body;
+    const {bookName, shopId, genre, author, price, quantity,description, originalPrice, discount, stock} = req.body;
     const productImg = req.file.path;
     cloudinary.uploader.upload(productImg,(cloudinaryErr, results) => {
       if (cloudinaryErr){
@@ -75,17 +41,26 @@ exports.create = async (req, res) => {
       }
       const product = new Productdb({
         bookName,
+        shopId, 
         genre, 
         author, 
-        price, 
-        quantity, 
-        description,
+        originalPrice, 
+        discount,
+        price: originalPrice - discount,
+        quantity,
+        description, 
+        stock,
         productImg: results.secure_url,
         cloudinaryId: results.public_id,
       });
       product.save()
       .then(savedProduct => {
-        res.redirect('/products');
+        if(!shopId) {
+          res.redirect('/products');
+        }
+        else{
+          res.redirect('/books?id='+shopId);
+        }
       })
       .catch(savedErr => {
         res.status(500).send({ message: savedErr.message});
@@ -163,10 +138,13 @@ exports.update = async (req, res) => {
       book.price = req.body.price || book.price;
       book.quantity = req.body.quantity || book.quantity;
       book.description = req.body.description || book.description;
-
+      book.shopId = req.body.shopId || book.shopId;
+      book.originalPrice = req.body.originalPrice || book.originalPrice;
+      book.discount = req.body.discount || book.discount;
+      book.stock = req.body.stock || book.stock; 
+      
       // Save the updated book to the database
-      await book.save();
-
+      await book.save()
       return res.status(200).json(book);
     } catch (err) {
       console.error(err);

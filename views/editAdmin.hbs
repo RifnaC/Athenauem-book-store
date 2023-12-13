@@ -59,10 +59,10 @@
                         <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
                         <a href="shop" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Shops</a>
                         <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-                        <a href="products" class="nav-item nav-link" id="productSection"><i class="bi bi-book"></i>Products</a>
+                        <a href="products" class="nav-item nav-link" id="productSection"><i
+                                class="bi bi-book"></i>Products</a>
                         <a href="category" class="nav-item nav-link"><i class="bi bi-box"></i>Category</a>
                         <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
-            
                         <a href="admin" class="nav-item nav-link active"><i class="bi bi-person"></i>Admin</a>
                         <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
                         <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
@@ -93,7 +93,9 @@
                             <h3><i class=" bi-person text-dark"></i>
                             </h3>
                         </a>
-
+                    </div>
+                    <div class="mt-2 text-primary">
+                        <p class="">{{admin}}</p>
                     </div>
                 </div>
             </nav>
@@ -112,22 +114,41 @@
                                     <div class="tab-pane fade show active" id="profile" role="tabpanel"
                                         aria-labelledby="settings-tab">
                                         <div class="tab-pane-content my-5">
-                                            <form  id="edit_admin">
+                                            <form id="edit_admin">
                                                 <div class="row mb-2">
                                                     <div class="form-group">
                                                         <label for="name">Name</label>
-                                                        <input type="hidden" name="id" value="{{admin._id}}">
+                                                        <input type="hidden" name="id" value="{{admins._id}}">
                                                         <input type="text" name="name" class="form-control" id="name"
                                                             pattern="[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])"
-                                                            value="{{admin.name}}">
+                                                            value="{{admins.name}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group mb-4">
                                                     <label for="email">Email</label>
                                                     <input type="email" name="email" class="form-control" id="email"
-                                                        value="{{admin.email}}">
+                                                        value="{{admins.email}}">
                                                 </div>
-                                                {{!-- <a href="changePswd">Reset password</a> --}}
+                                                <div class="d-flex col-lg-6 mt-5 pt-2" id="adminStatus">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input status" type="radio"
+                                                            name="status" id="Active" value="Active">
+                                                        <label class="form-check-label userStatusRadioBtn"
+                                                            for="Active">Active</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input status" type="radio"
+                                                            name="status" id="Block" value="Block">
+                                                        <label class="form-check-label userStatusRadioBtn"
+                                                            for="Block">Block</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input status" type="radio"
+                                                            name="status" id="Pending" value="Pending">
+                                                        <label class="form-check-label userStatusRadioBtn"
+                                                            for="Pending">Pending</label>
+                                                    </div>
+                                                </div>
                                                 <div class="d-flex justify-content-start mt-5">
                                                     <a href="admin" class="btn btn-outline-dark mx-3 ">Cancel</a>
                                                     <button type="submit"

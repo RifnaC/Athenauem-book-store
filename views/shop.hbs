@@ -31,6 +31,7 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
@@ -56,9 +57,10 @@
                         <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
                         <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
                         <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-                        <a href="products" class="nav-item nav-link" id="productSection"><i class="bi bi-book"></i>Products</a>
+                        <a href="products" class="nav-item nav-link" id="productSection"><i
+                                class="bi bi-book"></i>Products</a>
+                        <a href="category" class="nav-item nav-link"><i class="bi bi-box"></i>Category</a>
                         <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
-            
                         <a href="admin" class="nav-item nav-link "><i class="bi bi-person"></i>Admin</a>
                         <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
                         <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
@@ -84,46 +86,48 @@
                     </a>
                 </h6>
                 <div class="nav-item dropdown">
-                    <a href="profile" class="nav-link ">
-                        <h3>
-                            <i class=" bi-person text-dark"></i>
-                        </h3>
+                    <a href="" class="dropdown-item">
+                        <h3 class="m-2"><i class="bi bi-person text-dark"></i></h3>
                     </a>
+                </div>
+                <div class="mt-2 text-primary">
+                    <p class="">{{admin}}</p>
                 </div>
             </div>
         </nav>
         <!-- Navbar End -->
         <!-- Button Start -->
         <div class="container-fluid pt-4 px-4">
-            <div class="d-flex justify-content-between my-3"> 
+            <div class="d-flex justify-content-between my-3">
                 <h2 class="text-primary">Shops</h2>
-               <div>
-                     <a href="addShop" class="btn btn-4 btn-outline-primary ">Add new shop</a>
-               </div>
+                {{#if isVendor}}
+                <a href="addShop" class="btn btn-4 btn-outline-primary mx-2">add</a>
+                {{/if}}
             </div>
             <div class="bg-secondary border rounded">
                 <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 m-1 ">
                     {{#each shops}}
                     <div class="col p-3 bg-primaryLight m-3">
                         <div class="card">
-                            <img src="{{shopImg}}" id="shopImg" name="shopImg" class="card-img-top"
-                                alt="{{name}}">
+                            <img src="{{shopImg}}" id="shopImg" name="shopImg" class="card-img-top" alt="{{name}}">
                         </div>
                         <h5 class="text-primary my-3 text-center">{{name}}</h5>
                         <div class="text-secondary text-center fs-6">Opens: {{ openingTime}}</div>
                         <div class="text-secondary text-center fs-6">Closes: {{ closingTime}}</div>
                         <div class="text-dark text-center fs-6 fw-bold"><i class="bi bi-geo-alt"></i>{{address}}</div>
                         <div class="text-center shopCard my-2">
-                            <a href="editShop?id={{_id}}"><i class="bi bi-pencil-square me-3"></i></a>
-                            <a href="" class="delete x" data-id={{_id}}><i
+                            {{#if isVendor}}
+                                <a href="editShop?id={{_id}}"><i class="bi bi-pencil-square me-3"></i></a>
+                            {{/if}}
+                            <a href="" class="delete" data-id={{_id}}><i
                                     class="bi bi-trash-fill text-danger me-3"></i></a>
-                            <a href="/products?id={{_id}}"><i class="bi bi-eye-fill"></i></a>
+                            <a href="/books?id={{_id}}"><i class="bi bi-eye-fill"></i></a>
                         </div>
                     </div>
                     {{/each}}
                 </div>
 
-               
+
             </div>
         </div>
     </div>

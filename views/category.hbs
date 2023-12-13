@@ -30,6 +30,9 @@
 
   <!-- Template Stylesheet -->
   <link href="/css/style.css" rel="stylesheet">
+
+  <!-- Add these links in your HTML head section -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 </head>
 
 <body>
@@ -54,17 +57,17 @@
         <div class="navbar-nav w-100 d-flex ">
           <div>
             <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
-            <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
+            <a href="shop" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Shops</a>
             <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
             <a href="products" class="nav-item nav-link" id="productSection"><i class="bi bi-book"></i>Products</a>
-            <a href="category" class="nav-item nav-link"><i class="bi bi-box"></i>Category</a>
+            <a href="category" class="nav-item nav-link active"><i class="bi bi-box"></i>Category</a>
             <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
             <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
             <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
             <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
           </div>
           <div>
-           <a href="/logout" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
+            <a href="/logout" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
           </div>
         </div>
       </nav>
@@ -88,26 +91,33 @@
             </h3>
           </a>
         </div>
+        <div class="mt-2 text-primary">
+          <p class="">{{admin}}</p>
+        </div>
       </div>
     </nav>
     <!-- Navbar End -->
     <!-- Button Start -->
     <div class="container-fluid pt-4 px-4">
-      <div class="d-flex justify-content-end mb-3"> <a href="addCategory"
-                class="btn btn-4 btn-outline-primary ">add</a>
-            </div>
-      <div class="bg-secondary border rounded">
+      <div class="bg-secondary mb-4">
         <div class="row no-gutters">
           <div class="col-lg-12 col-xl-12">
             <div class="card-body pt-0 pb-4 table-responsive px-0">
-              <table class="table card-table text-center" style="width:100%">
+              {{#if isVendor}}
+                <div class="d-flex justify-content-end mt-1">
+                  <a href="addCategory" id="addBtn" class="btn btn-4 btn-outline-primary ">add</a>
+                </div>
+              {{/if}}
+              <table id="categoryTable" class="table card-table text-center pt-2" style="width:100%">
                 <thead>
                   <tr class="table-primary">
                     <th>Category Image</th>
                     <th>Categories </th>
                     <th>Total Books</th>
                     <th>Description</th>
-                    <th>Action</th>
+                    {{#if isAdmin}}
+                      <th>Action</th>
+                    {{/if}}
                   </tr>
                 </thead>
                 <tbody>
@@ -117,10 +127,12 @@
                     <td class="text-dark">{{this.genre}}</td>
                     <td class="text-dark">{{this.totalBooks}}</td>
                     <td class="text-dark">{{this.description}}</td>
-                    <td class="text-dark">
-                      <a href="editCategory?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
-                      <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
-                    </td>
+                    {{#if isAdmin}}
+                      <td class="text-dark">
+                        <a href="editCategory?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
+                        <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
+                      </td>
+                    {{/if}}
                   </tr>
                   {{/each}}
                 </tbody>
@@ -136,6 +148,8 @@
   <!-- JavaScript Libraries -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
   <script src="/lib/chart/chart.min.js"></script>
   <script src="/lib/easing/easing.min.js"></script>
   <script src="/lib/waypoints/waypoints.min.js"></script>

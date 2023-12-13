@@ -1,16 +1,6 @@
 const { log } = require('handlebars');
-const userCollection = require('../models/userModel');
-const adminCollection = require('../models/model');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const util = require('util');
-const saltRounds = 10;
 const JWT_SECRET = process.env.JWT_SECRET;
-
-
-exports.home = async (req, res) => {
-    res.render('home');
-}
 
 exports.authMiddleware = async(req, res, next) => {
     const token = req.session.token;
@@ -26,3 +16,21 @@ exports.authMiddleware = async(req, res, next) => {
         next();
     });
 }
+
+// Middleware to check if the user is an admin
+exports.isAdmin = (req, res, next) => {
+  if (req.user && req.user.role === 'admin') {
+    return next();
+  }else{
+        res.status(403).render('error', {adminAuthorization: true });
+    }
+    
+  };
+  
+  // Middleware to check if the user is a vendor
+  exports.isVendor = (req, res, next) => {
+    if (req.user && req.user.role === 'vendor') {
+      return next();
+    }
+    res.status(403).render('error',{ vendorAuthorization : true });
+  };

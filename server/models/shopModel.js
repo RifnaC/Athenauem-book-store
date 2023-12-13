@@ -19,9 +19,8 @@ const shopSchema = new mongoose.Schema({
     address:{
         type: String,
         required: true,
-    }
+    },
 })
-
 
 const Shopdb = mongoose.model('Shop', shopSchema);
 module.exports = Shopdb;

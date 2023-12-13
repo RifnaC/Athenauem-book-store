@@ -28,6 +28,10 @@ exports.create = async (req, res) => {
             return;
         }
         const { genre, totalBooks, description } = req.body
+        if (!req.file) {
+            res.status(400).send(`"<script>alert('Email already exists'); window.location.href ='/addCategory';</script>"`);
+            return;
+        }
         const categoryImg = req.file.path;
         cloudinary.uploader.upload(categoryImg, (cloudinaryErr, result) => {
             if (cloudinaryErr) {
@@ -52,6 +56,60 @@ exports.create = async (req, res) => {
 
     });
 };
+// exports.create = async (req, res) => {
+//     upload.single('categoryImg')(req, res, async (err) => {
+//         if (err) {
+//             res.status(500).send({ message: err.message });
+//             return;
+//         }
+
+//         if (!req.body) {
+//             res.status(400).send({ message: 'Content can not be empty' });
+//             return;
+//         }
+
+//         const { genre, totalBooks, description } = req.body;
+//         let categoryImg;
+
+//         // Check if an image file is provided
+//         if (req.file) {
+//             categoryImg = req.file.path;
+
+//             // Upload image to cloudinary
+//             cloudinary.uploader.upload(categoryImg, (cloudinaryErr, result) => {
+//                 if (cloudinaryErr) {
+//                     res.status(500).send({ message: cloudinaryErr.message });
+//                     return;
+//                 }
+
+//                 // Create category with image
+//                 createCategory(res, genre, totalBooks, description, result.secure_url, result.public_id);
+//             });
+//         } else {
+//             // Create category without image
+//             createCategory(res, genre, totalBooks, description, null, null);
+//         }
+//     });
+// };
+
+function createCategory(res, genre, totalBooks, description, imgUrl, cloudinaryId) {
+    const category = new genreCollection({
+        genre,
+        totalBooks,
+        description,
+        categoryImg: imgUrl,
+        cloudinaryId: cloudinaryId,
+    });
+
+    category.save()
+        .then(savedGenre => {
+            res.redirect('/category');
+        })
+        .catch(saveError => {
+            res.status(500).send({ message: saveError.message });
+        });
+}
+
 
 // retrieve and return all category or  retrieve and return a single category 
 exports.find = (req, res) => {
@@ -109,12 +167,16 @@ exports.update = async (req, res) => {
                 // Update the category image URL and Cloudinary ID
                 genre.categoryImg = result.secure_url;
                 genre.cloudinaryId = result.public_id;
+            }else{
+                genre.categoryImg = null;
+                genre.cloudinaryId = null;
             }
 
             // Update other category details based on your form data
             genre.genre = req.body.genre
             genre.totalBooks = req.body.totalBooks
             genre.description = req.body.description
+            
 
             // Save the category changes to the database
             const sg = await genre.save();

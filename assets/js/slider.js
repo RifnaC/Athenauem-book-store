@@ -22,7 +22,7 @@ function updateSliderArrowsStatus(
     }
   }
   
-  $(document).ready(function() {
+$(document).ready(function() {
     // Scroll products' slider left/right
     let div = $("#cards-container");
     let cardCount = $(div)
@@ -93,5 +93,7 @@ function updateSliderArrowsStatus(
         );
       }
     });
-  });
+});
+
+
   

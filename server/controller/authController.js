@@ -8,8 +8,9 @@ const session = require('express-session');
 const JWT_SECRET = process.env.JWT_SECRET;
 // ***********************user Management********************************
 // Register and save new user
-const signToken = id => {
-    return jwt.sign({id}, JWT_SECRET, {expiresIn: process.env.JWT_EXPIRE});
+const signToken = (id,user)=> {
+    if(!user) return jwt.sign(id, JWT_SECRET, {expiresIn: process.env.JWT_EXPIRE});
+    else return jwt.sign({id,role:user.role}, JWT_SECRET, {expiresIn: process.env.JWT_EXPIRE});
 }
 
 exports.register = async(req, res) => {
@@ -33,9 +34,11 @@ exports.register = async(req, res) => {
         const user = new userCollection({
             name: req.body.name,
             email: req.body.email,                
-            password:  hashedPassword
+            password:  hashedPassword,
+            role: 'User',
+            status: req.body.status,
         });
-        const token = signToken(user._id);
+        const token = signToken({id:user._id, role: user.role});
         // save user in database
         const savedUser = await user.save();
         if(token){
@@ -51,9 +54,7 @@ exports.register = async(req, res) => {
 //login section
 exports.login = async(req, res) => {
     try{
-        const user = await userCollection.findOne({
-            email: req.body.email
-        });
+        const user = await userCollection.findOne({email: req.body.email});
         const admin = await adminCollection.findOne({email:req.body.email});
         if(!user && !admin){
             res.status(404).send({message: "This email is not found."})
@@ -67,16 +68,21 @@ exports.login = async(req, res) => {
         const data = {
             id: (user || admin).id,
             email: (user || admin).email,
-            isSuperAdmin: admin ? admin.isSuperAdmin:false,
-            name: (user || admin).name
+            role: admin ? admin.role : 'User',
+            name: (user || admin).name,
+            status: (user || admin).status,
         };
-        const token = signToken((user || admin)._id, data);
-        // console.log(token)
+        const token = signToken((user || admin)._id,data);
         req.session.token = token;
-        if (admin) {
+        // console.log(token);
+        if (data.role !== 'User') {
             res.redirect('/dashboard');
         } else {
+           if(user.status === 'Block'){
+            res.render('login',{Blocked: true});
+           }else{
             res.redirect('/home');
+           }
         }
     }catch (e) {
         console.error(e);

@@ -67,7 +67,7 @@
           <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
         </div>
         <div>
-         <a href="/logout" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
+          <a href="/logout" class="nav-link" data-bs-toggle="dropdown"><i class="bi bi-box-arrow-right"></i>Logout</a>
 
         </div>
       </div>
@@ -92,6 +92,9 @@
             <h3><i class=" bi-person text-dark"></i></h3>
           </a>
         </div>
+        <div class="mt-2 text-primary">
+          <p>{{admin}}</p>
+        </div>
       </div>
     </nav>
     <!-- Navbar End -->
@@ -113,6 +116,7 @@
                           <tr class="table-primary">
                             <th>Name</th>
                             <th>Email</th>
+                            <th>status</th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -123,17 +127,21 @@
                               <a class="text-dark" href="">{{name}}</a>
                             </td>
                             <td class="text-dark">{{email}}</td>
-                            <td class="text-dark">
-                              <a href="editAdmin?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
-                              <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
-                            </td>
+                            <td class="text-dark">{{status}}</td>
+                              <td class="text-dark">
+                                  <a href="editAdmin?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
+                                  <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
+                              </td>
                           </tr>
                           {{/each}}
                         </tbody>
                       </table>
                     </div>
-                    <div class="d-flex justify-content-center"> <a href="addAdmin"
+                      {{#if isAdmin}}
+                       <div class="d-flex justify-content-center"> <a href="addAdmin"
                         class="btn btn-4 btn-outline-primary">add</a></div>
+                  </div>
+                      {{/if}}
                   </div>
                 </div>
               </div>
@@ -142,22 +150,21 @@
         </div>
       </div>
     </div>
-  </div>
-  <!-- Content End -->
+    <!-- Content End -->
 
-  <!-- JavaScript Libraries -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/lib/chart/chart.min.js"></script>
-  <script src="/lib/easing/easing.min.js"></script>
-  <script src="/lib/waypoints/waypoints.min.js"></script>
-  <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="/lib/tempusdominus/js/moment.min.js"></script>
-  <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
-  <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!-- Template Javascript -->
-  <script src="/js/main.js"></script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/chart/chart.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/waypoints/waypoints.min.js"></script>
+    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Template Javascript -->
+    <script src="/js/main.js"></script>
 </body>
 
 </html>

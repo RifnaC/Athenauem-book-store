@@ -68,7 +68,7 @@
                                 <a class="nav-link" href="shop-page">Shop</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="blog">Blog</a>
+                                <a class="nav-link" href="category">Category</a>
                             </li>
                             <li class="nav-item homeNav">
                                 <a class="nav-link" href="author">Author</a>
@@ -80,19 +80,27 @@
                     </div>
                     <div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
-                            <li class="nav-item homeNav">
-                                <a class="nav-link" href="cart">
-                                    <i class="bi bi-cart3"></i>
+                            <li>
+                                <div class="search-bar-container active" >
+                                    <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
+                                        alt="magnifier" class="magnifier" />
+                                    <input type="text" class="input" placeholder="Search ..." />
+                                </div>
+                            </li>
+                            <li class="nav-item homeNav space ">
+                                <a class="nav-link" href="/cart">
+                                    <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{count}}</sup>
                                 </a>
 
                             </li>
-                            <li class="nav-item homeNav">
+                            <li class="nav-item homeNav space ">
                                 <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
                             </li>
-                            <li class="nav-item homeNav">
+                            <li class="nav-item homeNav space ">
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link" data-bs-toggle="dropdown">
                                         <i class="bi bi-person"></i>
+                                        <div class="d-none d-lg-inline-flex text fs-5 display-6 ps-2">{{user}}</div>
                                     </a>
                                     <div
                                         class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
@@ -104,6 +112,8 @@
                         </ul>
                     </div>
                 </div>
+
+
             </div>
         </nav>
     </Header>
@@ -131,7 +141,8 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
-                    <button class="carousel-control twenty-one py-1 mx-5 my-5 " type="button" id="shopNow"><span class="mx-2 my-5">Shop
+                    <button class="carousel-control twenty-one py-1 mx-5 my-5 " type="button" id="shopNow"><span
+                            class="mx-2 my-5">Shop
                             Now</span></button>
                 </div>
             </div>
@@ -156,45 +167,20 @@
         </div>
         <div class="container mx-4 cardContainer">
             <div id="cards-container">
-                <div class="cards ">
+                <div class="cards row">
                     {{#each category}}
-                    <div class="cardCat">
+                    <div class="cardCat col-5">
                         <img src="{{this.categoryImg}}" alt="{{this.genre}} icon">
-                        <div class="containerCard">
+                        <div class="containerCard ">
                             <h4><b>{{this.genre}}</b></h4>
                         </div>
                     </div>
                     {{/each}}
-                    {{!-- <div class="cardCat">
-
-                        <div class="cardCat">
-                            <img src="/img/PinClipart.com_buddha-clipart_352860.png" alt="Spirituality icon">
-                            <div class="containerCard">
-                                <h4>
-                                    <b>Spirituality</b>
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="cardCat">
-                            <img src="/img/mystery.png" alt="mystery icon">
-                            <div class="containerCard">
-                                <h4>
-                                    <b>Mystery</b>
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="cardCat"> --}}
-                            {{!-- <img src="/img/man-sitting-and-reading-book.png" alt="self help icon">
-                            <div class="containerCard">
-                                <h4>
-                                    <b>Self Help</b>
-                                </h4>
-                            </div> --}}
-                            {{!--
-                        </div> --}}
-                    </div>
                 </div>
             </div>
+            <a id="exploreMoreBtn" class="load-more">Explore More <i class="bi bi-arrow-right"></i></a>
+            <a id="exploreLessBtn" class="load-less">Explore Less </a>
+        </div>
     </section>
     <!-- Category Section End -->
 
@@ -224,17 +210,21 @@
                         </div>
 
                         <div class="old-price text-center">
-                            &#8377 50.45
+                            &#8377 {{this.originalPrice}}
                         </div>
                         <div class="new-price text-center">
-                            &#8377 35.053455555
+                            &#8377 {{this.price}}
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between">
-                        <div class="card-button">
-                            <b>Add to Cart</b>
-                        </div>
-                         <a class="nav-link"><i class="bi bi-heart"></i></a>
+                        <a onclick="return addToCart()" href="/carts/{{this._id}}" >
+                            <div class="card-button">
+                                <b>Add to Cart</b>
+                            </div>
+                        </a>
+                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link">
+                             <div class="icon-wishlist"></div>
+                        </a>
                     </div>
                 </div>
                 {{/each}}
@@ -325,10 +315,10 @@
             <div class="footer-col pe-3">
                 <h4>My Account</h4>
                 <ul>
-                    <li><a href="#">Sign In</a></li>
-                    <li><a href="#">View Cart</a></li>
-                    <li><a href="#">My Wishlist</a></li>
-                    <li><a href="#">Help</a></li>
+                    <li><a href="login">Sign In</a></li>
+                    <li><a href="cart">View Cart</a></li>
+                    <li><a href="wishlist">My Wishlist</a></li>
+                    <li><a href="help">Help</a></li>
                 </ul>
             </div>
             <div class="footer-col ">
@@ -343,7 +333,7 @@
         </div>
         <hr>
         <div class="text-center pt-4">
-            <small >&copy; 2023 athenauem.Inc.All rights reserved</small>
+            <small>&copy; 2023 athenauem.Inc.All rights reserved</small>
         </div>
     </footer>
 
@@ -363,7 +353,8 @@
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
     <script src="/js/slider.js"></script>
-     <script src="/js/user.js"></script>
+    <script src="/js/search.js"></script>
+    
 
 </body>
 

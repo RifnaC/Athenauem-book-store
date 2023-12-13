@@ -1,11 +1,12 @@
 const { log } = require('handlebars');
 const Shopdb = require('../models/shopModel');
+const books = require('../models/products');
 const cloudinary = require('../services/cloudinary');
 const path = require('path')
 const multer = require('multer');
 const { request } = require('http');
 const { response } = require('express');
-
+const mongoose = require('mongoose');
 
 // access multer middleware storage
 const storage = multer.diskStorage({
@@ -44,17 +45,19 @@ exports.create = async (req, res) => {
         cloudinaryId: result.public_id,
         address,
       });
+      
       shop.save()
       .then(savedShop => {
         res.redirect('/shop');
-       })
+      })
       .catch(saveErr => {
         res.status(500).send({ message: saveErr.message });
       });
     });
   });
 };
-// retrieve and return all shop or  retrieve and return a single shop 
+
+// retrieve and return all shop or retrieve and return a single shop 
 exports.find = (req, res) => {
   if (req.query.id) {
     const id = req.query.id;
