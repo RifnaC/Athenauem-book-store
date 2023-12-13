@@ -14,7 +14,8 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
+        rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -81,16 +82,22 @@
                     </div>
                     <div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
-                            <li class="nav-item ">
+                            <li class="nav-item homeNav">
+                                <div class="search-bar-container active nav-link">
+                                    <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
+                                        alt="magnifier" class="magnifier" />
+                                    <input type="text" class="input" placeholder="Search ..." />
+                                </div>
+                            </li>
+                            <li class="nav-item space">
                                 <a class="nav-link active text-primary" aria-current="page" href="cart">
                                     <i class="bi bi-cart3"></i>
                                 </a>
-
                             </li>
-                            <li class="nav-item homeNav">
+                            <li class="nav-item homeNav space">
                                 <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
                             </li>
-                            <li class="nav-item homeNav">
+                            <li class="nav-item homeNav space">
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link" data-bs-toggle="dropdown">
                                         <i class="bi bi-person"></i>
@@ -109,103 +116,100 @@
         </nav>
     </Header>
     <!-- Header End -->
-    <main class="m-5">
-        <div class="container-fluid ">
-            <div class="row ">
-                <h1 class="text-primary my-5 text-center">Carts</h1>
-            </div>
-            <div class="row m-0">
-                <div class="col">
-                    <table class="table table-left fs-5 mx-3">
-                        <thead class="table-primary">
-                            <tr class="fs-5">
-                                <th></th>
-                                <th>Item</th>
-                                <th class="text-center">Price</th>
-                                <th class="text-center">Quantity</th>
-                                <th class="text-center">Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-danger">
-                            {{#each cartItems}}
-                            <tr>
-                                <td class=" align-middle">
-                                    <div class=" d-flex align-items-center justify-content-center fs-2">
-                                        <a href="" class="remove"  onclick="return removeItem('{{this._id}}', '{{this.cartItem._id}}')"><i class="bi bi-x-circle"></i></a>
+
+    <main class="bg-light">
+        <div class="py-3 py-md-5 bg-light">
+            <div class="container">
+                <div class="text-center  mt-5">
+                    <h1 class="text-primary">Cart</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="shopping-cart">
+                            <div class="cart-header d-block  d-mb-block d-lg-block">
+                                <div class="row bg-primary py-2 ">
+                                    <div class="col-md-1">
+                                        <h4></h4>
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="product-image d-flex me-3">
-                                        <img src="{{this.cartItem.productImg}}" alt="">
+                                    <div class="col-md-5">
+                                        <h4 class="text-dark">Products</h4>
                                     </div>
-                                    <h5 class="text-dark">{{this.cartItem.bookName}}</h5>
-                                </td>
-                                <td class="text-center"> &#8377 {{this.cartItem.price}}</td>
-                                <td class="text-center">
-                                    <div class="qty-container">
-                                        <button class="qty-btn-minus btn-primary"
-                                            onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',-1, -{{this.cartItem.price}})"
-                                            type="button" id="decBtn"><i class="fa fa-minus"></i>
-                                        </button>
-                                        <input type="text" name="qty" value="{{this.quantity}}" class="input-qty" readonly/>
-                                        <button class="qty-btn-plus btn-primary"
-                                            onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',1,  {{this.cartItem.price}})"
-                                            type="button" ><i class="fa fa-plus"></i>
-                                        </button>
+                                    <div class="col-md-2">
+                                        <h4 class="text-dark">Price</h4>
                                     </div>
-                                </td>
-                                <td class="text-center"> &#8377 {{this.subTotal}}</td>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                        <caption>
-                            <div class="bg-secondary d-flex CouponSection">
-                                <div class="d-flex m-2">
-                                    <h4 class="text-dark mx-3 my-1">Coupon: </h4>
-                                    <div class="mx-1">
-                                        <input type="text" class="form-control inputField">
+                                    <div class="col-md-2">
+                                        <h4 class="text-dark">Quantity</h4>
                                     </div>
-                                </div>
-                                <div class="d-flex m-2">
-                                    <a href="" class="btn btn-primary"> Apply</a>
+                                    <div class="col-md-2">
+                                        <h4 class="text-dark">Sub Total</h4>
+                                    </div>
                                 </div>
                             </div>
-                        </caption>
-                    </table>
+                            {{#each cartItems}}
+                            <div class="cart-item">
+                                <div class="row">
+                                    <div class="col-md-1 my-auto  fs-5">
+                                        <a href="" class="remove ms-4"
+                                            onclick="return removeItem('{{this._id}}', '{{this.cartItem._id}}')"><i
+                                                class="bi bi-x-circle"></i></a>
+                                    </div>
+                                    <div class="col-md-5 my-auto">
+                                        <a href="">
+                                            <label class="product-name d-flex">
+                                                <img src={{this.cartItem.productImg}} style="width: 80px; height: 80px"
+                                                    alt="">
+                                                <div class="d-flex flex-column ms-1 ">
+                                                    <div class="fs-5 text-dark">{{this.cartItem.bookName}}</div>
+                                                    <div class="fs-6 text-light">By {{this.cartItem.author}}</div>
+                                                </div>
+                                            </label>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 my-auto">
+                                        <label class="price d-flex"><span class="me-1">&#8377</span> {{this.cartItem.price}}</label>
+                                    </div>
+                                    <div class="col-md-2 col-7 my-auto d-flex">
+                                        <div class="qty-container">
+                                            <button class="qty-btn-minus btn-primary"
+                                                onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',-1, -{{this.cartItem.price}})"
+                                                type="button" id="decBtn"><i class="fa fa-minus"></i>
+                                            </button>
+                                            <input type="text" name="qty" value="{{this.quantity}}" class="input-qty"
+                                                readonly />
+                                            <button class="qty-btn-plus btn-primary"
+                                                onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',1,  {{this.cartItem.price}})"
+                                                type="button"><i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 my-auto ">
+                                        <label class="price d-flex"><span class="me-1">&#8377</span> {{this.subTotal}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/each}}
+                            <div class="py-2 border">
+                                <div class="d-flex justify-content-end mx-3">
+                                    <h5 class="text-dark me-4 mt-2">Total Price: &#8377 {{cartItems.totalPrice}}</h5>
+                                    <a href="/cart" class="btn btn-primary">Proceed to Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <table class="table table-right  table-borderless">
-                        <thead class="table-primary fs-5">
-                            <tr>
-                                <th class="">Cart Total</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-danger fs-5">
-                            <tr>
-                                <td>Subtotal</td>
-                                <td>&#8377 {{cartItems.totalPrice}}</td>
-                            </tr>
-                            <tr>
-                                <td> Discount</td>
-                                <td>&#8377 0</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr class="fs-4 bg-secondary text-dark">
-                                <td>Total</td>
-                                <td>&#8377 {{cartItems.totalPrice}}</td>
-                            </tr>
-                            <tr class="d-flex justify-content-end ">
-                               <td> <a href="/cart" class="btn btn-primary">Proceed to Checkout</a></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+
             </div>
         </div>
+    </main>
+
+  
+    </div>
+    </div>
+    </div>
 
     </main>
+
+
     <footer class="footer pt-5 ">
         <div class="container row mx-5 ">
             <a class="my-2" href="home">

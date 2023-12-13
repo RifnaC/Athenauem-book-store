@@ -5,6 +5,8 @@ const { category } = require('../services/render');
 const path = require('path');
 const mongoose = require('mongoose');
 const Cart = require('../models/cartModel');
+// const Swal = require('sweetalert2');
+
 // add to wishlist 
 exports.addToWishlist = async(req, res) => {
     const userId = req.user.id; 
@@ -69,18 +71,20 @@ exports.wishlist = async(req, res) => {
 }
 // delete wishlist item
 exports.deleteWishlistItem = async (req, res) => {
+    try{
         const { wishlistId, productId } = req.body;
-        try{
-            await Wishlist.findOneAndUpdate(
-                { _id: new mongoose.Types.ObjectId(wishlistId) },
-                { $pull: { 'items': { productId: productId } } }
-            ).then(() => {
-                res.json({ success: true });
-            })
-        }catch (error) {
-            console.error(error);
-            res.status(500).json({ success: false, error: 'Internal Server Error' });
-        }
+        const wishlist = await Wishlist.findOneAndUpdate(
+            { _id: new mongoose.Types.ObjectId(wishlistId) },
+            { $pull: { 'items': { productId: productId } } }
+        );
+        wishlist.save().then(() => {
+           
+            res.render('wishlist');
+        });
+    }catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
 }
 // add all items to cart
 exports.addAllToCart = async(req, res) => {
@@ -97,6 +101,7 @@ exports.addAllToCart = async(req, res) => {
                         items: products.map(product => ({
                             productId: product._id,
                             quantity: 1, 
+                            subTotal: product.price,
                         })),
                     });
                     await newCart.save();
@@ -107,6 +112,7 @@ exports.addAllToCart = async(req, res) => {
                         cart.items.push({   
                             productId: product._id,
                             quantity: 1, 
+                            subTotal: product.price,
                         });
                     }
                 } 

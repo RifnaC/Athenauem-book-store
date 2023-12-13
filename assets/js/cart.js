@@ -47,7 +47,7 @@ $(document).ready(() => {
     });
 });
 
-
+// remove item from the wishlist
 function removeWishlistItem(wishlistId, productId) {
     $.ajax({
         url: '/wishlists',           
@@ -55,15 +55,17 @@ function removeWishlistItem(wishlistId, productId) {
             wishlistId: wishlistId,
             productId: productId,
         },
-        method: 'POST',
-        success: (data) => {                
+        method: 'PUT',
+        success: (data) => { 
+            Swal.fire({
+                title:'Atheneuam',
+                text:'Item removed successfully!',
+                confirmButtonColor: '#15877C',
+            })               
             if (data.success) {
-                Swal.fire({
-                    title:'Atheneuam',
-                    text:'Item removed successfully!',
-                    confirmButtonColor: '#15877C',
-                })
-                          
+                setTimeout(() => {
+                    window.location.reload(); 
+                },4000) ;  
             }
         }
     })
