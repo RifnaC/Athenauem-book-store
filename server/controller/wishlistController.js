@@ -4,7 +4,8 @@ const Books = require('../models/products');
 const { category } = require('../services/render');
 const path = require('path');
 const mongoose = require('mongoose');
-
+const Cart = require('../models/cartModel');
+// add to wishlist 
 exports.addToWishlist = async(req, res) => {
     const userId = req.user.id; 
     const productId = req.params.id;
@@ -32,7 +33,7 @@ exports.addToWishlist = async(req, res) => {
         res.status(500).send('Internal Server Error');
     }
 }
-
+// view wishlist
 exports.wishlist = async(req, res) => {
     const userId = req.user.id; 
     const wishlistItems = await Wishlist.aggregate([
@@ -66,7 +67,7 @@ exports.wishlist = async(req, res) => {
     ]);
     res.render('wishlist', {wishlistItems});
 }
-
+// delete wishlist item
 exports.deleteWishlistItem = async (req, res) => {
         const { wishlistId, productId } = req.body;
         try{
@@ -80,72 +81,67 @@ exports.deleteWishlistItem = async (req, res) => {
             console.error(error);
             res.status(500).json({ success: false, error: 'Internal Server Error' });
         }
+}
+// add all items to cart
+exports.addAllToCart = async(req, res) => {
+    const userId = req.user.id;
+        try {
+            const wishlist = await Wishlist.findOne({ userId });
+            if (wishlist) {
+                const productIds = wishlist.items.map(item => item.productId);
+                const products = await Books.find({ _id: { $in: productIds } });
+                const cart = await Cart.findOne({ userId });
+                if (!cart) {
+                    const newCart = new Cart({
+                        userId,
+                        items: products.map(product => ({
+                            productId: product._id,
+                            quantity: 1, 
+                        })),
+                    });
+                    await newCart.save();
+                } else {
+                    for (const product of products) {
+                        const productExist = cart.items.findIndex(item => item.productId.equals(product._id));
+                    if (productExist === -1) {
+                        cart.items.push({   
+                            productId: product._id,
+                            quantity: 1, 
+                        });
+                    }
+                } 
+                await cart.save();
+            }
+            wishlist.items = [];
+            await wishlist.save();
+            res.status(200).render('wishlist');
+            } else {
+            res.status(404).json({ error: 'Wishlist not found' });
+        }
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'Internal server error' });
+        }
+}
+
+// delete all items from the wishlist
+exports.clearWishlist = async (req, res) => {
+    const userId = req.user.id;
+    try {
+      const wishlist = await Wishlist.findOne({ userId });
+      if (wishlist) {
+        wishlist.items = [];
+        await wishlist.save();
+  
+        res.status(200).render('wishlist')
+      } else {
+        res.status(404).json({success: false});
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({success: false});
     }
+};
+  
 
-// exports.changeQuantity = async (req, res) => {
-//     let {cartId, productId, count, subTotal} = req.body;
-//     count = Number(count);
-//     subTotal = Number(subTotal)
-    
-    
-//     await Cart.findOneAndUpdate(
-//         {_id: new mongoose.Types.ObjectId(cartId),'items.productId':productId}, 
-//         {$inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal}}
-//     ).then(() => {
-//         res.redirect('/cart');
-//     }) 
-// }
-
-
-
-
-// exports.getPlaceOrder = async (req, res) => {
-//     let userId = req.user.id;
-//     const total = await Cart.aggregate([
-//         {
-//             $match: { 
-//                 userId: new mongoose.Types.ObjectId(userId),
-//             }
-//         },
-//         {
-//             $unwind: '$items'
-//         },
-//         {
-//             $project: {
-//                 productId: '$items.productId',
-//                 quantity: '$items.quantity',
-//                 subTotal: '$items.subTotal',
-//             }
-//         },
-//         {  
-//             $lookup:{
-//                 from: 'books',
-//                 localField: 'productId',
-//                 foreignField: '_id',
-//                 as: 'cartItem',
-//             }
-//         },
-//         {
-//             $project: {
-//                 productId: 1,
-//                 quantity: 1,
-//                 subTotal: 1,
-//                 cartItem: { $arrayElemAt: ['$cartItem', 0] },
-//             }
-//         },
-//         {
-//             $group: {
-//                 _id: null,
-//                 totalPrice:{
-//                     $sum: '$subTotal'
-//                 },
-//             }
-//         }
-//     ])
-//     // console.log(total[0].totalPrice);
-//     const totalPrice = total[0].totalPrice;
-//     console.log(totalPrice);
-//     res.render('cart',{totalPrice});
-// }
-// }
 

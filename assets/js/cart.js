@@ -62,9 +62,8 @@ function removeWishlistItem(wishlistId, productId) {
                     title:'Atheneuam',
                     text:'Item removed successfully!',
                     confirmButtonColor: '#15877C',
-                }).then(() => {
-                    window.location.reload();
-                })            
+                })
+                          
             }
         }
     })

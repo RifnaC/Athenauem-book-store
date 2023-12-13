@@ -12,6 +12,8 @@ route.get('/home', services.home);
 route.get("/wishlist",auth.authMiddleware, wishlistController.wishlist);
 route.get("/wishlist/:id",auth.authMiddleware, wishlistController.addToWishlist);
 route.post("/wishlists", wishlistController.deleteWishlistItem);
+route.get("/wishlists", auth.authMiddleware, wishlistController.addAllToCart);
+route.get("/clearWishlist", auth.authMiddleware, wishlistController.clearWishlist);
 
 
 

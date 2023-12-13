@@ -27,7 +27,7 @@ exports.addToCart = async(req, res) => {
                 await Cart.findOneAndUpdate(
                     {'userId': userId, 'items.productId':productId}, 
                     {$inc: {'items.$.quantity': 1, 'items.$.subTotal': subTotal}}
-                );
+                )
             }else{
                 const updateCart = await Cart.findOneAndUpdate({ userId }, {
                     $push:{items: {productId: productId, quantity: quantity, subTotal: subTotal}},
