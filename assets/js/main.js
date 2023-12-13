@@ -1350,15 +1350,12 @@ $(function () {
   });
 });
 
-
-
 // radio button value
 $(document).ready(function() {
   const selectedStatus = 'Active' || 'Block';
   const selectedRadio = $(`input[name="status"][value="${selectedStatus}"]`);
   selectedRadio.prop('checked', true);
 });
-
 
 // update customer
 $("#editUser").submit(function (event) {
@@ -1494,6 +1491,7 @@ if (window.location.pathname === "/user") {
       });
   })
 }
+
 // ***********************Offer CRUD Section*******************************
 // add offer
 function offerValidation () {

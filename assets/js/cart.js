@@ -45,7 +45,6 @@ function removeItem(cartId, productId) {
     })
 }
 
-
 // remove item from the wishlist
 function removeWishlistItem(wishlistId, productId) {
     $.ajax({
@@ -57,32 +56,54 @@ function removeWishlistItem(wishlistId, productId) {
         method: 'PUT',
         success: (data) => { 
             Swal.fire({
-                title:'Atheneuam',
-                text:'Item removed successfully!',
-                confirmButtonColor: '#15877C',
-            })               
-            if (data.success) {
-                setTimeout(() => {
-                    window.location.reload(); 
-                },4000) ;  
-            }
+                position:"top-end",
+                text:'Product removed successfully from wishlist!',
+                showConfirmButton:false,
+                timer:3000,
+            }).then(() => {
+                window.location.reload();
+            });              
         }
     })
 }
 
 function clearWishlist(){
     $.ajax({
-        url: '/wishlist',
-        method: 'GET',
+        url: '/clearWishlist',
+        method: 'PUT',
         success: (data) => {
             Swal.fire({
-                title:'Atheneuam',
-                text:'Wishlist cleared successfully!',
+                title: 'Atheneuam',
+                text: 'Do you really want to clear your wishlist?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'cancel',
                 confirmButtonColor: '#15877C',
-            })
-            if (data.success) {
-                window.location.reload();
-            }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // The user clicked the "Yes, delete it" button
+                    $.ajax(request).done(function (response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Atheneuam',
+                            confirmButtonColor: '#15877C',
+                            text: 'Wishlist cleared Successfully',
+                        }).then(() => {
+                            window.location.href= ''
+                        });
+                    });
+                } else {
+                    // The user clicked the "cancel" button or closed the dialog
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Atheneuam',
+                        confirmButtonColor: '#15877C',
+                        text: 'Action canceled',
+                    });
+                }
+            });
         }
     })
 }
+   
