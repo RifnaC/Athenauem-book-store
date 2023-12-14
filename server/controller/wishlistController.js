@@ -5,7 +5,6 @@ const { category } = require('../services/render');
 const path = require('path');
 const mongoose = require('mongoose');
 const Cart = require('../models/cartModel');
-// const Swal = require('sweetalert2');
 
 // add to wishlist 
 exports.addToWishlist = async(req, res) => {
@@ -121,7 +120,7 @@ exports.addAllToCart = async(req, res) => {
             await wishlist.save();
             res.status(200).render('wishlist');
             } else {
-            res.status(404).json({ error: 'Wishlist not found' });
+                res.status(404).json({ error: 'Wishlist not found' });
         }
         } catch (error) {
           console.error(error);

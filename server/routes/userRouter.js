@@ -5,14 +5,16 @@ const auth = require('../middlewares/authMiddleware');
 const cart = require('../controller/cartController');
 const user = require('../controller/userProfile');
 const userController = require('../controller/userController');
+const checkout = require('../controller/checkoutController');
 const wishlistController = require('../controller/wishlistController');
 
 route.get('/home', services.home);
 
+// wishlist Routes
 route.get("/wishlist",auth.authMiddleware, wishlistController.wishlist);
 route.get("/wishlist/:id",auth.authMiddleware, wishlistController.addToWishlist);
 route.put("/wishlists", auth.authMiddleware, wishlistController.deleteWishlistItem);
-route.get("/wishlists",auth.authMiddleware, wishlistController.addAllToCart);
+route.put("/wishlist",auth.authMiddleware, wishlistController.addAllToCart);
 route.put("/clearWishlist", auth.authMiddleware, wishlistController.clearWishlist);
 
 
@@ -31,5 +33,8 @@ route.put("/address/:id", auth.authMiddleware, user.addAddress);
 route.get("/addresses", auth.authMiddleware, user.editAddress);
 route.put("/addresses/:id", auth.authMiddleware, user.updateAddress);
 route.put("/profile/:id", auth.authMiddleware, user.deleteAddress);
+
+// checkout Routes
+route.get("/checkout", auth.authMiddleware, checkout.checkout);
 
 module.exports = route
