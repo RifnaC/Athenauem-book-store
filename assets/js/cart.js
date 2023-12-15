@@ -145,3 +145,12 @@ function addAllToCart(){
         }
     })
 }
+
+const changeAdr = document.getElementById('changeAdress');
+const adr = document.getElementById('editShipping');
+const cardAdr = document.getElementById('cardAdress');
+
+changeAdr.onclick = () => {
+    adr.style.display = 'block';
+    cardAdr.style.display = 'none';
+}
