@@ -129,7 +129,12 @@
                                     <div class="row m-2 mt-3">
                                         <h5 class="text-secondary">Delivery Address</h5>
                                         <div class="d-flex justify-content-between">
-                                            <p><b>{{user.name}}</b> <span>{{user.addresses.address}}</span></p>
+                                            <p>
+                                                <b>{{user.name}}</b>
+                                                <span class="ps-1">{{address.address}}</span>
+                                                <span class="ps-1">{{address.city}}</span>
+                                                <span class="ps-1">{{address.state}}-{{address.pincode}}</span>
+                                            </p>
                                             <a class="btn btn-outline-secondary" id="changeAdress">change</a>
                                         </div>
                                     </div>
@@ -138,19 +143,19 @@
                                     <p class="fs-5 text-primary ms-3">Shipping Address</p>
                                     <div class="col-12 ">
                                         <div class="border p-3">
-                                            <form>
+                                            <form id="shippingAdr">
                                                 <div class="row">
                                                     <div class="d-flex flex-column form-group col-6">
                                                         <label for="name"> <i class="fa fa-user"></i><span
                                                                 class="ps-2">Name</span></label>
-                                                        <input type="text" id="fname" name="name" class="form-control"
-                                                            placeholder="Name">
+                                                        <input type="text" id="fname" name="fullName" class="form-control"
+                                                            placeholder="Name" value="{{address.fullName}}">
                                                     </div>
                                                     <div class="form-group col-6">
                                                         <label for="Phone"><i class="bi bi-telephone"></i> <span
                                                                 class="ps-2">Phone</span></label>
                                                         <input type="text" id="phone" name="phone" class="form-control"
-                                                            placeholder="Phone Number">
+                                                            placeholder="Phone Number" value="{{address.phone}}">
                                                     </div>
                                                 </div>
                                                 <div class="row  mt-2">
@@ -158,30 +163,30 @@
                                                         <label for="adr"><i class="fa fa-address-card-o"></i> <span
                                                                 class="ps-2">Address</span></label>
                                                         <input type="text" id="adr" name="address" class="form-control"
-                                                            placeholder="Address">
+                                                            placeholder="Address" value="{{address.address}}">
                                                     </div>
                                                     <div class="form-group col-6">
                                                         <label for="city"><i class="fa fa-institution"></i><span
                                                                 class="ps-2">City</span> </label>
                                                         <input type="text" id="city" name="city" placeholder="New York"
-                                                            class="form-control">
+                                                            class="form-control" value="{{address.city}}">
                                                     </div>
                                                 </div>
                                                 <div class="row  mt-2">
                                                     <div class="d-flex flex-column form-group col-6">
                                                         <label for="state">State</label>
                                                         <input type="text" id="state" name="state" placeholder="State"
-                                                            class="form-control">
+                                                            class="form-control" value="{{address.state}}">
                                                     </div>
                                                     <div class="form-group col-6">
-                                                        <label for="city">Pin Code</label>
+                                                        <label for="pincode">Pin Code</label>
                                                         <input type="text" id="pincode" name="pincode"
-                                                            placeholder="Pin code" class="form-control">
+                                                            placeholder="Pin code" class="form-control" value="{{address.pincode}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group mt-3">
                                                     <a href="" class="btn btn-outline-secondary">Cancel</a>
-                                                    <a href="" class="btn btn-primary">Save</a>
+                                                    <button type="submit" class="btn btn-primary">Save</button>
                                                     
                                                 </div>
                                             </form>

@@ -2081,6 +2081,134 @@ $('.icon-wishlist').on('click', function(){
   $(this).toggleClass('in-wishlist');
 });
 
+// ***********************Checkout Section*******************************
+$("#shippingAdr").submit(function (event) {
+  event.preventDefault();
+  let unindexed_array = $(this).serializeArray();
+  let data = {};
+
+  $.map(unindexed_array, function (n, i) {
+    data[n['name']] = n['value'];
+  });
+  // Extract the admin's ID from the form data
+  const addressId = data.id;
+  // Validation: Check if the name and email fields are empty
+  if (!data.fullName) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text:'Please enter your name!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (data.fullName.length < 3) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Name should have at least 3 characters!',
+      confirmButtonColor: '#15877C',
+    })
+    return 
+  }
+  if (!data.phone) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your phone Number!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (data.phone.length !==10  ) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter Valid Phone Number!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.address) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your  Address!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.city) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your City!',
+      confirmButtonColor: '#15877C',
+    })
+    return 
+  }
+  if (!data.state) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please select your State!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.pincode) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your Pincode!',
+      confirmButtonColor: '#15877C',
+    })
+    return ;
+  }
+  if (data.pincode.length !== 6) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter Valid Pincode!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+
+  let request = {
+    "url": `http://localhost:8080/checkout/${addressId}`,
+    "method": "PUT",
+    "data": data
+  };
+  // Send the PUT request
+  $.ajax(request).done(function (response) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+      confirmButtonColor: '#15877C'
+    })
+      .then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Athenuam',
+            confirmButtonColor: '#15877C',
+            text: 'Data updated successfully',
+          }).then((result) => {
+              window.location.href = '/checkout';
+            })
+        } else if (result.isDenied) {
+          Swal.fire({
+            icon: 'info',
+            title: 'Athenuam',
+            text: 'Changes are not saved',
+            confirmButtonColor: '#15877C',
+          })
+            .then((result) => {
+              window.location.href = '/checkout';
+            })
+        }
+      })
+  });
+});
+
+
 // ***********************Chart Section*******************************
 // Chart Global Color
 Chart.defaults.color = "#6C7293";
