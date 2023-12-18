@@ -2082,6 +2082,37 @@ $('.icon-wishlist').on('click', function(){
 });
 
 // ***********************Checkout Section*******************************
+$('#adrSelection').on('click', function () {
+
+  // Assuming you have a data attribute on the button containing the address information
+  const addressData = $(this).data('address'); 
+  alert('addressData = ' + addressData);
+  // Fill in the shipping address form with the selected address
+  alert('addressData.fullName = ' + addressData.fullName);
+  $('#fname').val(addressData.fullName);
+  
+  $('#phone').val(addressData.phone);
+  alert('addressData.phone = ' + addressData.phone);
+  $('#address').val(addressData.address);
+  alert('addressData.address = ' + addressData.address);
+  $('#city').val(addressData.city);
+  alert('addressData.city = ' + addressData.city);
+  $('#state').val(addressData.state);
+  alert('addressData.state = ' + addressData.state);
+  $('#pincode').val(addressData.pincode);
+  alert('addressData.pincode = ' + addressData.pincode);
+});
+
+// Event handler for the form submission
+$('#shippingAdr').on('submit', function (e) {
+  e.preventDefault();
+
+  // Add your logic here to handle the form submission
+  // You can retrieve the values from the form fields and proceed with the order placement.
+});
+
+
+
 $("#shippingAdr").submit(function (event) {
   event.preventDefault();
   let unindexed_array = $(this).serializeArray();

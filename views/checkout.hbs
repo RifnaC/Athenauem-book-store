@@ -126,18 +126,21 @@
                         <div class="container">
                             <div class="row">
                                 <div class="cart-item bg-white" id="addressCard">
+                                    {{#each address}}
                                     <div class="row m-2 mt-3">
                                         <h5 class="text-secondary">Delivery Address</h5>
                                         <div class="d-flex justify-content-between">
                                             <p>
-                                                <b>{{user.name}}</b>
-                                                <span class="ps-1">{{address.address}}</span>
-                                                <span class="ps-1">{{address.city}}</span>
-                                                <span class="ps-1">{{address.state}}-{{address.pincode}}</span>
+                                                <b>{{this.fullName}}</b>
+                                                <span class="ps-1">{{this.address}}</span>
+                                                <span class="ps-1">{{this.city}}</span>
+                                                <span class="ps-1">{{this.district}}</span>
+                                                <span class="ps-1">{{this.state}}-{{this.pincode}}</span>
                                             </p>
-                                            <a class="btn btn-outline-secondary" id="changeAdress">change</a>
+                                            <a class="btn btn-outline-secondary" id="adrSelection" onclick="return adrSelection()">Select</a>
                                         </div>
                                     </div>
+                                    {{/each}}
                                 </div>
                                 <div id="editShipping">
                                     <p class="fs-5 text-primary ms-3">Shipping Address</p>
