@@ -137,7 +137,8 @@
                                                 <span class="ps-1">{{this.district}}</span>
                                                 <span class="ps-1">{{this.state}}-{{this.pincode}}</span>
                                             </p>
-                                            <a class="btn btn-outline-secondary adrSelection" data-address='{"fullName": "{{this.fullName}}", "phone": "{{this.phone}}", "address": "{{this.address}}", "city": "{{this.city}}", "district": "{{this.district}}", "state": "{{this.state}}", "pincode": "{{this.pincode}}"}'>Select</a>
+                                            <a class="btn btn-outline-secondary adrSelection"
+                                                data-address='{"fullName": "{{this.fullName}}", "phone": "{{this.phone}}", "address": "{{this.address}}", "city": "{{this.city}}", "district": "{{this.district}}", "state": "{{this.state}}", "pincode": "{{this.pincode}}"}'>Select</a>
                                         </div>
                                     </div>
                                     {{/each}}
@@ -152,8 +153,8 @@
                                                         <label for="name"> <i class="fa fa-user"></i><span
                                                                 class="ps-2">Name</span></label>
                                                         <input type="hidden" id="shippingId" name="id">
-                                                        <input type="text" id="fname" name="fullName" class="form-control"
-                                                            placeholder="Name" value="">
+                                                        <input type="text" id="fname" name="fullName"
+                                                            class="form-control" placeholder="Name" value="">
                                                     </div>
                                                     <div class="form-group col-6">
                                                         <label for="Phone"><i class="bi bi-telephone"></i> <span
@@ -178,9 +179,10 @@
                                                 </div>
                                                 <div class="row  mt-2">
                                                     <div class="d-flex flex-column form-group col-6">
-                                                        <label for="districtRegion" class="labels">District/ Region</label>
+                                                        <label for="districtRegion" class="labels">District/
+                                                            Region</label>
                                                         <input type="text" class="form-control" id="district"
-                                                        name="district" placeholder="district">
+                                                            name="district" placeholder="district">
                                                     </div>
                                                     <div class="d-flex flex-column form-group col-6">
                                                         <label for="state">State</label>
@@ -198,16 +200,16 @@
                                                 <div class="form-group mt-3">
                                                     <a href="" class="btn btn-outline-secondary">Cancel</a>
                                                     <button type="submit" class="btn btn-primary">Save</button>
-                                                    
+
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 ">
-                                    <div class="mt-5">
+                                    <div class="mt-5 cardPayment">
                                         <p class="fs-5 text-primary mx-3">Payment</p>
-                                        <div class="border col-12 p-3">
+                                        <div class="border col-12 p-3 ">
                                             <div class="row ">
                                                 <div class="col-12">
                                                     <label for="ccnum">Credit card number</label>
@@ -246,9 +248,9 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-4 bg-white">
-                        <div class="container mt-3">
-                            <form id="couponBtn">
+                    <div class="col-4">
+                        <div class="container bg-white">
+                            <form id="couponBtn" class=" py-3">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control " placeholder="Coupon" aria-label="Coupon"
                                         aria-describedby="basic-addon2" id="coupon" name="couponCode">
@@ -267,7 +269,7 @@
                             </div>
                             <div class="d-flex justify-content-between ">
                                 <p class="text-dark">Discount</p>
-                                <p class="text-dark">&#8377 </p>
+                                <p class="text-dark">&#8377 {{coupon}}</p>
                             </div>
                             <div class="d-flex justify-content-between ">
                                 <p class="text-dark">Delivery Charges</p>
@@ -276,11 +278,14 @@
                             <hr>
                             <div class="d-flex justify-content-between ">
                                 <p class="text-dark">Total</p>
-                                <p class="text-dark font-weight-bold">&#8377 500</p>
+                                <p class="text-dark font-weight-bold">&#8377 {{mrp}}</p>
                             </div>
-                            <div class="d-flex justify-content-center col-12">
-                                <a href="" class="btn btn-outline-primary">Place Order</a>
-                            </div>
+                        </div>
+                        <div class="container bg-white">
+                          
+                        </div>
+                        <div class="d-flex justify-content-center col-12">
+                            <a href="" class="btn btn-outline-primary">Place Order</a>
                         </div>
                     </div>
                 </div>

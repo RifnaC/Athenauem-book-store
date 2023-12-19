@@ -49,14 +49,13 @@ exports.checkout = async(req, res) => {
         }
     ]);
     const totalPrice = total[0].totalPrice;
-    const coupon = await Coupon.find({couponCode: req.query.couponCode})
-
-    console.log(coupon);
-    res.render('checkout', {user: user, address: addres, totalPrice:totalPrice});
+    const offer = await Coupon.findOne({couponCode: req.query.couponCode});
+    const value = offer ? offer.discount : 0;
+    const discount = Math.round((value * totalPrice) / 100);
+    const payableTotal =  totalPrice - discount;
+    res.render('checkout', {user: user, address: addres, totalPrice:totalPrice, coupon: discount, mrp: payableTotal});
 }
-// exports.cartSection = async(req, res) => {
-    
-// }
+
 
 exports.changeAddress = async(req, res) => {
     const id = req.user.id;
