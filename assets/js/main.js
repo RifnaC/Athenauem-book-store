@@ -2082,25 +2082,18 @@ $('.icon-wishlist').on('click', function(){
 });
 
 // ***********************Checkout Section*******************************
-$('#adrSelection').on('click', function () {
+$('.adrSelection').on('click', function () {
 
   // Assuming you have a data attribute on the button containing the address information
-  const addressData = $(this).data('address'); 
-  alert('addressData = ' + addressData);
-  // Fill in the shipping address form with the selected address
-  alert('addressData.fullName = ' + addressData.fullName);
+  const addressData =$(this).data('address'); 
+  $('#shippingId').val(addressData._id);
   $('#fname').val(addressData.fullName);
-  
   $('#phone').val(addressData.phone);
-  alert('addressData.phone = ' + addressData.phone);
-  $('#address').val(addressData.address);
-  alert('addressData.address = ' + addressData.address);
+  $('#adr').val(addressData.address);
   $('#city').val(addressData.city);
-  alert('addressData.city = ' + addressData.city);
+  $('#district').val(addressData.district);
   $('#state').val(addressData.state);
-  alert('addressData.state = ' + addressData.state);
   $('#pincode').val(addressData.pincode);
-  alert('addressData.pincode = ' + addressData.pincode);
 });
 
 // Event handler for the form submission
@@ -2239,6 +2232,18 @@ $("#shippingAdr").submit(function (event) {
   });
 });
 
+$("#couponBtn").submit(function (event){
+  let coupon = $("#coupon").val();
+  if(!coupon){
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter coupon code!',
+      confirmButtonColor: '#15877C',
+    }).then((result) => {
+      window.location.href = '/checkout';
+    });
+  }
+})
 
 // ***********************Chart Section*******************************
 // Chart Global Color

@@ -104,9 +104,6 @@ exports.changeQuantity = async (req, res) => {
       );
     res.redirect('/cart')
 };
-    
- 
-  
 
 exports.deleteCartItem = async (req, res) => {
     const { cartId, productId } = req.body;
@@ -124,51 +121,3 @@ exports.deleteCartItem = async (req, res) => {
 }
 
 
-// exports.getPlaceOrder = async (req, res) => {
-//     let userId = req.user.id;
-//     const total = await Cart.aggregate([
-//         {
-//             $match: { 
-//                 userId: new mongoose.Types.ObjectId(userId),
-//             }
-//         },
-//         {
-//             $unwind: '$items'
-//         },
-//         {
-//             $project: {
-//                 productId: '$items.productId',
-//                 quantity: '$items.quantity',
-//                 subTotal: '$items.subTotal',
-//             }
-//         },
-//         {  
-//             $lookup:{
-//                 from: 'books',
-//                 localField: 'productId',
-//                 foreignField: '_id',
-//                 as: 'cartItem',
-//             }
-//         },
-//         {
-//             $project: {
-//                 productId: 1,
-//                 quantity: 1,
-//                 subTotal: 1,
-//                 cartItem: { $arrayElemAt: ['$cartItem', 0] },
-//             }
-//         },
-//         {
-//             $group: {
-//                 _id: null,
-//                 totalPrice:{
-//                     $sum: '$subTotal'
-//                 },
-//             }
-//         }
-//     ])
-//     // console.log(total[0].totalPrice);
-//     const totalPrice = total[0].totalPrice;
-//     console.log(totalPrice);
-//     res.render('cart',{totalPrice});
-// }

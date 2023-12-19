@@ -137,7 +137,7 @@
                                                 <span class="ps-1">{{this.district}}</span>
                                                 <span class="ps-1">{{this.state}}-{{this.pincode}}</span>
                                             </p>
-                                            <a class="btn btn-outline-secondary" id="adrSelection" onclick="return adrSelection()">Select</a>
+                                            <a class="btn btn-outline-secondary adrSelection" data-address='{"fullName": "{{this.fullName}}", "phone": "{{this.phone}}", "address": "{{this.address}}", "city": "{{this.city}}", "district": "{{this.district}}", "state": "{{this.state}}", "pincode": "{{this.pincode}}"}'>Select</a>
                                         </div>
                                     </div>
                                     {{/each}}
@@ -151,14 +151,15 @@
                                                     <div class="d-flex flex-column form-group col-6">
                                                         <label for="name"> <i class="fa fa-user"></i><span
                                                                 class="ps-2">Name</span></label>
+                                                        <input type="hidden" id="shippingId" name="id">
                                                         <input type="text" id="fname" name="fullName" class="form-control"
-                                                            placeholder="Name" value="{{address.fullName}}">
+                                                            placeholder="Name" value="">
                                                     </div>
                                                     <div class="form-group col-6">
                                                         <label for="Phone"><i class="bi bi-telephone"></i> <span
                                                                 class="ps-2">Phone</span></label>
                                                         <input type="text" id="phone" name="phone" class="form-control"
-                                                            placeholder="Phone Number" value="{{address.phone}}">
+                                                            placeholder="Phone Number" value="">
                                                     </div>
                                                 </div>
                                                 <div class="row  mt-2">
@@ -166,25 +167,32 @@
                                                         <label for="adr"><i class="fa fa-address-card-o"></i> <span
                                                                 class="ps-2">Address</span></label>
                                                         <input type="text" id="adr" name="address" class="form-control"
-                                                            placeholder="Address" value="{{address.address}}">
+                                                            placeholder="Address" value="">
                                                     </div>
                                                     <div class="form-group col-6">
                                                         <label for="city"><i class="fa fa-institution"></i><span
                                                                 class="ps-2">City</span> </label>
                                                         <input type="text" id="city" name="city" placeholder="New York"
-                                                            class="form-control" value="{{address.city}}">
+                                                            class="form-control" value="">
                                                     </div>
                                                 </div>
                                                 <div class="row  mt-2">
                                                     <div class="d-flex flex-column form-group col-6">
+                                                        <label for="districtRegion" class="labels">District/ Region</label>
+                                                        <input type="text" class="form-control" id="district"
+                                                        name="district" placeholder="district">
+                                                    </div>
+                                                    <div class="d-flex flex-column form-group col-6">
                                                         <label for="state">State</label>
                                                         <input type="text" id="state" name="state" placeholder="State"
-                                                            class="form-control" value="{{address.state}}">
+                                                            class="form-control" value="">
                                                     </div>
+                                                </div>
+                                                <div class="row mt-2">
                                                     <div class="form-group col-6">
                                                         <label for="pincode">Pin Code</label>
                                                         <input type="text" id="pincode" name="pincode"
-                                                            placeholder="Pin code" class="form-control" value="{{address.pincode}}">
+                                                            placeholder="Pin code" class="form-control" value="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group mt-3">
@@ -240,28 +248,30 @@
                     </div>
                     <div class="col-4 bg-white">
                         <div class="container mt-3">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Coupon" aria-label="Coupon"
-                                    aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button">Apply</button>
+                            <form id="couponBtn">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control " placeholder="Coupon" aria-label="Coupon"
+                                        aria-describedby="basic-addon2" id="coupon" name="couponCode">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary " type="submit">Apply</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                             <div class="d-flex justify-content-between ">
                                 <h5 class="text-primary">Product Details</h5>
                                 <h5 class="text-primary">Price</h5>
                             </div>
                             <div class="d-flex justify-content-between ">
                                 <p class="text-dark">Total price</p>
-                                <p class="text-dark">&#8377 900</p>
+                                <p class="text-dark">&#8377 {{totalPrice}}</p>
                             </div>
                             <div class="d-flex justify-content-between ">
                                 <p class="text-dark">Discount</p>
-                                <p class="text-dark">500</p>
+                                <p class="text-dark">&#8377 </p>
                             </div>
                             <div class="d-flex justify-content-between ">
                                 <p class="text-dark">Delivery Charges</p>
-                                <p class="text-dark">0</p>
+                                <p class="text-dark">Free</p>
                             </div>
                             <hr>
                             <div class="d-flex justify-content-between ">

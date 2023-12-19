@@ -1,33 +1,90 @@
-const { log } = require('handlebars');
-const Books = require('../models/products');
-const { category } = require('../services/render');
-const path = require('path');
 const mongoose = require('mongoose');
 const Users = require('../models/userModel');
+const Cart = require('../models/cartModel');
+const Coupon = require('../models/couponModel');
 
 exports.checkout = async(req, res) => {
     const id = req.user.id;
     const user = await Users.findById(id);
     const addres = user.addresses;
-    res.render('checkout', {user: user, address: addres});
+    const total = await Cart.aggregate([
+        {
+            $match: { 
+                userId: new mongoose.Types.ObjectId(id),
+            }
+        },
+        {
+            $unwind: '$items'
+        },
+        {
+            $project: {
+                productId: '$items.productId',
+                quantity: '$items.quantity',
+                subTotal: '$items.subTotal',
+            }
+        },
+        {  
+            $lookup:{
+                from: 'books',
+                localField: 'productId',
+                foreignField: '_id',
+                as: 'cartItem',
+            }
+        },
+        {
+            $project: {
+                productId: 1,
+                quantity: 1,
+                subTotal: 1,
+                cartItem: { $arrayElemAt: ['$cartItem', 0] },
+            }
+        },
+        {
+            $group: {
+                _id: null,
+                totalPrice:{
+                    $sum: '$subTotal'
+                },
+            }
+        }
+    ]);
+    const totalPrice = total[0].totalPrice;
+    const coupon = await Coupon.find({couponCode: req.query.couponCode})
+
+    console.log(coupon);
+    res.render('checkout', {user: user, address: addres, totalPrice:totalPrice});
 }
+// exports.cartSection = async(req, res) => {
+    
+// }
 
 exports.changeAddress = async(req, res) => {
     const id = req.user.id;
-    const user = await Users.findByIdAndUpdate({_id:id}, {$push:{
-        "addresses": {
-            fullName:req.body.fullName,
-            phone:req.body.phone,
-            address:req.body.address,
-            city:req.body.city,
-            district:req.body.district,
-            state:req.body.state,
-            pincode:req.body.pincode,
-        }
-    }});
-    user.save().then(()=>{
-        res.render('checkout');
-    }).catch(err=>{
-        console.log(err);
-    })
+    const existingAddress = await Users.findOne({_id: id,
+        'addresses': {
+            $elemMatch: {
+                fullName: req.body.fullName,
+                phone: req.body.phone,
+                address: req.body.address,
+                city: req.body.city,
+                district: req.body.district,
+                state: req.body.state,
+                pincode: req.body.pincode,
+            }
+        }});
+        if(!existingAddress) {
+            const user = await Users.findByIdAndUpdate({_id:id}, {$push:{   
+                "addresses": {
+                fullName:req.body.fullName,
+                phone:req.body.phone,
+                address:req.body.address,
+                city:req.body.city,
+                district:req.body.district,
+                state:req.body.state,
+                pincode:req.body.pincode,
+            }
+        }});
+        user.save();
+    }
+    res.render('checkout');
 }
