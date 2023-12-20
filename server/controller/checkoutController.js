@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Users = require('../models/userModel');
 const Cart = require('../models/cartModel');
 const Coupon = require('../models/couponModel');
+const Order = require('../models/orderModel');
 
 exports.checkout = async(req, res) => {
     const id = req.user.id;
@@ -86,4 +87,10 @@ exports.changeAddress = async(req, res) => {
         user.save();
     }
     res.render('checkout');
+}
+
+exports.getOrder = async(req, res) => {
+    const id = req.user.id;
+    const order = await Order.findOne({userId: id});
+    console.log(order);
 }

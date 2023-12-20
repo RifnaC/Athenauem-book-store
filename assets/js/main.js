@@ -2096,16 +2096,6 @@ $('.adrSelection').on('click', function () {
   $('#pincode').val(addressData.pincode);
 });
 
-// Event handler for the form submission
-$('#shippingAdr').on('submit', function (e) {
-  e.preventDefault();
-
-  // Add your logic here to handle the form submission
-  // You can retrieve the values from the form fields and proceed with the order placement.
-});
-
-
-
 $("#shippingAdr").submit(function (event) {
   event.preventDefault();
   let unindexed_array = $(this).serializeArray();
@@ -2245,6 +2235,15 @@ $("#couponBtn").submit(function (event){
   }
 })
 
+
+// radio button value for payment
+$(document).ready(function() {
+  const paymentMethod = $("input[type='radio'][name='payementMethod']:checked").val();
+  if(paymentMethod === 'card payement'){
+    alert(paymentMethod);
+  }
+ 
+});
 // ***********************Chart Section*******************************
 // Chart Global Color
 Chart.defaults.color = "#6C7293";
