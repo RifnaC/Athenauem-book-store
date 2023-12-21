@@ -2103,8 +2103,8 @@ $("#shippingAdr").submit(function (event) {
 
   $.map(unindexed_array, function (n, i) {
     data[n['name']] = n['value'];
-  });
-  // Extract the admin's ID from the form data
+  }); 
+
   const addressId = data.id;
   // Validation: Check if the name and email fields are empty
   if (!data.fullName) {
@@ -2179,7 +2179,7 @@ $("#shippingAdr").submit(function (event) {
     })
     return;
   }
-
+  alert(addressId);
   let request = {
     "url": `http://localhost:8080/checkout/${addressId}`,
     "method": "PUT",
@@ -2206,6 +2206,7 @@ $("#shippingAdr").submit(function (event) {
             text: 'Data updated successfully',
           }).then((result) => {
               window.location.href = '/checkout';
+              
             })
         } else if (result.isDenied) {
           Swal.fire({
@@ -2238,12 +2239,30 @@ $("#couponBtn").submit(function (event){
 
 // radio button value for payment
 $(document).ready(function() {
+  fetch('/checkout', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+})
   const paymentMethod = $("input[type='radio'][name='payementMethod']:checked").val();
   if(paymentMethod === 'card payement'){
     alert(paymentMethod);
   }
  
 });
+
+$("#placeOrder").submit(function (event) {
+    event.preventDefault();
+    Swal.fire({
+      icon: 'success',
+      title: 'Athenuam',
+      text: 'New Order is inserted Successfully',
+      showConfirmButton: true,
+      confirmButtonColor: '#15877C',
+    })
+})
 // ***********************Chart Section*******************************
 // Chart Global Color
 Chart.defaults.color = "#6C7293";

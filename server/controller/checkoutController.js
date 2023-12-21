@@ -63,6 +63,7 @@ exports.changeAddress = async(req, res) => {
     const existingAddress = await Users.findOne({_id: id,
         'addresses': {
             $elemMatch: {
+            
                 fullName: req.body.fullName,
                 phone: req.body.phone,
                 address: req.body.address,
@@ -91,6 +92,17 @@ exports.changeAddress = async(req, res) => {
 
 exports.getOrder = async(req, res) => {
     const id = req.user.id;
-    const order = await Order.findOne({userId: id});
+    const orders = await Order.findOne({userId: id});
+    const order = new Order({
+        userId: id,
+        orderItems: order.orderItems,
+        shippingAddress: order.shippingAddress,
+        paymentMethod: order.paymentMethod,
+        paymentResult: order.paymentResult,
+        itemsPrice: order.itemsPrice,
+        taxPrice: order.taxPrice,
+        shippingPrice: order.shippingPrice,
+        totalPrice: order.totalPrice,
+    }) 
     console.log(order);
 }

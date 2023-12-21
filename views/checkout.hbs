@@ -148,11 +148,12 @@
                                     <div class="col-12 ">
                                         <div class="border p-3">
                                             <form id="shippingAdr">
+                                                <input type="hidden" id="id" name="_id">
                                                 <div class="row">
                                                     <div class="d-flex flex-column form-group col-6">
                                                         <label for="name"> <i class="fa fa-user"></i><span
                                                                 class="ps-2">Name</span></label>
-                                                        <input type="hidden" id="shippingId" name="id">
+                                                        
                                                         <input type="text" id="fname" name="fullName"
                                                             class="form-control" placeholder="Name" value="">
                                                     </div>
@@ -206,7 +207,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 ">
+                                {{!-- <div class="col-12 ">
                                     <div class="mt-5 cardPayment">
                                         <p class="fs-5 text-primary mx-3">Payment</p>
                                         <div class="border col-12 p-3 ">
@@ -243,9 +244,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
-                            </form>
                         </div>
                     </div>
                     <div class="col-4">
@@ -283,27 +283,30 @@
                         </div>
                         <div class="container bg-white mt-3">
                             <div>
-                                <input class="form-check-input me-2" type="radio" id="razopay" name="payementMethod" value="Razopay" checked/>
+                                <input class="form-check-input me-2" type="radio" id="razopay" name="payementMethod"
+                                    value="Razopay" checked />
                                 <label class="form-check-label " for="Razopay">Razopay</label>
                             </div>
                         </div>
                         <div class="container bg-white mt-3">
-                            <div >
-                                <input class="form-check-input me-2" type="radio" id="COD" name="payementMethod" value="Cash on Delivery"/>
-                                <label class="form-check-label payementRadioBtn" for="Cash on Delivery">Cash on Delivery</label>
+                            <div>
+                                <input class="form-check-input me-2" type="radio" id="COD" name="payementMethod"
+                                    value="Cash on Delivery" />
+                                <label class="form-check-label payementRadioBtn" for="Cash on Delivery">Cash on
+                                    Delivery</label>
                             </div>
                         </div>
                         <div class="container bg-white mt-3">
-                            {{!-- <div >
-                                <input class="form-check-input me-2" type="radio" id="cardPayement" name="payementMethod" value="card payement" />
-                                <label class="form-check-label payementRadioBtn" for="card">Debit card/credit card</label>
+                            {{!-- <div>
+                                <input class="form-check-input me-2" type="radio" id="cardPayement"
+                                    name="payementMethod" value="card payement" />
+                                <label class="form-check-label payementRadioBtn" for="card">Debit card/credit
+                                    card</label>
                             </div> --}}
                         </div>
-                            <div class="d-flex justify-content-center col-12">
+                        <div class="d-flex justify-content-center col-12">
                             <button class="btn btn-outline-primary">Place Order</button>
                         </div>
-                        </div>
-                        
                     </div>
                 </div>
             </div>

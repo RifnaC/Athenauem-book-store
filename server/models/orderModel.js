@@ -25,10 +25,18 @@ const orderScheme = new mongoose.Schema({
         type: Array,
         default: [],
     },
-    orderDate : Date,
-    // new Date().toLocaleDateString(),
-    deliveryDate : Date
-    //  new Date(orderDate.getTime() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+    orderDate:{
+        type: Date,
+        default: new Date().toLocaleDateString(),
+    },
+    deliveryDate :{
+        type: Date,
+        default:  function() { new Date(this.orderDate);
+            DateExpire.setDate(orderDate.getDate() + 5);
+            return DateExpire.toLocaleDateString();
+        }
+    }
+    //  new Date(orderDate.getTime() + 7 * 24 * 60 * 60 * 1000).,
 })
 
 
