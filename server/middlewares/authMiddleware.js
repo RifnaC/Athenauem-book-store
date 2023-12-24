@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.authMiddleware = async(req, res, next) => {
+  console.log("abcd",req)
     const token = req.session.token;
     if (!token) {
         return res.redirect('/login');

@@ -15,6 +15,26 @@ function changeQty(cartId, productId, count, subTotal) {
     })
 }
 function addToCart(){
+    $.ajax({
+        url: '/removeItem',
+        data: {
+            cartId: cartId,
+            productId: productId,
+        },
+        method: 'POST',
+        success: (data) => {
+            if (data.success) {
+                Swal.fire({
+                    position:'top-end',
+                    text:'Item removed successfully!',
+                    showConfirmButton: false,
+                    timer: 1000,
+                }).then(() => {
+                    window.location.reload();
+                });
+            }
+        }
+    })
     Swal.fire({
         icon:'success',
         title:'Atheneuam',
@@ -33,13 +53,14 @@ function removeItem(cartId, productId) {
         method: 'POST',
         success: (data) => {
             if (data.success) {
-                // alert('Successfully removed item from cart!', data);
                 Swal.fire({
-                    title:'Atheneuam',
+                    position:'top-end',
                     text:'Item removed successfully!',
-                    confirmButtonColor: '#15877C',
+                    showConfirmButton: false,
+                    timer: 1000,
+                }).then(() => {
+                    window.location.reload();
                 });
-                window.location.reload();
             }
         }
     })
@@ -67,6 +88,7 @@ function removeWishlistItem(wishlistId, productId) {
     })
 }
 
+// remove all items from the wishlist
 function clearWishlist(){
     $.ajax({
         url: '/clearWishlist',
@@ -107,3 +129,28 @@ function clearWishlist(){
     })
 }
    
+function addAllToCart(){
+    $.ajax({
+        url: '/wishlist',
+        method: 'PUT',
+        success: (data) => {
+            Swal.fire({
+                position: 'top-end',
+                text: 'All wishlist items are added to cart!',
+                showConfirmButton: false,
+                timer: 3000,
+            }).then(() => {
+                window.location.href= '/cart'
+            });
+        }
+    })
+}
+
+const changeAdr = document.getElementById('changeAdress');
+const adr = document.getElementById('editShipping');
+const cardAdr = document.getElementById('cardAdress');
+
+changeAdr.onclick = () => {
+    adr.style.display = 'block';
+    cardAdr.style.display = 'none';
+}

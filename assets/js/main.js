@@ -2081,6 +2081,188 @@ $('.icon-wishlist').on('click', function(){
   $(this).toggleClass('in-wishlist');
 });
 
+// ***********************Checkout Section*******************************
+$('.adrSelection').on('click', function () {
+
+  // Assuming you have a data attribute on the button containing the address information
+  const addressData =$(this).data('address'); 
+  $('#shippingId').val(addressData._id);
+  $('#fname').val(addressData.fullName);
+  $('#phone').val(addressData.phone);
+  $('#adr').val(addressData.address);
+  $('#city').val(addressData.city);
+  $('#district').val(addressData.district);
+  $('#state').val(addressData.state);
+  $('#pincode').val(addressData.pincode);
+});
+
+$("#shippingAdr").submit(function (event) {
+  event.preventDefault();
+  let unindexed_array = $(this).serializeArray();
+  let data = {};
+
+  $.map(unindexed_array, function (n, i) {
+    data[n['name']] = n['value'];
+  }); 
+
+  const addressId = data.id;
+  // Validation: Check if the name and email fields are empty
+  if (!data.fullName) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text:'Please enter your name!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (data.fullName.length < 3) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Name should have at least 3 characters!',
+      confirmButtonColor: '#15877C',
+    })
+    return 
+  }
+  if (!data.phone) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your phone Number!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (data.phone.length !==10  ) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter Valid Phone Number!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.address) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your  Address!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.city) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your City!',
+      confirmButtonColor: '#15877C',
+    })
+    return 
+  }
+  if (!data.state) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please select your State!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  if (!data.pincode) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter your Pincode!',
+      confirmButtonColor: '#15877C',
+    })
+    return ;
+  }
+  if (data.pincode.length !== 6) {
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter Valid Pincode!',
+      confirmButtonColor: '#15877C',
+    })
+    return;
+  }
+  alert(addressId);
+  let request = {
+    "url": `http://localhost:8080/checkout/${addressId}`,
+    "method": "PUT",
+    "data": data
+  };
+  // Send the PUT request
+  $.ajax(request).done(function (response) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+      confirmButtonColor: '#15877C'
+    })
+      .then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Athenuam',
+            confirmButtonColor: '#15877C',
+            text: 'Data updated successfully',
+          }).then((result) => {
+              window.location.href = '/checkout';
+              
+            })
+        } else if (result.isDenied) {
+          Swal.fire({
+            icon: 'info',
+            title: 'Athenuam',
+            text: 'Changes are not saved',
+            confirmButtonColor: '#15877C',
+          })
+            .then((result) => {
+              window.location.href = '/checkout';
+            })
+        }
+      })
+  });
+});
+
+$("#couponBtn").submit(function (event){
+  let coupon = $("#coupon").val();
+  if(!coupon){
+    Swal.fire({
+      title: 'Atheneuam',
+      text: 'Please enter coupon code!',
+      confirmButtonColor: '#15877C',
+    }).then((result) => {
+      window.location.href = '/checkout';
+    });
+  }
+})
+
+
+// radio button value for payment
+$(document).ready(function() {
+  fetch('/checkout', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+})
+  const paymentMethod = $("input[type='radio'][name='payementMethod']:checked").val();
+  if(paymentMethod === 'card payement'){
+    alert(paymentMethod);
+  }
+ 
+});
+
+$("#placeOrder").submit(function (event) {
+    event.preventDefault();
+    Swal.fire({
+      icon: 'success',
+      title: 'Athenuam',
+      text: 'New Order is inserted Successfully',
+      showConfirmButton: true,
+      confirmButtonColor: '#15877C',
+    })
+})
 // ***********************Chart Section*******************************
 // Chart Global Color
 Chart.defaults.color = "#6C7293";

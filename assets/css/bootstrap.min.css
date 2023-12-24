@@ -2323,8 +2323,8 @@ textarea.form-control-lg {
 .form-check-input {
     width: 1em;
     height: 1em;
-    margin-top: .25em;
-    vertical-align: top;
+    /* margin-top: .25em; */
+    /* vertical-align: top; */
     background-color: #000;
     background-repeat: no-repeat;
     background-position: center;
@@ -7749,7 +7749,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .text-secondary {
-    color: #191C24 !important
+    color: #262626 !important
 }
 
 .text-success {
@@ -7844,7 +7844,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .bg-transparent {
-    background-color: #FCFCFC !important;
+    background-color: #FBFBF9 !important;
 }
 
 .bg-gradient {
