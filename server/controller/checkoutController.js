@@ -93,16 +93,55 @@ exports.changeAddress = async(req, res) => {
 exports.getOrder = async(req, res) => {
     const id = req.user.id;
     const orders = await Order.findOne({userId: id});
+    const total = await Cart.aggregate([
+        {
+            $match: { 
+                userId: new mongoose.Types.ObjectId(id),
+            }
+        },
+        {
+            $unwind: '$items'
+        },
+        {
+            $project: {
+                productId: '$items.productId',
+                quantity: '$items.quantity',
+                subTotal: '$items.subTotal',
+            }
+        },
+        {  
+            $lookup:{
+                from: 'books',
+                localField: 'productId',
+                foreignField: '_id',
+                as: 'cartItem',
+            }
+        },
+        {
+            $project: {
+                productId: 1,
+                quantity: 1,
+                subTotal: 1,
+                cartItem: { $arrayElemAt: ['$cartItem', 0] },
+            }
+        },
+        {
+            $group: {
+                _id: null,
+                totalPrice:{
+                    $sum: '$subTotal'
+                },
+            }
+        }
+    ]);
+    const totalPrice = total[0].totalPrice;
+    const offer = await Coupon.findOne({couponCode: req.query.couponCode});
+    const value = offer ? offer.discount : 0;
+    const discount = Math.round((value * totalPrice) / 100);
     const order = new Order({
         userId: id,
-        orderItems: order.orderItems,
-        shippingAddress: order.shippingAddress,
-        paymentMethod: order.paymentMethod,
-        paymentResult: order.paymentResult,
-        itemsPrice: order.itemsPrice,
-        taxPrice: order.taxPrice,
-        shippingPrice: order.shippingPrice,
-        totalPrice: order.totalPrice,
-    }) 
-    console.log(order);
+        totalAmt:totalPrice,
+        discount: discount,
+    })
+    
 }

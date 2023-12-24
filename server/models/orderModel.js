@@ -8,14 +8,12 @@ const orderScheme = new mongoose.Schema({
     },
     totalAmt:{
         type: Number,
-        required:true,
     },
     discount:{
         type: Number,
     },
     paymentMethod:{
         type: String,
-        required:true,
     },
     orderStatus:{
         type: String,
@@ -36,7 +34,6 @@ const orderScheme = new mongoose.Schema({
             return DateExpire.toLocaleDateString();
         }
     }
-    //  new Date(orderDate.getTime() + 7 * 24 * 60 * 60 * 1000).,
 })
 
 
