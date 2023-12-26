@@ -2106,6 +2106,7 @@ $("#shippingAdr").submit(function (event) {
   }); 
 
   const addressId = data.id;
+  alert('addressId: ' + addressId)
   // Validation: Check if the name and email fields are empty
   if (!data.fullName) {
     Swal.fire({
@@ -2179,7 +2180,6 @@ $("#shippingAdr").submit(function (event) {
     })
     return;
   }
-  alert(addressId);
   let request = {
     "url": `http://localhost:8080/checkout/${addressId}`,
     "method": "PUT",
@@ -2205,8 +2205,9 @@ $("#shippingAdr").submit(function (event) {
             confirmButtonColor: '#15877C',
             text: 'Data updated successfully',
           }).then((result) => {
+            $("#addressArea").css('display', 'none'); 
               window.location.href = '/checkout';
-              
+                        
             })
         } else if (result.isDenied) {
           Swal.fire({
@@ -2536,206 +2537,6 @@ Chart.defaults.borderColor = "#ffffffff";
   );
 
 
-
-
-
-  // $(document).ready(function() {
-  //     const x = $("#address");
-
-  //     $("#getLocation").click(function() {
-  //       if (navigator.geolocation) {
-  //         navigator.geolocation.getCurrentPosition(showPosition);
-  //       } else {
-  //         alert("Geolocation is not supported by this browser.");
-  //       }
-  //     });
-
-  //     function showPosition(position) {
-  //       alert("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
-  //     }
-  //   });
-
-
-  // // Progress Bar
-  // $('.pg-bar').waypoint(function () {
-  //     $('.progress .progress-bar').each(function () {
-  //         $(this).css("width", $(this).attr("aria-valuenow") + '%');
-  //     });
-  // }, {offset: '80%'});
-
-
-
-
-
-  // // Testimonials carousel
-  // $(".testimonial-carousel").owlCarousel({
-  //     autoplay: true,
-  //     smartSpeed: 1000,
-  //     items: 1,
-  //     dots: true,
-  //     loop: true,
-  //     nav : false
-  // });
-
-
-
-
-
-  // $(document).ready(function() {
-  //     var ctx = document.getElementById("worldwide-sales").getContext("2d");
-
-  //     // Create the chart data
-  //     var data = {
-  //       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-  //       datasets: [{
-  //         label: "Total Revenue",
-  //         data: [10000, 12000, 11000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000],
-  //         borderColor: "#3366cc",
-  //         backgroundColor: "#3366cc",
-  //         fill: false
-  //       }]
-  //     };
-
-  //     // Create the chart options
-  //     var options = {
-  //       title: {
-  //         text: "Total Revenue"
-  //       },
-  //       legend: {
-  //         display: false
-  //       },
-  //       scales: {
-  //         yAxes: [{
-  //           ticks: {
-  //             stepSize: 1000
-  //           }
-  //         }]
-  //       }
-  //     };
-
-  //     // Create the chart
-  //     var chart = new Chart(ctx, {
-  //       type: "bar",
-  //       data: data,
-  //       options: options
-  //     });
-  //   });
-
-
-
-
-
-
-  //    // bar chart data
-  //    let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
-  // let myChart1 = new Chart(ctx1,  {
-  //     labels : ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-  //     datasets : [
-  //         {
-  //             fillColor : "#15877C",
-  //             strokeColor : "#48A4D1",
-  //             data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80]
-  //         },
-  //         {
-  //             fillColor : "rgba(73,188,170,0.4)",
-  //             strokeColor : "rgba(72,174,209,0.4)",
-  //             data : [364,504,605,400,345,320]
-  //         }
-  //     ]
-  // })
-  // // get bar chart canvas
-  // // var income = document.getElementById("income").getContext("2d");
-  // // // draw bar chart
-  // // new Chart(income).Bar(barData);
-
-
-
-  // // Single Line Chart
-  // var ctx3 = $("#line-chart").get(0).getContext("2d");
-  // var myChart3 = new Chart(ctx3, {
-  //     type: "line",
-  //     data: {
-  //         labels: [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150],
-  //         datasets: [{
-  //             label: "Salse",
-  //             fill: false,
-  //             backgroundColor: "rgba(21, 135, 124, .7)",
-  //             data: [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15]
-  //         }]
-  //     },
-  //     options: {
-  //         responsive: true
-  //     }
-  // });
-
-
-  // // Single Bar Chart
-  // var ctx4 = $("#bar-chart").get(0).getContext("2d");
-  // var myChart4 = new Chart(ctx4, {
-  //     type: "bar",
-  //     data: {
-  //         labels: ["Italy", "France", "Spain", "USA", "Argentina"],
-  //         datasets: [{
-  //             backgroundColor: [
-  //                 "rgba(21, 135, 124, .7)",
-  //                 "rgba(21, 135, 124, .6)",
-  //                 "rgba(21, 135, 124, .5)",
-  //                 "rgba(21, 135, 124, .4)",
-  //                 "rgba(21, 135, 124, .3)"
-  //             ],
-  //             data: [55, 49, 44, 24, 15]
-  //         }]
-  //     },
-  //     options: {
-  //         responsive: true
-  //     }
-  // });
-
-
-  // // Pie Chart
-  // var ctx5 = $("#pie-chart").get(0).getContext("2d");
-  // var myChart5 = new Chart(ctx5, {
-  //     type: "pie",
-  //     data: {
-  //         labels: ["Italy", "France", "Spain", "USA", "Argentina"],
-  //         datasets: [{
-  //             backgroundColor: [
-  //                 "rgba(21, 135, 124, .7)",
-  //                 "rgba(21, 135, 124, .6)",
-  //                 "rgba(21, 135, 124, .5)",
-  //                 "rgba(21, 135, 124, .4)",
-  //                 "rgba(21, 135, 124, .3)"
-  //             ],
-  //             data: [55, 49, 44, 24, 15]
-  //         }]
-  //     },
-  //     options: {
-  //         responsive: true
-  //     }
-  // });
-
-
-  // // Doughnut Chart
-  // var ctx6 = $("#doughnut-chart").get(0).getContext("2d");
-  // var myChart6 = new Chart(ctx6, {
-  //     type: "doughnut",
-  //     data: {
-  //         labels: ["Italy", "France", "Spain", "USA", "Argentina"],
-  //         datasets: [{
-  //             backgroundColor: [
-  //                 "rgba(21, 135, 124, .7)",
-  //                 "rgba(21, 135, 124, .6)",
-  //                 "rgba(21, 135, 124, .5)",
-  //                 "rgba(21, 135, 124, .4)",
-  //                 "rgba(21, 135, 124, .3)"
-  //             ],
-  //             data: [55, 49, 44, 24, 15]
-  //         }]
-  //     },
-  //     options: {
-  //         responsive: true
-  //     }
-  // });
 
 })(jQuery);
 

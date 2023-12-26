@@ -63,7 +63,6 @@ exports.changeAddress = async(req, res) => {
     const existingAddress = await Users.findOne({_id: id,
         'addresses': {
             $elemMatch: {
-            
                 fullName: req.body.fullName,
                 phone: req.body.phone,
                 address: req.body.address,
@@ -87,11 +86,12 @@ exports.changeAddress = async(req, res) => {
         }});
         user.save();
     }
-    res.render('checkout');
+    res.redirect('/checkout');
 }
 
 exports.getOrder = async(req, res) => {
     const id = req.user.id;
+    // const {couponCode,totalAmt, discount, mrp} =req.body;
     const orders = await Order.findOne({userId: id});
     const total = await Cart.aggregate([
         {
@@ -140,8 +140,19 @@ exports.getOrder = async(req, res) => {
     const discount = Math.round((value * totalPrice) / 100);
     const order = new Order({
         userId: id,
+        couponCode:req.query.couponCode,
         totalAmt:totalPrice,
         discount: discount,
+        payableTotal:totalPrice - discount
+    });
+    console.log('hhhhhh');
+    order.save().then(()=> {
+        res.render('checkout');
     })
     
 }
+
+// exports.proceedToPayment = async (req, res) => {
+//     const id = req.user.id;
+
+// };

@@ -1,27 +1,39 @@
 const mongoose = require('mongoose');
 
-// banner collection
-const orderScheme = new mongoose.Schema({
+const orderScheme = new mongoose.Schema({   
     userId:{
         type:  mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
-    totalAmt:{
+    orderItems:[{
+        itemId: {
+            type:  mongoose.Schema.Types.ObjectId,
+            ref: 'books',
+            required: true
+        },
+        name: String,
+        quantity: {
+            type: Number,
+            required: true,
+            min: 1,
+            default: 1
+        },
+        price: Number
+    }],
+    TotalAmt:{
         type: Number,
     },
     discount:{
         type: Number,
     },
+    couponCode: String,
+    payableTotal: Number,
     paymentMethod:{
         type: String,
     },
     orderStatus:{
         type: String,
         default: "pending",
-    },
-    orderItems:{
-        type: Array,
-        default: [],
     },
     orderDate:{
         type: Date,
