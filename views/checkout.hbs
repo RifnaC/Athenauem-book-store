@@ -121,9 +121,25 @@
                 <div class=" py-5">
                     <h2 class="text-primary text-center">Checkout</h2>
                 </div>
+
                 <div class="row">
                     <div class="col-8">
                         <div class="container">
+                            <div class="cart-item bg-white mt-2 " id="shippingCard">
+                                <div class="row m-2 mt-3">
+                                    <h5 class="text-secondary">Shipping Address</h5>
+                                    <div class="d-flex justify-content-between">
+                                        <p>
+                                            <b>{{selectedAdr.fullName}}</b>
+                                            <span class="ps-1">{{selectedAdr.address}}</span>
+                                            <span class="ps-1">{{city}}</span>
+                                            <span class="ps-1">{{district}}</span>
+                                            <span class="ps-1">{{state}}-{{pin}}</span>
+                                        </p>
+                                        <a class="btn btn-outline-secondary">change</a>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row" id="addressArea">
                                 <div class="cart-item bg-white" id="addressCard">
                                     {{#each address}}
@@ -131,7 +147,6 @@
                                         <h5 class="text-secondary">Delivery Address</h5>
                                         <div class="d-flex justify-content-between">
                                             <p>
-                                                <div class="d-none">{{this._id}}</div>
                                                 <b>{{this.fullName}}</b>
                                                 <span class="ps-1">{{this.address}}</span>
                                                 <span class="ps-1">{{this.city}}</span>
@@ -139,22 +154,23 @@
                                                 <span class="ps-1">{{this.state}}-{{this.pincode}}</span>
                                             </p>
                                             <a class="btn btn-outline-secondary adrSelection"
-                                                data-address='{"fullName": "{{this.fullName}}", "phone": "{{this.phone}}", "address": "{{this.address}}", "city": "{{this.city}}", "district": "{{this.district}}", "state": "{{this.state}}", "pincode": "{{this.pincode}}"}'>Select</a>
+                                                data-address='{"fullName": "{{this.fullName}}", "phone": "{{this.phone}}", "address": "{{this.address}}", "city": "{{this.city}}", "district": "{{this.district}}", "state": "{{this.state}}", "pincode": "{{this.pincode}}", "_id":"{{this._id}}"}'>Select</a>
                                         </div>
                                     </div>
                                     {{/each}}
                                 </div>
+
                                 <div id="editShipping">
                                     <p class="fs-5 text-primary ms-3">Shipping Address</p>
                                     <div class="col-12 ">
                                         <div class="border p-3">
                                             <form id="shippingAdr">
-                                                <input type="hidden" id="id" name="_id">
+
                                                 <div class="row">
                                                     <div class="d-flex flex-column form-group col-6">
                                                         <label for="name"> <i class="fa fa-user"></i><span
                                                                 class="ps-2">Name</span></label>
-
+                                                        <input type="hidden" id="shippingId" name="_id" value="">
                                                         <input type="text" id="fname" name="fullName"
                                                             class="form-control" placeholder="Name" value="">
                                                     </div>
@@ -201,8 +217,7 @@
                                                 </div>
                                                 <div class="form-group mt-3">
                                                     <a href="" class="btn btn-outline-secondary">Cancel</a>
-                                                    <button type="submit" class="btn btn-primary">Save</button>
-
+                                                    <button class="btn btn-primary">Save</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -250,7 +265,7 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="container bg-white" >
+                        <div class="container bg-white">
                             <form id="couponBtn" class=" py-3">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control " placeholder="Coupon" aria-label="Coupon"
@@ -262,35 +277,35 @@
                             </form>
                             <div id="placeOrder">
                                 <div class="d-flex justify-content-between ">
-                                <h5 class="text-primary">Product Details</h5>
-                                <h5 class="text-primary">Price</h5>
-                            </div>
-                            <div class="d-flex justify-content-between ">
-                                <p class="text-dark">Total price</p>
-                                <p class="text-dark">&#8377 {{totalPrice}}</p>
-                            </div>
-                            <div class="d-flex justify-content-between ">
-                                <p class="text-dark">Discount</p>
-                                <p class="text-dark">- &#8377 {{coupon}}</p>
-                            </div>
-                            <div class="d-flex justify-content-between ">
-                                <p class="text-dark">Delivery Charges</p>
-                                <p class="text-dark">Free</p>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between ">
-                                <p class="text-dark">Total</p>
-                                <p class="text-dark font-weight-bold">&#8377 {{mrp}}</p>
-                            </div>
+                                    <h5 class="text-primary">Product Details</h5>
+                                    <h5 class="text-primary">Price</h5>
+                                </div>
+                                <div class="d-flex justify-content-between ">
+                                    <p class="text-dark">Total price</p>
+                                    <p class="text-dark">&#8377 {{totalPrice}}</p>
+                                </div>
+                                <div class="d-flex justify-content-between ">
+                                    <p class="text-dark">Discount</p>
+                                    <p class="text-dark">- &#8377 {{coupon}}</p>
+                                </div>
+                                <div class="d-flex justify-content-between ">
+                                    <p class="text-dark">Delivery Charges</p>
+                                    <p class="text-dark">Free</p>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between ">
+                                    <p class="text-dark">Total</p>
+                                    <p class="text-dark font-weight-bold">&#8377 {{mrp}}</p>
+                                </div>
 
-                            
+
                             </div>
                         </div>
                         <div class="payment">
                             <div class="container bg-white mt-3">
                                 <div>
-                                    <input class="form-check-input me-2" type="radio" id="COD"
-                                        name="payementMethod" value="cod" checked/>
+                                    <input class="form-check-input me-2" type="radio" id="COD" name="payementMethod"
+                                        value="cod" checked />
                                     <label class="form-check-label payementRadioBtn" for="COD">Cash on Delivery</label>
                                 </div>
                             </div>
@@ -298,14 +313,15 @@
                                 <div>
                                     <input class="form-check-input me-2" type="radio" id="onlinePayment"
                                         name="payementMethod" value="onlinePayment" />
-                                    <label class="form-check-label payementRadioBtn" for="onlinePayment">Online Payment</label>
+                                    <label class="form-check-label payementRadioBtn" for="onlinePayment">Online
+                                        Payment</label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-center col-12 py-3">
-                                <button class="btn btn-outline-primary" type="submit">Place Order</button>
-                            </div>
+                            <button class="btn btn-outline-primary" type="submit">Place Order</button>
+                        </div>
                         {{!-- <div class="container bg-white mt-3"> --}}
                             {{!-- <div>
                                 <input class="form-check-input me-2" type="radio" id="cardPayement"
@@ -317,6 +333,7 @@
 
                     </div>
                 </div>
+
             </div>
         </div>
     </main>

@@ -59,8 +59,9 @@ exports.checkout = async(req, res) => {
 
 
 exports.changeAddress = async(req, res) => {
-    const id = req.user.id;
-    const existingAddress = await Users.findOne({_id: id,
+    const id=req.params.id;
+    const userId = req.user.id;
+    const existingAddress = await Users.findOne({_id: userId,
         'addresses': {
             $elemMatch: {
                 fullName: req.body.fullName,
@@ -70,23 +71,54 @@ exports.changeAddress = async(req, res) => {
                 district: req.body.district,
                 state: req.body.state,
                 pincode: req.body.pincode,
+                _id:id
             }
-        }});
-        if(!existingAddress) {
-            const user = await Users.findByIdAndUpdate({_id:id}, {$push:{   
+        }
+    });
+    
+    if(!existingAddress) {
+        const user = await Users.findByIdAndUpdate({_id:userId}, 
+            {$push:{   
                 "addresses": {
-                fullName:req.body.fullName,
-                phone:req.body.phone,
-                address:req.body.address,
-                city:req.body.city,
-                district:req.body.district,
-                state:req.body.state,
-                pincode:req.body.pincode,
+                    fullName:req.body.fullName,
+                    phone:req.body.phone,
+                    address:req.body.address,
+                    city:req.body.city,
+                    district:req.body.district,
+                    state:req.body.state,
+                    pincode:req.body.pincode,
+                }
             }
-        }});
+        });
         user.save();
     }
-    res.redirect('/checkout');
+    const updatedUser = await Users.aggregate([
+        {
+          "$unwind": "$addresses" 
+        },
+        {
+          "$match": {
+            "addresses._id": new mongoose.Types.ObjectId(id)
+          }
+        },
+        {
+          "$project": {
+            "addresses": 1,
+          }
+        }
+      ])
+
+    const selectedAdr = updatedUser[0].addresses;
+    const name=selectedAdr.fullName;
+    const adr=selectedAdr.address;
+    const city = selectedAdr.city;
+    const district=selectedAdr.district;
+    const state=selectedAdr.state;
+    const pin=selectedAdr.pincode;
+    console.log(name, adr, city, district, state, pin);
+    res.render('checkout', {
+        selectedAdr: selectedAdr,
+    });
 }
 
 exports.getOrder = async(req, res) => {

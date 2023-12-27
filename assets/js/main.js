@@ -2083,10 +2083,8 @@ $('.icon-wishlist').on('click', function(){
 
 // ***********************Checkout Section*******************************
 $('.adrSelection').on('click', function () {
-
   // Assuming you have a data attribute on the button containing the address information
-  const addressData =$(this).data('address'); 
-  $('#shippingId').val(addressData._id);
+  const addressData =$(this).data('address');
   $('#fname').val(addressData.fullName);
   $('#phone').val(addressData.phone);
   $('#adr').val(addressData.address);
@@ -2094,6 +2092,7 @@ $('.adrSelection').on('click', function () {
   $('#district').val(addressData.district);
   $('#state').val(addressData.state);
   $('#pincode').val(addressData.pincode);
+  $('#shippingId').val(addressData._id);
 });
 
 $("#shippingAdr").submit(function (event) {
@@ -2105,8 +2104,7 @@ $("#shippingAdr").submit(function (event) {
     data[n['name']] = n['value'];
   }); 
 
-  const addressId = data.id;
-  alert('addressId: ' + addressId)
+  const addressId = data._id;
   // Validation: Check if the name and email fields are empty
   if (!data.fullName) {
     Swal.fire({
@@ -2205,9 +2203,7 @@ $("#shippingAdr").submit(function (event) {
             confirmButtonColor: '#15877C',
             text: 'Data updated successfully',
           }).then((result) => {
-            $("#addressArea").css('display', 'none'); 
-              window.location.href = '/checkout';
-                        
+            $("#addressArea").css('display', 'none');     
             })
         } else if (result.isDenied) {
           Swal.fire({
@@ -2244,8 +2240,7 @@ $(document).ready(function() {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData),
+    }
 })
   const paymentMethod = $("input[type='radio'][name='payementMethod']:checked").val();
   if(paymentMethod === 'card payement'){
