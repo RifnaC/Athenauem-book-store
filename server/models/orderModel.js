@@ -5,6 +5,10 @@ const orderScheme = new mongoose.Schema({
         type:  mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
+    addressId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'users'
+    },
     orderItems:[{
         itemId: {
             type:  mongoose.Schema.Types.ObjectId,

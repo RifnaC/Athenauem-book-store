@@ -2201,10 +2201,15 @@ $("#shippingAdr").submit(function (event) {
             icon: 'success',
             title: 'Athenuam',
             confirmButtonColor: '#15877C',
-            text: 'Data updated successfully',
+            text: 'shipping address is updated successfully',
           }).then((result) => {
-            $("#addressArea").css('display', 'none');     
-            })
+            $('#editShipping').css('display', 'none');
+            $('.adrSelection').css('display', 'none');
+            $('.adrChange').css('display', 'block');
+            $('.paymentSection').css('display', 'block');
+            // $("#addressArea").css('display', 'none');    
+            // window.location.href = '/checkout' 
+          })
         } else if (result.isDenied) {
           Swal.fire({
             icon: 'info',
