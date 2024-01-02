@@ -653,7 +653,6 @@ button{
 .labels {
     font-size: 11px;
 }
-
 .add-experience:hover {
     background: #1e3838;
     color: #fff;
@@ -717,7 +716,12 @@ button{
 .cardPayment{
     display: none;
 }
-
+.adrChange{
+    display: none;
+}
+.paymentSection{
+    display: none;
+}
 @media(max-width: 767px) {
 	.footer-col,  .testim-box {
 		width: 50%;
