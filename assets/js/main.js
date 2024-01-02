@@ -2225,6 +2225,21 @@ $("#shippingAdr").submit(function (event) {
   });
 });
 
+$("#changeBtn").click(function(){
+  $('#editShipping').css('display', 'block');
+  $('.adrSelection').css('display', 'block');
+  $('#changeBtn').css('display', 'none');
+  $('.paymentSection').css('display', 'none');
+});
+
+
+
+
+
+
+
+
+
 $("#couponBtn").submit(function (event){
   let coupon = $("#coupon").val();
   if(!coupon){
@@ -2232,30 +2247,42 @@ $("#couponBtn").submit(function (event){
       title: 'Atheneuam',
       text: 'Please enter coupon code!',
       confirmButtonColor: '#15877C',
-    }).then((result) => {
-      window.location.href = '/checkout';
-    });
+    })
   }
 })
+
+
+
+
 
 
 // radio button value for payment
-$(document).ready(function() {
-  fetch('/checkout', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    }
-})
-  const paymentMethod = $("input[type='radio'][name='payementMethod']:checked").val();
-  if(paymentMethod === 'card payement'){
-    alert(paymentMethod);
-  }
- 
-});
+// $(document).ready(function() {
+//   const paymentMethod = $("input[type='radio'][name='payementMethod']:checked").val();
 
-$("#placeOrder").submit(function (event) {
+//     if(paymentMethod === 'card payement'){
+//       alert(paymentMethod);
+//     }
+//   fetch('/api/checkout', {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json',
+//     }
+//   })
+    
+ 
+// });
+
+$("#paymentSection").submit(function (event) {
     event.preventDefault();
+    const paymentMethod = $("input[type='radio'][name='payementMethod']:checked").val();
+    fetch('/api/checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: {paymentMethod: paymentMethod},
+    });
     Swal.fire({
       icon: 'success',
       title: 'Athenuam',

@@ -7,7 +7,7 @@ const orderScheme = new mongoose.Schema({
     },
     addressId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'addresses',
     },
     orderItems:[{
         itemId: {
@@ -45,11 +45,14 @@ const orderScheme = new mongoose.Schema({
     },
     deliveryDate :{
         type: Date,
-        default:  function() { new Date(this.orderDate);
-            DateExpire.setDate(orderDate.getDate() + 5);
-            return DateExpire.toLocaleDateString();
+        default: function() {
+        const orderDate = new Date(this.orderDate); // Ensure orderDate is accessed correctly
+        const deliveryDate = new Date(orderDate);
+        deliveryDate.setDate(deliveryDate.getDate() + 5); // Add 5 days to deliveryDate
+        return deliveryDate.toLocaleDateString();
         }
-    }
+
+    },
 })
 
 
