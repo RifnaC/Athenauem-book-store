@@ -161,39 +161,52 @@ exports.getOrder = async(req, res) => {
                 subTotal: 1,
                 cartItem: { $arrayElemAt: ['$cartItem', 0] },
             }
-        },
-        {
-            $group: {
-                _id: null,
-                cartItem: {$push: '$cartItem'},
-                totalPrice:{
-                    $sum: '$subTotal'
-                },
-            }
         }
     ]);
-    const totalPrice = total[0].totalPrice;
-    const offer = await Coupon.findOne({couponCode: req.query.couponCode});
-    const value = offer ? offer.discount : 0;
-    const discount = Math.round((value * totalPrice) / 100);
     
-    const orderItems = total[0].cartItem.map(item => ({
+    // for (const item of total) {
+    //   const productId = item.productId;
+    //   const quantity = item.quantity;
+    //   const cartItem = item.cartItem;
+    // }
+
+const quantities = [];
+const cartItems = []
+const subTotal = [];
+
+for (const item of total) {
+  quantities.push(item.quantity);
+  cartItems.push(item.cartItem);
+  subTotal.push(item.subTotal);
+}
+
+    const totalPrice = subTotal.reduce((a, b) => a + b, 0);
+    console.log(cartItems);
+    const offer = await Coupon.findOne({couponCode: req.query.couponCode});
+    console.log(offer)
+    const value = offer ? offer.discount : 0;
+    const discount = value==0 ? 0 : Math.round((value * totalPrice) / 100);
+    const bill = totalPrice - discount;
+    const orderItems = cartItems.map((item, index)  => ({
       itemId: item._id,
       name:item.bookName,
       price: item.price,
-    }),
+      quantity: quantities[index],
+    })
     );
-    console.log(orderItems);
-    const order = await Order.findOneAndUpdate({userId: new mongoose.Types.ObjectId(id)},{
-      $set:{
-        TotalAmt:totalPrice,
-        orderItems:orderItems,
-        discount:discount,
-        couponCode: req.query.couponCode,
-        payableTotal:totalPrice - discount,
-        paymentMethod:req.body.paymentMethod,
-      }
+    
+    const order = new Order({
+      userId: new mongoose.Types.ObjectId(id),
+      TotalAmt:totalPrice,
+      orderItems:orderItems,
+      discount:discount,
+      couponCode: req.query.couponCode,
+      payableTotal:bill,
+      paymentMethod:req.body.paymentMethod,
     });
+    order.save().then(()=> {
+          res.render('checkout');
+      })
     // const order = new Order({
       
     //   // orderItems:{
@@ -202,14 +215,12 @@ exports.getOrder = async(req, res) => {
     //   //   price:
     //   // }
     //   TotalAmt:totalPrice,
-    //   discount:discount,
+    //   discount:discount?,
     //   couponCode: req.query.couponCode,
     //   payableTotal:totalPrice - discount,
     //   paymentMethod:req.body.paymentMethod,
     // });
-    // order.save().then(()=> {
-    //     res.render('checkout');
-    // })
+    //
     
 }
 

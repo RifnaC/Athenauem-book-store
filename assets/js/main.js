@@ -2273,24 +2273,44 @@ $("#couponBtn").submit(function (event){
  
 // });
 
+// $("#paymentSection").submit(function (event) {
+//     event.preventDefault();
+//     const paymentMethod = $("input[type='radio'][name='payementMethod']:checked").val();
+//     fetch('/api/checkout', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       data: {paymentMethod: paymentMethod},
+//     });
+//     Swal.fire({
+//       icon: 'success',
+//       title: 'Athenuam',
+//       text: 'New Order is inserted Successfully',
+//       showConfirmButton: true,
+//       confirmButtonColor: '#15877C',
+//     })
+// })
 $("#paymentSection").submit(function (event) {
-    event.preventDefault();
-    const paymentMethod = $("input[type='radio'][name='payementMethod']:checked").val();
-    fetch('/api/checkout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: {paymentMethod: paymentMethod},
-    });
-    Swal.fire({
-      icon: 'success',
-      title: 'Athenuam',
-      text: 'New Order is inserted Successfully',
-      showConfirmButton: true,
-      confirmButtonColor: '#15877C',
-    })
-})
+  event.preventDefault();
+  const paymentMethod = $("input[type='radio'][name='paymentMethod']:checked").val();
+
+  fetch('/api/checkout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ paymentMethod: paymentMethod }), // Use body instead of data
+  });
+  Swal.fire({
+    icon: 'success',
+    title: 'Athenuam',
+    text: 'New Order is inserted Successfully',      
+    showConfirmButton: true,
+    confirmButtonColor: '#15877C',
+  })
+});
+
 // ***********************Chart Section*******************************
 // Chart Global Color
 Chart.defaults.color = "#6C7293";
