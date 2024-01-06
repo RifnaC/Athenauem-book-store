@@ -50,14 +50,14 @@ exports.checkout = async(req, res) => {
             }
         }
     ]);
-    console.log(total[0].quantity);
     const items = total[0].cartItem;
     const totalPrice = total[0].totalPrice;
-    const offer = await Coupon.findOne({couponCode: req.query.couponCode});
+    const CouponCode = req.query.couponCode;
+    const offer = await Coupon.findOne({couponCode: CouponCode});    
     const value = offer ? offer.discount : 0;
     const discount = Math.round((value * totalPrice) / 100);
     const payableTotal =  totalPrice - discount;
-    res.render('checkout', {user: user, address: addres, totalPrice:totalPrice, coupon: discount, mrp: payableTotal, cart:items,});
+    res.render('checkout',{user:user, address: addres, totalPrice:totalPrice, coupon: discount, mrp: payableTotal, cart:items, CouponCode:CouponCode});
 }
 
 exports.changeAddress = async (req, res) => {
@@ -66,18 +66,7 @@ exports.changeAddress = async (req, res) => {
     const userId = req.user.id;
     const existingAddress = await Users.findOne({
         _id: userId,
-        'addresses': {
-          $elemMatch: {
-            fullName: req.body.fullName,
-            phone: req.body.phone,
-            address: req.body.address,
-            city: req.body.city,
-            district: req.body.district,
-            state: req.body.state,
-            pincode: req.body.pincode,
-            _id: id
-          }
-        }
+        'addresses._id': id
     });
     if (!existingAddress) {
       const user = await Users.findByIdAndUpdate(
@@ -96,31 +85,25 @@ exports.changeAddress = async (req, res) => {
             }
         }
       );
+      const newAddress = user.addresses.find(address => address._id == id);
+      console.log('New Address:            ', newAddress);
     }
-    const updatedUser = await Users.aggregate([
-        {
-          "$unwind": "$addresses"
-        },
-        {
-          "$match": {
-            "addresses._id": new mongoose.Types.ObjectId(id)
-          }
-        },
-        {
-          "$project": {
-            "addresses": 1,
-          }
-        }
-    ]);
-
-    const selectedAdr = updatedUser[0].addresses;
-    const addressId = selectedAdr._id;
-    const name = selectedAdr.fullName;
-    const adr = selectedAdr.address;
-    const city = selectedAdr.city;
-    const district = selectedAdr.district;
-    const state = selectedAdr.state;
-    const pin = selectedAdr.pincode;
+    
+    // const updatedUser = await Users.aggregate([
+    //     {
+    //       "$unwind": "$addresses"
+    //     },
+    //     {
+    //       "$match": {
+    //         "addresses._id": new mongoose.Types.ObjectId(id)
+    //       }
+    //     },
+    //     {
+    //       "$project": {
+    //         "addresses": 1,
+    //       }
+    //     }
+    // ]);
     res.render("checkout");
   } catch (error) {      
     console.error(error);
@@ -163,16 +146,10 @@ exports.getOrder = async(req, res) => {
             }
         }
     ]);
-    
-    // for (const item of total) {
-    //   const productId = item.productId;
-    //   const quantity = item.quantity;
-    //   const cartItem = item.cartItem;
-    // }
 
-const quantities = [];
-const cartItems = []
-const subTotal = [];
+  const quantities = [];
+  const cartItems = []
+  const subTotal = [];
 
 for (const item of total) {
   quantities.push(item.quantity);
@@ -181,7 +158,7 @@ for (const item of total) {
 }
 
     const totalPrice = subTotal.reduce((a, b) => a + b, 0);
-    console.log(cartItems);
+    console.log(req.body.couponCode)
     const offer = await Coupon.findOne({couponCode: req.query.couponCode});
     console.log(offer)
     const value = offer ? offer.discount : 0;
@@ -197,10 +174,11 @@ for (const item of total) {
     
     const order = new Order({
       userId: new mongoose.Types.ObjectId(id),
+      
       TotalAmt:totalPrice,
       orderItems:orderItems,
       discount:discount,
-      couponCode: req.query.couponCode,
+      couponCode: req.body.couponCode,
       payableTotal:bill,
       paymentMethod:req.body.paymentMethod,
     });

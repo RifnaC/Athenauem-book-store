@@ -147,9 +147,9 @@
                                         </div>
                                     </div>
                                     {{/each}}
+                                    {{!-- <a href="addNew "></a> --}}
 
                                 </div>
-
                                 <div id="editShipping">
                                     <p class="fs-5 text-primary ms-3">Shipping Address</p>
                                     <div class="col-12 ">
@@ -235,9 +235,9 @@
                                     </div>
                                 </div>
                             </div> --}}
-                            <form id="paymentSection" class="paymentSection" action="/api/checkout" method="POST" onsubmit="return orderForm()">
+                            <form id="paymentSection" class="paymentSection" action="/api/checkout" method="POST" onsubmit="return orderForm('{{CouponCode}}')">
                                 <div >
-                                    <input type="hidden" >
+                                    <input type="hidden" name="couponCode" value="{{CouponCode}}">
                                     <div class="container bg-white mt-3">
                                         <div>
                                             <input class="form-check-input me-2" type="radio" id="COD"
