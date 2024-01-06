@@ -722,9 +722,9 @@ button{
 .paymentSection{
     display: none;
 }
-#updatedCard{
+/* .updatedAddress{
     display: none;
-}
+} */
 @media(max-width: 767px) {
 	.footer-col,  .testim-box {
 		width: 50%;
