@@ -50,14 +50,14 @@ exports.checkout = async(req, res) => {
             }
         }
     ]);
+    console.log(total[0].quantity);
     const items = total[0].cartItem;
     const totalPrice = total[0].totalPrice;
-    const CouponCode = req.query.couponCode;
-    const offer = await Coupon.findOne({couponCode: CouponCode});    
+    const offer = await Coupon.findOne({couponCode: req.query.couponCode});
     const value = offer ? offer.discount : 0;
     const discount = Math.round((value * totalPrice) / 100);
     const payableTotal =  totalPrice - discount;
-    res.render('checkout',{user:user, address: addres, totalPrice:totalPrice, coupon: discount, mrp: payableTotal, cart:items, CouponCode:CouponCode});
+    res.render('checkout', {user: user, address: addres, totalPrice:totalPrice, coupon: discount, mrp: payableTotal, cart:items,});
 }
 
 exports.changeAddress = async (req, res) => {
@@ -66,45 +66,33 @@ exports.changeAddress = async (req, res) => {
     const userId = req.user.id;
     const existingAddress = await Users.findOne({
         _id: userId,
-        'addresses._id': id
+        'addresses': {
+          $elemMatch: {
+            _id: id,
+          }
+        }
     });
     if (!existingAddress) {
-      const user = await Users.findByIdAndUpdate(
-        { _id: userId },
-        {
-            $push: {
-              "addresses": {
-                fullName: req.body.fullName,
-                phone: req.body.phone,
-                address: req.body.address,
-                city: req.body.city,
-                district: req.body.district,
-                state: req.body.state,
-                pincode: req.body.pincode,
-              }
-            }
-        }
-      );
-      const newAddress = user.addresses.find(address => address._id == id);
-      console.log('New Address:            ', newAddress);
+      return res.status(404).send('Address not found');
     }
-    
-    // const updatedUser = await Users.aggregate([
-    //     {
-    //       "$unwind": "$addresses"
-    //     },
-    //     {
-    //       "$match": {
-    //         "addresses._id": new mongoose.Types.ObjectId(id)
-    //       }
-    //     },
-    //     {
-    //       "$project": {
-    //         "addresses": 1,
-    //       }
-    //     }
-    // ]);
-    res.render("checkout");
+    const updatedUser = await Users.aggregate([
+        {
+          "$unwind": "$addresses"
+        },
+        {
+          "$match": {
+            "addresses._id": new mongoose.Types.ObjectId(id)
+          }
+        },
+        {
+          "$project": {
+            "addresses": 1,
+          }
+        }
+    ]);
+    res.status(200).json({ address: updatedUser[0].addresses });
+
+    // res.render("checkout", { updatedAddress: updatedUser[0].addresses });
   } catch (error) {      
     console.error(error);
     res.status(500).send('Internal Server Error');
@@ -146,10 +134,16 @@ exports.getOrder = async(req, res) => {
             }
         }
     ]);
+    
+    // for (const item of total) {
+    //   const productId = item.productId;
+    //   const quantity = item.quantity;
+    //   const cartItem = item.cartItem;
+    // }
 
-  const quantities = [];
-  const cartItems = []
-  const subTotal = [];
+const quantities = [];
+const cartItems = []
+const subTotal = [];
 
 for (const item of total) {
   quantities.push(item.quantity);
@@ -158,10 +152,11 @@ for (const item of total) {
 }
 
     const totalPrice = subTotal.reduce((a, b) => a + b, 0);
-    console.log(req.body.couponCode)
+    console.log(cartItems.price);
     const offer = await Coupon.findOne({couponCode: req.query.couponCode});
     console.log(offer)
     const value = offer ? offer.discount : 0;
+    console.log(value)
     const discount = value==0 ? 0 : Math.round((value * totalPrice) / 100);
     const bill = totalPrice - discount;
     const orderItems = cartItems.map((item, index)  => ({
@@ -174,11 +169,10 @@ for (const item of total) {
     
     const order = new Order({
       userId: new mongoose.Types.ObjectId(id),
-      
       TotalAmt:totalPrice,
       orderItems:orderItems,
       discount:discount,
-      couponCode: req.body.couponCode,
+      couponCode: req.query.couponCode,
       payableTotal:bill,
       paymentMethod:req.body.paymentMethod,
     });

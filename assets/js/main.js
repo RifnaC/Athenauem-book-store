@@ -2207,6 +2207,16 @@ $("#shippingAdr").submit(function (event) {
             $('.adrSelection').css('display', 'none');
             $('.adrChange').css('display', 'block');
             $('.paymentSection').css('display', 'block');
+            $('#checkoutAddBtn').css('display', 'none');
+            $('#addressCard').css('display', 'none');
+            $('#updatedCard').css('display', 'block');
+            $('#savedName').text(data.fullName);
+            $('#savedPhone').text(data.phone);
+            $('#savedAddress').text(data.address);
+            $('#savedCity').text(data.city);
+            $('#savedDistrict').text(data.district);
+            $('#savedState').text(data.state);
+            $('#savedPin').text(data.pincode);
             // $("#addressArea").css('display', 'none');    
             // window.location.href = '/checkout' 
           })
