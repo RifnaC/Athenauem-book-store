@@ -53,11 +53,12 @@ exports.checkout = async(req, res) => {
     console.log(total[0].quantity);
     const items = total[0].cartItem;
     const totalPrice = total[0].totalPrice;
-    const offer = await Coupon.findOne({couponCode: req.query.couponCode});
+    const CouponCode =req.query.couponCode;
+    const offer = await Coupon.findOne({couponCode: CouponCode});
     const value = offer ? offer.discount : 0;
     const discount = Math.round((value * totalPrice) / 100);
     const payableTotal =  totalPrice - discount;
-    res.render('checkout', {user: user, address: addres, totalPrice:totalPrice, coupon: discount, mrp: payableTotal, cart:items,});
+    res.render('checkout', {user: user, address: addres, totalPrice:totalPrice, coupon: discount, mrp: payableTotal, cart:items,CouponCode: CouponCode});
 }
 
 exports.changeAddress = async (req, res) => {
@@ -146,8 +147,7 @@ for (const item of total) {
 }
 
     const totalPrice = subTotal.reduce((a, b) => a + b, 0);
-    console.log(cartItems.price);
-    const offer = await Coupon.findOne({couponCode: req.query.couponCode});
+    const offer = await Coupon.findOne({couponCode: req.body.couponCode});
     console.log(offer)
     const value = offer ? offer.discount : 0;
     console.log(value)
@@ -167,12 +167,12 @@ for (const item of total) {
       TotalAmt:totalPrice,
       orderItems:orderItems,
       discount:discount,
-      couponCode: req.query.couponCode,
+      couponCode: req.body.couponCode,
       payableTotal:bill,
       paymentMethod:req.body.paymentMethod,
     });
     order.save().then(()=> {
-          res.render('checkout');
+          res.redirect('/checkout');
       })
     // const order = new Order({
       

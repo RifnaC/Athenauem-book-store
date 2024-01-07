@@ -125,8 +125,8 @@
                     <div class="col-8">
                         <div class="container">
                             <div class="row" id="addressArea">
-                                    <a href="/address" class="btn btn-outline-secondary my-3" id="checkoutAddBtn">Add new
-                                        Address</a>
+                                <a href="/address" class="btn btn-outline-secondary my-3" id="checkoutAddBtn">Add new
+                                    Address</a>
                                 <div class="cart-item bg-white" id="updatedAddress">
                                     <div class="row m-2 mt-3">
                                         <h5 class="text-secondary">Delivery Address</h5>
@@ -146,51 +146,26 @@
                                         </div>
                                     </div>
                                 </div>
-                            
-
-
-                            <div class="cart-item bg-white my-2" id="addressCard">
-                                {{#each address}}
-                                <div class="row m-2 mt-3">
-                                    <h5 class="text-secondary">Delivery Address</h5>
-                                    <div class="d-flex justify-content-between">
-                                        <p>
-                                            <b>{{this.fullName}}</b>
-                                            <span class="ps-1">{{this.phone}}</span>
-                                            <span class="ps-1">{{this.address}}</span>
-                                            <span class="ps-1">{{this.city}}</span>
-                                            <span class="ps-1">{{this.district}}</span>
-                                            <span class="ps-1">{{this.state}} - {{this.pincode}}</span>
-                                        </p>
-                                        <a class="btn btn-outline-secondary adrSelection"
-                                            data-address='{"fullName": "{{this.fullName}}", "phone": "{{this.phone}}", "address": "{{this.address}}", "city": "{{this.city}}", "district": "{{this.district}}", "state": "{{this.state}}", "pincode": "{{this.pincode}}", "_id":"{{this._id}}"}'>Select
-                                        </a>
-                                    </div>
-                                </div>
-                                {{/each}}
-                            </div>
-
-
-                            {{!-- <div class="cart-item  mb-5" id=" updatedAddress">
-                                <div class="row m-2 mt-3">
-                                    <h5 class="text-secondary">Delivery Address</h5>
-                                    <div class="d-flex justify-content-between">
-                                        <p>
-                                            <b id="savedName"></b>
-                                            <span id="savedPhone" class="ps-1"></span>
-                                            <span id="savedAddress" class="ps-1"></span>
-                                            <span id="savedCity" class="ps-1"></span>
-                                            <span id="savedDistrict" class="ps-1"></span>
-                                        <div id="savedState" class="ps-1">
-                                            <span id="savedPin">- </span>
-                                            </span>
+                                <div class="cart-item bg-white my-2" id="addressCard">
+                                    {{#each address}}
+                                    <div class="row m-2 mt-3">
+                                        <h5 class="text-secondary">Delivery Address</h5>
+                                        <div class="d-flex justify-content-between">
+                                            <p>
+                                                <b>{{this.fullName}}</b>
+                                                <span class="ps-1">{{this.phone}}</span>
+                                                <span class="ps-1">{{this.address}}</span>
+                                                <span class="ps-1">{{this.city}}</span>
+                                                <span class="ps-1">{{this.district}}</span>
+                                                <span class="ps-1">{{this.state}} - {{this.pincode}}</span>
                                             </p>
-                                            <a class="btn btn-outline-secondary adrChange" id="changeBtn">change
+                                            <a class="btn btn-outline-secondary adrSelection"
+                                                data-address='{"fullName": "{{this.fullName}}", "phone": "{{this.phone}}", "address": "{{this.address}}", "city": "{{this.city}}", "district": "{{this.district}}", "state": "{{this.state}}", "pincode": "{{this.pincode}}", "_id":"{{this._id}}"}'>Select
                                             </a>
                                         </div>
                                     </div>
-                                </div> --}}
-
+                                    {{/each}}
+                                </div>
                                 <div id="editShipping">
                                     <p class="fs-5 text-primary ms-3">Shipping Address</p>
                                     <div class="col-12 ">
@@ -255,43 +230,22 @@
                                     </div>
                                 </div>
                             </div>
-                            {{!-- <div class="orderItems">
-                                <div class="container bg-white mt-3">
-                                    <h4 class="text-dark">Order Items</h4>
-                                    {{#each cart}}
-                                    <div class=" d-flex my-3">
-                                        <div class="me-3">
-                                            <img src="{{productImg}}" alt="{{bookName}}"
-                                                style="width: 80px; height: 80px">
-                                        </div>
-                                        <div>
-                                            <div class="fs-5 text-dark">{{bookName}}</div>
-                                            <div class="fs-6 text-light">By {{author}}</div>
-                                            <div class="fs-6 text-dark">₹ {{price}} <span>x 1</span></div>
-                                        </div>
-                                    </div>
-                                    {{/each}}
-                                    <div class="d-flex justify-content-end">
-                                        <a class="btn btn-outline-primary">Place Order</a>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <form id="paymentSection" class="paymentSection" action="/api/checkout" method="POST"
-                                onsubmit="return orderForm('{{CouponCode}}')">
+                            <form id="paymentSection" class="paymentSection" action="/api/checkout" method="POST">
                                 <div>
-                                    <input type="hidden" name="couponCode" value="{{CouponCode}}">
+                                    <input type="hidden" name="couponCode" id="orderCoupon" value="{{CouponCode}}">
                                     <div class="container bg-white mt-3">
                                         <div>
                                             <input class="form-check-input me-2 payementRadioBtn" type="radio" id="COD"
-                                                name="paymentMethod" value="Cash On Delivery" />
+                                                name="paymentMethod" value="COD" />
                                             <label class="form-check-label payementMethodBtn" for="COD">Cash on
                                                 Delivery</label>
                                         </div>
                                     </div>
                                     <div class="container bg-white mt-3">
                                         <div>
-                                            <input class="form-check-input me-2 paymentMethodBtn" type="radio" id="onlinePayment"
-                                                name="paymentMethod" value="Online Payment(Razopay)" />
+                                            <input class="form-check-input me-2 paymentMethodBtn" type="radio"
+                                                id="onlinePayment" name="paymentMethod"
+                                                value="Online Payment(Razopay)" />
                                             <label class="form-check-label payementRadioBtn" for="onlinePayment">Online
                                                 Payment</label>
                                         </div>
@@ -306,7 +260,8 @@
                     </div>
                     <div class="col-4">
                         <div class="container bg-white">
-                            <form id="couponBtn" class=" py-3">
+                           <div class="off">
+                             <form id="couponBtn" class=" py-3">
                                 <div class="couponSection input-group mb-3">
                                     <input type="text" class="form-control " placeholder="Coupon" aria-label="Coupon"
                                         aria-describedby="basic-addon2" id="coupon" name="couponCode">
@@ -315,6 +270,7 @@
                                     </div>
                                 </div>
                             </form>
+                           </div>
                             <div id="placeOrder">
                                 <div class="d-flex justify-content-between ">
                                     <h5 class="text-primary">Product Details</h5>

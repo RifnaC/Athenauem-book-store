@@ -2245,59 +2245,24 @@ $("#changeBtn").click(function(){
 });
 
 $("#couponBtn").submit(function (event){
-  let coupon = $("#coupon").val();
+  const coupon = $("#coupon").val();
   if(!coupon){
     Swal.fire({
       title: 'Atheneuam',
       text: 'Please enter coupon code!',
       confirmButtonColor: '#15877C',
     })
+    return false;
+  }else{
+    $('.off').css('display', 'none');
   }
 })
 
 
-
-
-
-
-// radio button value for payment
-// $(document).ready(function() {
-//   const paymentMethod = $("input[type='radio'][name='payementMethod']:checked").val();
-
-//     if(paymentMethod === 'card payement'){
-//       alert(paymentMethod);
-//     }
-//   fetch('/api/checkout', {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json',
-//     }
-//   })
-    
- 
-// });
-
-// $("#paymentSection").submit(function (event) {
-//     event.preventDefault();
-//     const paymentMethod = $("input[type='radio'][name='payementMethod']:checked").val();
-//     fetch('/api/checkout', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       data: {paymentMethod: paymentMethod},
-//     });
-//     Swal.fire({
-//       icon: 'success',
-//       title: 'Athenuam',
-//       text: 'New Order is inserted Successfully',
-//       showConfirmButton: true,
-//       confirmButtonColor: '#15877C',
-//     })
-// })
 $("#paymentSection").submit(function (event) {
   const savedIdText = document.getElementById('savedId').innerText;
   const paymentMethod = $("input[name='paymentMethod']:checked").val();
+  const couponCode = $("input[name='couponCode']").val();
   if (paymentMethod === undefined) {
     Swal.fire({
       title: 'Athenuam',
@@ -2307,7 +2272,7 @@ $("#paymentSection").submit(function (event) {
     })
     return false;
   }
-alert(paymentMethod);
+alert(couponCode);
   fetch('/api/checkout', {
     method: 'POST',
     headers: {
@@ -2315,7 +2280,8 @@ alert(paymentMethod);
     },
     body: JSON.stringify({ 
       savedId: savedIdText,
-      paymentMethod: paymentMethod 
+      paymentMethod: paymentMethod,
+      couponCode: couponCode
     }), // Use body instead of data
   });
   Swal.fire({

@@ -33,11 +33,12 @@ const orderScheme = new mongoose.Schema({
     discount:{
         type: Number,
     },
-    couponCode: String,
+    couponCode: {
+        type: String,
+    },
     payableTotal: Number,
     paymentMethod:{
         type: String,
-        required: true,
     },
     orderStatus:{
         type: String,
@@ -58,7 +59,5 @@ const orderScheme = new mongoose.Schema({
 
     },
 })
-
-
 const orderCollection = mongoose.model('Orders', orderScheme);
 module.exports = orderCollection;
