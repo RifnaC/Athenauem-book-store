@@ -134,12 +134,6 @@ exports.getOrder = async(req, res) => {
             }
         }
     ]);
-    
-    // for (const item of total) {
-    //   const productId = item.productId;
-    //   const quantity = item.quantity;
-    //   const cartItem = item.cartItem;
-    // }
 
 const quantities = [];
 const cartItems = []
@@ -169,6 +163,7 @@ for (const item of total) {
     
     const order = new Order({
       userId: new mongoose.Types.ObjectId(id),
+      addressId: new mongoose.Types.ObjectId(req.body.savedId),
       TotalAmt:totalPrice,
       orderItems:orderItems,
       discount:discount,

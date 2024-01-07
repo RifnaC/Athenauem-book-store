@@ -2209,14 +2209,16 @@ $("#shippingAdr").submit(function (event) {
             $('.adrChange').css('display', 'block');
             $('.paymentSection').css('display', 'block');
             $('#checkoutAddBtn').css('display', 'none');
+            $('#addressCard').css('display', 'none');
+            $('#updatedAddress').css('display', 'block');
+            $('#savedId').text(addressId);
             $('#savedName').text(data.fullName);
             $('#savedPhone').text(data.phone);
             $('#savedAddress').text(data.address);
             $('#savedCity').text(data.city);
             $('#savedDistrict').text(data.district);
             $('#savedState').text(data.state);
-            // $("#addressArea").css('display', 'none');    
-            // window.location.href = '/checkout' 
+            $('#savedPin').text(-data.pincode);
           })
         } else if (result.isDenied) {
           Swal.fire({
@@ -2236,17 +2238,11 @@ $("#shippingAdr").submit(function (event) {
 $("#changeBtn").click(function(){
   $('#editShipping').css('display', 'block');
   $('.adrSelection').css('display', 'block');
+  $('#addressCard').css('display', 'block')
   $('#changeBtn').css('display', 'none');
   $('.paymentSection').css('display', 'none');
+  $('#updatedAddress').css('display', 'none');
 });
-
-
-
-
-
-
-
-
 
 $("#couponBtn").submit(function (event){
   let coupon = $("#coupon").val();
@@ -2300,15 +2296,27 @@ $("#couponBtn").submit(function (event){
 //     })
 // })
 $("#paymentSection").submit(function (event) {
-  event.preventDefault();
-  const paymentMethod = $("input[type='radio'][name='paymentMethod']:checked").val();
-
+  const savedIdText = document.getElementById('savedId').innerText;
+  const paymentMethod = $("input[name='paymentMethod']:checked").val();
+  if (paymentMethod === undefined) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Please select a payment method',      
+      showConfirmButton: true,
+      confirmButtonColor: '#15877C',
+    })
+    return false;
+  }
+alert(paymentMethod);
   fetch('/api/checkout', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ paymentMethod: paymentMethod }), // Use body instead of data
+    body: JSON.stringify({ 
+      savedId: savedIdText,
+      paymentMethod: paymentMethod 
+    }), // Use body instead of data
   });
   Swal.fire({
     icon: 'success',
