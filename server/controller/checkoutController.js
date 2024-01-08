@@ -191,7 +191,15 @@ for (const item of total) {
     
 }
 
-// exports.proceedToPayment = async (req, res) => {
-//     const id = req.user.id;
+exports.proceedToPayment = (req, res) => {
+  console.log("create orderId request: " + req.body);
+  const options = {
+    amount: req.body.amount, 
+    currency: "INR",
+    receipt: "rcptid"
+  };
+  instance.orders.create(options, function(err, order) {
+    console.log(order);
+  });
 
-// };
+};

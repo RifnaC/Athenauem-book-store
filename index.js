@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const {superAdmin} = require('./server/seeder/adminSeeder');
 const connectDB = require('./server/database/connection');
+const Razorpay = require('razorpay');
 
 const userApp = express();
 const adminApp = express();
@@ -16,6 +17,12 @@ const adminApp = express();
 // port for admin and user
 const adminPort = process.env.ADMIN_PORT ;
 const userPort = process.env.USER_PORT;
+
+// Razorpay instance 
+const instance = new Razorpay({
+    key_id: 'process.env.KEY_ID',
+    key_secret: 'process.env.KEY_SECRET',
+});
 
 adminApp.use(session({
     secret: process.env.SESSION_KEY,
@@ -28,6 +35,7 @@ userApp.use(session({
     resave: false,
     saveUninitialized: true,
 }));
+
 
 //log request
 adminApp.use(morgan('tiny'));
