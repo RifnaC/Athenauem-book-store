@@ -173,8 +173,7 @@ exports.getOrder = async(req, res) => {
     paymentMethod:req.body.paymentMethod,
   });
   order.save().then((result)=> {
-    // console.log("order saved", result._id);
-    res.redirect('/checkout');
+    res.render('invoice');
   })  
 }
 exports.payment = async(req, res) => {
@@ -182,15 +181,13 @@ exports.payment = async(req, res) => {
 }
 
 exports.proceedToPayment = async(req, res) => {
-  console.log('Created orderId request', req.body);
   const options = {
-    amount: req.body.amount, 
+    amount: req.body.amount * 100, 
     currency: "INR",
     receipt: "rcptid"
   };
   try {
     instance.orders.create(options, (err,order)=>{
-      console.log(order)
       res.send({orderId:order.id})
     });
   } catch (error) {
@@ -198,3 +195,7 @@ exports.proceedToPayment = async(req, res) => {
     res.status(500).send('Internal Server Error');
   }
 };
+
+exports.invoice = async(req, res) => {
+  res.render('invoice');
+}

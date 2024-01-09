@@ -41,4 +41,7 @@ route.post("/api/checkout", auth.authMiddleware, checkout.getOrder);
 route.get("/", checkout.payment);
 route.post("/createOrder", auth.authMiddleware, checkout.proceedToPayment);
 
+// invoice Routes
+route.get("/invoice", auth.authMiddleware, checkout.invoice);
+
 module.exports = route
