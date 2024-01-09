@@ -2342,6 +2342,8 @@ $("#paymentSection").submit(function (event) {
     text: 'New Order is Placed Successfully',      
     showConfirmButton: true,
     confirmButtonColor: '#15877C',
+  }).then(function (result) {
+    window.location.href = '/invoice';
   })
 });
 

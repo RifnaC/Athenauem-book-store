@@ -172,9 +172,7 @@ exports.getOrder = async(req, res) => {
     payableTotal:bill,
     paymentMethod:req.body.paymentMethod,
   });
-  order.save().then((result)=> {
-    res.render('invoice');
-  })  
+  order.save()
 }
 exports.payment = async(req, res) => {
   res.render('checkout');  

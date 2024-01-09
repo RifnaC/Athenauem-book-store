@@ -61,6 +61,111 @@
         </div>
     </div>
     <!-- Spinner End -->
+    
+Conversation opened. 1 unread message.
+
+Skip to content
+Using Gmail with screen readers
+1 of 2,540
+(no subject)
+Inbox
+
+jeeva mk <jeevamk100@gmail.com>
+23:21 (1 minute ago)
+to me
+
+<section class="gradient-custom mt-5">
+        <div class="container py-5 h-100 mb-4">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-10 col-xl-8">
+                    <div class="card shadow-lg" style="border-radius: 10px;">
+                        <div class="card-header px-4 py-5">
+                            {{!-- <img src="/images/loginImg.jpg" alt="" class="img-fluid" width="100px"> --}}
+                            <span
+                                style="font-size: larger; font-weight:bold">Thanks For Your Order, <span
+                                    style="color: #000000; font-style:italic"
+                                    class="text-danger">{{address.name}}</span></span>
+                            
+                        </div>
+                        <div class="d-flex justify-content-between pt-2 ps-4">
+                            <p class="fw-bold mb-0">Delivery Address</p>
+                        </div>
+
+                        <div class="d-flex justify-content-between pt-2 shadow-sm ps-4 pb-3">
+                            <p class="text-muted mb-0">
+                                {{address.name}},{{address.address}},{{address.area}},{{address.city}},{{address.state}}<br>{{address.phone}}
+                            </p>
+                        </div>
+
+                        <div class="card-body p-4">
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item d-flex justify-content-between 1h-condensed">
+                                    <p class="my-0">Receipt id : <small>{{orderData._id}}</small></p>
+                                    <small class="me-5 ms-auto text-success">{{orderData.orderStatus}}</small>
+                                </li>
+
+                            </ul>
+                            {{!-- <div class="d-flex justify-content-between align-items-center mb-4">
+                                <p class="lead fw-normal mb-0 me-auto" style="color: #000000;">Receipt</p>
+                                <p class="small text-muted mb-0">Receipt id : {{orderData._id}}<br><span
+                                        class="text-success">{{orderData.orderStatus}}</span></p>
+                            </div> --}}
+
+                            {{#each Products}}
+
+                            <div class="card shadow-0 border mb-4">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <img src="{{this.productData.images}}" class="img-fluid" alt="product">
+                                        </div>
+                                        <div
+                                            class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                            <p class="text-muted mb-0">{{this.productData.name}}</p>
+                                        </div>
+                                        <div
+                                            class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                            <p class="text-muted mb-0 small">{{this.productData.category}}</p>
+                                        </div>
+                                        <div
+                                            class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                            <p class="text-muted mb-0 small">{{this.productData.brand}}</p>
+                                        </div>
+                                        <div
+                                            class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                            <p class="text-muted mb-0 small">Qty: {{this.quantity}}</p>
+                                        </div>
+                                        <div
+                                            class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                            <p class="text-muted mb-0 small" id="grand{{this.productData._id}}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                var price = {{ this.productData.price }}
+                                var qty = {{ this.quantity }}
+                                var total = price * qty
+                                document.getElementById("grand{{this.productData._id}}").textContent = total
+                            </script>
+                            {{/each}}
+
+                        </div>
+                        <div class="card-footer border-0 px-4 py-5"
+                            style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                            <h5 class="d-flex align-items-center justify-content-end text-dark text-uppercase mb-0">
+                                Total
+                                paid: <span class="h2 mb-0 ms-2" id="totalPay">₹ {{grandtotal}} /-</span></h5>
+                        </div>
+
+                        
+                        <a href="/shop"><button class="btn btn-outline-dark w-100 mt-3">BACK TO SHOP</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
 
 
 
