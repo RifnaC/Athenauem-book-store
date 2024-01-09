@@ -2281,7 +2281,7 @@ $("#paymentSection").submit(function (event) {
       savedId: savedIdText,
       paymentMethod: paymentMethod,
       couponCode: couponCode
-    }), // Use body instead of data
+    }), 
   });
   Swal.fire({
     icon: 'success',
@@ -2294,10 +2294,10 @@ $("#paymentSection").submit(function (event) {
 
 
 
-var orderId ;
+let orderId ;
 $(document).ready(function(){
     var settings = {
-  "url": "/create/orderId",
+  "url": "/createOrder",
   "method": "POST",
   "timeout": 0,
   "headers": {
@@ -2316,45 +2316,46 @@ $.ajax(settings).done(function (response) {
   $("button").show();
 });
 });
-var options = {
+
+
+
+document.getElementById('rzp-button1').onclick = function(e){
+  const options = {
     "key": "rzp_test_a2pY3SL0qqjGHN", // Enter the Key ID generated from the Dashboard
     "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
     "name": "Acme Corp",
     "description": "Test Transaction",
     "image": "https://example.com/your_logo",
-    "order_id": "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "order_id": orderId,
     "handler": function (response){
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature)
-    },
-    "prefill": {
-        "name": "Gaurav Kumar",
-        "email": "gaurav.kumar@example.com",
-        "contact": "9000090000"
-    },
-    "notes": {
-        "address": "Razorpay Corporate Office"
+      alert(response.razorpay_payment_id);
+      alert(response.razorpay_order_id);
+      alert(response.razorpay_signature)
     },
     "theme": {
-        "color": "#3399cc"
+      "color": "#3399cc"
     }
-};
-var rzp1 = new Razorpay(options);
-rzp1.on('payment.failed', function (response){
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
-});
-document.getElementById('rzp-button1').onclick = function(e){
-    rzp1.open();
-    e.preventDefault();
+  };
+  const rzp1 = new Razorpay(options);
+  rzp1.on('payment.failed', function (response){
+    alert(response.error.code);
+    alert(response.error.description);
+    alert(response.error.source);
+    alert(response.error.step);      
+    alert(response.error.reason);
+    alert(response.error.metadata.order_id);
+    alert(response.error.metadata.payment_id);
+  });
+  rzp1.open();
+  e.preventDefault();
 }
+
+//creates new orderId es
+s.ajax(settings).done(function (response) {
+    alert(JSON.stringify(response));
+});
+
 
 // ***********************Chart Section*******************************
 // Chart Global Color

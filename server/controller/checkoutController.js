@@ -184,14 +184,17 @@ exports.payment = async(req, res) => {
 }
 
 exports.proceedToPayment = async(req, res) => {
+  console.log('Created orderId request', req.body);
   const options = {
-    amount: 50000, 
+    amount: req.body.amount, 
     currency: "INR",
     receipt: "rcptid"
   };
   try {
-    const response = await instance.orders.create(options);
-    res.json(response);
+    instance.orders.create(options, (err,order)=>{
+      console.log(order)
+      res.send({orderId:order.id})
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');

@@ -38,7 +38,7 @@ route.put("/profile/:id", auth.authMiddleware, user.deleteAddress);
 route.get("/checkout", auth.authMiddleware, checkout.checkout);
 route.put("/checkout/:id", auth.authMiddleware, checkout.changeAddress);
 route.post("/api/checkout", auth.authMiddleware, checkout.getOrder);
-route.get("/", auth.authMiddleware, checkout.payment);
+route.get("/", checkout.payment);
 route.post("/createOrder", auth.authMiddleware, checkout.proceedToPayment);
 
 module.exports = route
