@@ -3,6 +3,13 @@ const Users = require('../models/userModel');
 const Cart = require('../models/cartModel');
 const Coupon = require('../models/couponModel');
 const Order = require('../models/orderModel');
+const Razorpay = require('razorpay');
+
+// Razorpay instance 
+const instance = new Razorpay({
+  key_id: process.env.KEY_ID,
+  key_secret: process.env.KEY_SECRET,
+});
 
 exports.checkout = async(req, res) => {
     const id = req.user.id;
@@ -101,8 +108,8 @@ exports.changeAddress = async (req, res) => {
 }
   
 exports.getOrder = async(req, res) => {
-    const id = req.user.id;
-    const total = await Cart.aggregate([
+  const id = req.user.id;
+  const total = await Cart.aggregate([
         {
             $match: { 
                 userId: new mongoose.Types.ObjectId(id),
@@ -134,72 +141,64 @@ exports.getOrder = async(req, res) => {
                 cartItem: { $arrayElemAt: ['$cartItem', 0] },
             }
         }
-    ]);
+  ]);
+  const quantities = [];
+  const cartItems = []
+  const subTotal = [];
 
-const quantities = [];
-const cartItems = []
-const subTotal = [];
-
-for (const item of total) {
-  quantities.push(item.quantity);
-  cartItems.push(item.cartItem);
-  subTotal.push(item.subTotal);
+  for (const item of total) {
+    quantities.push(item.quantity);
+    cartItems.push(item.cartItem);
+    subTotal.push(item.subTotal);
+  }
+  const totalPrice = subTotal.reduce((a, b) => a + b, 0);
+  const offer = await Coupon.findOne({couponCode: req.body.couponCode});
+  const value = offer ? offer.discount : 0;
+  const discount = value==0 ? 0 : Math.round((value * totalPrice) / 100);
+  const bill = totalPrice - discount;
+  const orderItems = cartItems.map((item, index)  => ({
+    itemId: item._id,
+    name:item.bookName,
+    price: item.price,
+    quantity: quantities[index],
+  }));
+  const order = new Order({
+    userId: new mongoose.Types.ObjectId(id),
+    addressId: new mongoose.Types.ObjectId(req.body.savedId),
+    TotalAmt:totalPrice,
+    orderItems:orderItems,
+    discount:discount,
+    couponCode: req.body.couponCode,
+    payableTotal:bill,
+    paymentMethod:req.body.paymentMethod,
+  });
+  order.save().then((res)=> {
+    console.log("order saved", res._id);
+    res.redirect('/checkout');
+  })  
+}
+exports.payment = async(req, res) => {
+  const id = req.user.id;
+  const order = await Order.findOne({userId: new mongoose.Types.ObjectId(id)});
+  res.render('checkout', {order: order});  
 }
 
-    const totalPrice = subTotal.reduce((a, b) => a + b, 0);
-    const offer = await Coupon.findOne({couponCode: req.body.couponCode});
-    console.log(offer)
-    const value = offer ? offer.discount : 0;
-    console.log(value)
-    const discount = value==0 ? 0 : Math.round((value * totalPrice) / 100);
-    const bill = totalPrice - discount;
-    const orderItems = cartItems.map((item, index)  => ({
-      itemId: item._id,
-      name:item.bookName,
-      price: item.price,
-      quantity: quantities[index],
-    })
-    );
-    
-    const order = new Order({
-      userId: new mongoose.Types.ObjectId(id),
-      addressId: new mongoose.Types.ObjectId(req.body.savedId),
-      TotalAmt:totalPrice,
-      orderItems:orderItems,
-      discount:discount,
-      couponCode: req.body.couponCode,
-      payableTotal:bill,
-      paymentMethod:req.body.paymentMethod,
-    });
-    order.save().then(()=> {
-          res.redirect('/checkout');
-      })
-    // const order = new Order({
-      
-    //   // orderItems:{
-    //   //   itemId: 
-    //   //   quantity:
-    //   //   price:
-    //   // }
-    //   TotalAmt:totalPrice,
-    //   discount:discount?,
-    //   couponCode: req.query.couponCode,
-    //   payableTotal:totalPrice - discount,
-    //   paymentMethod:req.body.paymentMethod,
-    // });
-    //
-    
-}
-
-exports.proceedToPayment = (req, res) => {
-  console.log("create orderId request: " + req.body);
+exports.proceedToPayment = async(req, res) => {
   const options = {
-    amount: req.body.amount, 
+    amount: 50000, 
     currency: "INR",
     receipt: "rcptid"
   };
-  instance.orders.create(options, function(err, order) {
-    console.log(order);
-  });
-
+  try {
+    const response = await instance.orders.create(options);
+    res.json(response);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+  // instance.orders.create(options, function(err, order) {
+  //   console.log(order);
+  //   res.send({ orderId: order.id });
+  // });
+  
 };

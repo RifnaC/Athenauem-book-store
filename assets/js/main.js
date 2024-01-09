@@ -2293,17 +2293,17 @@ $("#paymentSection").submit(function (event) {
 });
 
 
-// razopay integration
-let orderId ;
+
+var orderId ;
 $(document).ready(function(){
-    const settings = {
-      "url": "/create/orderId",
-      "method": "POST",
-      "timeout": 0, 
-      "headers": {
-      "Content-Type": "application/json"
-    },
-    "data": JSON.stringify({
+    var settings = {
+  "url": "/create/orderId",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "data": JSON.stringify({
     "amount": "50000"
   }),
 };
@@ -2317,13 +2317,13 @@ $.ajax(settings).done(function (response) {
 });
 });
 var options = {
-    "key": "rzp_test_8YRwJGwX9Q2vq", // Enter the Key ID generated from the Dashboard
+    "key": "rzp_test_a2pY3SL0qqjGHN", // Enter the Key ID generated from the Dashboard
     "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
     "name": "Acme Corp",
     "description": "Test Transaction",
     "image": "https://example.com/your_logo",
-    "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "order_id": "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "handler": function (response){
         alert(response.razorpay_payment_id);
         alert(response.razorpay_order_id);
@@ -2355,6 +2355,7 @@ document.getElementById('rzp-button1').onclick = function(e){
     rzp1.open();
     e.preventDefault();
 }
+
 // ***********************Chart Section*******************************
 // Chart Global Color
 Chart.defaults.color = "#6C7293";
