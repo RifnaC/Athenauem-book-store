@@ -172,15 +172,13 @@ exports.getOrder = async(req, res) => {
     payableTotal:bill,
     paymentMethod:req.body.paymentMethod,
   });
-  order.save().then((res)=> {
-    console.log("order saved", res._id);
+  order.save().then((result)=> {
+    // console.log("order saved", result._id);
     res.redirect('/checkout');
   })  
 }
 exports.payment = async(req, res) => {
-  const id = req.user.id;
-  const order = await Order.findOne({userId: new mongoose.Types.ObjectId(id)});
-  res.render('checkout', {order: order});  
+  res.render('checkout');  
 }
 
 exports.proceedToPayment = async(req, res) => {
@@ -199,9 +197,4 @@ exports.proceedToPayment = async(req, res) => {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
-  // instance.orders.create(options, function(err, order) {
-  //   console.log(order);
-  //   res.send({ orderId: order.id });
-  // });
-  
 };

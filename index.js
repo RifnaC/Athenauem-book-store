@@ -39,7 +39,7 @@ userApp.use(morgan('tiny'));
 
 // mongodb connection
 connectDB();
-
+userApp.use(bodyParser.json());
 adminApp.use(bodyParser.urlencoded({extended: true}))
 userApp.use(bodyParser.urlencoded({extended: true}))
 

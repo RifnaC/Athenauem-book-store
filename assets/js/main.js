@@ -2263,6 +2263,8 @@ $("#paymentSection").submit(function (event) {
   const savedIdText = document.getElementById('savedId').innerText;
   const paymentMethod = $("input[name='paymentMethod']:checked").val();
   const couponCode = $("input[name='couponCode']").val();
+  const amount = document.getElementById('total').innerText;
+  alert(amount)
   if (paymentMethod === undefined) {
     Swal.fire({
       title: 'Athenuam',
@@ -2283,6 +2285,54 @@ $("#paymentSection").submit(function (event) {
       couponCode: couponCode
     }), 
   });
+  if(paymentMethod === "Online Payment"){
+    let orderId;
+    $(document).ready(function () {
+      const settings = {
+        url: "/createOrder",
+        method: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify({
+          amount: 50000,
+        }),
+        success: function (response) {
+          alert(response.orderId);
+          orderId = response.orderId;
+          $("button").show();
+        },
+        error: function (xhr, status, error) {
+          console.error('Error creating order:', error);
+        }
+      };
+      // Creates a new orderId every time
+      $.ajax(settings);
+    });
+    const options = {
+      "key": "rzp_test_a2pY3SL0qqjGHN",
+      "amount": 50000,
+      "currency": "INR",
+      "name": "Atheneuam",
+      "description": "Test Transaction",
+      "image": "https://asset.cloudinary.com/dfyuibin9/7dfd4f365929133e3282794643564a88",
+      "handler": function (response) {
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+      },
+      "theme": {
+        "color": "#15877C"
+      }
+    };
+    const rzp = new Razorpay(options);
+    rzp.open();
+    event.preventDefault();
+
+    //creates new orderId es
+    s.ajax(settings).done(function (response) {
+      alert(JSON.stringify(response));
+    });
+  }
   Swal.fire({
     icon: 'success',
     title: 'Athenuam',
@@ -2293,68 +2343,38 @@ $("#paymentSection").submit(function (event) {
 });
 
 
-
-let orderId ;
-$(document).ready(function(){
-    var settings = {
-  "url": "/createOrder",
-  "method": "POST",
-  "timeout": 0,
-  "headers": {
-    "Content-Type": "application/json"
-  },
-  "data": JSON.stringify({
-    "amount": "50000"
-  }),
-};
-
-//creates new orderId everytime
-$.ajax(settings).done(function (response) {
-
-  orderId=response.orderId;
-  console.log(orderId);
-  $("button").show();
-});
-});
-
-
-
-document.getElementById('rzp-button1').onclick = function(e){
-  const options = {
-    "key": "rzp_test_a2pY3SL0qqjGHN", // Enter the Key ID generated from the Dashboard
-    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-    "currency": "INR",
-    "name": "Acme Corp",
-    "description": "Test Transaction",
-    "image": "https://example.com/your_logo",
-    "order_id": orderId,
-    "handler": function (response){
-      alert(response.razorpay_payment_id);
-      alert(response.razorpay_order_id);
-      alert(response.razorpay_signature)
-    },
-    "theme": {
-      "color": "#3399cc"
-    }
-  };
-  const rzp1 = new Razorpay(options);
-  rzp1.on('payment.failed', function (response){
-    alert(response.error.code);
-    alert(response.error.description);
-    alert(response.error.source);
-    alert(response.error.step);      
-    alert(response.error.reason);
-    alert(response.error.metadata.order_id);
-    alert(response.error.metadata.payment_id);
-  });
-  rzp1.open();
-  e.preventDefault();
-}
-
-//creates new orderId es
-s.ajax(settings).done(function (response) {
-    alert(JSON.stringify(response));
-});
+  // document.getElementById('rzp-button1').onclick = function(e){
+  //   const options = {
+  //     "key": "rzp_test_a2pY3SL0qqjGHN", 
+  //     "amount": "50000", 
+  //     "currency": "INR",
+  //     "name": "Atheneuam",
+  //     "description": "Test Transaction",
+  //     "image": "https://asset.cloudinary.com/dfyuibin9/7dfd4f365929133e3282794643564a88",
+  //     "order_id": orderId,
+  //     "handler": function (response){
+  //       alert(response.razorpay_payment_id);
+  //       alert(response.razorpay_order_id);
+  //       alert(response.razorpay_signature)
+  //     },
+  //     "theme": {
+  //       "color": "#15877C"
+  //     }
+  //   };
+  //   const rzp1 = new Razorpay(options);
+  //   rzp1.on('payment.failed', function (response){
+  //     alert(response.error.code);
+  //     alert(response.error.description);
+  //     alert(response.error.source);
+  //     alert(response.error.step);      
+  //     alert(response.error.reason);
+  //     alert(response.error.metadata.order_id);
+  //     alert(response.error.metadata.payment_id);
+  //   });
+  //   rzp1.open();
+  //   e.preventDefault();
+  // };
+  
 
 
 // ***********************Chart Section*******************************
