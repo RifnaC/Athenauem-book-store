@@ -162,17 +162,35 @@ exports.getOrder = async(req, res) => {
     price: item.price,
     quantity: quantities[index],
   }));
-  const order = new Order({
-    userId: new mongoose.Types.ObjectId(id),
-    addressId: new mongoose.Types.ObjectId(req.body.savedId),
-    TotalAmt:totalPrice,
-    orderItems:orderItems,
-    discount:discount,
-    couponCode: req.body.couponCode,
-    payableTotal:bill,
-    paymentMethod:req.body.paymentMethod,
-  });
-  order.save()
+  const pay = req.body.paymentMethod;
+  if(pay==='Online Payment'){
+    const order = new Order({
+      userId: new mongoose.Types.ObjectId(id),
+      addressId: new mongoose.Types.ObjectId(req.body.savedId),
+      TotalAmt:totalPrice,
+      orderItems:orderItems,
+      discount:discount,
+      couponCode: req.body.couponCode,
+      payableTotal:bill,
+      paymentStatus:"Paid",
+      paymentMethod:pay,
+    });
+    await order.save();
+  }else{
+    const order = new Order({
+      userId: new mongoose.Types.ObjectId(id),
+      addressId: new mongoose.Types.ObjectId(req.body.savedId),
+      TotalAmt:totalPrice,
+      orderItems:orderItems,
+      discount:discount,
+      couponCode: req.body.couponCode,
+      payableTotal:bill,
+      paymentMethod:pay,
+    });
+    await order.save();
+  }
+  
+  
 }
 exports.payment = async(req, res) => {
   res.render('checkout');  
@@ -195,5 +213,22 @@ exports.proceedToPayment = async(req, res) => {
 };
 
 exports.invoice = async(req, res) => {
-  res.render('invoice');
+  const id = req.user.id;
+  const order = await Order.find({userId: new mongoose.Types.ObjectId(id)});
+
+  const lastestOrder = order.at(-1)
+  console.log(lastestOrder);
+  const orderItems = lastestOrder.orderItems;
+  const orderAdrId = lastestOrder.addressId;
+  console.log(orderAdrId);
+  const address = await Users.find({
+    'addresses': {
+      $elemMatch: {
+        _id: orderAdrId
+      }
+    }
+  })
+const adr = address
+  console.log(adr);
+  res.render('invoice', {address:adr,orderData:lastestOrder});
 }
