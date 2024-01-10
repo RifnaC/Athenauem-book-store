@@ -2264,6 +2264,7 @@ $("#paymentSection").submit(function (event) {
   const paymentMethod = $("input[name='paymentMethod']:checked").val();
   const couponCode = $("input[name='couponCode']").val();
   const amount = Number(document.getElementById('total').innerText.split(" ")[1]);
+  alert(savedIdText )
   if (paymentMethod === undefined) {
     Swal.fire({
       title: 'Athenuam',
