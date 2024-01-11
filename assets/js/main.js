@@ -2260,11 +2260,11 @@ $("#couponBtn").submit(function (event){
 
 
 $("#paymentSection").submit(function (event) {
-  const savedIdText = document.getElementById('savedId').innerText;
+  const savedId = document.getElementById('savedId').innerText;
   const paymentMethod = $("input[name='paymentMethod']:checked").val();
   const couponCode = $("input[name='couponCode']").val();
   const amount = Number(document.getElementById('total').innerText.split(" ")[1]);
-  alert(savedIdText )
+  alert(savedId )
   if (paymentMethod === undefined) {
     Swal.fire({
       title: 'Athenuam',
@@ -2280,7 +2280,7 @@ $("#paymentSection").submit(function (event) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ 
-      savedId: savedIdText,
+      savedId: savedId,
       paymentMethod: paymentMethod,
       couponCode: couponCode
     }), 

@@ -3,11 +3,11 @@ const cron = require('node-cron');
 
 const orderScheme = new mongoose.Schema({   
     userId:{
-        type:  mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
     },
     addressId:{
-        type:mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'addresses',
     },
     orderItems:[{

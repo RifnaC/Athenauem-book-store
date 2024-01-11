@@ -4,7 +4,7 @@ const Cart = require('../models/cartModel');
 const Coupon = require('../models/couponModel');
 const Order = require('../models/orderModel');
 const Razorpay = require('razorpay');
-const { ObjectId } = require('mongodb');
+
 
 // Razorpay instance 
 const instance = new Razorpay({
@@ -219,10 +219,6 @@ exports.getOrder = async (req, res) => {
         }
       }
     ]);
-
-    // Fetch order details
-
-
     const quantities = [];
     const cartItems = [];
     const subTotal = [];
@@ -232,31 +228,22 @@ exports.getOrder = async (req, res) => {
       cartItems.push(item.cartItem);
       subTotal.push(item.subTotal);
     }
-//  
 
     const totalPrice = subTotal.reduce((a, b) => a + b, 0);
-
-    // Fetch coupon details
     const offer = await Coupon.findOne({ couponCode: req.body.couponCode });
     const value = offer ? offer.discount : 0;
     const discount = value == 0 ? 0 : Math.round((value * totalPrice) / 100);
     const bill = totalPrice - discount;
     const orderItems = cartItems.map((item, index)  => ({
-          itemId: item._id,
-          name:item.bookName,
-          price: item.price,
-          quantity: quantities[index],
-        }));
-        
-  const pay = req.body.paymentMethod;
-
-    // Log the userId and addressId after fetching the required data
-    console.log("userId", new mongoose.Types.ObjectId(id));
-    console.log("addressId", new mongoose.Types.ObjectId(req.body.savedId));
-
+      itemId: item._id,
+      name:item.bookName,
+      price: item.price,
+      quantity: quantities[index],
+    }));
+    const pay = req.body.paymentMethod;
     const order = new Order({
-      userId: new mongoose.Types.ObjectId(id),
-      addressId: new mongoose.Types.ObjectId(req.body.savedId),
+      userId: id,
+      addressId: req.body.savedId,
       TotalAmt: totalPrice,
       orderItems: orderItems,
       discount: discount,
@@ -267,7 +254,8 @@ exports.getOrder = async (req, res) => {
     });
 
     await order.save();
-
+    console.log("userId",id);
+    console.log("addressId", req.body.savedId);
     res.status(200).redirect('/invoice');
   } catch (error) {
     console.error("Error placing order:", error);
@@ -297,8 +285,7 @@ exports.proceedToPayment = async (req, res) => {
 
 exports.invoice = async (req, res) => {
   const id = req.user.id;
-  const order = await Order.find({ userId: new mongoose.Types.ObjectId(id) });
-
+  const order = await Order.find({ userId: id });
   const lastestOrder = order.at(-1)
   console.log(lastestOrder);
   const orderItems = lastestOrder.orderItems;
@@ -310,5 +297,5 @@ exports.invoice = async (req, res) => {
   console.log(address);
   const adr = address[0]
   console.log(adr);
-  res.render('invoice', { orderData: lastestOrder, products: orderItems });
+  res.render('invoice', {address:adr, orderData: lastestOrder, products: orderItems });
 }
