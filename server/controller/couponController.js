@@ -1,6 +1,9 @@
 const Coupon = require('../models/couponModel');
 const adminCollection = require('../models/model');
 const asyncHandler = require('express-async-handler');
+
+
+
 // create  coupon
 exports.createCoupon = asyncHandler(async (req, res) => {
     try{

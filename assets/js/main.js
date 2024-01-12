@@ -2464,6 +2464,8 @@ $("#paymentSection").submit(async function (event) {
 
 
 
+
+
 // ***********************Chart Section*******************************
 // Chart Global Color
 Chart.defaults.color = "#6C7293";

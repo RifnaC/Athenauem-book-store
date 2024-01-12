@@ -4,6 +4,7 @@ const Cart = require('../models/cartModel');
 const Coupon = require('../models/couponModel');
 const Order = require('../models/orderModel');
 const Razorpay = require('razorpay');
+const Product = require('../models/products');
 
 
 // Razorpay instance 
@@ -180,11 +181,25 @@ exports.getOrder = async (req, res) => {
     const bill = totalPrice - discount;
     const orderItems = cartItems.map((item, index)  => ({
       itemId: item._id,
-      name:item.bookName,
+      name: item.bookName,
       price: item.price,
       quantity: quantities[index],
-    }));
-    console.log(req.body);  
+    })); 
+    for (const item of orderItems) {
+      const productId = item.itemId;
+      const quantityPurchased = item.quantity;
+
+      const product = await Product.findById(productId);
+      if (!product || product.quantity < quantityPurchased) {
+        // Product not found or not enough quantity available
+        return res.render('invoice', {outOfStock: true});
+      }
+      await Product.findByIdAndUpdate(
+        productId,
+        { $inc: { quantity: -quantityPurchased } },
+        { new: true } // Get the updated document
+      );
+    }
     const {shippingId, paymentMethod, couponCode}  = req.body;
     const order = new Order({
       userId: id,
@@ -197,17 +212,13 @@ exports.getOrder = async (req, res) => {
       paymentStatus: paymentMethod=== "Online Payment" ? "Paid" : "Not Paid",
       paymentMethod: paymentMethod,
     });
-
     const result = await order.save();
-    console.log("Order saved successfully:", result);
     res.redirect("/invoice");
-    console.log("Redirected to invoice");
   } catch (error) {
     console.error("Error placing order:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 exports.invoice = async (req, res) => {
   const id = req.user.id;
@@ -215,12 +226,10 @@ exports.invoice = async (req, res) => {
   const lastestOrder = order.at(-1)
   const orderItems = lastestOrder.orderItems;
   const orderAdrId = lastestOrder.addressId;
-  console.log(orderAdrId);
-  const address = await Users.find({
-    "addresses._id": orderAdrId
-  });
-  console.log(address);
-  const adr = address[0]
-  console.log(adr);
-  res.render('invoice', {address:adr, orderData: lastestOrder, products: orderItems });
+  const address = await Users.findOne({_id:id},
+    {addresses:{$elemMatch:{_id: orderAdrId}}});
+  const adr = address.addresses[0];
+  const ids = orderItems.map(orderItem => orderItem.itemId)
+  const products = await Product.find({ _id: { $in: ids } });
+  res.render('invoice', {address:adr, orderData: lastestOrder, products: orderItems, items: products});
 }
