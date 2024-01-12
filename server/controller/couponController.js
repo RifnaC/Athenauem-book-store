@@ -1,7 +1,22 @@
 const Coupon = require('../models/couponModel');
 const adminCollection = require('../models/model');
 const asyncHandler = require('express-async-handler');
+const cron = require('node-cron');
+const deleteExpiredCoupons = async () => {
+    try {
+        const currentDate = new Date();
+        console.log('Current Date:', currentDate);
 
+        const result = await Coupon.deleteMany({ expireDate: { $lt: currentDate } });
+        console.log('Deleted Coupons:', result.deletedCount);
+        console.log('Deleted Coupons Details:', result);
+    } catch (error) {
+        console.error('Error deleting expired coupons:', error);
+    }
+};
+
+// Schedule the function to run every day at midnight
+cron.schedule('0 0 * * *', deleteExpiredCoupons);
 
 
 // create  coupon
