@@ -58,7 +58,6 @@ exports.checkout = async (req, res) => {
       }
     }
   ]);
-  console.log(total[0].quantity);
   const items = total[0].cartItem;
   const totalPrice = total[0].totalPrice;
   const CouponCode = req.query.couponCode;
@@ -100,87 +99,32 @@ exports.changeAddress = async (req, res) => {
       }
     ]);
     res.status(200).json({ address: updatedUser[0].addresses });
-
-    // res.render("checkout", { updatedAddress: updatedUser[0].addresses });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
 }
 
-// exports.getOrder = async(req, res) => {
-//   const id = req.user.id;
-//   const total = await Cart.aggregate([
-//         {
-//             $match: { 
-//                 userId: new mongoose.Types.ObjectId(id),
-//             }
-//         },
-//         {
-//             $unwind: '$items'
-//         },
-//         {
-//             $project: {
-//                 productId: '$items.productId',
-//                 quantity: '$items.quantity',
-//                 subTotal: '$items.subTotal',
-//             }
-//         },
-//         {  
-//             $lookup:{
-//                 from: 'books',
-//                 localField: 'productId',
-//                 foreignField: '_id',
-//                 as: 'cartItem',
-//             }
-//         },
-//         {
-//             $project: {
-//                 productId: 1,
-//                 quantity: 1,
-//                 subTotal: 1,
-//                 cartItem: { $arrayElemAt: ['$cartItem', 0] },
-//             }
-//         }
-//   ]);
-//   const quantities = [];
-//   const cartItems = []
-//   const subTotal = [];
 
-//   for (const item of total) {
-//     quantities.push(item.quantity);
-//     cartItems.push(item.cartItem);
-//     subTotal.push(item.subTotal);
-//   }
-//   const totalPrice = subTotal.reduce((a, b) => a + b, 0);
-//   const offer = await Coupon.findOne({couponCode: req.body.couponCode});
-//   const value = offer ? offer.discount : 0;
-//   const discount = value==0 ? 0 : Math.round((value * totalPrice) / 100);
-//   const bill = totalPrice - discount;
-//   const orderItems = cartItems.map((item, index)  => ({
-//     itemId: item._id,
-//     name:item.bookName,
-//     price: item.price,
-//     quantity: quantities[index],
-//   }));
-//   const pay = req.body.paymentMethod;
-//   console.log("userId",new mongoose.Types.ObjectId(id));
-//   console.log("addressId", new mongoose.Types.ObjectId(req.body.savedId));
-//     const order = new Order({
-//       userId: new mongoose.Types.ObjectId(id),
-//       addressId: new mongoose.Types.ObjectId(req.body.savedId),
-//       TotalAmt:totalPrice,
-//       orderItems:orderItems,
-//       discount:discount,
-//       couponCode: req.body.couponCode,
-//       payableTotal:bill,
-//       paymentStatus: pay==="Online Payment"?"Paid":"Not Paid",
-//       paymentMethod:pay,
-//     });
-//     await order.save();
-//     res.status(200).json({ message: "Order placed successfully" });
+exports.payment = async (req, res) => {
+  res.render('checkout');
+}
 
-// }
+exports.proceedToPayment = async (req, res) => {
+  const options = {
+    amount: req.body.amount * 100,
+    currency: "INR",
+    receipt: "rcptid"
+  };
+  try {
+    instance.orders.create(options, (err, order) => {
+      res.send({ orderId: order.id })
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+};
 
 
 exports.getOrder = async (req, res) => {
@@ -240,54 +184,35 @@ exports.getOrder = async (req, res) => {
       price: item.price,
       quantity: quantities[index],
     }));
-    const pay = req.body.paymentMethod;
+    console.log(req.body);  
+    const {shippingId, paymentMethod, couponCode}  = req.body;
     const order = new Order({
       userId: id,
-      addressId: req.body.savedId,
+      addressId: shippingId,
       TotalAmt: totalPrice,
       orderItems: orderItems,
       discount: discount,
-      couponCode: req.body.couponCode,
+      couponCode: couponCode,
       payableTotal: bill,
-      paymentStatus: pay === "Online Payment" ? "Paid" : "Not Paid",
-      paymentMethod: pay,
+      paymentStatus: paymentMethod=== "Online Payment" ? "Paid" : "Not Paid",
+      paymentMethod: paymentMethod,
     });
 
-    await order.save();
-    console.log("userId",id);
-    console.log("addressId", req.body.savedId);
-    res.status(200).redirect('/invoice');
+    const result = await order.save();
+    console.log("Order saved successfully:", result);
+    res.redirect("/invoice");
+    console.log("Redirected to invoice");
   } catch (error) {
     console.error("Error placing order:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
-exports.payment = async (req, res) => {
-  res.render('checkout');
-}
-
-exports.proceedToPayment = async (req, res) => {
-  const options = {
-    amount: req.body.amount * 100,
-    currency: "INR",
-    receipt: "rcptid"
-  };
-  try {
-    instance.orders.create(options, (err, order) => {
-      res.send({ orderId: order.id })
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
-  }
-};
 
 exports.invoice = async (req, res) => {
   const id = req.user.id;
   const order = await Order.find({ userId: id });
   const lastestOrder = order.at(-1)
-  console.log(lastestOrder);
   const orderItems = lastestOrder.orderItems;
   const orderAdrId = lastestOrder.addressId;
   console.log(orderAdrId);

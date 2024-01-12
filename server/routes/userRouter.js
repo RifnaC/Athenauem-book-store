@@ -37,9 +37,10 @@ route.put("/profile/:id", auth.authMiddleware, user.deleteAddress);
 // checkout Routes
 route.get("/checkout", auth.authMiddleware, checkout.checkout);
 route.put("/checkout/:id", auth.authMiddleware, checkout.changeAddress);
-route.post("/api/checkout", auth.authMiddleware, checkout.getOrder);
 route.get("/", checkout.payment);
 route.post("/createOrder", auth.authMiddleware, checkout.proceedToPayment);
+route.post("/api/checkout", auth.authMiddleware, checkout.getOrder);
+
 
 // invoice Routes
 route.get("/invoice", auth.authMiddleware, checkout.invoice);

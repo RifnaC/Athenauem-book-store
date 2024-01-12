@@ -8,7 +8,7 @@ const orderScheme = new mongoose.Schema({
     },
     addressId:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'addresses',
+        ref: 'users',
     },
     orderItems:[{
         itemId: {
@@ -74,6 +74,7 @@ async function updateOrderStatus(){
             await promise.all(
                 status.map(async (order) =>{
                     order.status = "Delivered";
+                    console.log('hhhhhh')
                     await order.save();
                 })
             )
