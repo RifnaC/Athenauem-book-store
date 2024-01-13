@@ -127,6 +127,8 @@
                     <div class="carousel-inner">
                         {{#each images}}
                         <div class="carousel-item {{#if @first}}active{{/if}}">
+                        <h1 class="position-absolute m-5 py-5 text-dark text-uppercase">{{this.name}}</h1>
+                        <p class="position-absolute m-5 py-5 text-dark ">{{this.shop}}</p>
                             <img src="{{this.bannerImg}}" alt="{{this.name}}">
                         </div>
                         {{/each}}
@@ -169,6 +171,7 @@
             <div id="cards-container">
                 <div class="cards row">
                     {{#each category}}
+                    
                     <div class="cardCat col-5">
                         <img src="{{this.categoryImg}}" alt="{{this.genre}} icon">
                         <div class="containerCard ">
@@ -193,6 +196,9 @@
             <div class="row me-5 pe-4">
                 {{#each product}}
                 <div class="col col-lg-2 productCard m-3 mb-5">
+                    <div class="discountTag"> 
+                        {{this.originalPrice}} - {{this.discount}}
+                    </div>
                     <img src="{{this.productImg}}" alt="{{this.bookName}}" class="card-img">
                     <div class="card-info">
                         <p class="text-title text-center mb-0">{{this.bookName}} </p>

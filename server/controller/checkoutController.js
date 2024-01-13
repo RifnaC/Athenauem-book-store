@@ -62,7 +62,7 @@ exports.checkout = async (req, res) => {
   const items = total[0].cartItem;
   const totalPrice = total[0].totalPrice;
   const CouponCode = req.query.couponCode;
-  const offer = await Coupon.findOne({ couponCode: CouponCode });
+  const offer = await Coupon.findOne({ couponCode: CouponCode, expireDate: { $gt: Date.now() } });
   const value = offer ? offer.discount : 0;
   const discount = Math.round((value * totalPrice) / 100);
   const payableTotal = totalPrice - discount;
@@ -197,7 +197,7 @@ exports.getOrder = async (req, res) => {
       await Product.findByIdAndUpdate(
         productId,
         { $inc: { quantity: -quantityPurchased } },
-        { new: true } // Get the updated document
+        { new: true } 
       );
     }
     const {shippingId, paymentMethod, couponCode}  = req.body;
