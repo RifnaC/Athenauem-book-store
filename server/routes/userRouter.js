@@ -7,12 +7,13 @@ const user = require('../controller/userProfile');
 const userController = require('../controller/userController');
 const checkout = require('../controller/checkoutController');
 const wishlistController = require('../controller/wishlistController');
+const productController = require('../controller/productViewController')
 
 // home page
 route.get('/home', services.home);
 
 // product view page
-route.get('/product/:id',)
+route.get('/productView/:id',productController.singleView)
 
 // wishlist Routes
 route.get("/wishlist",auth.authMiddleware, wishlistController.wishlist);
