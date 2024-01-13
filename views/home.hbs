@@ -81,7 +81,7 @@
                     <div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
                             <li>
-                                <div class="search-bar-container active" >
+                                <div class="search-bar-container active">
                                     <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
                                         alt="magnifier" class="magnifier" />
                                     <input type="text" class="input" placeholder="Search ..." />
@@ -127,8 +127,8 @@
                     <div class="carousel-inner">
                         {{#each images}}
                         <div class="carousel-item {{#if @first}}active{{/if}}">
-                        <h1 class="position-absolute m-5 py-5 text-dark text-uppercase">{{this.name}}</h1>
-                        <p class="position-absolute m-5 py-5 text-dark ">{{this.shop}}</p>
+                            <h1 class="position-absolute m-5 py-5 text-dark text-uppercase">{{this.name}}</h1>
+                            <p class="position-absolute m-5 py-5 text-dark ">{{this.shop}}</p>
                             <img src="{{this.bannerImg}}" alt="{{this.name}}">
                         </div>
                         {{/each}}
@@ -171,7 +171,7 @@
             <div id="cards-container">
                 <div class="cards row">
                     {{#each category}}
-                    
+
                     <div class="cardCat col-5">
                         <img src="{{this.categoryImg}}" alt="{{this.genre}} icon">
                         <div class="containerCard ">
@@ -195,44 +195,34 @@
             </div>
             <div class="row me-5 pe-4">
                 {{#each product}}
-                <div class="col col-lg-2 productCard m-3 mb-5">
-                    <div class="discountTag"> 
-                        {{this.originalPrice}} - {{this.discount}}
-                    </div>
-                    <img src="{{this.productImg}}" alt="{{this.bookName}}" class="card-img">
-                    <div class="card-info">
-                        <p class="text-title text-center mb-0">{{this.bookName}} </p>
-                        <p class="text-center mb-0">By {{this.author}}</p>
-                        <div class="d-flex justify-content-center m-0">
-                            <div class="review-star me-1 ">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-half"></i>
-                                <i class="bi bi-star"></i>
-
-                            </div>
-                            <span class="review-count">(13)</span>
-                        </div>
-
-                        <div class="old-price text-center">
-                            &#8377 {{this.originalPrice}}
-                        </div>
-                        <div class="new-price text-center">
-                            &#8377 {{this.price}}
-                        </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <a onclick="return addToCart()" href="/carts/{{this._id}}" >
-                            <div class="card-button">
-                                <b>Add to Cart</b>
-                            </div>
+                
+                    <div class="col col-lg-2 productCard m-3 mb-5">
+                        <a href="/productView/{{this._id}}" >
+                        <img src="{{this.productImg}}" alt="{{this.bookName}}" class="card-img">
                         </a>
-                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link">
-                             <div class="icon-wishlist"></div>
-                        </a>
+                        <div class="card-info">
+                            <p class="text-title text-center mb-0">{{this.bookName}} </p>
+                            <p class="text-center mb-0">By {{this.author}}</p>
+                            <p class="text-center mb-0">{{this.stock}}</p>
+
+                            <div class="old-price text-center">
+                                &#8377 {{this.originalPrice}}
+                            </div>
+                            <div class="new-price text-center">
+                                &#8377 {{this.price}}
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="/carts/{{this._id}}" onclick='return addToCartAndShowAlert()'>
+                                <div class="card-button">
+                                    <b>Add to Cart</b>
+                                </div>
+                            </a>
+                            <a href="/wishlist/{{this._id}}" class="wrapper nav-link">
+                                <div class="icon-wishlist"></div>
+                            </a>
+                        </div>
                     </div>
-                </div>
                 {{/each}}
             </div>
         </div>
@@ -358,9 +348,10 @@
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
+    <script src="/js/cart.js"></script>
     <script src="/js/slider.js"></script>
     <script src="/js/search.js"></script>
-    
+
 
 </body>
 

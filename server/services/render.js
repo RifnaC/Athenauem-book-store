@@ -262,16 +262,7 @@ exports.home= async(req, res)=>{
         .limit(3); 
     const categories = await categoryCollection.find({});
     const products = await productCollection.find({}).limit(10);
-    // const id = req.user.id;
-    //     console.log(id);
-    //     const user = await userCollection.findById(id);
-    //     const name = user.name.split(" ")[0];
-    // if(!id){
-        res.render('home', { images: latestImages, category: categories, product: products});
-    // }else{
-    //     res.render('home', { images: latestImages, category: categories, product: products, user: name});
-    // }
-
+    res.render('home', { images: latestImages, category: categories, product: products});
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');

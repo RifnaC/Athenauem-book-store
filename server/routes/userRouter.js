@@ -8,7 +8,11 @@ const userController = require('../controller/userController');
 const checkout = require('../controller/checkoutController');
 const wishlistController = require('../controller/wishlistController');
 
+// home page
 route.get('/home', services.home);
+
+// product view page
+route.get('/product/:id',)
 
 // wishlist Routes
 route.get("/wishlist",auth.authMiddleware, wishlistController.wishlist);

@@ -1,3 +1,4 @@
+
 // cart quantity 
 function changeQty(cartId, productId, count, subTotal) {
     $.ajax({
@@ -14,33 +15,14 @@ function changeQty(cartId, productId, count, subTotal) {
       }
     })
 }
-function addToCart(){
-    $.ajax({
-        url: '/removeItem',
-        data: {
-            cartId: cartId,
-            productId: productId,
-        },
-        method: 'POST',
-        success: (data) => {
-            if (data.success) {
-                Swal.fire({
-                    position:'top-end',
-                    text:'Item removed successfully!',
-                    showConfirmButton: false,
-                    timer: 1000,
-                }).then(() => {
-                    window.location.reload();
-                });
-            }
-        }
-    })
+function addToCartAndShowAlert(){
     Swal.fire({
-        icon:'success',
-        title:'Atheneuam',
-        text:'Item added to cart successfully!',
-        confirmButtonColor: '#15877C',
-    });
+        position:'top-end',
+        text:'Successfully added to cart!',
+        showConfirmButton: false,
+        timer: 1000,
+    })
+    return false;
 }
 // Function to change cart quantity
 function removeItem(cartId, productId) {
