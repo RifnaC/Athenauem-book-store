@@ -9,6 +9,7 @@ exports.addToCart = async(req, res) => {
     const userId = req.user.id; 
     const productId = req.params.id;
     const  quantity = req.body.quantity;
+    console.log(req.body.quantity, quantity)
     const price = await Books.find({_id: new mongoose.Types.ObjectId(productId)},{price:1, _id:0});
     const subTotal = price[0].price;
 

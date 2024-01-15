@@ -164,7 +164,7 @@ section {
     height: 35px;
     justify-content: center;
     align-items: center;
-    background: #fd7f34;
+    background: #15877C;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -175,7 +175,7 @@ section {
 }
 
 ._p-qty .value-button {
-    border: 0px solid #fe0000;
+    border: 0px solid #15877C;
     height: 35px;
     font-size: 20px;
     font-weight: bold;
@@ -183,8 +183,8 @@ section {
 ._p-qty input#number {
     text-align: center;
     border: none;
-    border-top: 1px solid #fe0000;
-    border-bottom: 1px solid #fe0000;
+    border-top: 1px solid #15877C;
+    border-bottom: 1px solid #15877C;
     margin: 0px;
     width: 50px;
     height: 35px;

@@ -151,14 +151,14 @@
                                 <div class="_p-qty">
                                     <div class="d-flex">
 
-                                        <form class="d-flex me-3">
+                                        <form class="d-flex me-3" action="#">
                                             <div class="value-button" id="decrease" onclick="decreaseValue()"
                                                 value="Decrease Value">-</div>
                                             <input type="number" id="number" value="1" />
                                             <div class="value-button" id="increase" onclick="increaseValue()"
                                                 value="Increase Value">+</div>
                                         </form>
-                                        <a href="/carts/{{item._id}}" onclick='return addToCartAndShowAlert()'>
+                                        <a href="/carts/{{item._id}}" onclick='return addToCartAndShowAlert('{{item._id}}')'>
                                             <div class="card-button">
                                                 <b>Add to Cart</b>
                                             </div>
