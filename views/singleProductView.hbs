@@ -150,13 +150,13 @@
                             <div class="d-flex">
                                 <div class="qty-container product-qty me-3">
                                     <button class="qty-btn-minus btn-primary"
-                                        onclick="return changeQty('{{item._id}}', '{{this.cartItem._id}}',-1, -{{this.cartItem.price}})"
+                                        onclick="return changeQty('{{item._id}}',-1, -{{this.cartItem.price}})"
                                         type="button" id="decBtn"><i class="fa fa-minus"></i>
                                     </button>
                                     <input type="text" name="qty" value="{{this.quantity}}" class="input-qty"
                                         readonly />
                                     <button class="qty-btn-plus btn-primary"
-                                        onclick="return changeQty('{{item._id}}', '{{this.cartItem._id}}',1,  {{this.cartItem.price}})"
+                                        onclick="return changeQty('{{item._id}}',1,  {{this.cartItem.price}})"
                                         type="button"><i class="fa fa-plus"></i>
                                     </button>
                                 </div>

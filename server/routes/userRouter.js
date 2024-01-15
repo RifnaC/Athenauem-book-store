@@ -13,7 +13,8 @@ const productController = require('../controller/productViewController')
 route.get('/home', services.home);
 
 // product view page
-route.get('/productView/:id',productController.singleView)
+route.get('/productView/:id',productController.singleView);
+route.post("/changeInQuantity", productController.changeQuantity);
 
 // wishlist Routes
 route.get("/wishlist",auth.authMiddleware, wishlistController.wishlist);

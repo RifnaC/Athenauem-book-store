@@ -4,7 +4,6 @@ function changeQty(cartId, productId, count, subTotal) {
     $.ajax({
       url:'/changeInQuantity',
       data:{
-        cartId: cartId,
         productId: productId,
         count: count,
         subTotal: subTotal,
