@@ -277,6 +277,7 @@ section {
 }
 /*========box========*/
 .sq_box {
+    width: 100% !important;
     padding-bottom: 5px;
     border-bottom: solid 2px #fd7f34;
     background-color: #fff;

@@ -1,11 +1,4 @@
-/*!     
-        jquery.picZoomer.js
-        v 1.0
-        David
-        http://www.CodingSerf.com
-*/
 
-//放大镜控件
 ;(function($){
 	$.fn.picZoomer = function(options){
 		var opts = $.extend({}, $.fn.picZoomer.defaults, options), 
