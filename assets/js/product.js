@@ -50,8 +50,8 @@
 	$.fn.picZoomer.defaults = {
         picHeight: 460,
 		scale: 2.5,
-		zoomerPosition: {top: '16px', left: '540px'},
-		zoomWidth: 720,
+		zoomerPosition: {top: '16px', left: '432px'},
+		zoomWidth: 832,
 		zoomHeight: 460
 	};
 })(jQuery); 

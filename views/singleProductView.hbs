@@ -122,56 +122,40 @@
     <section id="services" class="services section-bg my-5">
         <div class="container-fluid my-5">
             <div class="row row-sm">
-                <div class="col-md-5 _boxzoom">
+                <div class="col-md-4 _boxzoom">
                     <div class="_product-images">
                         <div class="picZoomer ms-3 ps-5">
-                            <img class="my_img" src="{{item.productImg}}" alt="">
+                            <img class="my_img" src="{{item.productImg}}" alt="{{item.bookName}}">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-7 ms-0 pe-5">
+                <div class="col-md-8 ms-0 pe-5">
                     <div class="_product-detail-content pe-4 me-4">
-                        <p class="h4 text-dark"> {{item.bookName}} </p>
+                        <p class="h4 text-dark" id="bookName"> {{item.bookName}} </p>
                         <div class="p-list">
-                            <span class="price"> <i class="fa fa-inr"></i>  699 </span>
-                             <span class="fs-5 text-light"> <del> &#8377 {{item.originalPrice}} </del> </span>
+                            <span class="price"> <i class="fa fa-inr"></i> 699 </span>
+                            <span class="fs-5 text-light"> <del> &#8377 {{item.originalPrice}} </del> </span>
+                            {{#if off}}
+                            <span class="fs-5 text-success">{{off}}% off</span>
+                            {{/if}}
                         </div>
                         <hr>
                         <div class="_p-price-box">
-                            
-                            <div class="_p-add-cart">
-                                <div class="_p-qty">
-                                    <span>Add Quantity</span>
-                                    <div class="value-button decrease_" id="" value="Decrease Value">-</div>
-                                    <input type="number" name="qty" id="number" value="1" />
-                                    <div class="value-button increase_" id="" value="Increase Value">+</div>
-                                </div>
-                            </div>
-                            <div class="_p-features">
-                                <span> Description About this product:- </span>
-                                Solid color polyester/linen full blackout thick sunscreen floor curtain
-                                Type: General Pleat
-                                Applicable Window Type: Flat Window
-                                Format: Rope
-                                Opening and Closing Method: Left and Right Biparting Open
-                                Processing Accessories Cost: Included
-                                Installation Type: Built-in
-                                Function: High Shading(70%-90%)
-                                Material: Polyester / Cotton
-                                Style: Classic
-                                Pattern: Embroidered
-                                Location: Window
-                                Technics: Woven
-                                Use: Home, Hotel, Hospital, Cafe, Office
-                                Feature: Blackout, Insulated, Flame Retardant
-                                Place of Origin: India
-                                Name: Curtain
-                                Usage: Window Decoration
-                                Keywords: Ready Made Blackout Curtain
-                            </div>
+                            <p class="text-dark "><b>Sold By:</b> {{shop.name}}</p>
+                            <p><span class="h6">Author: </span> <span class="fs-bold">{{item.author}}</span></p>
+                            <p><span class="h6">Genre: </span> <span class="fs-bold">{{item.genre}}</span></p>
+                            <p><span class="h6">Publisher: </span> <span class="fs-bold" id="publisher"></span></p>
+                            <p><span class="h6">Pages: </span> <span class="fs-bold" id="pages"></span></p>
                             <form action="" method="post" accept-charset="utf-8">
                                 <ul class="spe_ul"></ul>
                                 <div class="_p-qty-and-cart">
+                                    <div class="_p-add-cart">
+                                        <div class="_p-qty">
+                                            <div class="value-button decrease_" id="" value="Decrease Value">-</div>
+                                            <input type="number" name="qty" id="number" value="1" />
+                                            <div class="value-button increase_" id="" value="Increase Value">+</div>
+                                        </div>
+                                    </div>
                                     <div class="_p-add-cart">
                                         <button class="btn-theme btn buy-btn" tabindex="0">
                                             <i class="fa fa-shopping-cart"></i> Buy Now
@@ -186,9 +170,15 @@
                                 </div>
                             </form>
                         </div>
+                        <div class="_p-features">
+                            <h4 class="text-dark"> Description </h4>
+                            <p> {{item.description}} </p>
+                        </div>
+
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
     <section class="sec bg-light">
@@ -438,7 +428,7 @@
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
     <script src="/js/product.js"></script>
-    <script src="/js/slider.js"></script>
+    <script src="/js/book.js"></script>
     <script src="/js/search.js"></script>
 
 
