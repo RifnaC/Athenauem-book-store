@@ -42,14 +42,29 @@
 	background-color: rgba(0,0,0,.1);
 }
 .picZoomCursor-ico{
-	width: 100px;
+	width: fit-content;
 	height: 23px;
 	position: absolute;
 	top: 40px;
 	left: 40px;
 	background: url(images/zoom-ico.png) left top no-repeat;
 }
+.product-qty{
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+}
+.product-qty input{
+    width: 40px !important;
+}
+.card-btn-prdt{
+    height: 28px;
 
+}
+.card-btn-prdt b{
+    text-align: center;
+    margin-top: -4px;
+}
 .my_img {
     vertical-align: middle;
     position: absolute;
@@ -189,19 +204,7 @@ section {
     color: #000;
     font-weight: 500;
 }
-._p-add-cart .buy-btn {
-    background-color: #fd7f34;
-    color: #fff;
-}
-._p-add-cart .btn {
-    text-transform: capitalize;
-    padding: 6px 20px;
-    /* width: 200px; */
-    border-radius: 52px;
-}
-._p-add-cart .btn {
-    margin: 0px 8px;
-}
+
 
 /*=========Recent-post==========*/
 .title_bx h3.title {

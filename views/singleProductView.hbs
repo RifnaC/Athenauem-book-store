@@ -31,6 +31,7 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/product.css" rel="stylesheet">
+    <link href="/css/cart.css" rel="stylesheet">
 </head>
 
 <body>
@@ -133,7 +134,7 @@
                     <div class="_product-detail-content pe-4 me-4">
                         <p class="h4 text-dark" id="bookName"> {{item.bookName}} </p>
                         <div class="p-list">
-                            <span class="price"> <i class="fa fa-inr"></i> 699 </span>
+                            <span class="priced"> <i class="fa fa-inr"></i>699</span>
                             <span class="fs-5 text-light"> <del> &#8377 {{item.originalPrice}} </del> </span>
                             {{#if off}}
                             <span class="fs-5 text-success">{{off}}% off</span>
@@ -146,32 +147,29 @@
                             <p><span class="h6">Genre: </span> <span class="fs-bold">{{item.genre}}</span></p>
                             <p><span class="h6">Publisher: </span> <span class="fs-bold" id="publisher"></span></p>
                             <p><span class="h6">Pages: </span> <span class="fs-bold" id="pages"></span></p>
-                            <form action="" method="post" accept-charset="utf-8">
-                                <ul class="spe_ul"></ul>
-                                <div class="_p-qty-and-cart">
-                                    <div class="_p-add-cart">
-                                        <div class="_p-qty">
-                                            <div class="value-button decrease_" id="" value="Decrease Value">-</div>
-                                            <input type="number" name="qty" id="number" value="1" />
-                                            <div class="value-button increase_" id="" value="Increase Value">+</div>
-                                        </div>
-                                    </div>
-                                    <div class="_p-add-cart">
-                                        <button class="btn-theme btn buy-btn" tabindex="0">
-                                            <i class="fa fa-shopping-cart"></i> Buy Now
-                                        </button>
-                                        <button class="btn-theme btn btn-success" tabindex="0">
-                                            <i class="fa fa-shopping-cart"></i> Add to Cart
-                                        </button>
-                                        <input type="hidden" name="pid" value="18" />
-                                        <input type="hidden" name="price" value="850" />
-                                        <input type="hidden" name="url" value="" />
-                                    </div>
+                            <div class="d-flex">
+                                <div class="qty-container product-qty me-3">
+                                    <button class="qty-btn-minus btn-primary"
+                                        onclick="return changeQty('{{item._id}}', '{{this.cartItem._id}}',-1, -{{this.cartItem.price}})"
+                                        type="button" id="decBtn"><i class="fa fa-minus"></i>
+                                    </button>
+                                    <input type="text" name="qty" value="{{this.quantity}}" class="input-qty"
+                                        readonly />
+                                    <button class="qty-btn-plus btn-primary"
+                                        onclick="return changeQty('{{item._id}}', '{{this.cartItem._id}}',1,  {{this.cartItem.price}})"
+                                        type="button"><i class="fa fa-plus"></i>
+                                    </button>
                                 </div>
-                            </form>
+                                <a href="/carts/{{item._id}}" onclick='return addToCartAndShowAlert()'>
+                                    <div class="card-button card-btn-prdt">
+                                        <b>Add to Cart</b>
+                                    </div>
+                                </a>
+                            </div>
+                            <hr>
                         </div>
                         <div class="_p-features">
-                            <h4 class="text-dark"> Description </h4>
+                            <h5 class="text-dark"> Description </h5>
                             <p> {{item.description}} </p>
                         </div>
 
@@ -427,6 +425,7 @@
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
+    <script src="/js/cart.js"></script>
     <script src="/js/product.js"></script>
     <script src="/js/book.js"></script>
     <script src="/js/search.js"></script>

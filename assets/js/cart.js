@@ -22,8 +22,9 @@ function addToCartAndShowAlert(){
         showConfirmButton: false,
         timer: 1000,
     })
-    return false;
+    return true;
 }
+
 // Function to change cart quantity
 function removeItem(cartId, productId) {
     $.ajax({
