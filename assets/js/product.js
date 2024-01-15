@@ -40,7 +40,6 @@
 		}).on('mousemove', function(event){
 			var x = event.pageX-picBDOffset.x,
 				y = event.pageY-picBDOffset.y;
-
 			$cursor.css({'left':x-cursorSizeHalf.w+'px', 'top':y-cursorSizeHalf.h+'px'});
 			$zoomPic.css({'left':-(x*opts.scale-zoomWPSizeHalf.w)+'px', 'top':-(y*opts.scale-zoomWPSizeHalf.h)+'px'});
 
@@ -51,9 +50,8 @@
 	$.fn.picZoomer.defaults = {
         picHeight: 460,
 		scale: 2.5,
-		zoomerPosition: {top: '0', left: '380px'},
-
-		zoomWidth: 400,
+		zoomerPosition: {top: '16px', left: '540px'},
+		zoomWidth: 720,
 		zoomHeight: 460
 	};
 })(jQuery); 

@@ -78,7 +78,7 @@
 
 
 .section-bg {
-    background-color: #fff1e0;
+    background-color: #fcfcfc;
 }
 section {
     padding: 60px 0;
@@ -133,8 +133,8 @@ section {
     margin-right: 15px;
 }
 .p-list span.price {
-    font-size: 25px;
-    color: #318234;
+    font-size: 24px;
+    color: #131313;
 }
 ._p-qty > span {
     color: black;
