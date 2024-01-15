@@ -11,6 +11,11 @@ exports.singleView= async (req, res, next) => {
     res.render('singleProductView', {item: item, off:off, shop:shop})
 }
 
+exports.shopPage = async (req, res, next) => {
+    const books = await product.find({});
+    res.render('shop-page', {books: books})    
+}
+
 // exports.changeQuantity = async (req, res) => {
 //     let { productId, count, subTotal} = req.body;
 //     count = Number(count);

@@ -71,7 +71,7 @@ async function updateOrderStatus(){
             deliveryDate: {$lt: currentDate},
         })
         if(status.length > 0){
-            await promise.all(
+            await Promise.all(
                 status.map(async (order) =>{
                     order.status = "Delivered";
                     console.log('hhhhhh')
