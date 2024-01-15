@@ -147,37 +147,35 @@
                             <p><span class="h6">Genre: </span> <span class="fs-bold">{{item.genre}}</span></p>
                             <p><span class="h6">Publisher: </span> <span class="fs-bold" id="publisher"></span></p>
                             <p><span class="h6">Pages: </span> <span class="fs-bold" id="pages"></span></p>
-                            <div class="d-flex">
-                                <div class="qty-container product-qty me-3">
-                                    <button class="qty-btn-minus btn-primary"
-                                        onclick="return changeQty('{{item._id}}',-1, -{{this.cartItem.price}})"
-                                        type="button" id="decBtn"><i class="fa fa-minus"></i>
-                                    </button>
-                                    <input type="text" name="qty" value="{{this.quantity}}" class="input-qty"
-                                        readonly />
-                                    <button class="qty-btn-plus btn-primary"
-                                        onclick="return changeQty('{{item._id}}',1,  {{this.cartItem.price}})"
-                                        type="button"><i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                                <a href="/carts/{{item._id}}" onclick='return addToCartAndShowAlert()'>
-                                    <div class="card-button card-btn-prdt">
-                                        <b>Add to Cart</b>
-                                    </div>
-                                </a>
-                            </div>
-                            <hr>
-                        </div>
-                        <div class="_p-features">
-                            <h5 class="text-dark"> Description </h5>
-                            <p> {{item.description}} </p>
-                        </div>
+                            <div class="_p-add-cart">
+                                <div class="_p-qty">
+                                    <div class="d-flex">
 
+                                        <form class="d-flex me-3">
+                                            <div class="value-button" id="decrease" onclick="decreaseValue()"
+                                                value="Decrease Value">-</div>
+                                            <input type="number" id="number" value="1" />
+                                            <div class="value-button" id="increase" onclick="increaseValue()"
+                                                value="Increase Value">+</div>
+                                        </form>
+                                        <a href="/carts/{{item._id}}" onclick='return addToCartAndShowAlert()'>
+                                            <div class="card-button">
+                                                <b>Add to Cart</b>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="_p-features">
+                                    <h5 class="text-dark"> Description </h5>
+                                    <p> {{item.description}} </p>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
     </section>
     <section class="sec bg-light">
         <div class="container">

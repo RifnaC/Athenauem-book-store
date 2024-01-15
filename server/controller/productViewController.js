@@ -12,19 +12,19 @@ exports.singleView= async (req, res, next) => {
     res.render('singleProductView', {item: item, off:off, shop:shop})
 }
 
-exports.changeQuantity = async (req, res) => {
-    let { productId, count, subTotal} = req.body;
-    count = Number(count);
-    subTotal = Number(subTotal)
-    await Cart.findOneAndUpdate(
-        {_id: new mongoose.Types.ObjectId(cartId),'items.productId':productId}, 
-        {
-            $inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal}
-        }
-    )
-    await Cart.updateMany(
-        { _id: new mongoose.Types.ObjectId(cartId) },
-        { $pull: { items: { quantity: { $lt: 1 } } } },
-      );
-    res.redirect('/cart')
-};
+// exports.changeQuantity = async (req, res) => {
+//     let { productId, count, subTotal} = req.body;
+//     count = Number(count);
+//     subTotal = Number(subTotal)
+//     await Cart.findOneAndUpdate(
+//         {_id: new mongoose.Types.ObjectId(cartId),'items.productId':productId}, 
+//         {
+//             $inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal}
+//         }
+//     )
+//     await Cart.updateMany(
+//         { _id: new mongoose.Types.ObjectId(cartId) },
+//         { $pull: { items: { quantity: { $lt: 1 } } } },
+//       );
+//     res.redirect('/cart')
+// };

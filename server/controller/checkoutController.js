@@ -200,6 +200,7 @@ exports.getOrder = async (req, res) => {
         { new: true } 
       );
     }
+    await Cart.updateOne({ userId: id }, { $set: { items: [] } });
     const {shippingId, paymentMethod, couponCode}  = req.body;
     const order = new Order({
       userId: id,
@@ -213,6 +214,7 @@ exports.getOrder = async (req, res) => {
       paymentMethod: paymentMethod,
     });
     const result = await order.save();
+
     res.redirect("/invoice");
   } catch (error) {
     console.error("Error placing order:", error);

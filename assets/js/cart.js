@@ -128,11 +128,17 @@ function addAllToCart(){
     })
 }
 
-// const changeAdr = document.getElementById('changeAdress');
-// const adr = document.getElementById('editShipping');
-// const cardAdr = document.getElementById('cardAdress');
-
-// changeAdr.onclick = () => {
-//     adr.style.display = 'block';
-//     cardAdr.style.display = 'none';
-// }
+function increaseValue() {
+    var value = parseInt(document.getElementById('number').value, 10);
+    value = isNaN(value) ? 1 : value;
+    value++;
+    document.getElementById('number').value = value;
+  }
+  
+  function decreaseValue() {
+    var value = parseInt(document.getElementById('number').value, 10);
+    value = isNaN(value) ? 1 : value;
+    value <= 1 ? value = 1 : '';
+    value--;
+    document.getElementById('number').value = value;
+  }
