@@ -529,6 +529,9 @@ ul {
 .footer-col ul li:not(:last-child) {
 	margin-bottom: 10px;
 }
+.desc{
+    text-align: justify;
+}
 .footer-col ul li a {
 	color: #130B0B;
 	display: block;

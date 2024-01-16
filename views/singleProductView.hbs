@@ -137,7 +137,7 @@
                             <span class="priced"> <i class="fa fa-inr"></i>699</span>
                             <span class="fs-5 text-light"> <del> &#8377 {{item.originalPrice}} </del> </span>
                             {{#if off}}
-                            <span class="fs-5 text-success">{{off}}% off</span>
+                                <span class="fs-5 text-success">{{off}}% off</span>
                             {{/if}}
                         </div>
                         <hr>
@@ -150,7 +150,6 @@
                             <div class="_p-add-cart">
                                 <div class="_p-qty">
                                     <div class="d-flex">
-
                                         <form class="d-flex me-3" action="#">
                                             <div class="value-button" id="decrease" onclick="decreaseValue()"
                                                 value="Decrease Value">-</div>
@@ -167,15 +166,15 @@
                                     <hr>
                                 </div>
                                 <div class="_p-features">
-                                    <h5 class="text-dark"> Description </h5>
-                                    <p> {{item.description}} </p>
+                                    <h5 class="text-dark tex"> Description </h5>
+                                    <p class="desc"> {{item.description}} </p>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
     <section class="sec bg-light">
         <div class="container">

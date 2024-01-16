@@ -211,7 +211,7 @@ section {
     font-size: 22px;
     text-transform: capitalize;
     position: relative;
-    color: #fd7f34;
+    color: #15877C;
     font-weight: 700;
     line-height: 1.2em;
 }
@@ -223,7 +223,7 @@ section {
     left: 0px;
     z-index: 1;
     top: 40px;
-    background-color: #fd7f34;
+    background-color: #15877C;
 }
 .title_bx h3.title:after {
     content: "";
@@ -232,10 +232,10 @@ section {
     position: absolute;
     left: 0px;
     top: 40px;
-    background-color: #ffc107;
+    background-color: #6dbdb5;
 }
 .common_wd .owl-nav .owl-prev, .common_wd .owl-nav .owl-next {
-    background-color: #fd7f34 !important;
+    background-color: #15877C!important;
     display: block;
     height: 30px;
     width: 30px;
@@ -277,9 +277,9 @@ section {
 }
 /*========box========*/
 .sq_box {
-    width: 100% !important;
+    min-width: 260px !important;
     padding-bottom: 5px;
-    border-bottom: solid 2px #fd7f34;
+    border-bottom: solid 2px #15877C;
     background-color: #fff;
     text-align: center;
     padding: 15px 10px;
