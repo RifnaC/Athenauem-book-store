@@ -5,10 +5,12 @@ const cart = require('../models/cartModel');
 exports.singleView= async (req, res, next) => {
     const id = req.params.id
     const item = await product.findById(id);
+    const genre = item.genre;
+    const category = await product.find({genre: genre}); 
     const vendorId = item.shopId;
     const shop = await shops.findById(vendorId);
     const off =  Math.floor((item.discount * 100) / item.originalPrice)
-    res.render('singleProductView', {item: item, off:off, shop:shop})
+    res.render('singleProductView', {item: item, off:off, shop:shop, genre: category})
 }
 
 exports.shopPage = async (req, res, next) => {

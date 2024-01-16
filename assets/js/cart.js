@@ -15,26 +15,6 @@ function changeQty(cartId, productId, count, subTotal) {
     })
 }
 function addToCartAndShowAlert(){
-    // const qty = document.getElementById('number').value
-    // alert(qty)
-    
-    // fetch("/carts/" + productId + "?quantity=" + quantity, {
-    //     method: 'GET',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     }
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //     // Handle the response from the server (if needed)
-    //     alert('Product added to cart!');
-    // })
-    // .catch((error) => {
-    //     console.error('Error:', error);
-    // });
-
-    // // Prevent the default behavior of the anchor tag
-    // return false;
     Swal.fire({
         position:'top-end',
         text:'Successfully added to cart!',
