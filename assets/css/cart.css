@@ -142,6 +142,10 @@ li.subtotal:before {
   width: 800px
 
 }
+.qty-container input{
+  border-top: 1px solid #15877C;
+  border-bottom: 1px solid #15877C;
+}
 .input-qty{
   width: 24%;
   text-align: center;

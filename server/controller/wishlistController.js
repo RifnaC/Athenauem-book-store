@@ -11,7 +11,6 @@ exports.addToWishlist = async(req, res) => {
     const userId = req.user.id; 
     const productId = req.params.id;
     const price = await Books.find({_id: new mongoose.Types.ObjectId(productId)},{price:1, _id:0});
-
     try {
         const wishlist = await Wishlist.findOne({ userId });
         if(!wishlist){
@@ -34,6 +33,7 @@ exports.addToWishlist = async(req, res) => {
         res.status(500).send('Internal Server Error');
     }
 }
+
 // view wishlist
 exports.wishlist = async(req, res) => {
     const userId = req.user.id; 
