@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 
 button.btn.btn-hide {
     height: inherit;
-    background-color: #ff935d;
+    background-color: #15877C;
     color: #fff;
     font-size: 0.82rem;
     padding-left: 40px;
@@ -21,29 +21,6 @@ button.btn.btn-hide {
     font-size: 0.8rem
 }
 
-.btn-red {
-    background-color: #e00000ce
-}
-
-.btn-orange {
-    background-color: #ffa500
-}
-
-.btn-pink {
-    background-color: #e0009dce
-}
-
-.btn-green {
-    background-color: #00811c
-}
-
-.btn-blue {
-    background-color: #026bc2
-}
-
-.btn-brown {
-    background-color: #994a00
-}
 
 .navbar {
     display: inline-flex
@@ -96,7 +73,7 @@ select {
 }
 
 #filterbar input[type='radio']:checked {
-    background-color: #16c79a;
+    background-color: #15877C;
     border: none
 }
 
@@ -114,7 +91,7 @@ select {
 
 #filterbar .btn-success:not(:disabled):not(.disabled).active,
 #filterbar .btn-success:not(:disabled):not(.disabled):active {
-    background-color: #16c79a;
+    background-color: #15877C;
     color: #fff
 }
 
@@ -225,7 +202,7 @@ label {
 }
 
 #size input[type='checkbox']:checked {
-    background-color: #16c79a;
+    background-color: #15877C;
     border: none
 }
 
@@ -239,13 +216,13 @@ label {
 }
 
 #size .btn.btn-success:hover {
-    background-color: #aff1e1;
+    background-color: #15877C;
     color: #444
 }
 
 #size .btn-success:not(:disabled):not(.disabled).active,
 #size .btn-success:not(:disabled):not(.disabled):active {
-    background-color: #16c79a;
+    background-color: #15877C;
     color: #fff
 }
 
@@ -262,7 +239,7 @@ label {
 }
 
 .card:hover {
-    box-shadow: 2px 2px 15px #fd9a6ce5;
+    box-shadow: 2px 2px 15px #15877C;
     transform: scale(1.02)
 }
 

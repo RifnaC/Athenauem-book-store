@@ -59,7 +59,7 @@
     align-items: center;
     justify-content: center;
     font-weight: normal;
-    border-radius: 50px;
+    /* border-radius: 50px; */
 }
 body::-webkit-scrollbar-track{
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);

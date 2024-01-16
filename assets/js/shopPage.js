@@ -1,5 +1,5 @@
 // For Filters
-document.addEventListener(DOMContentLoaded, function() {
+document.addEventListener("DOMContentLoaded", function() {
     const filterBtn = document.getElementById('filter-btn');
     const btnTxt = document.getElementById('btn-txt');
     const filterAngle = document.getElementById('filter-angle');

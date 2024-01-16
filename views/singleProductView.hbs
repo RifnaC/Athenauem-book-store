@@ -67,16 +67,16 @@
                                 <a class="nav-link active" aria-current="page" href="/home">Home</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="shop-page">Shop</a>
+                                <a class="nav-link" href="/shop-page">Shop</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="category">Category</a>
+                                <a class="nav-link" href="/category">Category</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="author">Author</a>
+                                <a class="nav-link" href="/author">Author</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="contact">Contact</a>
+                                <a class="nav-link" href="/contact">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -137,7 +137,7 @@
                             <span class="priced"> <i class="fa fa-inr"></i>699</span>
                             <span class="fs-5 text-light"> <del> &#8377 {{item.originalPrice}} </del> </span>
                             {{#if off}}
-                            <span class="fs-5 text-success">{{off}}% off</span>
+                                <span class="fs-5 text-success">{{off}}% off</span>
                             {{/if}}
                         </div>
                         <hr>
@@ -161,10 +161,6 @@
                                             <a class="text-white btn btn-sm" href="/carts/{{item._id}}"
                                                 onclick='return addToCartAndShowAlert()'> <i
                                                     class="fa fa-shopping-cart"></i> Add to Cart </a>
-                                        </div>
-                                        <div class="wishlist bg-primary ms-3">
-                                            <a href="/wishlist/{{this._id}}" class="text-white btn btn-sm "><i class="bi bi-heart"></i> Add To Wishlist
-                                            </a>
                                         </div>
                                     </div>
                                     <hr>
