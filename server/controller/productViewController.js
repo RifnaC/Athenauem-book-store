@@ -1,6 +1,7 @@
 const product = require('../models/products');
 const shops = require('../models/shopModel');
 const cart = require('../models/cartModel');
+const genre = require('../models/categoryModel')
 
 exports.singleView= async (req, res, next) => {
     const id = req.params.id
@@ -15,7 +16,8 @@ exports.singleView= async (req, res, next) => {
 
 exports.shopPage = async (req, res, next) => {
     const books = await product.find({});
-    res.render('shop-page', {books: books})    
+    const category = await genre.find({});
+    res.render('shop-page', {books: books, genre: category})    
 }
 
 // exports.changeQuantity = async (req, res) => {

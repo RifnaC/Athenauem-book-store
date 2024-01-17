@@ -116,6 +116,10 @@ section {
 .shopProduct{
     display: flex;
     flex-flow: row wrap;
+    overflow-x: hidden;
+}
+.shop{
+    overflow-x: hidden;
 }
 ._boxzoom .zoom-thumb ul.piclist {
     padding-left: 0px;
