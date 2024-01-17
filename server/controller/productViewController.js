@@ -20,6 +20,12 @@ exports.shopPage = async (req, res, next) => {
     res.render('shop-page', {books: books, genre: category})    
 }
 
+exports.category = async (req, res, next) => {
+    const books = await product.find({});
+    const category = await genre.find({});
+    res.render('categories', {books: books})   
+}
+
 // exports.changeQuantity = async (req, res) => {
 //     let { productId, count, subTotal} = req.body;
 //     count = Number(count);
