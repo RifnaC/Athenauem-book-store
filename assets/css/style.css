@@ -884,7 +884,7 @@ button{
       opacity: 1;
       animation-name: wishlist-ani;
       animation-duration: 1000ms;
-      width: 48px;
+      width: 30px;
       height: 48px;
       background: url("data:image/svg+xml,%3Csvg id='heart-svg' viewBox='467 392 58 57' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Group' fill='none' fill-rule='evenodd' transform='translate(467 392)'%3E%3Cpath id='heart' d='M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z' fill='%2315877C'/%3E%3C/g%3E%3C/svg%3E");
       background-repeat: no-repeat;
@@ -892,9 +892,9 @@ button{
   }
   
   @keyframes wishlist-ani {
-      0%   {transform: scale(1);}
-      25%  {transform: scale(.5);}
-      50%  {transform: scale(1.2);}
+      0%   {transform: scale(1.2);}
+      25%  {transform: scale(1);}
+      50%  {transform: scale(1.6);}
       100% {transform: scale(1);}
   }
 @media (max-width: 575.98px) {

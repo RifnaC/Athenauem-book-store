@@ -92,7 +92,7 @@
 
 .sec{
     /* margin-left: -100px !important; */
-    padding-left: 0;
+    padding-left: -8px;
 }
 
 .section-bg {
@@ -112,6 +112,10 @@ section {
     display: inline-block;
     vertical-align: top;
     margin-top: 0px;
+}
+.shopProduct{
+    display: flex;
+    flex-flow: row wrap;
 }
 ._boxzoom .zoom-thumb ul.piclist {
     padding-left: 0px;
@@ -204,7 +208,7 @@ section {
 ._p-features > span {
     display: block;
     font-size: 16px;
-    color: #000;
+    color: #0a0a0a;
     font-weight: 500;
 }
 
