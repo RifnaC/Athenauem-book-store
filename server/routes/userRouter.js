@@ -17,6 +17,7 @@ route.get('/productView/:id',productController.singleView);
 route.get('/shop-page', productController.shopPage);
 route.get('/category', productController.category);
 route.get('/author', productController.author);
+route.get('/contact', productController.contact);
 // route.post("/changeInQuantity", productController.changeQuantity);
 
 // wishlist Routes

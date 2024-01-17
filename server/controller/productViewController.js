@@ -33,23 +33,12 @@ exports.category = async (req, res, next) => {
 
 
 exports.author = async (req, res, next) => {
-    const Robert = await product.find({author: "Robert T. Kiyosaki" });
-    console.log(Robert)
-    res.render('author', {authors: Robert})
+    const Robert = await product.find({author: 'Robert T. Kiyosaki '});
+    const jay = await product.find({author: 'Jay Shetty '});
+    const james = await product.find({author: 'James clear',});
+    res.render('author', {robert: Robert, jay: jay, james: james})
 }
-// exports.changeQuantity = async (req, res) => {
-//     let { productId, count, subTotal} = req.body;
-//     count = Number(count);
-//     subTotal = Number(subTotal)
-//     await Cart.findOneAndUpdate(
-//         {_id: new mongoose.Types.ObjectId(cartId),'items.productId':productId}, 
-//         {
-//             $inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal}
-//         }
-//     )
-//     await Cart.updateMany(
-//         { _id: new mongoose.Types.ObjectId(cartId) },
-//         { $pull: { items: { quantity: { $lt: 1 } } } },
-//       );
-//     res.redirect('/cart')
-// };
+
+exports.contact = async (req, res, next) => {
+    res.render('contact')
+}

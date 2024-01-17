@@ -31,9 +31,7 @@
 
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/product.css" rel="stylesheet">
-    {{!--
-    <link href="/css/shopPage.css" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="/css/contact.css">
 </head>
 
 <body>
@@ -75,10 +73,10 @@
                                 <a class="nav-link " href="category">Category</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link text-primary" href="author">Author</a>
+                                <a class="nav-link" href="author">Author</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="contact">Contact</a>
+                                <a class="nav-link text-primary" href="contact">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -120,125 +118,79 @@
         </nav>
     </Header>
     <!-- Header End -->
+    <section>
+        <div class="section-header mt-5 pt-5">
+            <div class="container">
+                <h2>Contact Us</h2>
+            </div>
+        </div>
 
-    <section class="sec bg-light my-5 py-5">
-        <div class="container ">
+        <div class="container">
             <div class="row">
-                <div class="col-sm-12 title_bx">
-                    <h3 class="title">Robert T. Kiyosaki </h3>
-                </div>
-            </div>
-            <div class="row" >
-                <div class="col-md-12 list-slider mt-5">
-                    <div class=" row common_wd  owl-theme" id="recent_post">
-                        {{#each robert}}
-                        <div class="item  col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                            <div class="sq_box shadow">
-                                <div class="pdis_img">
-                                    <span class="wishlist singleWishlist">
-                                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
-                                            <div class="icon-wishlist mt-0 ms-0 ps-0 pt-0"></div>
-                                        </a>
-                                    </span>
-                                    <a href="/productView/{{this._id}}">
-                                        <img src="{{this.productImg}}">
-                                    </a>
-                                </div>
-                                <h4 class="mb-1">{{this.bookName}} </h4>
-                                <div class="price-box mb-2">
-                                    <span> Price <i class="fa fa-inr"></i> {{this.originalPrice}} </span>
-                                    <span class="offer-price"> Offer Price <i class="fa fa-inr"></i> {{this.price}}
-                                    </span>
-                                </div>
-                                <div class="btn-box text-center bg-primary ">
-                                    <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
-                                        onclick='return addToCartAndShowAlert()'> <i class="fa fa-shopping-cart"></i>
-                                        Add to Cart </a>
-                                </div>
-                            </div>
+                <div class="contact-info">
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-home"></i>
                         </div>
-                        {{/each}}
+
+                        <div class="contact-info-content">
+                            <h4>Address</h4>
+                            <p>4671 Sugar Camp Road,<br /> Owatonna, Minnesota, <br />55060</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+
+                        <div class="contact-info-content">
+                            <h4>Phone</h4>
+                            <p>571-457-2321</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+
+                        <div class="contact-info-content">
+                            <h4>Email</h4>
+                            <p>ntamerrwael@mfano.ga</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-             <div class="row">
-                <div class="col-sm-12 title_bx">
-                    <h3 class="title">Jay Shetty</h3>
-                </div>
-            </div>
-            <div class="row" >
-                <div class="col-md-12 list-slider mt-5">
-                    <div class=" row common_wd  owl-theme" id="recent_post">
-                        {{#each jay}}
-                        <div class="item  col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                            <div class="sq_box shadow">
-                                <div class="pdis_img">
-                                    <span class="wishlist singleWishlist">
-                                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
-                                            <div class="icon-wishlist mt-0 ms-0 ps-0 pt-0"></div>
-                                        </a>
-                                    </span>
-                                    <a href="/productView/{{this._id}}">
-                                        <img src="{{this.productImg}}">
-                                    </a>
-                                </div>
-                                <h4 class="mb-1">{{this.bookName}} </h4>
-                                <div class="price-box mb-2">
-                                    <span> Price <i class="fa fa-inr"></i> {{this.originalPrice}} </span>
-                                    <span class="offer-price"> Offer Price <i class="fa fa-inr"></i> {{this.price}}
-                                    </span>
-                                </div>
-                                <div class="btn-box text-center bg-primary ">
-                                    <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
-                                        onclick='return addToCartAndShowAlert()'> <i class="fa fa-shopping-cart"></i>
-                                        Add to Cart </a>
-                                </div>
-                            </div>
+
+                <div class="contact-form">
+                    <form action="" id="contact-form">
+                        <h2>Send Message</h2>
+                        <div class="input-box">
+                            <input type="text" required="true" name="">
+                            <span>Full Name</span>
                         </div>
-                        {{/each}}
-                    </div>
-                </div>
-            </div>
-              <div class="row">
-                <div class="col-sm-12 title_bx">
-                    <h3 class="title">James clear</h3>
-                </div>
-            </div>
-            <div class="row" >
-                <div class="col-md-12 list-slider mt-5">
-                    <div class=" row common_wd  owl-theme" id="recent_post">
-                        {{#each james}}
-                        <div class="item  col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                            <div class="sq_box shadow">
-                                <div class="pdis_img">
-                                    <span class="wishlist singleWishlist">
-                                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
-                                            <div class="icon-wishlist mt-0 ms-0 ps-0 pt-0"></div>
-                                        </a>
-                                    </span>
-                                    <a href="/productView/{{this._id}}">
-                                        <img src="{{this.productImg}}">
-                                    </a>
-                                </div>
-                                <h4 class="mb-1">{{this.bookName}} </h4>
-                                <div class="price-box mb-2">
-                                    <span> Price <i class="fa fa-inr"></i> {{this.originalPrice}} </span>
-                                    <span class="offer-price"> Offer Price <i class="fa fa-inr"></i> {{this.price}}
-                                    </span>
-                                </div>
-                                <div class="btn-box text-center bg-primary ">
-                                    <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
-                                        onclick='return addToCartAndShowAlert()'> <i class="fa fa-shopping-cart"></i>
-                                        Add to Cart </a>
-                                </div>
-                            </div>
+
+                        <div class="input-box">
+                            <input type="email" required="true" name="">
+                            <span>Email</span>
                         </div>
-                        {{/each}}
-                    </div>
+
+                        <div class="input-box">
+                            <textarea required="true" name=""></textarea>
+                            <span>Type your Message...</span>
+                        </div>
+
+                        <div class="input-box">
+                            <input type="submit" value="Send" name="">
+                        </div>
+                    </form>
                 </div>
+
             </div>
         </div>
     </section>
+
+
     <footer class="footer pt-5 ">
         <div class="container row mx-5 ">
             <a class="my-2" href="home">
