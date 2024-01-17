@@ -100,11 +100,11 @@
     <div class="container-fluid pt-4 px-4">
       <div class="d-flex justify-content-between ">
         <h2 class="text-primary text-center ">{{shop.name}}</h2>
-        {{#if isVendor}}
+        {{!-- {{#if isVendor}} --}}
           <div>
             <a href="addProduct?id={{shop._id}}" class="btn btn-4 btn-outline-primary mx-2">add</a>
           </div>
-        {{/if}}
+        {{!-- {{/if}} --}}
       </div>
       <div class="bg-secondary mb-5">
         <div class="row no-gutters">
@@ -120,9 +120,9 @@
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Availability</th>
-                    {{#if isVendor}}
+                    {{!-- {{#if isVendor}} --}}
                       <th>Action</th>
-                    {{/if}}
+                    {{!-- {{/if}} --}}
                   </tr>
                 </thead>
                 <tbody>
@@ -136,10 +136,10 @@
                     <td class="text-dark">{{this.quantity}}</td>
                     <td class="text-dark">{{this.stock}}</td>
                       <td class="text-dark">
-                        {{#if isVendor}}
+                        {{!-- {{#if isVendor}} --}}
                           <a href="editProduct?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
                           <a class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
-                      {{/if}}
+                      {{!-- {{/if}} --}}
                       </td>
                     
                   </tr>

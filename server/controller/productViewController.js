@@ -21,11 +21,22 @@ exports.shopPage = async (req, res, next) => {
 }
 
 exports.category = async (req, res, next) => {
-    const books = await product.find({});
-    const category = await genre.find({});
-    res.render('categories', {books: books})   
+    const fiction = await product.find({genre: "Fiction"});
+    const biography = await product.find({genre: "Biography"});
+    const novels = await product.find({genre: "Novels"});
+    const horror = await product.find({genre: "Horror"});
+    const science = await product.find({genre: "Science Fiction"});
+    const selfhelp = await product.find({genre: "self-help"});
+
+    res.render('categories', {fiction: fiction, biography:biography, novels:novels, horror:horror, science: science, selfhelp: selfhelp})   
 }
 
+
+exports.author = async (req, res, next) => {
+    const Robert = await product.find({author: "Robert T. Kiyosaki" });
+    console.log(Robert)
+    res.render('author', {authors: Robert})
+}
 // exports.changeQuantity = async (req, res) => {
 //     let { productId, count, subTotal} = req.body;
 //     count = Number(count);

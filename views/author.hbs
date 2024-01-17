@@ -125,13 +125,13 @@
         <div class="container ">
             <div class="row">
                 <div class="col-sm-12 title_bx">
-                    <h3 class="title">Fiction</h3>
+                    <h3 class="title">Robert</h3>
                 </div>
             </div>
             <div class="row" >
                 <div class="col-md-12 list-slider mt-5">
                     <div class=" row common_wd  owl-theme" id="recent_post">
-                        {{#each fiction}}
+                        {{#each authors}}
                         <div class="item  col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
                             <div class="sq_box shadow">
                                 <div class="pdis_img">
@@ -237,82 +237,6 @@
                     </div>
                 </div>
             </div>
-            {{!-- <div class="row">
-                <div class="col-sm-12 title_bx">
-                    <h3 class="title">Science Fiction</h3>
-                </div>
-            </div>
-            <div class="row" >
-                <div class="col-md-12 list-slider mt-5">
-                    <div class=" row common_wd  owl-theme" id="recent_post">
-                        {{#each science}}
-                        <div class="item  col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                            <div class="sq_box shadow">
-                                <div class="pdis_img">
-                                    <span class="wishlist singleWishlist">
-                                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
-                                            <div class="icon-wishlist mt-0 ms-0 ps-0 pt-0"></div>
-                                        </a>
-                                    </span>
-                                    <a href="/productView/{{this._id}}">
-                                        <img src="{{this.productImg}}">
-                                    </a>
-                                </div>
-                                <h4 class="mb-1">{{this.bookName}} </h4>
-                                <div class="price-box mb-2">
-                                    <span> Price <i class="fa fa-inr"></i> {{this.originalPrice}} </span>
-                                    <span class="offer-price"> Offer Price <i class="fa fa-inr"></i> {{this.price}}
-                                    </span>
-                                </div>
-                                <div class="btn-box text-center bg-primary ">
-                                    <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
-                                        onclick='return addToCartAndShowAlert()'> <i class="fa fa-shopping-cart"></i>
-                                        Add to Cart </a>
-                                </div>
-                            </div>
-                        </div>
-                        {{/each}}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 title_bx">
-                    <h3 class="title">Self Help</h3>
-                </div>
-            </div>
-            <div class="row" >
-                <div class="col-md-12 list-slider mt-5">
-                    <div class=" row common_wd  owl-theme" id="recent_post">
-                        {{#each selfhelp}}
-                        <div class="item  col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                            <div class="sq_box shadow">
-                                <div class="pdis_img">
-                                    <span class="wishlist singleWishlist">
-                                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
-                                            <div class="icon-wishlist mt-0 ms-0 ps-0 pt-0"></div>
-                                        </a>
-                                    </span>
-                                    <a href="/productView/{{this._id}}">
-                                        <img src="{{this.productImg}}">
-                                    </a>
-                                </div>
-                                <h4 class="mb-1">{{this.bookName}} </h4>
-                                <div class="price-box mb-2">
-                                    <span> Price <i class="fa fa-inr"></i> {{this.originalPrice}} </span>
-                                    <span class="offer-price"> Offer Price <i class="fa fa-inr"></i> {{this.price}}
-                                    </span>
-                                </div>
-                                <div class="btn-box text-center bg-primary ">
-                                    <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
-                                        onclick='return addToCartAndShowAlert()'> <i class="fa fa-shopping-cart"></i>
-                                        Add to Cart </a>
-                                </div>
-                            </div>
-                        </div>
-                        {{/each}}
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </section>
     <footer class="footer pt-5 ">
