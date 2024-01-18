@@ -256,12 +256,17 @@ exports.user= async(req, res)=>{
 
 exports.home= async(req, res)=>{
     try {
+    const search = req.query.search || "";
     const latestImages = await bannerCollection
         .find({})
         .sort({ _id: -1 })
         .limit(3); 
     const categories = await categoryCollection.find({});
-    const products = await productCollection.find({}).limit(10);
+    const products = await productCollection.find({$or:[{bookName:{$regex:'.*'+search+'.*'}},{author:{$regex:'.*'+search+'.*'}}]}).limit(10);
+   
+    // await productCollection.createIndex({ title: "text" });
+    // const query = { $rs
+
     res.render('home', { images: latestImages, category: categories, product: products});
     } catch (err) {
       console.error(err);

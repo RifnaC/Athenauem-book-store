@@ -62,30 +62,32 @@
                     <div class="mx-lg-5 px-lg-5">
                         <ul class="navbar-nav mx-lg-5 me-auto mb-2 mb-lg-0 home-nav ">
                             <li class="nav-item ">
-                                <a class="nav-link active" aria-current="page" href="home">Home</a>
+                                <a class="nav-link active" aria-current="page" href="/home">Home</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="shop-page">Shop</a>
+                                <a class="nav-link" href="/shop-page">Shop</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="category">Category</a>
+                                <a class="nav-link" href="/category">Category</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="author">Author</a>
+                                <a class="nav-link" href="/author">Author</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="contact">Contact</a>
+                                <a class="nav-link" href="/contact">Contact</a>
                             </li>
                         </ul>
                     </div>
                     <div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
                             <li>
-                                <div class="search-bar-container active">
-                                    <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
-                                        alt="magnifier" class="magnifier" />
-                                    <input type="text" class="input" placeholder="Search ..." />
-                                </div>
+                                <form action="">
+                                    <div class="search-bar-container active">
+                                        <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
+                                            alt="magnifier" class="magnifier" />
+                                        <input type="text" class="input" name="search" placeholder="Search ..." />
+                                    </div>
+                                </form>
                             </li>
                             <li class="nav-item homeNav space ">
                                 <a class="nav-link" href="/cart">
@@ -112,8 +114,6 @@
                         </ul>
                     </div>
                 </div>
-
-
             </div>
         </nav>
     </Header>
@@ -128,9 +128,12 @@
                         {{#each images}}
                         <div class="carousel-item {{#if @first}}active{{/if}}">
                             <h1 class="position-absolute m-5 py-5 text-dark text-uppercase">{{this.name}}</h1>
-                            <p class="position-absolute m-5 py-5 text-dark ">{{this.shop}}</p>
                             <img src="{{this.bannerImg}}" alt="{{this.name}}">
+
                         </div>
+                        <button class="postion-absolute carousel-control twenty-one py-1 mx-5 my-5 " type="button"
+                            id="shopNow"><span class="mx-2 my-5" onclick="location.href='shop-page'">Shop
+                                Now</span></button>
                         {{/each}}
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
@@ -143,9 +146,7 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
-                    <button class="carousel-control twenty-one py-1 mx-5 my-5 " type="button" id="shopNow"><span
-                            class="mx-2 my-5">Shop
-                            Now</span></button>
+
                 </div>
             </div>
         </div>
@@ -195,33 +196,33 @@
             </div>
             <div class="row me-5 pe-4">
                 {{#each product}}
-                    <div class="col col-lg-2 productCard m-3 mb-5">
-                        <a href="/productView/{{this._id}}" >
+                <div class="col col-lg-2 productCard m-3 mb-5">
+                    <a href="/productView/{{this._id}}">
                         <img src="{{this.productImg}}" alt="{{this.bookName}}" class="card-img">
-                        </a>
-                        <div class="card-info">
-                            <p class="text-title text-center mb-0">{{this.bookName}} </p>
-                            <p class="text-center mb-0">By {{this.author}}</p>
-                            <p class="text-center mb-0">{{this.stock}}</p>
+                    </a>
+                    <div class="card-info">
+                        <p class="text-title text-center mb-0">{{this.bookName}} </p>
+                        <p class="text-center mb-0">By {{this.author}}</p>
+                        <p class="text-center mb-0">{{this.stock}}</p>
 
-                            <div class="old-price text-center">
-                                &#8377 {{this.originalPrice}}
-                            </div>
-                            <div class="new-price text-center">
-                                &#8377 {{this.price}}
-                            </div>
+                        <div class="old-price text-center">
+                            &#8377 {{this.originalPrice}}
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <a href="/carts/{{this._id}}" onclick='return addToCartAndShowAlert()'>
-                                <div class="card-button">
-                                    <b>Add to Cart</b>
-                                </div>
-                            </a>
-                            <a href="/wishlist/{{this._id}}" class="wrapper nav-link">
-                                <div class="icon-wishlist"></div>
-                            </a>
+                        <div class="new-price text-center">
+                            &#8377 {{this.price}}
                         </div>
                     </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="/carts/{{this._id}}" onclick='return addToCartAndShowAlert()'>
+                            <div class="card-button">
+                                <b>Add to Cart</b>
+                            </div>
+                        </a>
+                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link">
+                            <div class="icon-wishlist"></div>
+                        </a>
+                    </div>
+                </div>
                 {{/each}}
             </div>
         </div>
