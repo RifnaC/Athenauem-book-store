@@ -264,8 +264,6 @@ exports.home= async(req, res)=>{
     const categories = await categoryCollection.find({});
     const products = await productCollection.find({$or:[{bookName:{$regex:'.*'+search+'.*'}},{author:{$regex:'.*'+search+'.*'}}]}).limit(10);
    
-    // await productCollection.createIndex({ title: "text" });
-    // const query = { $rs
 
     res.render('home', { images: latestImages, category: categories, product: products});
     } catch (err) {
