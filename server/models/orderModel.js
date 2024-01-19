@@ -74,11 +74,10 @@ async function updateOrderStatus(){
             await Promise.all(
                 status.map(async (order) =>{
                     order.status = "Delivered";
-                    console.log('hhhhhh')
                     await order.save();
                 })
             )
-            console.log('Updated orderStatus to "delivered" for orders:', status.map(order => order._id));
+            console.log('Updated orderStatus to "delivered" for orders:');
         }
 
     } catch (error) {

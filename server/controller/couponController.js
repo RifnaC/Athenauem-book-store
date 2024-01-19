@@ -66,7 +66,6 @@ const deleteExpiredCoupons = async () => {
     try {
         const currentDate = new Date();
         console.log('Current Date:', currentDate);
-
         const result = await Coupon.deleteMany({ expireDate: { $lt: currentDate } });
         console.log('Deleted Coupons:', result.deletedCount);
         console.log('Deleted Coupons Details:', result);

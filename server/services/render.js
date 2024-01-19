@@ -256,7 +256,7 @@ exports.user= async(req, res)=>{
 
 exports.home= async(req, res)=>{
     try {
-    const search = req.query.search || "";
+    const search = req.query.searchQuery || "";
     const latestImages = await bannerCollection
         .find({})
         .sort({ _id: -1 })
