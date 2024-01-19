@@ -45,5 +45,9 @@ exports.author = async (req, res, next) => {
 }
 
 exports.contact = async (req, res, next) => {
+    const search = req.query.searchQuery || "";
+    if (search !== "") {
+        res.redirect("/shop-page");
+    }
     res.render('contact')
 }

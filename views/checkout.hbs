@@ -81,11 +81,13 @@
                     <div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
                             <li class="nav-item homeNav">
-                                <div class="search-bar-container active nav-link">
-                                    <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
-                                        alt="magnifier" class="magnifier" />
-                                    <input type="text" class="input" placeholder="Search ..." />
-                                </div>
+                                <form autocomplete="off">
+                                    <div class="search-bar-container active">
+                                        <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
+                                            alt="magnifier" class="magnifier" />
+                                        <input  type="text" class="input" name="searchQuery" placeholder="Search ..." autocomplete="off">
+                                    </div>
+                                </form>
                             </li>
                             <li class="nav-item homeNav space">
                                 <a class="nav-link" href="cart">
