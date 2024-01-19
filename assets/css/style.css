@@ -208,11 +208,16 @@ body::-webkit-scrollbar-thumb
 .dropdown-menu a{
     font-size: 16px;
 }
-.bgImg{
+.bgImg {
     height: 100vh;
     width: 100vw;
     position: relative;
     background-color: 15877C;
+    /* aspect-ratio: 3/5; */
+}
+.bgImg img{
+
+    
 }
 .carousel-item img{
     width : 100vw;
