@@ -46,7 +46,7 @@
     <Header class="container-fluid m-0 p-0">
         <nav class="navbar navbar-expand-lg bg-secondary fixed-top">
             <div class="container-fluid mx-lg-5">
-                <a class="navbar-brand " href="home">
+                <a class="navbar-brand " href="/home">
                     <div class="d-flex justify-content-between me-5 pe-5">
                         <img src="/img/book collection 0.png" alt="logo"
                             style="width: 40px; height: 40px; border-radius: 50%;">
@@ -62,39 +62,41 @@
                     <div class="mx-lg-5 px-lg-5">
                         <ul class="navbar-nav mx-lg-5 me-auto mb-2 mb-lg-0 home-nav ">
                             <li class="nav-item homeNav">
-                                <a class="nav-link " href="home">Home</a>
+                                <a class="nav-link " href="/home">Home</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="shop-page">Shop</a>
+                                <a class="nav-link" href="/shop-page">Shop</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="blog">Blog</a>
+                                <a class="nav-link" href="/blog">Blog</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="author">Author</a>
+                                <a class="nav-link" href="/author">Author</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="contact">Contact</a>
+                                <a class="nav-link" href="/contact">Contact</a>
                             </li>
                         </ul>
                     </div>
                     <div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
                             <li class="nav-item homeNav">
-                                <div class="search-bar-container active nav-link">
-                                    <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
-                                        alt="magnifier" class="magnifier" />
-                                    <input type="text" class="input" placeholder="Search ..." />
-                                </div>
+                                <form autocomplete="off">
+                                    <div class="search-bar-container active">
+                                        <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
+                                            alt="magnifier" class="magnifier" />
+                                        <input  type="text" class="input" name="searchQuery" placeholder="Search ..." autocomplete="off">
+                                    </div>
+                                </form>
                             </li>
                             <li class="nav-item homeNav space">
-                                <a class="nav-link" href="cart">
+                                <a class="nav-link" href="/cart">
                                     <i class="bi bi-cart3"></i>
                                 </a>
 
                             </li>
                             <li class="nav-item homeNav space">
-                                <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
+                                <a class="nav-link" href="/wishlist"><i class="bi bi-heart"></i></a>
                             </li>
                             <li class="nav-item space">
                                 <div class="nav-item dropdown">
@@ -132,14 +134,14 @@
                     </div>
                     <hr>
                     <div class="mx-5">
-                        <a href="profile" class="dropdown-item">
+                        <a href="/profile" class="dropdown-item">
                             <i class="bi bi-person-fill"></i><span class="ps-2">Account
                                 Settings</span>
                         </a>
                     </div>
                     <hr>
                     <div class="mx-5">
-                        <a href="logout" class="dropdown-item"><i class="bi bi-box-arrow-right"></i><span
+                        <a href="/logout" class="dropdown-item"><i class="bi bi-box-arrow-right"></i><span
                                 class="ps-2">Logout</span></a>
                     </div>
                 </div>
@@ -168,14 +170,14 @@
                         <div class="d-flex mb-3">
                             <h4 class="text-right text-dark">Address Manage</h4>
                         </div>
-                        <a href="address" class="col-12 btn btn-light text-start" type="button">Add Address</a>
+                        <a href="/address" class="col-12 btn btn-light text-start" type="button">Add Address</a>
                         <div class="d-flex card  addressCard my-3 col-12">
                             <div class="card-body mt-0 ">
                                 <h5 class="card-title">Home</h5>
                                 <p class="card-text">1998 Wall Street 707, Washington DC, USA</p>
                                 <div class="d-flex justify-content-end">
-                                    <a href="address" class="mx-3"><i class="bi bi-pencil"></i></a>
-                                    <a href="address" class=""><i class="bi bi-trash"></i></a>
+                                    <a href="/address" class="mx-3"><i class="bi bi-pencil"></i></a>
+                                    <a href="/address" class=""><i class="bi bi-trash"></i></a>
                                 </div>
                             </div>
                         </div>

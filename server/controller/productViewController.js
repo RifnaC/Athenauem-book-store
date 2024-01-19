@@ -4,7 +4,11 @@ const cart = require('../models/cartModel');
 const genre = require('../models/categoryModel')
 
 exports.singleView= async (req, res, next) => {
-    const id = req.params.id
+    const id = req.params.id;
+    const search = req.query.searchQuery || "";
+    if(search !== ""){
+        res.redirect('/shop-page')
+    }
     const item = await product.findById(id);
     const genre = item.genre;
     const category = await product.find({genre: genre}); 
@@ -15,7 +19,8 @@ exports.singleView= async (req, res, next) => {
 }
 
 exports.shopPage = async (req, res, next) => {
-    const books = await product.find({});
+    const search = req.query.searchQuery || "";
+    const books = await product.find({$or:[{bookName:{$regex:'.*'+search+'.*'}},{author:{$regex:'.*'+search+'.*'}},{genre:{$regex:'.*'+search+'.*'}}]});
     const category = await genre.find({});
     res.render('shop-page', {books: books, genre: category})    
 }
