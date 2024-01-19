@@ -111,8 +111,9 @@
                         <div class="my-2 col-lg-6">
                             <label for="shop">Shop</label>
                             <select class="form-select" aria-label="choose  a shop" name="shop">
-                                <option value="EC Books" selected>EC Books</option>
-                                <option value="Dc Books">DC books</option>
+                                {{#each shop}}
+                                <option value="{{this.name}}">{{this.name}}</option>
+                                {{/each}}
                             </select>
                         </div>
                         <div class="form-group col-lg-6  my-2">
@@ -124,17 +125,30 @@
                         </div>
                         <div class="form-group col-lg-6  my-2" id="bannerCategoryId">
                             <label for="Category ID">Category ID</label>
-                            <input type="text" class="form-control" id="categoryID" value="{{banners.categoryId}}"
-                                name="categoryId" placeholder="Category ID">
+                            <select class="form-select" aria-label="choose category" name="categoryIs"
+                                value="{{banners.categoryId}}" id="categoryID">
+                                {{#each genre}}
+                                <option value="{{this.genre}}" selected>{{this.genre}}</option>
+                                {{/each}}
+                            </select>
                         </div>
                         <div class="form-group col-lg-6  my-2" id="bannerProductId">
                             <label for="Product ID">Product ID</label>
-                            <input type="text" class="form-control" id="productID" value="{{banners.productId}}"
-                                name="productId" placeholder="Product ID">
+                            <select class="form-select" aria-label="choose category" name="productId" id="productID"
+                                value="{{banners.productId}}">
+                                {{#each book}}
+                                <option value="category" selected>{{this._id}}</option>
+                                {{/each}}
+                            </select>
                         </div>
-                        <label for="image">Banner Image</label>
                         <div class="form-group col-lg-6  mb-3">
+                            <label for="image">Banner Image</label>
                             <input type="file" class="form-control" id="bannerImg" name="bannerImg" accept="image/*">
+                        </div>
+                        <div class="form-group col-lg-6  mb-3">
+                            <label for="bannerDescription">Description</label>
+                            <input type="text" class="form-control" id="Description" name="description"
+                                placeholder="Description" value="{{banners.description}}">
                         </div>
                         <div class="d-flex justify-content-center my-3">
                             <a href="banner" class="btn btn-4 btn-outline-dark me-4">Cancel</a>

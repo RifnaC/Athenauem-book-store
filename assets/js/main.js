@@ -1057,16 +1057,12 @@
   // Update banner
   $("#editBanner").submit(function (event) {
     event.preventDefault();
-
     // Create a FormData object
     const formData = new FormData(this);
-
     // Append additional data to the FormData object
     formData.append('additionalField', 'additionalValue');
-
     // Extract the banner's ID from the form data
     const bannerId = formData.get('id');
-
     // Validation
     if (!formData.get('name')) {
       Swal.fire({
@@ -1113,6 +1109,13 @@
         })
         return false;
       }
+    }
+    if (!formData.get('description') || formData.get('description').length < 4) {
+      Swal.fire({
+        title: 'Please enter the descriptin with at least 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
     }
     // Construct the AJAX request object
     let request = {

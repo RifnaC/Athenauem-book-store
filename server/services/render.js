@@ -225,9 +225,12 @@ exports.editBanner = async (req, res) => {
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
+    const shop = await shops.find({})
+    const genre = await categoryCollection.find({});
+    const prdt = await productCollection.find({});
     axios.get('http://localhost:3000/api/banner', { params: { id: req.query.id } })
         .then(function (ban) {
-            res.render('banners', { banners: ban.data, admin: name });
+            res.render('banners', { banners: ban.data, admin: name, shop: shop, genre: genre, book: prdt});
         })
         .catch(err => {
             res.send(err);

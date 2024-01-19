@@ -31,11 +31,9 @@ exports.create = async (req, res) => {
     if (!req.body) {
       res.status(400).send({ message: 'Content can not be empty' });
       return;
-    }
-    
+    }  
     const { name, shop, type, categoryId, productId,description } = req.body;
     const bannerImg = req.file.path;
-    
     cloudinary.uploader.upload(bannerImg, async (cloudinaryErr, result) => {
       if (cloudinaryErr) {
         res.status(500).send({ message: cloudinaryErr.message });
@@ -91,7 +89,6 @@ exports.create = async (req, res) => {
   });
 };
 
-
 // retrieve and return all banner or  retrieve and return a single banner 
 exports.find = async(req, res) => { 
   if (req.query.id) {
@@ -133,11 +130,9 @@ exports.update = async(req, res) => {
         try {
             const bannerId = req.params.id;
             const banner = await bannerCollection.findById(bannerId);
-            // console.log(shop)
             if (!banner) {
                 return res.status(404).json({ message: 'Shop not found' });
             }   
-            // console.log(req.file)
             // Check if a new file is being uploaded
             if (req.file) {
                 // Delete the old banner image from Cloudinary
@@ -156,6 +151,7 @@ exports.update = async(req, res) => {
             banner.type = req.body.type || banner.type;        
             banner.categoryId = req.body.categoryId || banner.categoryId;
             banner.productId = req.body.productId || banner.productId;
+            banner.description = req.body.description || banner.description
 
             // Save the banner changes to the database  
             const savedBan = await banner.save();
@@ -168,18 +164,18 @@ exports.update = async(req, res) => {
     })
 };
 
-exports.banner = async(req, res) => {
-  try {
-    const bannerId = req.body.id;
-    // Update the banner's isEnabled field to true
-    await bannerCollection.findByIdAndUpdate(bannerId, { isEnabled: true });
+// exports.banner = async(req, res) => {
+//   try {
+//     const bannerId = req.body.id;
+//     // Update the banner's isEnabled field to true
+//     await bannerCollection.findByIdAndUpdate(bannerId, { isEnabled: true });
 
-    res.json({ success: true, message: 'Banner updated successfully' });
-  } catch (error) {
-    console.error('Error updating banner:', error);
-    res.status(500).json({ success: false, message: 'Banner update failed' });
-  }
-}
+//     res.json({ success: true, message: 'Banner updated successfully' });
+//   } catch (error) {
+//     console.error('Error updating banner:', error);
+//     res.status(500).json({ success: false, message: 'Banner update failed' });
+//   }
+// }
 
 exports.delete = (req, res) => {
     const id = req.params.id;
