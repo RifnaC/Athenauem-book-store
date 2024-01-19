@@ -1,5 +1,6 @@
 const { log } = require('handlebars');
 const bannerCollection = require('../models/bannerModel');
+const Shop = require('../models/shopModel')
 const cloudinary = require('../services/cloudinary');
 const path = require('path')
 const multer = require('multer');
@@ -91,9 +92,10 @@ exports.create = async (req, res) => {
 
 
 // retrieve and return all banner or  retrieve and return a single banner 
-exports.find = (req, res) => {
+exports.find = async(req, res) => {
   if (req.query.id) {
     const id = req.query.id;
+    const shop = await Shop.find({})
     bannerCollection.findById(id)
     .then(data => {
       if (!data) {
@@ -113,7 +115,7 @@ exports.find = (req, res) => {
         res.json(banner);
       } else {
         // If it's a web request, render the "banner" page with the data
-        res.render('banner', { banners: banner });
+        res.render('banner', { banners: banner, shop: shop});
       }
     })
     .catch(err => {

@@ -561,6 +561,11 @@ ul {
 	color: #FCFCFC;
 	background-color: #15877C;
 }
+.banner-button{
+    position: absolute !important;
+    bottom: 0;
+    z-index: 22;
+}
 .dataTables_wrapper .dataTables_length select{
     margin-left: 8px;
     margin-right: 8px;

@@ -41,7 +41,6 @@
         </div>
     </div>
     <!-- Spinner End -->
-
     <!-- Header Start -->
     <Header class="container-fluid m-0 p-0">
         <nav class="navbar navbar-expand-lg bg-secondary fixed-top">
@@ -93,10 +92,9 @@
                                 <a class="nav-link" href="/cart">
                                     <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{count}}</sup>
                                 </a>
-
                             </li>
                             <li class="nav-item homeNav space ">
-                                <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
+                                <a class="nav-link" href="/wishlist"><i class="bi bi-heart"></i></a>
                             </li>
                             <li class="nav-item homeNav space ">
                                 <div class="nav-item dropdown">
@@ -106,7 +104,7 @@
                                     </a>
                                     <div
                                         class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                                        <a href="profile" class="dropdown-item">My Profile</a>
+                                        <a href="/profile" class="dropdown-item">My Profile</a>
                                         <a href="/logout" class="dropdown-item">Log Out</a>
                                     </div>
                                 </div>
@@ -118,7 +116,6 @@
         </nav>
     </Header>
     <!-- Header End -->
-
     <!-- Banner Section Start -->
     <section>
         <div class="container-fluid position-relative d-flex p-0">
@@ -131,9 +128,10 @@
                             <img src="{{this.bannerImg}}" alt="{{this.name}}">
 
                         </div>
-                        <button class="postion-absolute carousel-control twenty-one py-1 mx-5 my-5 " type="button"
-                            id="shopNow"><span class="mx-2 my-5" onclick="location.href='shop-page'">Shop
-                                Now</span></button>
+                        <button class="banner-button twenty-one py-1 mx-5 my-5 " type="button"
+                            id="shopNow">
+                            <span class="mx-2 my-5" onclick="location.href='shop-page'">Shop Now</span>
+                        </button>
                         {{/each}}
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
@@ -146,7 +144,6 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
-
                 </div>
             </div>
         </div>

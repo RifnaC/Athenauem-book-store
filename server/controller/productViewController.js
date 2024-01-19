@@ -60,11 +60,23 @@ exports.category = async (req, res, next) => {
     res.render('categories', {fiction: fiction, biography:biography, novels:novels, horror:horror, science: science, selfhelp: selfhelp})   
 }
 
-
 exports.author = async (req, res, next) => {
-    const Robert = await product.find({author: 'Robert T. Kiyosaki '});
-    const jay = await product.find({author: 'Jay Shetty '});
-    const james = await product.find({author: 'James clear',});
+    const search = req.query.searchQuery || "";
+    const Robert = await product.find({author: 'Robert T. Kiyosaki ', $or:[
+        { bookName: { $regex: new RegExp(search, 'i') } },
+        { author: { $regex: new RegExp(search, 'i') } },
+        { genre: { $regex: new RegExp(search, 'i') } }
+    ]});
+    const jay = await product.find({author: 'Jay Shetty ', $or: [
+        { bookName: { $regex: new RegExp(search, 'i') } },
+        { author: { $regex: new RegExp(search, 'i') } },
+        { genre: { $regex: new RegExp(search, 'i') } }
+      ]});
+    const james = await product.find({author: 'James clear', $or: [
+        { bookName: { $regex: new RegExp(search, 'i') } },
+        { author: { $regex: new RegExp(search, 'i') } },
+        { genre: { $regex: new RegExp(search, 'i') } }
+      ]});
     res.render('author', {robert: Robert, jay: jay, james: james})
 }
 
