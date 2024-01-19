@@ -110,8 +110,9 @@
                         <div class="my-2 col-lg-6">
                             <label for="shop">Shop</label>
                             <select class="form-select" aria-label="choose  a shop" name="shop">
-                                <option value="EC Books" selected>EC Books</option>
-                                <option value="DC Books">DC books</option>
+                                {{#each shop}}
+                                    <option value="{{this.name}}" >{{this.name}}</option>
+                                {{/each}}
                             </select>
                         </div>
                         <div class="form-group col-lg-6  my-2">
@@ -123,13 +124,20 @@
                         </div>
                         <div class="form-group col-lg-6  my-2" id="bannerCategory">
                             <label for="Category ID">Category ID</label>
-                            <input type="text" class="form-control" id="categoryId" value="" name="categoryId"
-                                placeholder="Category ID">
+                            <select class="form-select" aria-label="choose category" name="categoryId" id="categoryId">
+                               {{#each genre}}
+                                    <option value="{{this.genre}}" selected>{{this.genre}}</option>
+                               {{/each}}
+                               
+                            </select>
                         </div>
                         <div class="form-group col-lg-6  my-2" id="bannerProduct">
                             <label for="Product ID">Product ID</label>
-                            <input type="text" class="form-control" id="productId" value="" name="productId"
-                                placeholder="Product ID">
+                            <select class="form-select" aria-label="choose category" name="productId" id="productId">
+                                {{#each book}}
+                                    <option value="category" selected>{{this._id}}</option>
+                                {{/each}}
+                            </select>
                         </div>
                         <label for="image">Banner Image</label>
                         <div class="form-group col-lg-6  mb-3">

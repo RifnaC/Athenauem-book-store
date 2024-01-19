@@ -65,7 +65,6 @@ exports.create = async (req, res) => {
           });
 
           const savedBanner = await banner.save();
-          console.log(savedBanner);
           res.redirect('/banner');
         } else {
           // Create and save the new banner if the count is less than 3
@@ -92,10 +91,9 @@ exports.create = async (req, res) => {
 
 
 // retrieve and return all banner or  retrieve and return a single banner 
-exports.find = async(req, res) => {
+exports.find = async(req, res) => { 
   if (req.query.id) {
     const id = req.query.id;
-    const shop = await Shop.find({})
     bannerCollection.findById(id)
     .then(data => {
       if (!data) {
@@ -115,7 +113,7 @@ exports.find = async(req, res) => {
         res.json(banner);
       } else {
         // If it's a web request, render the "banner" page with the data
-        res.render('banner', { banners: banner, shop: shop});
+        res.render('banner', { banners: banner});
       }
     })
     .catch(err => {
