@@ -43,6 +43,10 @@ exports.addToCart = async(req, res) => {
 
 exports.cartView = async (req, res) => {
     const userId = req.user.id; 
+    const search = req.query.searchQuery || '';
+    if (search !== ""){
+        res.redirect('/shop-page');
+    }
     const cartItems = await Cart.aggregate([
         {
             $match: { 

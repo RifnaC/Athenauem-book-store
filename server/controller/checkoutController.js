@@ -66,6 +66,10 @@ exports.checkout = async (req, res) => {
   const value = offer ? offer.discount : 0;
   const discount = Math.round((value * totalPrice) / 100);
   const payableTotal = totalPrice - discount;
+  const search = req.query.searchQuery || '';
+  if (search !== '') {
+    res.redirect('/shop-page');
+  }
   res.render('checkout', { user: user, address: addres, totalPrice: totalPrice, coupon: discount, mrp: payableTotal, cart: items, CouponCode: CouponCode });
 }
 

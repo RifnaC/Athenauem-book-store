@@ -26,13 +26,37 @@ exports.shopPage = async (req, res, next) => {
 }
 
 exports.category = async (req, res, next) => {
-    const fiction = await product.find({genre: "Fiction"});
-    const biography = await product.find({genre: "Biography"});
-    const novels = await product.find({genre: "Novels"});
-    const horror = await product.find({genre: "Horror"});
-    const science = await product.find({genre: "Science Fiction"});
-    const selfhelp = await product.find({genre: "self-help"});
-
+    const search = req.query.searchQuery || "";
+    const fiction = await product.find({genre: "Fiction",  $or: [
+        { bookName: { $regex: new RegExp(search, 'i') } },
+        { author: { $regex: new RegExp(search, 'i') } },
+        { genre: { $regex: new RegExp(search, 'i') } }
+      ]});
+    const biography = await product.find({genre: "Biography",  $or: [
+        { bookName: { $regex: new RegExp(search, 'i') } },
+        { author: { $regex: new RegExp(search, 'i') } },
+        { genre: { $regex: new RegExp(search, 'i') } }
+      ]});
+    const novels = await product.find({genre: "Novels",  $or: [
+        { bookName: { $regex: new RegExp(search, 'i') } },
+        { author: { $regex: new RegExp(search, 'i') } },
+        { genre: { $regex: new RegExp(search, 'i') } }
+      ]});
+    const horror = await product.find({genre: "Horror",  $or: [
+        { bookName: { $regex: new RegExp(search, 'i') } },
+        { author: { $regex: new RegExp(search, 'i') } },
+        { genre: { $regex: new RegExp(search, 'i') } }
+      ]});
+    const science = await product.find({genre: "Science Fiction",  $or: [
+        { bookName: { $regex: new RegExp(search, 'i') } },
+        { author: { $regex: new RegExp(search, 'i') } },
+        { genre: { $regex: new RegExp(search, 'i') } }
+      ]});
+    const selfhelp = await product.find({genre: "self-help",  $or: [
+        { bookName: { $regex: new RegExp(search, 'i') } },
+        { author: { $regex: new RegExp(search, 'i') } },
+        { genre: { $regex: new RegExp(search, 'i') } }
+      ]});
     res.render('categories', {fiction: fiction, biography:biography, novels:novels, horror:horror, science: science, selfhelp: selfhelp})   
 }
 
