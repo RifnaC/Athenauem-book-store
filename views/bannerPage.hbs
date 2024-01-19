@@ -128,7 +128,6 @@
                                {{#each genre}}
                                     <option value="{{this.genre}}" selected>{{this.genre}}</option>
                                {{/each}}
-                               
                             </select>
                         </div>
                         <div class="form-group col-lg-6  my-2" id="bannerProduct">
@@ -139,9 +138,14 @@
                                 {{/each}}
                             </select>
                         </div>
-                        <label for="image">Banner Image</label>
+                        
                         <div class="form-group col-lg-6  mb-3">
+                            <label for="image">Banner Image</label>
                             <input type="file" class="form-control" id="bannerImg" name="bannerImg">
+                        </div> 
+                        <div class="form-group col-lg-6  mb-3">
+                            <label for="bannerDescription">Description</label>
+                            <input type="text" class="form-control" id="description" name="description" placeholder="Description">
                         </div>
                         <div class="d-flex justify-content-center my-3">
                             <a href="banner" class="btn btn-4 btn-outline-dark me-4">Cancel</a>

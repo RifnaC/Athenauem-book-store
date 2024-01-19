@@ -33,7 +33,7 @@ exports.create = async (req, res) => {
       return;
     }
     
-    const { name, shop, type, categoryId, productId } = req.body;
+    const { name, shop, type, categoryId, productId,description } = req.body;
     const bannerImg = req.file.path;
     
     cloudinary.uploader.upload(bannerImg, async (cloudinaryErr, result) => {
@@ -62,6 +62,7 @@ exports.create = async (req, res) => {
             productId,
             bannerImg: result.secure_url,
             cloudinaryId: result.public_id,
+            description,
           });
 
           const savedBanner = await banner.save();
@@ -76,6 +77,7 @@ exports.create = async (req, res) => {
             productId,
             bannerImg: result.secure_url,
             cloudinaryId: result.public_id,
+            description,
           });
 
           const savedBanner = await banner.save();

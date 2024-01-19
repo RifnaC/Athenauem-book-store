@@ -964,6 +964,7 @@
     let categoryId = document.forms["createBanner"]["categoryId"].value;
     let productId = document.forms["createBanner"]["productId"].value;
     let bannerImg = document.getElementById("bannerImg");
+    let desc = document.forms["createBanner"]["description"].value;
 
     // Check if book details are not empty
     if (!name) {
@@ -1012,9 +1013,16 @@
         return false;
       }
     }
-    if (!bannerImg.value && !imgUrl) {
+    if (!bannerImg.value || !imgUrl) {
       Swal.fire({
         title: 'Please provide the image of the book banner!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!desc || desc.length < 4 || desc === null) {
+      Swal.fire({
+        title: 'Please provide the description of the book banner!',
         confirmButtonColor: '#15877C',
       })
       return false;

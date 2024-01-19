@@ -14,6 +14,7 @@ const bannerSchema = new mongoose.Schema({
         type: String,
         required:true,
     },
+    description:String,
     categoryId:String,
     productId:String,
     bannerImg:String,
