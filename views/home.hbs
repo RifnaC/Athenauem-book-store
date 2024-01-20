@@ -84,7 +84,8 @@
                                     <div class="search-bar-container active">
                                         <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
                                             alt="magnifier" class="magnifier" />
-                                        <input  type="text" class="input" name="searchQuery" placeholder="Search ..." autocomplete="off">
+                                        <input type="text" class="input" name="searchQuery" placeholder="Search ..."
+                                            autocomplete="off">
                                     </div>
                                 </form>
                             </li>
@@ -119,18 +120,22 @@
     <!-- Banner Section Start -->
     <section>
         <div class="container-fluid position-relative d-flex p-0 mt-5">
-            <div class="bgImg">
+            <div class="bgImg row">
                 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         {{#each images}}
                         <div class="carousel-item {{#if @first}}active{{/if}}">
-                            <h1 class="position-absolute m-5 py-5 bannerHeading text-uppercase">{{this.name}}</h1>
+                            <div class="bannerText">
+                                <h1 class="position-absolute m-5 py-5 bannerHeading text-uppercase">{{this.name}}</h1>
+                                <p class="position-absolute m-5 bannerDescription">{{this.description}}</p>
+                                <button class="banner-button twenty-one py-1 mx-5 my-5" type="button" id="shopNow" onclick="return bannerShopNow( '{{this.type}}','{{this.productId}}','{{this.categoryId}}')">
+                                    <span class="mx-2 my-5" >Shop Now</span>
+                                </button>
+                            </div>
+
                             <img src="{{this.bannerImg}}" alt="{{this.name}}">
                         </div>
-                        <button class="banner-button twenty-one py-1 mx-5 my-5 " type="button"
-                            id="shopNow">
-                            <span class="mx-2 my-5" onclick="location.href='shop-page'">Shop Now</span>
-                        </button>
+
                         {{/each}}
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"

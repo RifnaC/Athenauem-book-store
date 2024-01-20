@@ -1060,7 +1060,8 @@
     // Create a FormData object
     const formData = new FormData(this);
     // Append additional data to the FormData object
-    formData.append('additionalField', 'additionalValue');
+    // formData.append('additionalField', 'additionalValue');
+   console.log(formData.productId);
     // Extract the banner's ID from the form data
     const bannerId = formData.get('id');
     // Validation
@@ -1092,6 +1093,7 @@
       })
       return;
     }
+    
     if (formData.get('type') === 'category') {
       if (!formData.get('categoryId') || formData.get('categoryId').length < 4) {
         Swal.fire({
@@ -1100,8 +1102,7 @@
         })
         return false;
       }
-    }
-    if (formData.get('type') === 'product') {
+    }else{
       if (!formData.get('productId') || formData.get('productId').length < 4) {
         Swal.fire({
           title: 'Please enter the product ID with at least 4 characters!',

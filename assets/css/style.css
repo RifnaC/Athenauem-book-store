@@ -215,9 +215,30 @@ body::-webkit-scrollbar-thumb
     background-color: 15877C;
     /* aspect-ratio: 3/5; */
 }
-.bgImg img{
+.bannerText{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 24px;
+}
+.bannerText h1{
+    top: 14%;
+}
+.bannerText p{
+    display: flex;
+    justify-content: flex-start;
+    top: 32%;
+    width: 40%;
+    font-size: 20px !important;
+    color: #fbfffe;
+}
+.bannerHeading{
+    font-family: 'Poppins', sans-serif;
+    color: #fbfffe;
+}
+.bannerDescription{
+    font-family: 'Poppins', sans-serif;
 
-    
+    top:160px;
 }
 .carousel-item img{
     width : 100vw;
@@ -570,6 +591,7 @@ ul {
     position: absolute !important;
     bottom: 0;
     z-index: 22;
+    left: 24px;
 }
 .dataTables_wrapper .dataTables_length select{
     margin-left: 8px;
