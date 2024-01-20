@@ -224,7 +224,7 @@ exports.createBanner = async (req, res) => {
 exports.editBanner = async (req, res) => {
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
-    const name = admin.name.split(" ")[0];
+    const name = admin.name.split(" ")[0];;
     const shop = await shops.find({})
     const genre = await categoryCollection.find({});
     const prdt = await productCollection.find({});
@@ -253,7 +253,6 @@ exports.user = async (req, res) => {
     res.render('user', { admin: name, users: user });
 }
 
-
 exports.home = async (req, res) => {
     try {
         const search = req.query.searchQuery || "";
@@ -262,10 +261,13 @@ exports.home = async (req, res) => {
             .sort({ _id: -1 })
             .limit(3);
         const categories = await categoryCollection.find({});
+        const genreLength = categories.length;
+        let count;
+        if(genreLength > 5) {
+            count = true;
+        }
         const products = await productCollection.find({ $or: [{ bookName: { $regex: '.*' + search + '.*' } }, { author: { $regex: '.*' + search + '.*' } }] }).limit(10);
-
-
-        res.render('home', { images: latestImages, category: categories, product: products });
+        res.render('home', { images: latestImages, category: categories, product: products, count: count});
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
