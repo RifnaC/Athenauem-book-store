@@ -164,19 +164,6 @@ exports.update = async(req, res) => {
     })
 };
 
-// exports.banner = async(req, res) => {
-//   try {
-//     const bannerId = req.body.id;
-//     // Update the banner's isEnabled field to true
-//     await bannerCollection.findByIdAndUpdate(bannerId, { isEnabled: true });
-
-//     res.json({ success: true, message: 'Banner updated successfully' });
-//   } catch (error) {
-//     console.error('Error updating banner:', error);
-//     res.status(500).json({ success: false, message: 'Banner update failed' });
-//   }
-// }
-
 exports.delete = (req, res) => {
     const id = req.params.id;
     bannerCollection.findById(id)

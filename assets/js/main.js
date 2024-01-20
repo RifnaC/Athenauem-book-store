@@ -1060,8 +1060,7 @@
     // Create a FormData object
     const formData = new FormData(this);
     // Append additional data to the FormData object
-    // formData.append('additionalField', 'additionalValue');
-   console.log(formData.productId);
+    formData.append('additionalField', 'additionalValue');
     // Extract the banner's ID from the form data
     const bannerId = formData.get('id');
     // Validation

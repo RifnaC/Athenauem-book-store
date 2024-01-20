@@ -10,9 +10,17 @@ magnifierEl.addEventListener("click", () => {
 
 
 function bannerShopNow(type, product, genre){
-  alert(type + " " + product + " " + genre)
-  alert(product);
-  alert(genre);
+  alert(type)
+  if(type == "category"){
+    alert(type + " " + product + " " + genre)
+    alert(product);
+    alert(genre);
+    
+  }else{
+    window.location.href = '/productView/' +product;
+    
+  }
+
   // return false
 }
 

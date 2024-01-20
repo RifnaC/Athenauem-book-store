@@ -118,7 +118,7 @@
                         <div class="form-group col-lg-6  my-2">
                             <label for="Click type">Click Type</label>
                             <select class="form-select" aria-label="choose click type" name="type" id="clickType">
-                                <option value="category" selected>Category</option>
+                                <option value="category" >Category</option>
                                 <option value="product">Product</option>
                             </select>
                         </div>
@@ -134,7 +134,7 @@
                             <label for="Product ID">Product ID</label>
                             <select class="form-select" aria-label="choose category" name="productId" id="productId">
                                 {{#each book}}
-                                    <option value="category" selected>{{this._id}}</option>
+                                    <option value="{{this._id}}" selected>{{this._id}}</option>
                                 {{/each}}
                             </select>
                         </div>
