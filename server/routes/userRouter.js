@@ -11,7 +11,7 @@ const productController = require('../controller/productViewController')
 
 // home page
 route.get('/home', services.home);
-
+route.get('/homes',auth.authMiddleware, services.userHome);
 // product view page
 route.get('/productView/:id',productController.singleView);
 route.get('/shop-page', productController.shopPage);
