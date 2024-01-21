@@ -593,6 +593,38 @@ ul {
     z-index: 22;
     left: 24px;
 }
+
+
+
+.discount {
+    position: absolute;
+    z-index: 1000;
+    left: 10px;
+  }
+  .discount .discount-text {
+    color: #fff;
+    background: #ff1744;
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 13px;
+    padding: 8px;
+    font-weight:bold;
+  }
+  .discount .discount-text span {
+    display: block;
+    font-size: 16px;
+  }
+  .discount .discount-text:before {
+    content: " ";
+    position: absolute;
+    bottom: -7px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 0 solid transparent;
+    border-top: 7px solid #420909;
+  }
+  
 .dataTables_wrapper .dataTables_length select{
     margin-left: 8px;
     margin-right: 8px;

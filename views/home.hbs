@@ -199,6 +199,11 @@
             <div class="row me-5 pe-4">
                 {{#each product}}
                 <div class="col col-lg-2 productCard m-3 mb-5">
+                    <div class="discount">
+                        <div class="discount-text ">
+                            <span>{{this.offerPercentage}} %</span>
+                        </div>
+                    </div>
                     <a href="/productView/{{this._id}}">
                         <img src="{{this.productImg}}" alt="{{this.bookName}}" class="card-img">
                     </a>
@@ -224,15 +229,16 @@
                     </div>
                 </div>
                 {{/each}}
-               <div class="d-flex justify-content-center">
-                    <a href="/shop-page" class="fs-4 fw-bold me-5 pe-5">Explore More <i class="bi bi-arrow-right"></i></a>
-               </div>
+                <div class="d-flex justify-content-center">
+                    <a href="/shop-page" class="fs-4 fw-bold me-5 pe-5">Explore More <i
+                            class="bi bi-arrow-right"></i></a>
+                </div>
             </div>
         </div>
     </section>
     <!-- product Section End -->
 
-     {{!-- <!-- product Section Start -->
+    {{!-- <!-- product Section Start -->
     <section class="mx-lg-3">
         <div class="container-fluid m-5 me-5">
             <div class="m-0 mb-5">

@@ -142,7 +142,6 @@ exports.update = async (req, res) => {
             genre.totalBooks = req.body.totalBooks
             genre.description = req.body.description
             
-
             // Save the category changes to the database
             const sg = await genre.save();
             // Return the updated category data

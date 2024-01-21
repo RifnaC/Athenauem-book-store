@@ -266,8 +266,18 @@ exports.home = async (req, res) => {
         if(genreLength > 5) {
             count = true;
         }
-        const products = await productCollection.find({ $or: [{ bookName: { $regex: '.*' + search + '.*' } }, { author: { $regex: '.*' + search + '.*' } }] }).limit(10);
-        res.render('home', { images: latestImages, category: categories, product: products, count: count});
+        const products = await productCollection
+        .find({ discount:{$gt:0},
+            $or: [
+                { bookName: { $regex: '.*' + search + '.*' } }, 
+                { author: { $regex: '.*' + search + '.*' } },
+            ]
+        }).limit(10);
+
+products.forEach(product => {
+    product.offerPercentage = (Math.round(((product.originalPrice - product.price)*100)/product.originalPrice));
+});
+        res.render('home', { images: latestImages, category: categories, product: products, count: count,});
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
