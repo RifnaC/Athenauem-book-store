@@ -32,6 +32,7 @@ route.put("/clearWishlist", auth.authMiddleware, wishlistController.clearWishlis
 // cart Routes
 route.get("/cart", auth.authMiddleware, cart.cartView);
 route.get("/carts/:id",  auth.authMiddleware, cart.addToCart);
+route.post("/carts", auth.authMiddleware, cart.updateCart);
 route.post("/changeInQuantity", cart.changeQuantity);
 route.post("/removeItem", cart.deleteCartItem);
 

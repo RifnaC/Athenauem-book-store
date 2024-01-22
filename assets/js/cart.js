@@ -36,6 +36,49 @@ function addToCartAndShowAlert(productId){
     })
 }
 
+function incrementQuantity(productId) {
+    const quantityInput = document.querySelector(`#qty-${productId} input[name="qty"]`);
+    let currentQuantity = parseInt(quantityInput.value, 10);
+    currentQuantity++;
+    quantityInput.value = currentQuantity;
+
+    // You may also want to update the cart state on the server here
+    updateCart(productId, currentQuantity);
+}
+
+function decrementQuantity(productId) {
+    const quantityInput = document.querySelector(`#qty-${productId} input[name="qty"]`);
+    let currentQuantity = parseInt(quantityInput.value, 10);
+
+    // Ensure the quantity doesn't go below 1
+    if (currentQuantity > 1) {
+        currentQuantity--;
+        quantityInput.value = currentQuantity;
+
+        // You may also want to update the cart state on the server here
+        updateCart(productId, currentQuantity);
+    }
+}
+
+function updateCart(productId, quantity) {
+    // Make an AJAX request to the server to update the cart
+    $.ajax({
+        type: 'POST',
+        url: '/carts',
+        data: {
+            productId: productId,
+            quantity: quantity
+        },
+        success: function (response) {
+            console.log('Cart updated successfully');
+            // Handle success, if needed
+        },
+        error: function (error) {
+            console.error('Error updating cart:', error);
+            // Handle error, if needed
+        }
+    });
+}
 // Function to change cart quantity
 function removeItem(cartId, productId) {
     $.ajax({

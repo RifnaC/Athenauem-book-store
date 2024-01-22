@@ -212,7 +212,6 @@ body::-webkit-scrollbar-thumb
     height: 100vh;
     width: 100vw;
     position: relative;
-    background-color: 15877C;
     /* aspect-ratio: 3/5; */
 }
 .bannerText{

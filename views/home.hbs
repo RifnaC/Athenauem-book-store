@@ -153,6 +153,7 @@
         </div>
     </section>
     <!-- Banner Section End -->
+
     <!-- Category Section Start -->
     <section class="mx-lg-4">
         <div class="m-5">
@@ -227,10 +228,10 @@
                         </a>
                         <div class="qty-container text-dark home-qty" id="qty-{{this._id}}">
                             <button class="qty-btn-minus btn-primary" type="button"
-                                id="decBtn"><i class="fa fa-minus"></i>
+                                id="decBtn" onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
                             </button>
                             <input type="text" name="qty" value="1"class=" text-center w-100" readonly/>
-                            <button class="qty-btn-plus btn-primary"  type="button"><i
+                            <button class="qty-btn-plus btn-primary"  type="button" onclick="incrementQuantity('{{this._id}}')"><i
                                     class="fa fa-plus"></i>
                             </button>
                         </div>

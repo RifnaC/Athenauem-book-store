@@ -41,6 +41,18 @@ exports.addToCart = async(req, res) => {
     }
 }
 
+
+exports.updateCart = async (req, res) => {
+    const productId = req.body.productId;
+    const quantity = req.body.quantity;
+
+    // Implement your logic to update the cart based on productId and quantity
+    // For demonstration purposes, I'll log the values to the console
+    console.log(`Updating cart for productId: ${productId}, quantity: ${quantity}`);
+
+    // Send a response back to the client
+    res.json({ success: true });
+}
 exports.cartView = async (req, res) => {
     const userId = req.user.id; 
     const search = req.query.searchQuery || '';
