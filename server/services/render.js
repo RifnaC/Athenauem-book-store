@@ -256,7 +256,6 @@ exports.user = async (req, res) => {
 exports.userHome = async (req, res) => {
     try {
         const cartCount = await Cart.findOne({userId: req.user.id});
-        console.log(cartCount.items.length);
         const search = req.query.searchQuery || "";
         const latestImages = await bannerCollection
             .find({})
@@ -278,7 +277,6 @@ exports.userHome = async (req, res) => {
         products.forEach(product => {
             product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
         });
-        
         res.render('home', { images: latestImages, category: categories, product: products, count: count, length:cartCount.items.length});
     } catch (err) {
         console.error(err);

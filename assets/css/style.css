@@ -624,7 +624,11 @@ ul {
     border-right: 0 solid transparent;
     border-top: 7px solid #420909;
   }
-  
+  .home-qty{
+    width: 140px;
+    display: none !important;
+}
+
 .dataTables_wrapper .dataTables_length select{
     margin-left: 8px;
     margin-right: 8px;

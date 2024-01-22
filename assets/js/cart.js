@@ -15,14 +15,25 @@ function changeQty(cartId, productId, count, subTotal) {
       }
     })
 }
-function addToCartAndShowAlert(){
+function addToCartAndShowAlert(productId){
     Swal.fire({
         position:'top-end',
         text:'Successfully added to cart!',
         showConfirmButton: false,
         timer: 1000,
+    }).then(() => {
+        const addToCartElement = document.getElementById('addToCart-'+ productId);
+        const qtyContainerElement = document.getElementById('qty-'+ productId);
+
+        if (addToCartElement) {
+            addToCartElement.style.display = 'none';
+        }
+        if (qtyContainerElement) {
+            qtyContainerElement.style.display = 'block ';
+            qtyContainerElement.style.setProperty('display', 'flex', 'important');
+        }
+        window.reload();
     })
-    return true;
 }
 
 // Function to change cart quantity
@@ -129,17 +140,3 @@ function addAllToCart(){
     })
 }
 
-function increaseValue() {
-    var value = parseInt(document.getElementById('number').value, 10);
-    value = isNaN(value) ? 1 : value;
-    value++;
-    document.getElementById('number').value = value;
-  }
-  
-  function decreaseValue() {
-    var value = parseInt(document.getElementById('number').value, 10);
-    value = isNaN(value) ? 1 : value;
-    value < 1 ? value = 1 : '';
-    value--;
-    document.getElementById('number').value = value;
-  }

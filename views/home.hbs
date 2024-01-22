@@ -30,6 +30,7 @@
 
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/cart.css" rel="stylesheet">
 </head>
 
 <body>
@@ -217,13 +218,23 @@
                             &#8377 {{this.price}}
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <a href="/carts/{{this._id}}" onclick='return addToCartAndShowAlert()'>
-                            <div class="card-button">
+                        
+                    <div class="d-flex justify-content-between mt-5">
+                        <a href="/carts/{{this._id}}" onclick='return addToCartAndShowAlert("{{this._id}}")' >
+                            <div class="card-button" id="addToCart-{{this._id}}">
                                 <b>Add to Cart</b>
                             </div>
                         </a>
-                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link">
+                        <div class="qty-container text-dark home-qty" id="qty-{{this._id}}">
+                            <button class="qty-btn-minus btn-primary" type="button"
+                                id="decBtn"><i class="fa fa-minus"></i>
+                            </button>
+                            <input type="text" name="qty" value="1"class=" text-center w-100" readonly/>
+                            <button class="qty-btn-plus btn-primary"  type="button"><i
+                                    class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link ms-4">
                             <div class="icon-wishlist"></div>
                         </a>
                     </div>
