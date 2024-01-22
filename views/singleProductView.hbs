@@ -87,7 +87,8 @@
                                     <div class="search-bar-container active">
                                         <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
                                             alt="magnifier" class="magnifier" />
-                                        <input  type="text" class="input" name="searchQuery" placeholder="Search ..." autocomplete="off">
+                                        <input type="text" class="input" name="searchQuery" placeholder="Search ..."
+                                            autocomplete="off">
                                     </div>
                                 </form>
                             </li>
@@ -139,7 +140,7 @@
                             <span class="priced"> <i class="fa fa-inr"></i>699</span>
                             <span class="fs-5 text-light"> <del> &#8377 {{item.originalPrice}} </del> </span>
                             {{#if off}}
-                                <span class="fs-5 text-success">{{off}}% off</span>
+                            <span class="fs-5 text-success">{{off}}% off</span>
                             {{/if}}
                         </div>
                         <hr>
@@ -152,18 +153,24 @@
                             <div class="_p-add-cart">
                                 <div class="_p-qty">
                                     <div class="d-flex">
-                                        <form class="d-none me-3" action="">
-                                            <div class="value-button" id="decrease" onclick="decreaseValue()"
-                                                value="Decrease Value">-</div>
-                                            <input type="number" id="number" value="1" />
-                                            <div class="value-button" id="increase" onclick="increaseValue()"
-                                                value="Increase Value">+</div>
-                                        </form>
-                                        <div class="btn-box text-center bg-primary ">
+                                        <div class="btn-box text-center bg-primary" id="addToCart-{{item._id}}">
                                             <a class="text-white btn btn-sm" href="/carts/{{item._id}}"
-                                                onclick='return addToCartAndShowAlert()'> <i
-                                                    class="fa fa-shopping-cart"></i> Add to Cart </a>
+                                                onclick='return addToCartAndShowAlert("{{item._id}}")'>
+                                                <i class="fa fa-shopping-cart"></i> Add to Cart </a>
                                         </div>
+                                        <div class="qty-container text-dark home-qty" id="qty-{{item._id}}">
+                                            <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
+                                                onclick="decrementQuantity('{{item._id}}')"><i class="fa fa-minus"></i>
+                                            </button>
+                                            <input type="text" name="qty" value="1" class=" text-center w-100"
+                                                readonly />
+                                            <button class="qty-btn-plus btn-primary" type="button"
+                                                onclick="incrementQuantity('{{item._id}}')"><i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <a href="/wishlist/{{item._id}}" class="wrapper nav-link ms-4">
+                                            <div class="icon-wishlist"></div>
+                                        </a>
                                     </div>
                                     <hr>
                                 </div>
@@ -207,10 +214,19 @@
                                     <span class="offer-price"> Offer Price <i class="fa fa-inr"></i> {{this.price}}
                                     </span>
                                 </div>
-                                <div class="btn-box text-center bg-primary ">
+                                <div class="btn-box text-center bg-primary" id="addToCart-{{this._id}}">
                                     <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
-                                        onclick='return addToCartAndShowAlert()'> <i class="fa fa-shopping-cart"></i>
-                                        Add to Cart </a>
+                                        onclick='return addToCartAndShowAlert("{{this._id}}")'> 
+                                        <i class="fa fa-shopping-cart"></i>Add to Cart </a>
+                                </div>
+                                <div class="qty-container text-dark home-qty ms-5" id="qty-{{this._id}}">
+                                    <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
+                                        onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
+                                    </button>
+                                    <input type="text" name="qty" value="1" class=" text-center " readonly />
+                                    <button class="qty-btn-plus btn-primary" type="button"
+                                        onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>

@@ -3,21 +3,27 @@ const shops = require('../models/shopModel');
 const cart = require('../models/cartModel');
 const genre = require('../models/categoryModel')
 
-exports.singleView= async (req, res, next) => {
-    const id = req.params.id;
-    const search = req.query.searchQuery || "";
-    if(search !== ""){
-        res.redirect('/shop-page')
-    }
-    const item = await product.findById(id);
-    const genre = item.genre;
-    const category = await product.find({genre: genre}); 
-    const vendorId = item.shopId;
-    const shop = await shops.findById(vendorId);
-    const off =  Math.floor((item.discount * 100) / item.originalPrice)
-    res.render('singleProductView', {item: item, off:off, shop:shop, genre: category})
-}
 
+exports.productView = async (req, res) => {
+  try {
+      const id = req.params.id;
+      const cartCount = await cart.findOne({userId: req.user.id});
+      const search = req.query.searchQuery || "";
+      if(search !== ""){
+          res.redirect('/shop-page')
+      }
+      const item = await product.findById(id);
+      const genre = item.genre;
+      const category = await product.find({genre: genre}); 
+      const vendorId = item.shopId;
+      const shop = await shops.findById(vendorId);
+      const off =  Math.floor((item.discount * 100) / item.originalPrice)
+      res.render('singleProductView', {item: item, off:off, shop:shop, genre: category, length: cartCount.items.length, cartId: cartCount._id})
+  }catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+}
 exports.shopPage = async (req, res, next) => {
     const search = req.query.searchQuery || "";
     const books = await product.find({$or:[{bookName:{$regex:'.*'+search+'.*'}},{author:{$regex:'.*'+search+'.*'}},{genre:{$regex:'.*'+search+'.*'}}]});

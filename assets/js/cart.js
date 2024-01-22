@@ -60,7 +60,7 @@ function decrementQuantity(productId) {
     }
 }
 
-function updateCart(productId, quantity) {
+function updateCart(productId, quantity,) {
     // Make an AJAX request to the server to update the cart
     $.ajax({
         type: 'POST',

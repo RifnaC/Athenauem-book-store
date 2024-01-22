@@ -13,12 +13,11 @@ const productController = require('../controller/productViewController')
 route.get('/home', services.home);
 route.get('/homes',auth.authMiddleware, services.userHome);
 // product view page
-route.get('/productView/:id',productController.singleView);
+route.get('/productView/:id',auth.authMiddleware,productController.productView);
 route.get('/shop-page', productController.shopPage);
 route.get('/category', productController.category);
 route.get('/author', productController.author);
 route.get('/contact', productController.contact);
-// route.post("/changeInQuantity", productController.changeQuantity);
 
 // wishlist Routes
 route.get("/wishlist",auth.authMiddleware, wishlistController.wishlist);
@@ -26,7 +25,6 @@ route.get("/wishlist/:id",auth.authMiddleware, wishlistController.addToWishlist)
 route.put("/wishlists", auth.authMiddleware, wishlistController.deleteWishlistItem);
 route.put("/wishlist",auth.authMiddleware, wishlistController.addAllToCart);
 route.put("/clearWishlist", auth.authMiddleware, wishlistController.clearWishlist);
-
 
 
 // cart Routes
