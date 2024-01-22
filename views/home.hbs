@@ -228,10 +228,10 @@
                         </a>
                         <div class="qty-container text-dark home-qty" id="qty-{{this._id}}">
                             <button class="qty-btn-minus btn-primary" type="button"
-                                id="decBtn" onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
+                                id="decBtn"  onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
                             </button>
                             <input type="text" name="qty" value="1"class=" text-center w-100" readonly/>
-                            <button class="qty-btn-plus btn-primary"  type="button" onclick="incrementQuantity('{{this._id}}')"><i
+                            <button class="qty-btn-plus btn-primary" type="button" onclick="incrementQuantity('{{this._id}}')"><i
                                     class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -250,50 +250,10 @@
     </section>
     <!-- product Section End -->
 
-    {{!-- <!-- product Section Start -->
-    <section class="mx-lg-3">
-        <div class="container-fluid m-5 me-5">
-            <div class="m-0 mb-5">
-                <h1 class="text-primary">Popular Books</h1>
-            </div>
-            <div class="row me-5 pe-4">
-                {{#each books}}
-                <div class="col col-lg-2 productCard m-3 mb-5">
-                    <a href="/productView/{{this._id}}">
-                        <img src="{{this.productImg}}" alt="{{this.bookName}}" class="card-img">
-                    </a>
-                    <div class="card-info">
-                        <p class="text-title text-center mb-0">{{this.bookName}} </p>
-                        <p class="text-center mb-0">By {{this.author}}</p>
-                        <p class="text-center mb-0">{{this.stock}}</p>
-
-                        <div class="old-price text-center">
-                            &#8377 {{this.originalPrice}}
-                        </div>
-                        <div class="new-price text-center">
-                            &#8377 {{this.price}}
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <a href="/carts/{{this._id}}" onclick='return addToCartAndShowAlert()'>
-                            <div class="card-button">
-                                <b>Add to Cart</b>
-                            </div>
-                        </a>
-                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link">
-                            <div class="icon-wishlist"></div>
-                        </a>
-                    </div>
-                </div>
-                {{/each}}
-            </div>
-        </div>
-    </section>
-    <!-- product Section End --> --}}
 
     <footer class="footer pt-5 ">
         <div class="container row mx-5 ">
-            <a class="my-2" href="home">
+            <a class="my-2" href="/home">
                 <div class="d-flex me-5 pe-5">
                     <img src="/img/book collection 0.png" alt="logo"
                         style="width: 40px; height: 40px; border-radius: 50%;">
@@ -314,19 +274,19 @@
             <div class="footer-col pe-5">
                 <h4>Information</h4>
                 <ul>
-                    <li><a href="#">Shop</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">privacy policy</a></li>
-                    <li><a href="#">Blogs</a></li>
+                    <li><a href="/shop">Shop</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/category">Category</a></li>
+                    <li><a href="/author">author</a></li>
                 </ul>
             </div>
             <div class="footer-col pe-3">
                 <h4>My Account</h4>
                 <ul>
-                    <li><a href="login">Sign In</a></li>
-                    <li><a href="cart">View Cart</a></li>
-                    <li><a href="wishlist">My Wishlist</a></li>
-                    <li><a href="help">Help</a></li>
+                    <li><a href="/login">Sign In</a></li>
+                    <li><a href="/cart">View Cart</a></li>
+                    <li><a href="/wishlist">My Wishlist</a></li>
+                    <li><a href="/help">Help</a></li>
                 </ul>
             </div>
             <div class="footer-col ">

@@ -43,12 +43,27 @@ exports.addToCart = async(req, res) => {
 
 
 exports.updateCart = async (req, res) => {
+    const cart = await Cart.findOne({userId: req.user.id});
+    const cartId = cart._id;
     const productId = req.body.productId;
-    const quantity = req.body.quantity;
+    const count = Number(req.body.quantity);
+    const book = await Books.find({_id: productId});
+    const price = book[0].price;
+    const subTotal = price * count;
+    await Cart.findOneAndUpdate(
+        {_id: cartId,'items.productId':productId}, 
+        {
+            $inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal},
+        }
+    )
+    await Cart.updateMany(
+        { _id: new mongoose.Types.ObjectId(cartId) },
+        { $pull: { items: { quantity: { $lt: 1 } } } },
+      );
 
     // Implement your logic to update the cart based on productId and quantity
     // For demonstration purposes, I'll log the values to the console
-    console.log(`Updating cart for productId: ${productId}, quantity: ${quantity}`);
+    console.log(`Updating cart for productId: ${productId}, quantity: ${count}`);
 
     // Send a response back to the client
     res.json({ success: true });

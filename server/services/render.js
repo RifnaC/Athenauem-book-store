@@ -277,7 +277,8 @@ exports.userHome = async (req, res) => {
         products.forEach(product => {
             product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
         });
-        res.render('home', { images: latestImages, category: categories, product: products, count: count, length:cartCount.items.length});
+    
+        res.render('home', { images: latestImages, category: categories, product: products, count: count, length:cartCount.items.length, cartId: cartCount._id});
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');

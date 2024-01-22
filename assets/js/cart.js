@@ -67,7 +67,7 @@ function updateCart(productId, quantity) {
         url: '/carts',
         data: {
             productId: productId,
-            quantity: quantity
+            quantity: quantity,
         },
         success: function (response) {
             console.log('Cart updated successfully');
