@@ -84,22 +84,23 @@
                     <div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
                             <li>
-                               <form autocomplete="off">
+                                <form autocomplete="off">
                                     <div class="search-bar-container active">
                                         <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
                                             alt="magnifier" class="magnifier" />
-                                        <input  type="text" class="input" name="searchQuery" placeholder="Search ..." autocomplete="off">
+                                        <input type="text" class="input" name="searchQuery" placeholder="Search ..."
+                                            autocomplete="off">
                                     </div>
                                 </form>
                             </li>
                             <li class="nav-item homeNav space ">
                                 <a class="nav-link" href="/cart">
-                                    <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{count}}</sup>
+                                    <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{length}}</sup>
                                 </a>
 
                             </li>
                             <li class="nav-item homeNav space ">
-                                <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
+                                <a class="nav-link" href="/wishlist"><i class="bi bi-heart"></i></a>
                             </li>
                             <li class="nav-item homeNav space ">
                                 <div class="nav-item dropdown">
@@ -123,77 +124,81 @@
     <!-- Header End -->
 
     <div class="container-fluid mt-5 pt-5 mx-0 ">
-        <div class="bg-white mt-5 mx-5 px-3  d-flex align-items-center justify-content-between" id="header"> 
+        <div class="bg-white mt-5 mx-5 px-3  d-flex align-items-center justify-content-between" id="header">
             <button class="btn btn-hide text-uppercase" type="button" data-toggle="collapse" data-target="#filterbar"
-                aria-expanded="false" aria-controls="filterbar" id="filter-btn" onclick="return changedBtnTxt()"> 
-                <span class="fas fa-angle-left" id="filter-angle"></span> 
-                <span id="btn-txt">Hide filters</span> 
+                aria-expanded="false" aria-controls="filterbar" id="filter-btn" onclick="return changedBtnTxt()">
+                <span class="fas fa-angle-left" id="filter-angle"></span>
+                <span id="btn-txt">Hide filters</span>
             </button>
-            <nav class="navbar navbar-expand-lg navbar-light pl-lg-0 pl-auto"> 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynav" aria-controls="mynav" aria-expanded="false" aria-label="Toggle navigation" onclick="return chnageIcon()" id="icon">
-                    <span class="navbar-toggler-icon"></span> 
+            <nav class="navbar navbar-expand-lg navbar-light pl-lg-0 pl-auto">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynav"
+                    aria-controls="mynav" aria-expanded="false" aria-label="Toggle navigation"
+                    onclick="return chnageIcon()" id="icon">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
             </nav>
         </div>
-        <div id="content" class="my-5 ms-3 pe-0" >
+        <div id="content" class="my-5 ms-3 pe-0">
             <div id="filterbar" class="collapse ">
                 <div class="box border-bottom ">
                     <div class="form-group text-center">
-                        <div class="btn-group" data-toggle="buttons"> 
+                        <div class="btn-group" data-toggle="buttons">
                             <button class="btn btn-success form-check-label">
-                                 Reset 
-                            </button> 
-                            <button class="btn btn-success form-check-label active"> 
-                                Apply 
-                            </button> 
+                                Reset
+                            </button>
+                            <button class="btn btn-success form-check-label active">
+                                Apply
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="box border-bottom">
-                    <div class="box-label text-uppercase d-flex align-items-center">Genre 
-                        <button class="btn ml-auto"type="button" data-toggle="collapse" data-target="#inner-box2" aria-expanded="false" aria-controls="inner-box2">
+                    <div class="box-label text-uppercase d-flex align-items-center">Genre
+                        <button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#inner-box2"
+                            aria-expanded="false" aria-controls="inner-box2">
                             <span class="fas fa-plus"></span>
-                        </button> 
+                        </button>
                     </div>
                     <div id="inner-box" class=" mt-2 mr-1">
                         {{#each genre}}
-                            <div class="my-1"> 
-                                <label class="tick">{{this.genre}} 
-                                    <input type="checkbox" checked="checked">   
-                                    <span class="check"></span> 
-                                </label> 
-                            </div>
+                        <div class="my-1">
+                            <label class="tick">{{this.genre}}
+                                <input type="checkbox" checked="checked">
+                                <span class="check"></span>
+                            </label>
+                        </div>
                         {{/each}}
                     </div>
                 </div>
                 <div class="box border-bottom">
-                    <div class="box-label text-uppercase d-flex align-items-center">Author 
-                        <button class="btn ml-auto"type="button" data-toggle="collapse" data-target="#inner-box2" aria-expanded="false" aria-controls="inner-box2">
+                    <div class="box-label text-uppercase d-flex align-items-center">Author
+                        <button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#inner-box2"
+                            aria-expanded="false" aria-controls="inner-box2">
                             <span class="fas fa-plus"></span>
-                        </button> 
+                        </button>
                     </div>
                     <div id="inner-box2" class="collapse mt-2 mr-1">
                         {{#each books}}
-                            <div class="my-1"> 
-                                <label class="tick">{{this.author}} 
-                                    <input type="checkbox" checked="checked"> 
-                                    <span class="check"></span> 
-                                </label> 
-                            </div>
+                        <div class="my-1">
+                            <label class="tick">{{this.author}}
+                                <input type="checkbox" checked="checked">
+                                <span class="check"></span>
+                            </label>
+                        </div>
                         {{/each}}
                     </div>
                 </div>
                 <div class="box ">
-                    <div class="box-label text-uppercase d-flex align-items-center">price 
-                        <button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#price" aria-expanded="false" aria-controls="price">
+                    <div class="box-label text-uppercase d-flex align-items-center">price
+                        <button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#price"
+                            aria-expanded="false" aria-controls="price">
                             <span class="fas fa-plus"></span>
-                        </button> 
+                        </button>
                     </div>
                     <div class="" id="price">
                         <div class="middle">
-                            <div class="multi-range-slider"> 
-                                <input type="range" id="input-left" min="100" max="1000"
-                                    value="10"> 
+                            <div class="multi-range-slider">
+                                <input type="range" id="input-left" min="100" max="1000" value="10">
                                 <input type="range" id="input-right" min="0" max="100" value="50">
                                 <div class="slider">
                                     <div class="track"></div>
@@ -235,11 +240,23 @@
                                                 <div class="icon-wishlist "></div>
                                             </a>
                                         </span>
-                                        <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
-                                            onclick='return addToCartAndShowAlert()'> <i
-                                                class="fa fa-shopping-cart"></i>
-                                            Add to Cart </a>
                                     </div>
+
+                                    <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
+                                        onclick='return addToCartAndShowAlert("{{this._id}}")'
+                                        id="addToCart-{{this._id}}">
+                                        <i class="fa fa-shopping-cart"></i> Add to Cart </a>
+                                    <div class="qty-container text-dark home-qty  ms-5 ps-2"
+                                        id="qty-{{this._id}}">
+                                        <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
+                                            onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
+                                        </button>
+                                        <input type="text" name="qty" value="1" class=" text-center w-100" readonly />
+                                        <button class="qty-btn-plus btn-primary" type="button"
+                                            onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+
                                 </div>
                             </div>
                             {{/each}}

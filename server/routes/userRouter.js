@@ -14,9 +14,9 @@ route.get('/home', services.home);
 route.get('/homes',auth.authMiddleware, services.userHome);
 // product view page
 route.get('/productView/:id',auth.authMiddleware,productController.productView);
-route.get('/shop-page', productController.shopPage);
-route.get('/category', productController.category);
-route.get('/author', productController.author);
+route.get('/shop-page', auth.authMiddleware, productController.shopPage);
+route.get('/category', auth.authMiddleware, productController.category);
+route.get('/author', auth.authMiddleware, productController.author);
 route.get('/contact', productController.contact);
 
 // wishlist Routes

@@ -95,7 +95,7 @@
                             </li>
                             <li class="nav-item homeNav space ">
                                 <a class="nav-link" href="/cart">
-                                    <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{count}}</sup>
+                                    <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{length}}</sup>
                                 </a>
 
                             </li>
@@ -152,11 +152,21 @@
                                     <span class="offer-price"> Offer Price <i class="fa fa-inr"></i> {{this.price}}
                                     </span>
                                 </div>
-                                <div class="btn-box text-center bg-primary ">
-                                    <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
-                                        onclick='return addToCartAndShowAlert()'> <i class="fa fa-shopping-cart"></i>
-                                        Add to Cart </a>
-                                </div>
+                                
+                                <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
+                                        onclick='return addToCartAndShowAlert("{{this._id}}")'
+                                        id="addToCart-{{this._id}}">
+                                        <i class="fa fa-shopping-cart"></i> Add to Cart </a>
+                                    <div class="qty-container text-dark home-qty ms-5 ps-2"
+                                        id="qty-{{this._id}}">
+                                        <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
+                                            onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
+                                        </button>
+                                        <input type="text" name="qty" value="1" class=" text-center w-100" readonly />
+                                        <button class="qty-btn-plus btn-primary" type="button"
+                                            onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
                             </div>
                         </div>
                         {{/each}}

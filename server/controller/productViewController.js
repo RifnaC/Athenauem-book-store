@@ -25,14 +25,16 @@ exports.productView = async (req, res) => {
   }
 }
 exports.shopPage = async (req, res, next) => {
+    const cartCount = await cart.findOne({userId: req.user.id});
     const search = req.query.searchQuery || "";
     const books = await product.find({$or:[{bookName:{$regex:'.*'+search+'.*'}},{author:{$regex:'.*'+search+'.*'}},{genre:{$regex:'.*'+search+'.*'}}]});
     const category = await genre.find({});
-    res.render('shop-page', {books: books, genre: category})    
+    res.render('shop-page', {books: books, genre: category, length: cartCount.items.length, cartId: cartCount._id})    
 }
 
 exports.category = async (req, res, next) => {
     const search = req.query.searchQuery || "";
+    const cartCount = await cart.findOne({userId: req.user.id});
     const fiction = await product.find({genre: "Fiction",  $or: [
         { bookName: { $regex: new RegExp(search, 'i') } },
         { author: { $regex: new RegExp(search, 'i') } },
@@ -63,11 +65,12 @@ exports.category = async (req, res, next) => {
         { author: { $regex: new RegExp(search, 'i') } },
         { genre: { $regex: new RegExp(search, 'i') } }
       ]});
-    res.render('categories', {fiction: fiction, biography:biography, novels:novels, horror:horror, science: science, selfhelp: selfhelp})   
+    res.render('categories', {fiction: fiction, biography:biography, novels:novels, horror:horror, science: science, selfhelp: selfhelp, length: cartCount.items.length, cartId: cartCount._id})   
 }
 
 exports.author = async (req, res, next) => {
     const search = req.query.searchQuery || "";
+    const cartCount = await cart.findOne({userId: req.user.id});
     const Robert = await product.find({author: 'Robert T. Kiyosaki ', $or:[
         { bookName: { $regex: new RegExp(search, 'i') } },
         { author: { $regex: new RegExp(search, 'i') } },
@@ -83,7 +86,7 @@ exports.author = async (req, res, next) => {
         { author: { $regex: new RegExp(search, 'i') } },
         { genre: { $regex: new RegExp(search, 'i') } }
       ]});
-    res.render('author', {robert: Robert, jay: jay, james: james})
+    res.render('author', {robert: Robert, jay: jay, james: james, length:cartCount.items.length, cartId: cartCount._id})
 }
 
 exports.contact = async (req, res, next) => {

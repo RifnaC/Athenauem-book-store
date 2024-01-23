@@ -89,13 +89,14 @@
                                     <div class="search-bar-container active">
                                         <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
                                             alt="magnifier" class="magnifier" />
-                                        <input  type="text" class="input" name="searchQuery" placeholder="Search ..." autocomplete="off">
+                                        <input type="text" class="input" name="searchQuery" placeholder="Search ..."
+                                            autocomplete="off">
                                     </div>
                                 </form>
                             </li>
                             <li class="nav-item homeNav space ">
                                 <a class="nav-link" href="/cart">
-                                    <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{count}}</sup>
+                                    <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{length}}</sup>
                                 </a>
 
                             </li>
@@ -130,7 +131,7 @@
                     <h3 class="title">Fiction</h3>
                 </div>
             </div>
-            <div class="row" >
+            <div class="row">
                 <div class="col-md-12 list-slider mt-5">
                     <div class=" row common_wd  owl-theme" id="recent_post">
                         {{#each fiction}}
@@ -152,10 +153,17 @@
                                     <span class="offer-price"> Offer Price <i class="fa fa-inr"></i> {{this.price}}
                                     </span>
                                 </div>
-                                <div class="btn-box text-center bg-primary ">
-                                    <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
-                                        onclick='return addToCartAndShowAlert()'> <i class="fa fa-shopping-cart"></i>
-                                        Add to Cart </a>
+                                <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
+                                    onclick='return addToCartAndShowAlert("{{this._id}}")' id="addToCart-{{this._id}}">
+                                    <i class="fa fa-shopping-cart"></i> Add to Cart </a>
+                                <div class="qty-container text-dark home-qty ms-5 ps-2" id="qty-{{this._id}}">
+                                    <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
+                                        onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
+                                    </button>
+                                    <input type="text" name="qty" value="1" class=" text-center w-100" readonly />
+                                    <button class="qty-btn-plus btn-primary" type="button"
+                                        onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -163,12 +171,12 @@
                     </div>
                 </div>
             </div>
-             <div class="row">
+            <div class="row">
                 <div class="col-sm-12 title_bx">
                     <h3 class="title">Novels</h3>
                 </div>
             </div>
-            <div class="row" >
+            <div class="row">
                 <div class="col-md-12 list-slider mt-5">
                     <div class=" row common_wd  owl-theme" id="recent_post">
                         {{#each novels}}
@@ -201,12 +209,12 @@
                     </div>
                 </div>
             </div>
-              <div class="row">
+            <div class="row">
                 <div class="col-sm-12 title_bx">
                     <h3 class="title">Biography</h3>
                 </div>
             </div>
-            <div class="row" >
+            <div class="row">
                 <div class="col-md-12 list-slider mt-5">
                     <div class=" row common_wd  owl-theme" id="recent_post">
                         {{#each biography}}
@@ -244,7 +252,7 @@
                     <h3 class="title">Science Fiction</h3>
                 </div>
             </div>
-            <div class="row" >
+            <div class="row">
                 <div class="col-md-12 list-slider mt-5">
                     <div class=" row common_wd  owl-theme" id="recent_post">
                         {{#each science}}
@@ -282,7 +290,7 @@
                     <h3 class="title">Self Help</h3>
                 </div>
             </div>
-            <div class="row" >
+            <div class="row">
                 <div class="col-md-12 list-slider mt-5">
                     <div class=" row common_wd  owl-theme" id="recent_post">
                         {{#each selfhelp}}
