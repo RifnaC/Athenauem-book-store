@@ -154,8 +154,8 @@
                 </div>
                 <div class="box border-bottom">
                     <div class="box-label text-uppercase d-flex align-items-center">Genre
-                        <button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#inner-box2"
-                            aria-expanded="false" aria-controls="inner-box2">
+                        <button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#inner-box"
+                             aria-controls="inner-box"  onclick="return toggleInnerBox()">
                             <span class="fas fa-plus"></span>
                         </button>
                     </div>
@@ -173,7 +173,7 @@
                 <div class="box border-bottom">
                     <div class="box-label text-uppercase d-flex align-items-center">Author
                         <button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#inner-box2"
-                            aria-expanded="false" aria-controls="inner-box2">
+                            aria-expanded="false" aria-controls="inner-box2" onclick="return toggleInnerBox1()">
                             <span class="fas fa-plus"></span>
                         </button>
                     </div>
@@ -191,7 +191,7 @@
                 <div class="box ">
                     <div class="box-label text-uppercase d-flex align-items-center">price
                         <button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#price"
-                            aria-expanded="false" aria-controls="price">
+                            aria-expanded="false" aria-controls="price" onclick="return toggleInnerBox2()">
                             <span class="fas fa-plus"></span>
                         </button>
                     </div>
@@ -241,13 +241,11 @@
                                             </a>
                                         </span>
                                     </div>
-
                                     <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
                                         onclick='return addToCartAndShowAlert("{{this._id}}")'
                                         id="addToCart-{{this._id}}">
                                         <i class="fa fa-shopping-cart"></i> Add to Cart </a>
-                                    <div class="qty-container text-dark home-qty  ms-5 ps-2"
-                                        id="qty-{{this._id}}">
+                                    <div class="qty-container text-dark home-qty  ms-5 ps-2" id="qty-{{this._id}}">
                                         <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
                                             onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
                                         </button>
@@ -266,9 +264,6 @@
             </div>
         </div>
     </div>
-
-
-
     <footer class="footer pt-5 ">
         <div class="container row mx-5 ">
             <a class="my-2" href="home">

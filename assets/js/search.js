@@ -17,3 +17,5 @@ function bannerShopNow(type, product, genre){
   }
 }
 
+
+

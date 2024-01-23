@@ -325,6 +325,9 @@ section {
 .sq_box .price-box {
     margin-bottom: 15px !important;
 }
+.pdis_img  img{
+    aspect-ratio: .65 !important;
+}
 .sq_box .btn {
     border-radius: 50px;
     padding: 5px 13px;
