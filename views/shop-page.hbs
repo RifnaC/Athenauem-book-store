@@ -131,12 +131,19 @@
                 <span id="btn-txt">Hide filters</span>
             </button>
             <nav class="navbar navbar-expand-lg navbar-light pl-lg-0 pl-auto">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynav"
+                <div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynav"
                     aria-controls="mynav" aria-expanded="false" aria-label="Toggle navigation"
                     onclick="return chnageIcon()" id="icon">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
             </nav>
+            <div>
+                {{#each pages}}
+                    <a href="?page={{this}}" class="me-2 paginationBox p-1 px-2" style="text-decoration: none">{{this}}</a>
+                {{/each}}
+            </div>
         </div>
         <div id="content" class="my-5 ms-3 pe-0">
             <div id="filterbar" class="collapse ">
@@ -156,7 +163,7 @@
                     <div class="box-label text-uppercase d-flex align-items-center">Genre
                         <button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#inner-box"
                              aria-controls="inner-box"  onclick="return toggleInnerBox()">
-                            <span class="fas fa-plus"></span>
+                            <span id="plus-icon" class="fas fa-plus"></span>
                         </button>
                     </div>
                     <div id="inner-box" class=" mt-2 mr-1">
@@ -174,7 +181,7 @@
                     <div class="box-label text-uppercase d-flex align-items-center">Author
                         <button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#inner-box2"
                             aria-expanded="false" aria-controls="inner-box2" onclick="return toggleInnerBox1()">
-                            <span class="fas fa-plus"></span>
+                            <span id="plus-icon1" class="fas fa-plus"></span>
                         </button>
                     </div>
                     <div id="inner-box2" class="collapse mt-2 mr-1">
@@ -192,10 +199,10 @@
                     <div class="box-label text-uppercase d-flex align-items-center">price
                         <button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#price"
                             aria-expanded="false" aria-controls="price" onclick="return toggleInnerBox2()">
-                            <span class="fas fa-plus"></span>
+                            <span id="plus-icon2" class="fas fa-plus"></span>
                         </button>
                     </div>
-                    <div class="" id="price">
+                    <div class="collapse" id="price">
                         <div class="middle">
                             <div class="multi-range-slider">
                                 <input type="range" id="input-left" min="100" max="1000" value="10">

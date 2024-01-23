@@ -27,9 +27,31 @@ exports.productView = async (req, res) => {
 exports.shopPage = async (req, res, next) => {
     const cartCount = await cart.findOne({userId: req.user.id});
     const search = req.query.searchQuery || "";
-    const books = await product.find({$or:[{bookName:{$regex:'.*'+search+'.*'}},{author:{$regex:'.*'+search+'.*'}},{genre:{$regex:'.*'+search+'.*'}}]});
+    const limit = 9;
+    let page = 1;
+    if(req.query.page){
+        page = req.query.page;
+    }
+    const skip = (page - 1) * limit;
+    const books = await product.find({
+      $or:[
+        {bookName:{$regex:'.*'+search+'.*'}},
+        {author:{$regex:'.*'+search+'.*'}},
+        {genre:{$regex:'.*'+search+'.*'}}
+      ]
+    }).limit(limit).skip(skip).exec();
+    
+    const count = await product.find({
+      $or:[
+        {bookName:{$regex:'.*'+search+'.*'}},
+        {author:{$regex:'.*'+search+'.*'}},
+        {genre:{$regex:'.*'+search+'.*'}}
+      ]}).countDocuments();
+      const totalPages = Math.ceil(count / limit);
+      const pages = Array.from({ length: totalPages }, (e, index) => index + 1);
+      console.log(pages);
     const category = await genre.find({});
-    res.render('shop-page', {books: books, genre: category, length: cartCount.items.length, cartId: cartCount._id})    
+    res.render('shop-page', {pages, currentPage: page, books: books, genre: category, length: cartCount.items.length, cartId: cartCount._id})    
 }
 
 exports.category = async (req, res, next) => {

@@ -348,6 +348,12 @@ section {
 .sq_box .price-box span.offer-price {
     color:#28a745;
 }
+.paginationBox{
+    width:40px;
+    height:27px;
+    background: #caebeb;
+    
+  }
 .sq_box img {
     object-fit: cover;
     height: 24rem !important;

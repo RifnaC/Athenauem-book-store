@@ -12,6 +12,7 @@ const productController = require('../controller/productViewController')
 // home page
 route.get('/home', services.home);
 route.get('/homes',auth.authMiddleware, services.userHome);
+
 // product view page
 route.get('/productView/:id',auth.authMiddleware,productController.productView);
 route.get('/shop-page', auth.authMiddleware, productController.shopPage);
@@ -25,7 +26,6 @@ route.get("/wishlist/:id",auth.authMiddleware, wishlistController.addToWishlist)
 route.put("/wishlists", auth.authMiddleware, wishlistController.deleteWishlistItem);
 route.put("/wishlist",auth.authMiddleware, wishlistController.addAllToCart);
 route.put("/clearWishlist", auth.authMiddleware, wishlistController.clearWishlist);
-
 
 // cart Routes
 route.get("/cart", auth.authMiddleware, cart.cartView);

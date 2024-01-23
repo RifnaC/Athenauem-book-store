@@ -19,3 +19,53 @@ function bannerShopNow(type, product, genre){
 
 
 
+function toggleInnerBox() {
+  const innerBox = document.getElementById('inner-box');
+  const plusIcon = document.getElementById('plus-icon');
+
+  // Toggle the 'show' class to change the collapse state
+  innerBox.classList.toggle('show');
+
+  // Toggle the plus/minus icon
+  if (innerBox.classList.contains('show')) {
+      plusIcon.classList.remove('fa-plus');
+      plusIcon.classList.add('fa-minus');
+  } else {
+      plusIcon.classList.remove('fa-minus');
+      plusIcon.classList.add('fa-plus');
+  }
+}
+
+function toggleInnerBox1() {
+  const innerBox = document.getElementById('inner-box2');
+  const plusIcon = document.getElementById('plus-icon1');
+
+  // Toggle the 'show' class to change the collapse state
+  innerBox.classList.toggle('show');
+
+  // Toggle the plus/minus icon
+  if (innerBox.classList.contains('show')) {
+      plusIcon.classList.remove('fa-plus');
+      plusIcon.classList.add('fa-minus');
+  } else {
+      plusIcon.classList.remove('fa-minus');
+      plusIcon.classList.add('fa-plus');
+  }
+}
+
+function toggleInnerBox2() {
+  const price = document.getElementById('price');
+  const plusIcon = document.getElementById('plus-icon2');
+
+  // Toggle the 'show' class to change the collapse state
+  price.classList.toggle('show');
+
+  // Toggle the plus/minus icon
+  if (price.classList.contains('show')) {
+      plusIcon.classList.remove('fa-plus');
+      plusIcon.classList.add('fa-minus');
+  } else {
+      plusIcon.classList.remove('fa-minus');
+      plusIcon.classList.add('fa-plus');
+  }
+}
