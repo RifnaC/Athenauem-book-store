@@ -85,13 +85,14 @@
                                     <div class="search-bar-container active">
                                         <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
                                             alt="magnifier" class="magnifier" />
-                                        <input  type="text" class="input" name="searchQuery" placeholder="Search ..." autocomplete="off">
+                                        <input type="text" class="input" name="searchQuery" placeholder="Search ..."
+                                            autocomplete="off">
                                     </div>
                                 </form>
                             </li>
                             <li class="nav-item homeNav space">
                                 <a class="nav-link" href="cart">
-                                    <i class="bi bi-cart3"></i>
+                                    <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{length}}</sup>
                                 </a>
 
                             </li>
@@ -103,14 +104,13 @@
                                     <a href="#" class="nav-link text-primary" aria-current="page"
                                         data-bs-toggle="dropdown">
                                         <i class="bi bi-person"></i>
-                                        <div class="d-none d-lg-inline-flex text fs-5 display-6 ps-2">{{user.name}}
-                                        </div>
-                                    </a>
                                 </div>
-                            </li>
-                        </ul>
+                                </a>
                     </div>
+                    </li>
+                    </ul>
                 </div>
+            </div>
             </div>
         </nav>
     </Header>
@@ -179,7 +179,8 @@
                         {{#each userAddress}}
                         <div class="d-flex card  addressCard my-3 col-12">
                             <div class="card-body mt-0 ">
-                                <h6 class="card-title text-dark">{{fullName}}<span class="ms-3">{{this.phone}}</span></h6>
+                                <h6 class="card-title text-dark">{{fullName}}<span class="ms-3">{{this.phone}}</span>
+                                </h6>
                                 <p class="card-text">{{this.address}}, {{this.district}}, {{this.state}}</p>
                                 <div class="d-flex addressFooter justify-content-end">
                                     <a href="addresses?id={{this._id}}" class="mx-3"><i class="bi bi-pencil"></i></a>

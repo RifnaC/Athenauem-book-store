@@ -1,6 +1,9 @@
 const users = require('../models/userModel');
+const cart = require('../models/cartModel');
 
 exports.profile = async(req, res)=>{
+    const cartCount = await cart.findOne({userId: req.user.id})
+    const length = cartCount.items.length
     const id = req.user.id;
     const user = await users.findById(id);
     const userAddress = user.addresses;
@@ -8,7 +11,7 @@ exports.profile = async(req, res)=>{
     if (search !== "") {
         res.redirect("/shop-page");
     }
-    res.render('profile', {user, userAddress});
+    res.render('profile', {user, userAddress, length});
 }
 
 exports.updateProfile = async(req, res)=>{
@@ -24,8 +27,9 @@ exports.updateProfile = async(req, res)=>{
 
 exports.address = async(req, res)=>{
     const id = req.user.id;
+    const cartCount = await cart.findOne({userId: req.user.id})
     const user = await users.findById(id);
-    res.render('address', {user});
+    res.render('address', {user, length:cartCount.items.length});
 }
 
 exports.addAddress = async (req, res)=>{
@@ -50,10 +54,11 @@ exports.addAddress = async (req, res)=>{
 
 exports.editAddress = async(req, res)=>{
     const id = req.user.id;
+    const cartCount = await cart.findOne({userId: req.user.id})
     const addressId = req.query.id;
     const user = await users.findById(id);
     const userAddress = user.addresses.find(address=> address._id == addressId);   
-    res.render('addresses',{user, userAddress});
+    res.render('addresses',{user, userAddress, length:cartCount.items.length});
 }
 
 exports.updateAddress = async(req, res)=>{

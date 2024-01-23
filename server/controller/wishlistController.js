@@ -37,7 +37,7 @@ exports.addToWishlist = async(req, res) => {
 // view wishlist
 exports.wishlist = async(req, res) => {
     const userId = req.user.id; 
-    const cartCount = await cart.findOne({userId: req.user.id});
+    const cartCount = await Cart.findOne({userId: req.user.id});
     const search = req.query.searchQuery || "";
     if(search !== ""){
         res.redirect('/shop-page')
