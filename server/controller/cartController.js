@@ -111,7 +111,6 @@ exports.cartView = async (req, res) => {
         cartItem.totalPrice = cartItem.subTotal
     })
     cartItems.totalPrice = cartItems.reduce((total, item) => total + item.subTotal, 0);
-    const count = cartItems.length;
     res.render('cart', {cartItems});
 }
 
