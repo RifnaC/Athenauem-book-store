@@ -315,7 +315,6 @@ exports.home = async (req, res) => {
     }
 }
 
-
 exports.wishlist = (req, res) => {
     res.render('wishlist');
 }

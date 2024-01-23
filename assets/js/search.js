@@ -69,3 +69,35 @@ function toggleInnerBox2() {
       plusIcon.classList.add('fa-plus');
   }
 }
+
+
+    function applyFilters() {
+        // Collect selected genre, author, and price filters
+        const selectedGenres = document.querySelectorAll('#inner-box input[type="checkbox"]:checked');
+        const selectedAuthors = document.querySelectorAll('#inner-box2 input[type="checkbox"]:checked');
+        const minPrice = document.getElementById('input-left').value;
+        const maxPrice = document.getElementById('input-right').value;
+
+        var books = document.querySelectorAll('.shopProduct .item');
+        books.forEach(function(book) {
+            var bookGenre = book.querySelector('.tick input').getAttribute('data-genre');
+            var bookAuthor = book.querySelector('.tick input').getAttribute('data-author');
+            var bookPrice = parseFloat(book.querySelector('.price-box span:last-child').innerText.replace(/[^\d.]/g, ''));
+
+            var genreMatch = selectedGenres.length === 0 || Array.from(selectedGenres).some(function(genre) {
+                return genre.getAttribute('data-genre') === bookGenre;
+            });
+
+            var authorMatch = selectedAuthors.length === 0 || Array.from(selectedAuthors).some(function(author) {
+                return author.getAttribute('data-author') === bookAuthor;
+            });
+
+            var priceMatch = bookPrice >= minPrice && bookPrice <= maxPrice;
+
+            if (genreMatch && authorMatch && priceMatch) {
+                book.style.display = 'block';
+            } else {
+                book.style.display = 'none';
+            }
+        });
+    }

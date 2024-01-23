@@ -133,16 +133,18 @@
             <nav class="navbar navbar-expand-lg navbar-light pl-lg-0 pl-auto">
                 <div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynav"
-                    aria-controls="mynav" aria-expanded="false" aria-label="Toggle navigation"
-                    onclick="return chnageIcon()" id="icon">
+                        aria-controls="mynav" aria-expanded="false" aria-label="Toggle navigation"
+                        onclick="return chnageIcon()" id="icon">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
             </nav>
             <div>
+                <a href="?page={{prev}}"><i class="fa-solid fa-arrow-right fa-rotate-180 me-2 text-primary"></i></a>
                 {{#each pages}}
-                    <a href="?page={{this}}" class="me-2 paginationBox p-1 px-2" style="text-decoration: none">{{this}}</a>
+                <a href="?page={{this}}" class="me-2 paginationBox p-1 px-2" style="text-decoration: none">{{this}}</a>
                 {{/each}}
+                <a href="?page={{next}}"><i class="fa-solid fa-arrow-right text-primary"></i></a>
             </div>
         </div>
         <div id="content" class="my-5 ms-3 pe-0">
@@ -153,7 +155,7 @@
                             <button class="btn btn-success form-check-label">
                                 Reset
                             </button>
-                            <button class="btn btn-success form-check-label active">
+                            <button class="btn btn-success form-check-label active" onclick="applyFilters()">
                                 Apply
                             </button>
                         </div>
@@ -162,7 +164,7 @@
                 <div class="box border-bottom">
                     <div class="box-label text-uppercase d-flex align-items-center">Genre
                         <button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#inner-box"
-                             aria-controls="inner-box"  onclick="return toggleInnerBox()">
+                            aria-controls="inner-box" onclick="return toggleInnerBox()">
                             <span id="plus-icon" class="fas fa-plus"></span>
                         </button>
                     </div>
@@ -170,9 +172,9 @@
                         {{#each genre}}
                         <div class="my-1">
                             <label class="tick">{{this.genre}}
-                                <input type="checkbox" checked="checked">
-                                <span class="check"></span>
-                            </label>
+                                    <input type="checkbox" data-genre="{{this.genre}}">
+                                    <span class="check"></span>
+                             </label>
                         </div>
                         {{/each}}
                     </div>
@@ -187,10 +189,10 @@
                     <div id="inner-box2" class="collapse mt-2 mr-1">
                         {{#each books}}
                         <div class="my-1">
-                            <label class="tick">{{this.author}}
-                                <input type="checkbox" checked="checked">
-                                <span class="check"></span>
-                            </label>
+                                <label class="tick">{{this.author}}
+                                    <input type="checkbox" data-author="{{this.author}}">
+                                    <span class="check"></span>
+                                </label>
                         </div>
                         {{/each}}
                     </div>
