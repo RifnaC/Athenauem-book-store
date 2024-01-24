@@ -159,10 +159,7 @@ function resetFilters() {
       checkbox.checked = false;
   });
 
-  // TODO: Clear other filter parameters if needed
-
-  // Reload the original set of books
-  fetch('/reset-filters') // Create a server route to handle resetting filters
+  fetch('/shop-page') 
   .then(response => response.json())
   .then(data => {
       // Update the UI with the original data

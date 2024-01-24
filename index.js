@@ -1,6 +1,6 @@
 const { config } = require('dotenv');
 const express = require('express')
-const hbs = require ('express-handlebars');
+const exphbs = require ('express-handlebars');
 const Handlebars = require('handlebars');
 const path = require('path')
 const dotenv = require('dotenv').config({path:'config.env'})
@@ -50,14 +50,6 @@ adminApp.set('view engine','hbs')
 userApp.use (express.static(path.join(__dirname,'views')));
 userApp.set('view engine','hbs')
   
-
-// adminApp.engine('hbs', hbs.engine({
-//     extname: 'hbs',
-//     defaultLayout: 'login',
-//     layoutDir: __dirname + '/views/layouts/',
-//     partialsDir: __dirname + '/views/partials/',
-// }));
-
 
 // load assets
 adminApp.use('/css', express.static(path.resolve(__dirname,"assets/css")))

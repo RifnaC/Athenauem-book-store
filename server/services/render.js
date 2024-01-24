@@ -9,6 +9,7 @@ const user = require('../models/userModel');
 const Cart = require('../models/cartModel');
 const Coupon = require('../models/couponModel');
 
+
 // ***********************Admin Management********************************
 exports.homeRoutes = async (req, res) => {
     if (!req.session.token) {
@@ -253,9 +254,11 @@ exports.user = async (req, res) => {
     res.render('user', { admin: name, users: user });
 }
 
+
+// logined user
 exports.userHome = async (req, res) => {
     try {
-        const cartCount = await Cart.findOne({userId: req.user.id});
+        const cartCount = await Cart.findOne({ userId: req.user.id });
         const search = req.query.searchQuery || "";
         const latestImages = await bannerCollection
             .find({})
@@ -268,7 +271,8 @@ exports.userHome = async (req, res) => {
             count = true;
         }
         const products = await productCollection
-            .find({ discount:{$gt: 0},
+            .find({
+                discount: { $gt: 0 },
                 $or: [
                     { bookName: { $regex: '.*' + search + '.*' } },
                     { author: { $regex: '.*' + search + '.*' } },
@@ -277,8 +281,11 @@ exports.userHome = async (req, res) => {
         products.forEach(product => {
             product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
         });
-    
-        res.render('home', { images: latestImages, category: categories, product: products, count: count, length:cartCount.items.length, cartId: cartCount._id});
+        let availibility;
+        if (products.stock === "Out Of Stock") {
+            availibility = true;
+        }
+        res.render('home', { images: latestImages, category: categories, product: products, count: count, length: cartCount.items.length, cartId: cartCount._id, availibility: availibility });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -286,7 +293,7 @@ exports.userHome = async (req, res) => {
 }
 
 exports.home = async (req, res) => {
-    try {  
+    try {
         const search = req.query.searchQuery || "";
         const latestImages = await bannerCollection
             .find({})
@@ -299,7 +306,8 @@ exports.home = async (req, res) => {
             count = true;
         }
         const products = await productCollection
-            .find({ discount:{$gt: 0},
+            .find({
+                discount: { $gt: 0 },
                 $or: [
                     { bookName: { $regex: '.*' + search + '.*' } },
                     { author: { $regex: '.*' + search + '.*' } },
@@ -308,7 +316,8 @@ exports.home = async (req, res) => {
         products.forEach(product => {
             product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
         });
-        res.render('home', { images: latestImages, category: categories, product: products, count: count, });
+        
+        res.render('home', { images: latestImages, category: categories, product: products, count: count, length:0});
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');

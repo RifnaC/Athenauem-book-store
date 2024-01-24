@@ -80,7 +80,11 @@ exports.shopPage = async (req, res, next) => {
 
   const books = await product.find(query).limit(limit).skip(skip).exec();
   const authors =[...new Set(books.map(author => author.author))];
-  res.render('shop-page', { pages, currentPage: page, prev: prev, next: nxt, books: books, genre: category, length: cartCount.items.length, cartId: cartCount._id, authors: authors,})
+  let availibility;
+  if(books.stock === "Out Of Stock"){
+    availibility = true;
+  }
+  res.render('shop-page', { pages, currentPage: page, prev: prev, next: nxt, books: books, genre: category, length: cartCount.items.length, cartId: cartCount._id, authors: authors, availibility: availibility });
 }
 
 exports.shopPageFilter = async (req, res, next) => {

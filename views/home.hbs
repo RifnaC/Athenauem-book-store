@@ -175,12 +175,13 @@
             <div id="cards-container">
                 <div class="cards row">
                     {{#each category}}
-                    <div class="cardCat col-5">
+                    <a href="/category?genre={{this.genre}}" class="cardCat col-5">
                         <img src="{{this.categoryImg}}" alt="{{this.genre}} icon">
                         <div class="containerCard ">
                             <h4><b>{{this.genre}}</b></h4>
                         </div>
-                    </div>
+
+                    </a>
                     {{/each}}
                 </div>
             </div>
@@ -218,20 +219,24 @@
                         <div class="new-price text-center">
                             &#8377 {{this.price}}
                         </div>
-                    </div>    
-                    <div class="d-flex justify-content-between mt-5">
-                        <a href="/carts/{{this._id}}" onclick='return addToCartAndShowAlert("{{this._id}}")' >
+                        {{!-- <div class="bg-danger text-center text-white availableStock">
+                            <b class="stockAvailible">{{this.stock}}</b>
+                        </div> --}}
+
+                    </div>
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="/carts/{{this._id}}" onclick='return addToCartAndShowAlert("{{this._id}}")'>
                             <div class="card-button" id="addToCart-{{this._id}}">
                                 <b>Add to Cart</b>
                             </div>
                         </a>
                         <div class="qty-container text-dark home-qty" id="qty-{{this._id}}">
-                            <button class="qty-btn-minus btn-primary" type="button"
-                                id="decBtn"  onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
+                            <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
+                                onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
                             </button>
-                            <input type="text" name="qty" value="1"class=" text-center w-100" readonly/>
-                            <button class="qty-btn-plus btn-primary" type="button" onclick="incrementQuantity('{{this._id}}')"><i
-                                    class="fa fa-plus"></i>
+                            <input type="text" name="qty" value="1" class=" text-center w-100" readonly />
+                            <button class="qty-btn-plus btn-primary" type="button"
+                                onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
                             </button>
                         </div>
                         <a href="/wishlist/{{this._id}}" class="wrapper nav-link ms-4">

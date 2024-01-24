@@ -225,7 +225,12 @@ section {
     color: #15877C;
     font-weight: 700;
     line-height: 1.2em;
+    top: -24px;
 }
+/* .toggleDetails{
+    margin-left: 40px;
+    margin-right: ;
+} */
 .title_bx h3.title:before {
     content: "";
     height: 2px;
