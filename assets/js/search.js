@@ -1,5 +1,3 @@
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
-
 const searchBarContainerEl = document.querySelector(".search-bar-container");
 
 const magnifierEl = document.querySelector(".magnifier");
@@ -75,28 +73,24 @@ function toggleInnerBox2() {
 
 function applyFilters() {
   // Gather selected genres
-  const selectedGenres = Array.from(document.querySelectorAll('#inner-box input:checked'))
-      .map(checkbox => checkbox.value);
+  const selectedGenres = Array.from(document.querySelectorAll('#inner-box input:checked')).map(checkbox => checkbox.value);
 
   // Gather selected authors
-  const selectedAuthors = Array.from(document.querySelectorAll('#inner-box2 input:checked'))
-      .map(checkbox => checkbox.value);
+  const selectedAuthors = Array.from(document.querySelectorAll('#inner-box2 input:checked')).map(checkbox => checkbox.value);
+  const minPrice = document.getElementById('minPrice').value;
+  const maxPrice = document.getElementById('maxPrice').value;
 
-  // TODO: Gather selected price range if needed
-
-  // Send an AJAX request with the selected filters
-  // You can use fetch or any AJAX library like Axios or jQuery.ajax
-  // Example using fetch:
   fetch('/shop-page', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-          genres: selectedGenres,
-          authors: selectedAuthors,
-          // TODO: Add other filter parameters
-      }),
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      genres: selectedGenres,
+      authors: selectedAuthors,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+    }),
   })
   .then(response => response.json())
   .then(data => {
@@ -110,15 +104,9 @@ function applyFilters() {
 function updateUI(filteredData) {
   // Assuming there's a container element for displaying books
   const shopProductContainer = document.querySelector('.shopProduct');
-
-  // Clear the existing content
   shopProductContainer.innerHTML = '';
-
-  // Append the filtered data to the container
+  
   filteredData.forEach(book => {
-      // Create and append elements for each book
-      // You can use the same HTML structure you have in your Handlebars template
-      // and populate it with book data
       const bookElement = document.createElement('div');
       bookElement.classList.add('item', 'col-12', 'col-sm-6', 'col-md-6', 'col-lg-4', 'col-xl-4');
       bookElement.innerHTML = `

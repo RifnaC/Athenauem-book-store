@@ -86,13 +86,18 @@ exports.shopPage = async (req, res, next) => {
 exports.shopPageFilter = async (req, res, next) => {
   const selectedGenres = req.body.genres;
   const selectedAuthors = req.body.authors;
+  const minPrice = req.body.minPrice;
+  const maxPrice = req.body.maxPrice;
   const query = {
+    $and:[{
       $or: [
         { genre: { $in: selectedGenres } },
         { author: { $in: selectedAuthors } },
       ],
+    },
+    { price: { $gte: minPrice, $lte: maxPrice } },]
   };
-  const filteredBooks = await product.find(query).exec();
+  const filteredBooks = await product.find(query).sort({price: 1}).exec();
   res.json(filteredBooks);
 
 }

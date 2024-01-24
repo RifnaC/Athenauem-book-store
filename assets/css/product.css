@@ -367,133 +367,110 @@ section {
     margin-top: -8px;
     margin-right: -60px;
 }
-.range-slider {
-	width: 300px;
-	margin: auto;
-	text-align: center;
-	position: relative;
-	height: 6em;
+
+.price-input {
+  width: 100%;
+  display: flex;
+  margin: 30px 0 35px;
+  margin-left: -24px;
+}
+.price-input .field {
+  display: flex;
+  width: 100%;
+  height: 45px;
+  align-items: center;
+}
+.field input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-size: 19px;
+  margin-left: 12px;
+  border-radius: 5px;
+  text-align: center;
+  border: 1px solid #999;
+  -moz-appearance: textfield;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.price-input .separator {
+  width: 130px;
+  display: flex;
+  font-size: 19px;
+  align-items: center;
+  justify-content: center;
+}
+.slider {
+  height: 5px;
+  position: relative;
+  background: #ddd;
+  border-radius: 5px;
+}
+.slider .progress {
+  height: 100%;
+  left: 25%;
+  right: 25%;
+  position: absolute;
+  border-radius: 5px;
+  background: #17a2b8;
+}
+.range-input {
+  position: relative;
+}
+.range-input input {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  top: -5px;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  height: 17px;
+  width: 17px;
+  border-radius: 50%;
+  background: #17a2b8;
+  pointer-events: auto;
+  -webkit-appearance: none;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+input[type="range"]::-moz-range-thumb {
+  height: 17px;
+  width: 17px;
+  border: none;
+  border-radius: 50%;
+  background: #17a2b8;
+  pointer-events: auto;
+  -moz-appearance: none;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
 }
 
-.range-slider svg,
-.range-slider input[type=range] {
-	position: absolute;
-	left: 0;
-	bottom: 0;
+/* Support */
+.support-box {
+  top: 2rem;
+  position: relative;
+  bottom: 0;
+  text-align: center;
+  display: block;
 }
-
-input[type=number] {
-	border: 1px solid #ddd;
-	text-align: center;
-	font-size: 1.6em;
-	-moz-appearance: textfield;
+.b-btn {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
 }
-
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-	-webkit-appearance: none;
+.b-btn.paypal i {
+  color: blue;
 }
-
-input[type=number]:invalid,
-input[type=number]:out-of-range {
-	border: 2px solid #ff6347;
+.b-btn:hover {
+  text-decoration: none;
+  font-weight: bold;
 }
-
-input[type=range] {
-	-webkit-appearance: none;
-	width: 100%;
-}
-
-input[type=range]:focus {
-	outline: none;
-}
-
-input[type=range]:focus::-webkit-slider-runnable-track {
-	background: #2497e3;
-}
-
-input[type=range]:focus::-ms-fill-lower {
-	background: #2497e3;
-}
-
-input[type=range]:focus::-ms-fill-upper {
-	background: #2497e3;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-	width: 100%;
-	height: 5px;
-	cursor: pointer;
-	animate: 0.2s;
-	background: #2497e3;
-	border-radius: 1px;
-	box-shadow: none;
-	border: 0;
-}
-
-input[type=range]::-webkit-slider-thumb {
-	z-index: 2;
-	position: relative;
-	box-shadow: 0px 0px 0px #000;
-	border: 1px solid #2497e3;
-	height: 18px;
-	width: 18px;
-	border-radius: 25px;
-	background: #a1d0ff;
-	cursor: pointer;
-	-webkit-appearance: none;
-	margin-top: -7px;
-}
-
-input[type=range]::-moz-range-track {
-	width: 100%;
-	height: 5px;
-	cursor: pointer;
-	animate: 0.2s;
-	background: #2497e3;
-	border-radius: 1px;
-	box-shadow: none;
-	border: 0;
-}
-
-input[type=range]::-moz-range-thumb {
-	z-index: 2;
-	position: relative;
-	box-shadow: 0px 0px 0px #000;
-	border: 1px solid #2497e3;
-	height: 18px;
-	width: 18px;
-	border-radius: 25px;
-	background: #a1d0ff;
-	cursor: pointer;
-}
-
-input[type=range]::-ms-track {
-	width: 100%;
-	height: 5px;
-	cursor: pointer;
-	animate: 0.2s;
-	background: transparent;
-	border-color: transparent;
-	color: transparent;
-}
-
-input[type=range]::-ms-fill-lower,
-input[type=range]::-ms-fill-upper {
-	background: #2497e3;
-	border-radius: 1px;
-	box-shadow: none;
-	border: 0;
-}
-
-input[type=range]::-ms-thumb {
-	z-index: 2;
-	position: relative;
-	box-shadow: 0px 0px 0px #000;
-	border: 1px solid #2497e3;
-	height: 18px;
-	width: 18px;
-	border-radius: 25px;
-	background: #a1d0ff;
-	cursor: pointer;
+.b-btn i {
+  font-size: 20px;
+  color: yellow;
+  margin-top: 2rem;
 }
