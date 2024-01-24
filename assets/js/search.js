@@ -1,3 +1,5 @@
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+
 const searchBarContainerEl = document.querySelector(".search-bar-container");
 
 const magnifierEl = document.querySelector(".magnifier");
@@ -9,11 +11,11 @@ magnifierEl.addEventListener("click", () => {
 });
 
 
-function bannerShopNow(type, product, genre){
-  if(type == "category"){
-    window.location.href = '/category#' +genre;
-  }else{
-    window.location.href = '/productView/' +product;
+function bannerShopNow(type, product, genre) {
+  if (type == "category") {
+    window.location.href = '/category#' + genre;
+  } else {
+    window.location.href = '/productView/' + product;
   }
 }
 
@@ -28,11 +30,11 @@ function toggleInnerBox() {
 
   // Toggle the plus/minus icon
   if (innerBox.classList.contains('show')) {
-      plusIcon.classList.remove('fa-plus');
-      plusIcon.classList.add('fa-minus');
+    plusIcon.classList.remove('fa-plus');
+    plusIcon.classList.add('fa-minus');
   } else {
-      plusIcon.classList.remove('fa-minus');
-      plusIcon.classList.add('fa-plus');
+    plusIcon.classList.remove('fa-minus');
+    plusIcon.classList.add('fa-plus');
   }
 }
 
@@ -45,11 +47,11 @@ function toggleInnerBox1() {
 
   // Toggle the plus/minus icon
   if (innerBox.classList.contains('show')) {
-      plusIcon.classList.remove('fa-plus');
-      plusIcon.classList.add('fa-minus');
+    plusIcon.classList.remove('fa-plus');
+    plusIcon.classList.add('fa-minus');
   } else {
-      plusIcon.classList.remove('fa-minus');
-      plusIcon.classList.add('fa-plus');
+    plusIcon.classList.remove('fa-minus');
+    plusIcon.classList.add('fa-plus');
   }
 }
 
@@ -62,42 +64,127 @@ function toggleInnerBox2() {
 
   // Toggle the plus/minus icon
   if (price.classList.contains('show')) {
-      plusIcon.classList.remove('fa-plus');
-      plusIcon.classList.add('fa-minus');
+    plusIcon.classList.remove('fa-plus');
+    plusIcon.classList.add('fa-minus');
   } else {
-      plusIcon.classList.remove('fa-minus');
-      plusIcon.classList.add('fa-plus');
+    plusIcon.classList.remove('fa-minus');
+    plusIcon.classList.add('fa-plus');
   }
 }
 
 
-    function applyFilters() {
-        // Collect selected genre, author, and price filters
-        const selectedGenres = document.querySelectorAll('#inner-box input[type="checkbox"]:checked');
-        const selectedAuthors = document.querySelectorAll('#inner-box2 input[type="checkbox"]:checked');
-        const minPrice = document.getElementById('input-left').value;
-        const maxPrice = document.getElementById('input-right').value;
+function applyFilters() {
+  // Gather selected genres
+  const selectedGenres = Array.from(document.querySelectorAll('#inner-box input:checked'))
+      .map(checkbox => checkbox.value);
 
-        var books = document.querySelectorAll('.shopProduct .item');
-        books.forEach(function(book) {
-            var bookGenre = book.querySelector('.tick input').getAttribute('data-genre');
-            var bookAuthor = book.querySelector('.tick input').getAttribute('data-author');
-            var bookPrice = parseFloat(book.querySelector('.price-box span:last-child').innerText.replace(/[^\d.]/g, ''));
+  // Gather selected authors
+  const selectedAuthors = Array.from(document.querySelectorAll('#inner-box2 input:checked'))
+      .map(checkbox => checkbox.value);
 
-            var genreMatch = selectedGenres.length === 0 || Array.from(selectedGenres).some(function(genre) {
-                return genre.getAttribute('data-genre') === bookGenre;
-            });
+  // TODO: Gather selected price range if needed
 
-            var authorMatch = selectedAuthors.length === 0 || Array.from(selectedAuthors).some(function(author) {
-                return author.getAttribute('data-author') === bookAuthor;
-            });
+  // Send an AJAX request with the selected filters
+  // You can use fetch or any AJAX library like Axios or jQuery.ajax
+  // Example using fetch:
+  fetch('/shop-page', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          genres: selectedGenres,
+          authors: selectedAuthors,
+          // TODO: Add other filter parameters
+      }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    updateUI(data);
+  })
+  .catch(error => {
+      console.error('Error applying filters:', error);
+  });
+}
 
-            var priceMatch = bookPrice >= minPrice && bookPrice <= maxPrice;
+function updateUI(filteredData) {
+  // Assuming there's a container element for displaying books
+  const shopProductContainer = document.querySelector('.shopProduct');
 
-            if (genreMatch && authorMatch && priceMatch) {
-                book.style.display = 'block';
-            } else {
-                book.style.display = 'none';
-            }
-        });
-    }
+  // Clear the existing content
+  shopProductContainer.innerHTML = '';
+
+  // Append the filtered data to the container
+  filteredData.forEach(book => {
+      // Create and append elements for each book
+      // You can use the same HTML structure you have in your Handlebars template
+      // and populate it with book data
+      const bookElement = document.createElement('div');
+      bookElement.classList.add('item', 'col-12', 'col-sm-6', 'col-md-6', 'col-lg-4', 'col-xl-4');
+      bookElement.innerHTML = `
+          <div class="sq_box shadow">
+              <div class="pdis_img">
+                  <a href="/productView/${book._id}">
+                      <img src="${book.productImg}">
+                  </a>
+              </div>
+              <h4 class="mb-1">${book.bookName}</h4>
+              <p>By ${book.author}</p>
+              <div class="price-box mb-2">
+                  <span> Price <i class="fa fa-inr"></i> ${book.originalPrice} </span>
+                  <span class="offer-price"> Offer Price <i class="fa fa-inr"></i> ${book.price}</span>
+              </div>
+              <div class="btn-box text-center bg-primary ">
+                  <span class="wishlist singleWishlist">
+                      <a href="/wishlist/${book._id}" class="wrapper nav-link ">
+                          <div class="icon-wishlist "></div>
+                      </a>
+                  </span>
+              </div>
+              <a class="text-white btn btn-sm" href="/carts/${book._id}"
+                  onclick='return addToCartAndShowAlert("${book._id}")' id="addToCart-${book._id}">
+                  <i class="fa fa-shopping-cart"></i> Add to Cart
+              </a>
+              <div class="qty-container text-dark home-qty ms-5 ps-2" id="qty-${book._id}">
+                  <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
+                      onclick="decrementQuantity('${book._id}')"><i class="fa fa-minus"></i>
+                  </button>
+                  <input type="text" name="qty" value="1" class="text-center w-100" readonly />
+                  <button class="qty-btn-plus btn-primary" type="button"
+                      onclick="incrementQuantity('${book._id}')"><i class="fa fa-plus"></i>
+                  </button>
+              </div>
+          </div>
+      `;
+      shopProductContainer.appendChild(bookElement);
+  });
+}
+
+
+function resetFilters() {
+  // Uncheck all checkboxes
+  document.querySelectorAll('#inner-box input:checked').forEach(checkbox => {
+      checkbox.checked = false;
+  });
+
+  document.querySelectorAll('#inner-box2 input:checked').forEach(checkbox => {
+      checkbox.checked = false;
+  });
+
+  // TODO: Clear other filter parameters if needed
+
+  // Reload the original set of books
+  fetch('/reset-filters') // Create a server route to handle resetting filters
+  .then(response => response.json())
+  .then(data => {
+      // Update the UI with the original data
+      updateUI(data);
+  })
+  .catch(error => {
+      console.error('Error resetting filters:', error);
+  });
+}
+
+// Add this function to your Reset button click event
+document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
+

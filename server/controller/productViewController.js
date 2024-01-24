@@ -27,20 +27,26 @@ exports.productView = async (req, res) => {
 exports.shopPage = async (req, res, next) => {
   const cartCount = await cart.findOne({ userId: req.user.id });
   const category = await genre.find({});
+
   const selectedGenre = req.query.genre;
   const selectedAuthor = req.query.author;
   const search = req.query.searchQuery || "";
   const limit = 9;
   let page = 1;
+
   if (req.query.page) {
     page = Number(req.query.page);
   }
+
   const skip = (page - 1) * limit;
+  const minPrice = req.query.minPrice;
+  const maxPrice = req.query.maxPrice;
   const query = {
     $or: [
       { bookName: { $regex: '.*' + search + '.*', $options: 'i' } },
       { author: { $regex: '.*' + search + '.*', $options: 'i' } },
-      { genre: { $regex: '.*' + search + '.*', $options: 'i' } }
+      { genre: { $regex: '.*' + search + '.*', $options: 'i' } },
+      { price: { $gte: minPrice, $lte: maxPrice } },
     ]
   };
   if (selectedGenre) {
@@ -73,8 +79,22 @@ exports.shopPage = async (req, res, next) => {
   }
 
   const books = await product.find(query).limit(limit).skip(skip).exec();
+  const authors =[...new Set(books.map(author => author.author))];
+  res.render('shop-page', { pages, currentPage: page, prev: prev, next: nxt, books: books, genre: category, length: cartCount.items.length, cartId: cartCount._id, authors: authors,})
+}
 
-  res.render('shop-page', { pages, currentPage: page, prev: prev, next: nxt, books: books, genre: category, length: cartCount.items.length, cartId: cartCount._id,  selectedGenre, selectedAuthor})
+exports.shopPageFilter = async (req, res, next) => {
+  const selectedGenres = req.body.genres;
+  const selectedAuthors = req.body.authors;
+  const query = {
+      $or: [
+        { genre: { $in: selectedGenres } },
+        { author: { $in: selectedAuthors } },
+      ],
+  };
+  const filteredBooks = await product.find(query).exec();
+  res.json(filteredBooks);
+
 }
 
 exports.category = async (req, res, next) => {

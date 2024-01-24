@@ -152,10 +152,10 @@
                 <div class="box border-bottom ">
                     <div class="form-group text-center">
                         <div class="btn-group" data-toggle="buttons">
-                            <button class="btn btn-success form-check-label">
+                            <button class="btn btn-success form-check-label" onclick="return  resetFilters()">
                                 Reset
                             </button>
-                            <button class="btn btn-success form-check-label active" onclick="applyFilters()">
+                            <button class="btn btn-success form-check-label active" onclick="return applyFilters()">
                                 Apply
                             </button>
                         </div>
@@ -172,9 +172,10 @@
                         {{#each genre}}
                         <div class="my-1">
                             <label class="tick">{{this.genre}}
-                                    <input type="checkbox" data-genre="{{this.genre}}">
-                                    <span class="check"></span>
-                             </label>
+                                <input type="checkbox" value="{{this.genre}}" data-genre="{{this.genre}}"
+                                    checked="checked">
+                                <span class="check"></span>
+                            </label>
                         </div>
                         {{/each}}
                     </div>
@@ -187,12 +188,12 @@
                         </button>
                     </div>
                     <div id="inner-box2" class="collapse mt-2 mr-1">
-                        {{#each books}}
+                        {{#each authors}}
                         <div class="my-1">
-                                <label class="tick">{{this.author}}
-                                    <input type="checkbox" data-author="{{this.author}}">
-                                    <span class="check"></span>
-                                </label>
+                            <label class="tick">{{this}}
+                                <input type="checkbox" value="{{this}}" data-author="{{this}}" checked="checked">
+                                <span class="check"></span>
+                            </label>
                         </div>
                         {{/each}}
                     </div>
@@ -206,7 +207,7 @@
                     </div>
                     <div class="collapse" id="price">
                         <div class="middle">
-                            <div class="multi-range-slider">
+                            {{!-- <div class="multi-range-slider">
                                 <input type="range" id="input-left" min="100" max="1000" value="10">
                                 <input type="range" id="input-right" min="0" max="100" value="50">
                                 <div class="slider">
@@ -215,6 +216,15 @@
                                     <div class="thumb left"></div>
                                     <div class="thumb right"></div>
                                 </div>
+                            </div> --}}
+
+                            <div class="range-slider">
+                                <span>
+                                    <input type="number" value="25000" min="0" max="120000" />
+                                    <input type="number" value="50000" min="0" max="120000" />
+                                </span>
+                                <input value="25000" min="0" max="120000" step="500" type="range" />
+                                <input value="50000" min="0" max="120000" step="500" type="range" />
                             </div>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mt-2">
