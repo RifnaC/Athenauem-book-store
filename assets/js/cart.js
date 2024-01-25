@@ -174,7 +174,7 @@ function addAllToCart(){
             Swal.fire({
                 position: 'top-end',
                 text: 'All wishlist items are added to cart!',
-                showConfirmButton: false,
+                showConfirmButton: true,
                 timer: 3000,
             }).then(() => {
                 window.location.href= '/cart'

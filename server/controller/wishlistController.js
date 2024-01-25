@@ -71,12 +71,10 @@ exports.wishlist = async(req, res) => {
             }
         },
     ]);
-    console.log(wishlistItems);
     let emptyWishlist = false;
     if(wishlistItems.length === 0){
         emptyWishlist = true;
     }
-
     res.render('wishlist', {wishlistItems, length: cartCount.items.length, emptyWishlist: emptyWishlist});
 }
 
@@ -99,25 +97,35 @@ exports.deleteWishlistItem = async (req, res) => {
 // add all items to cart
 exports.addAllToCart = async(req, res) => {
     const userId = req.user.id;
-        try {
-            const wishlist = await Wishlist.findOne({ userId });
-            if (wishlist) {
-                const productIds = wishlist.items.map(item => item.productId);
-                const products = await Books.find({ _id: { $in: productIds } });
-                const cart = await Cart.findOne({ userId });
-                if (!cart) {
-                    const newCart = new Cart({
-                        userId,
-                        items: products.map(product => ({
-                            productId: product._id,
-                            quantity: 1, 
-                            subTotal: product.price,
-                        })),
-                    });
-                    await newCart.save();
-                } else {
-                    for (const product of products) {
-                        const productExist = cart.items.findIndex(item => item.productId.equals(product._id));
+    try {
+        const wishlist = await Wishlist.findOne({ userId });
+        if (wishlist) {
+            const productIds = wishlist.items.map(item => item.productId);
+            const products = await Books.find({ _id: { $in: productIds },
+                $and: [{
+                    stock: {
+                        $ne: 'Out Of Stock'
+                    },
+                    $or: [{
+                        quantity: { $gt: 0 }
+                    }]
+                }]
+            });
+            console.log(products)
+            const cart = await Cart.findOne({ userId });
+            if (!cart) {
+                const newCart = new Cart({
+                    userId,
+                    items: products.map(product => ({
+                        productId: product._id,
+                        quantity: 1, 
+                        subTotal: product.price,
+                    })),
+                });
+                await newCart.save();
+            } else {
+                for (const product of products) {
+                    const productExist = cart.items.findIndex(item => item.productId.equals(product._id));
                     if (productExist === -1) {
                         cart.items.push({   
                             productId: product._id,
@@ -133,7 +141,7 @@ exports.addAllToCart = async(req, res) => {
             res.status(200).render('wishlist');
             } else {
                 res.status(404).json({ error: 'Wishlist not found' });
-        }
+            }
         } catch (error) {
           console.error(error);
           res.status(500).json({ error: 'Internal server error' });
