@@ -71,11 +71,12 @@ exports.wishlist = async(req, res) => {
             }
         },
     ]);
-    console.log(wishlistItems.length);
+    console.log(wishlistItems);
     let emptyWishlist = false;
     if(wishlistItems.length === 0){
         emptyWishlist = true;
     }
+
     res.render('wishlist', {wishlistItems, length: cartCount.items.length, emptyWishlist: emptyWishlist});
 }
 

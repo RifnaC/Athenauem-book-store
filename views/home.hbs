@@ -219,17 +219,22 @@
                         <div class="new-price text-center">
                             &#8377 {{this.price}}
                         </div>
-                        {{!-- <div class="bg-danger text-center text-white availableStock">
-                            <b class="stockAvailible">{{this.stock}}</b>
-                        </div> --}}
-
                     </div>
                     <div class="d-flex justify-content-between mt-3">
+                        <div class="bg-danger text-center text-white my-2 py-1" id="outOfStock-{{this._id}}" style="display: none; width: 400px">
+                            {{this.stock}}
+                        </div>
                         <a href="/carts/{{this._id}}" onclick='return addToCartAndShowAlert("{{this._id}}")'>
                             <div class="card-button" id="addToCart-{{this._id}}">
                                 <b>Add to Cart</b>
                             </div>
                         </a>
+                        <script>
+                            if ({{ this.quantity }} == 0 || "{{this.stock}}" == "Out Of Stock") {
+                                document.getElementById(`outOfStock-{{this._id}}`).style.display = 'block';
+                                document.getElementById("addToCart-{{this._id}}").style.display = 'none';
+                            }
+                        </script>
                         <div class="qty-container text-dark home-qty" id="qty-{{this._id}}">
                             <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
                                 onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
