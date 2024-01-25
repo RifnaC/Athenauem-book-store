@@ -127,26 +127,22 @@
     <section class="sec bg-light my-5 py-5 me-5 pe-5">
         <div class="container-fluid mx-5 pe-4">
             <details class="my-2">
-
-                <summary class="text-primary">
-                    <a href="?genre=fiction"></a>
+                <summary class="text-primary d-flex">
                     <div class="col-sm-12 title_bx">
-                        <img src="/img/fiction.png" alt="fiction">
-                        <h3 class="title">Fiction</h3>
+                        <img src="/img/fantasy.png" alt="fiction" style="height: 24px; width: 24px">
+                        <h3 class="title ms-5 ">Fiction</h3>
                     </div>
-                    </a>
                 </summary>
-
                 <div class="row">
                     <div class="col-md-12 list-slider mt-5">
                         <div class=" row common_wd  owl-theme" id="recent_post">
                             {{#each fiction}}
-                            <div class="item  col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                            <div class="item  col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                                 <div class="sq_box shadow">
                                     <div class="pdis_img">
                                         <span class="wishlist singleWishlist">
                                             <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
-                                                <div class="icon-wishlist mt-0 ms-0 ps-0 pt-0"></div>
+                                                <div class="icon-wishlist mt-0 pt-0"></div>
                                             </a>
                                         </span>
                                         <a href="/productView/{{this._id}}">
@@ -180,23 +176,22 @@
                 </div>
             </details>
             <details class="my-2">
-                <summary class="text-primary">
-                    <div class="row">
-                        <div class="col-sm-12 title_bx">
-                            <h3 class="title ms-3">Novels</h3>
-                        </div>
+                <summary class="text-primary d-flex">
+                    <div class="col-sm-12 title_bx">
+                        <img src="/img/—Pngtree—book icon_4358423.png" alt="fiction" style="height: 24px; width: 24px">
+                        <h3 class="title ms-5">Novels</h3>
                     </div>
                 </summary>
                 <div class="row">
                     <div class="col-md-12 list-slider mt-5">
                         <div class=" row common_wd  owl-theme" id="recent_post">
                             {{#each novels}}
-                            <div class="item  col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                <div class="sq_box shadow">
+                            <div class="item  col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                                <div class="sq_box shadow" >
                                     <div class="pdis_img">
-                                        <span class="wishlist singleWishlist">
+                                        <span class="wishlist singleWishlist" >
                                             <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
-                                                <div class="icon-wishlist mt-0 ms-0 ps-0 pt-0"></div>
+                                                <div class="icon-wishlist mt-0 pt-0"></div>
                                             </a>
                                         </span>
                                         <a href="/productView/{{this._id}}">
@@ -222,28 +217,23 @@
                     </div>
                 </div>
             </details>
-
             <details class="my-2">
-               
-                <summary class="text-primary">
-                     <a href="?genre=Biography">
-                    <div class="row">
-                        <div class="col-sm-12 title_bx">
-                            <h3 class="title ms-3">Biography</h3>
-                        </div>
+                <summary class="text-primary d-flex">
+                    <div class="col-sm-12 title_bx">
+                             <img src="/img/biography.png" alt="fiction" style="height: 24px; width: 24px">
+                            <h3 class="title ms-5">Biography</h3>
                     </div>
-                    </a>
                 </summary>
                 <div class="row">
                     <div class="col-md-12 list-slider mt-5">
                         <div class=" row common_wd  owl-theme" id="recent_post">
                             {{#each biography}}
-                            <div class="item  col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                            <div class="item  col-12 col-sm-6 col-md-5 col-lg-3 col-xl-3">
                                 <div class="sq_box shadow">
                                     <div class="pdis_img">
                                         <span class="wishlist singleWishlist">
                                             <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
-                                                <div class="icon-wishlist mt-0 ms-0 ps-0 pt-0"></div>
+                                                <div class="icon-wishlist mt-0 pt-0"></div>
                                             </a>
                                         </span>
                                         <a href="/productView/{{this._id}}">
@@ -268,13 +258,7 @@
                         </div>
                     </div>
                 </div>
-                
             </details>
-
-
-
-
-
         </div>
     </section>
     <footer class="footer pt-5 ">

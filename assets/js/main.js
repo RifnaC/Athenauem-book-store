@@ -2426,8 +2426,12 @@ $("#paymentSection").submit(async function (event) {
             "theme": {
               "color": "#15877C"
             }
-          };            
+          };   
+          
+          
           const rzp = new Razorpay(options);
+       
+          
           rzp.open();
         } else {
           console.error('Error creating order:', createOrderResponse.statusText);

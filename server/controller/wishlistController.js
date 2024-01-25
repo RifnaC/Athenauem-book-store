@@ -71,8 +71,14 @@ exports.wishlist = async(req, res) => {
             }
         },
     ]);
-    res.render('wishlist', {wishlistItems, length: cartCount.items.length});
+    console.log(wishlistItems.length);
+    let emptyWishlist = false;
+    if(wishlistItems.length === 0){
+        emptyWishlist = true;
+    }
+    res.render('wishlist', {wishlistItems, length: cartCount.items.length, emptyWishlist: emptyWishlist});
 }
+
 // delete wishlist item
 exports.deleteWishlistItem = async (req, res) => {
     try{
