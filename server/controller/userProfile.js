@@ -1,5 +1,6 @@
 const users = require('../models/userModel');
 const cart = require('../models/cartModel');
+const Order = require('../models/orderModel');
 
 exports.profile = async(req, res)=>{
     const cartCount = await cart.findOne({userId: req.user.id})
@@ -89,4 +90,13 @@ exports.deleteAddress = async(req, res)=>{
     await newAddress.save().then(()=>{
         res.render('profile');
     })
+}
+
+exports.myOrder = async(req, res)=>{
+    const id = req.user.id;
+    const user = await users.findById(id);
+    const cartCount = await cart.findOne({userId: req.user.id})
+    const length = cartCount.items.length;
+    const orders = await Order.find({userId: id})
+    res.render('myOrder', {length, user, orders});
 }

@@ -38,11 +38,15 @@ route.post("/removeItem", cart.deleteCartItem);
 // profile Routes
 route.get("/profile", auth.authMiddleware, user.profile);
 route.put("/profiles/:id", auth.authMiddleware, user.updateProfile);
+
+// address Routes
 route.get("/address", auth.authMiddleware, user.address);
 route.put("/address/:id", auth.authMiddleware, user.addAddress);
 route.get("/addresses", auth.authMiddleware, user.editAddress);
 route.put("/addresses/:id", auth.authMiddleware, user.updateAddress);
 route.put("/profile/:id", auth.authMiddleware, user.deleteAddress);
+
+// myOrder Routes
 route.get('/myOrder', auth.authMiddleware, user.myOrder);
 
 // checkout Routes

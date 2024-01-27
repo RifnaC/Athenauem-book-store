@@ -302,6 +302,7 @@
     return true;
   }
 
+  // add shop
   $("#add_shop").submit(function (event) {
     if (!shopValidation()) {
       Swal.fire({
@@ -578,6 +579,7 @@
     }
     return true;
   }
+  // Get parameter from URL
   function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     // alert('url' =  url);
@@ -594,7 +596,7 @@
   const idFromURL = getParameterByName('id');
   $('#shopId').val(idFromURL);
 
-  // *************************************ALERT MODIFICATION****************************************/
+  
   // Add new book
   $("#add_product").submit(function (event) {
     if (!productValidation()) {
@@ -748,7 +750,7 @@
 
     });
   });
-
+// *************************************ALERT MODIFICATION****************************************/
   // Delete the product
   if (window.location.pathname === "/products" || window.location.pathname === "/books") {
     $(document).on("click", ".table tbody td a.delete", function (event) {
