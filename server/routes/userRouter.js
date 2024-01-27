@@ -43,6 +43,7 @@ route.put("/address/:id", auth.authMiddleware, user.addAddress);
 route.get("/addresses", auth.authMiddleware, user.editAddress);
 route.put("/addresses/:id", auth.authMiddleware, user.updateAddress);
 route.put("/profile/:id", auth.authMiddleware, user.deleteAddress);
+route.get('/myOrder', auth.authMiddleware, user.myOrder);
 
 // checkout Routes
 route.get("/checkout", auth.authMiddleware, checkout.checkout);

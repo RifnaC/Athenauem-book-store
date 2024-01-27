@@ -119,93 +119,111 @@
     <main class="bg-light">
         <div class="py-3 py-md-5 bg-light">
             <div class="container">
-                <div class="text-center  mt-5">
-                    <h1 class="text-primary">Cart</h1>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 ">
-                        <div class="shopping-cart">
-                            <div class="cart-header d-block  d-mb-block d-lg-block">
-                                <div class="row bg-primary py-2 ">
-                                    <div class="col-md-1">
-                                        <h4></h4>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <h4 class="text-white">Products</h4>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <h4 class="text-white">Price</h4>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <h4 class="text-white">Quantity</h4>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <h4 class="text-white">Sub Total</h4>
-                                    </div>
-                                </div>
+                {{#if emptyCart}}
+                <div class="container text-center" style="margin-top: 100px;">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 text-center">
+                            <img src="/img/cartEmpty.gif"  width="25%">
+                            <div class="mt-3">
+                                <h4 class="text-primary text-center">Your Cart is Empty! </h4>
+                                <a href="/shop-page" class="btn btn-outline-dark">Start Shopping</a>
                             </div>
-                            {{#each cartItems}}
-                            <div class="cart-item">
-                                <div class="row">
-                                    <div class="col-md-1 my-auto  fs-5">
-                                        <a class="remove ms-4"
-                                            onclick="return removeItem('{{this._id}}','{{this.cartItem._id}}')"><i
-                                                class="bi bi-x-circle"></i></a>
-                                    </div>
-                                    <div class="col-md-5 my-auto">
-                                        <a href="">
-                                            <label class="product-name d-flex">
-                                                <img src={{this.cartItem.productImg}} style="width: 80px; height: 80px"
-                                                    alt="">
-                                                <div class="d-flex flex-column ms-1 ">
-                                                    <div class="fs-5 text-dark">{{this.cartItem.bookName}}</div>
-                                                    <div class="fs-6 text-light">By {{this.cartItem.author}}</div>
-                                                </div>
-                                            </label>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-2 my-auto">
-                                        <label class="price d-flex"><span class="me-1">&#8377</span>
-                                            {{this.cartItem.price}}</label>
-                                    </div>
-                                    <div class="col-md-2 col-7 my-auto d-flex">
-                                        <div class="qty-container">
-                                            <button class="qty-btn-minus btn-primary"
-                                                onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',-1, -{{this.cartItem.price}})"
-                                                type="button" id="decBtn"><i class="fa fa-minus"></i>
-                                            </button>
-                                            <input type="text" name="qty" value="{{this.quantity}}" class="input-qty"
-                                                readonly />
-                                            <button class="qty-btn-plus btn-primary"
-                                                onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',1,  {{this.cartItem.price}})"
-                                                type="button"><i class="fa fa-plus"></i>
-                                            </button>
+                        </div>
+                    </div>
+                </div>
+                {{else}}
+                <div>
+                    <div class="text-center  mt-5">
+                        <h1 class="text-primary">Cart</h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="shopping-cart">
+                                <div class="cart-header d-block  d-mb-block d-lg-block">
+                                    <div class="row bg-primary py-2 ">
+                                        <div class="col-md-1">
+                                            <h4></h4>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <h4 class="text-white">Products</h4>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h4 class="text-white">Price</h4>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h4 class="text-white">Quantity</h4>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h4 class="text-white">Sub Total</h4>
                                         </div>
                                     </div>
-                                    <div class="col-md-2 my-auto ">
-                                        <label class="price d-flex">
-                                            <span class="me-1">&#8377</span>
-                                            {{this.subTotal}}
-                                        </label>
+                                </div>
+                                {{#each cartItems}}
+                                <div class="cart-item">
+                                    <div class="row">
+                                        <div class="col-md-1 my-auto  fs-5">
+                                            <a class="remove ms-4"
+                                                onclick="return removeItem('{{this._id}}','{{this.cartItem._id}}')"><i
+                                                    class="bi bi-x-circle"></i></a>
+                                        </div>
+                                        <div class="col-md-5 my-auto">
+                                            <a href="">
+                                                <label class="product-name d-flex">
+                                                    <img src={{this.cartItem.productImg}}
+                                                        style="width: 80px; height: 80px" alt="">
+                                                    <div class="d-flex flex-column ms-1 ">
+                                                        <div class="fs-5 text-dark">{{this.cartItem.bookName}}</div>
+                                                        <div class="fs-6 text-light">By {{this.cartItem.author}}</div>
+                                                    </div>
+                                                </label>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 my-auto">
+                                            <label class="price d-flex"><span class="me-1">&#8377</span>
+                                                {{this.cartItem.price}}</label>
+                                        </div>
+                                        <div class="col-md-2 col-7 my-auto d-flex">
+                                            <div class="qty-container">
+                                                <button class="qty-btn-minus btn-primary"
+                                                    onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',-1, -{{this.cartItem.price}})"
+                                                    type="button" id="decBtn"><i class="fa fa-minus"></i>
+                                                </button>
+                                                <input type="text" name="qty" value="{{this.quantity}}"
+                                                    class="input-qty" readonly />
+                                                <button class="qty-btn-plus btn-primary"
+                                                    onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',1,  {{this.cartItem.price}})"
+                                                    type="button"><i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 my-auto ">
+                                            <label class="price d-flex">
+                                                <span class="me-1">&#8377</span>
+                                                {{this.subTotal}}
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            {{/each}}
-                            <div class="py-2 my-2">
-                                <div class="d-flex justify-content-between  border">
-                                    <h5 class="text-dark mt-2">
-                                        <span class="mx-3">Total Price:</span>
-                                        <span>&#8377 {{cartItems.totalPrice}}</span>
-                                    </h5>
-                                    <a href="/checkout" class="btn btn-outline-dark col-3">Proceed to Checkout</a>
+                                {{/each}}
+                                <div class="py-2 my-2">
+                                    <div class="d-flex justify-content-between  border">
+                                        <h5 class="text-dark mt-2">
+                                            <span class="mx-3">Total Price:</span>
+                                            <span>&#8377 {{cartItems.totalPrice}}</span>
+                                        </h5>
+                                        <a href="/checkout" class="btn btn-outline-dark col-3">Proceed to Checkout</a>
+                                    </div>
                                 </div>
+                                {{/if}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </main>
+
     <footer class="footer pt-5 ">
         <div class="container row mx-5 ">
             <a class="my-2" href="home">

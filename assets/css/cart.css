@@ -14,7 +14,6 @@ button:focus {
   background-color: #1c8aa3;
 }
 
-img,
 .basket-module,
 .basket-labels,
 .basket-product {
@@ -35,8 +34,6 @@ button,
 .product-details {
   float: left;
 }
-
-
 
 .hide {
   display: none;
@@ -295,6 +292,7 @@ aside {
   height: 34px;
   width: 100%;
 }
+
 .cartItem{
   margin-left: 32px;
 }
@@ -334,8 +332,6 @@ aside {
     float: none;
   }
   .remove {
-    /* bottom: 0; */
-
     text-align: left;
     margin-top: 1.6rem;
     position: relative;
