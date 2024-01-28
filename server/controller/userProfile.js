@@ -1,6 +1,7 @@
 const users = require('../models/userModel');
 const cart = require('../models/cartModel');
 const Order = require('../models/orderModel');
+const Book = require('../models/products');
 
 exports.profile = async(req, res)=>{
     const cartCount = await cart.findOne({userId: req.user.id})
@@ -24,7 +25,6 @@ exports.updateProfile = async(req, res)=>{
         console.log(err);
     });
 }
-
 
 exports.address = async(req, res)=>{
     const id = req.user.id;
@@ -97,6 +97,24 @@ exports.myOrder = async(req, res)=>{
     const user = await users.findById(id);
     const cartCount = await cart.findOne({userId: req.user.id})
     const length = cartCount.items.length;
-    const orders = await Order.find({userId: id})
-    res.render('myOrder', {length, user, orders});
+    const orders = await Order.find({userId: id}).sort({orderDate: -1});
+    const orderDatas = [];
+    for (let order of orders){
+        for (let item of order.orderItems){
+            const itemDetails = await Book.findOne({ _id: item.itemId});
+            const total = itemDetails.price * item.quantity
+            const status = order.orderStatus
+            const quantity = item.quantity
+            orderDatas.push({itemDetails,total,status,quantity,order})
+        }
+    }
+    res.render('myOrder', {length, user,orderDatas, orders });
+}
+
+exports.orderSummary = async(req, res, next) => {
+    const id = req.user.id;
+    const user = await users.findById(id);
+    const cartCount = await cart.findOne({userId: id})
+    const length = cartCount.items.length;
+    const orders = await Order.find({userId: id}).sort({orderDate: -1});
 }
