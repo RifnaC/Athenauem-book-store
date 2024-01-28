@@ -113,8 +113,46 @@ exports.myOrder = async(req, res)=>{
 
 exports.orderSummary = async(req, res, next) => {
     const id = req.user.id;
+    const orderId = req.params.id;
     const user = await users.findById(id);
     const cartCount = await cart.findOne({userId: id})
     const length = cartCount.items.length;
-    const orders = await Order.find({userId: id}).sort({orderDate: -1});
+    const order = await Order.findOne({_id:orderId});
+    console.log(order);
+    const addressDetails = await users.findById(order.addressId)
+    console.log("addressDetails", addressDetails)
+    const orderData = []
+    let total = 0;
+    
+        // for (let product of order.orderproducts){
+        //     const orderProduct = await productCollection.findOne({ _id: product.productId});
+        //     const quantity = product.quantity;
+        //     console.log(orderProduct);
+        //     total += orderProduct.price * quantity
+        //     console.log("grand",total);
+
+        //     orderData.push({orderProduct,quantity,total})
+        // }
+
+        // let Orderplaced = false;
+        // let shipped = false;
+        // let deliverd = false;
+        // let Outofdelivery = false;
+        // let Cancelled = false;
+
+
+        // if (myOrder.orderStatus == "Order placed"){
+        //   Orderplaced =true 
+        // }else if (myOrder.orderStatus == "Shipped"){
+        //   shipped =true
+        // }else if (myOrder.orderStatus == "Deliverd"){
+        //   deliverd = true
+        // }else if (myOrder.orderStatus == "Outof delivery"){
+        //   Outofdelivery = true
+        // }else {
+        //   Cancelled = true
+        // }
+
+    // res.render("orderDetail",{myOrder,addressDetails,user,orderData,total,Cancelled,Orderplaced,shipped,deliverd,Outofdelivery})
+    res.render('orderDetails', {length, user, orders, orderId });
 }
