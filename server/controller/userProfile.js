@@ -148,8 +148,50 @@ exports.orderSummary = async (req, res, next) => {
     res.render('orderDetails', { length, user, address, order, orderData, orderDate, deliveryDate, cancelledOrder});
 }
 
-exports.cancelOrder = async (res, req, next) => {
+exports.cancelOrderView = async(req,res) =>{
     const id = req.params.id;
-    const order = await Order.findByIdAndUpdate({ _id: id }, { $set: { orderStatus: "Cancelled" } });
-    res.redirect('/orderDetails/' + id);
+    try {
+        const order = await orderCollection.findById(id)
+        if(order) {
+            return res.json(order)
+        }else {
+            res.status(404).json({error : "Order not found"})
+        }
+    } catch (error) {
+        res.status(500).json({error: "Internal server error"})
+    }
 }
+
+
+exports.cancelOrder = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const reason = req.body.reason;
+        
+        // Fetch the order by ID
+        const order = await Order.findById(id);
+        if (!order) {
+            return res.status(404).json({ error: 'Order not found' });
+        }
+        for (const orderItem of order.orderItems) {
+            const itemId = orderItem.itemId;
+            const quantity = orderItem.quantity;
+            await Book.findByIdAndUpdate({_id:itemId},{ $inc: { quantity: quantity } });
+        }
+        const updatedOrder = await orderCollection.findOneAndUpdate(
+            { _id: id },
+            { $set: { orderStatus: "Cancelled", reason } },
+            { new: true } 
+        );
+        if (updatedOrder) {
+            res.json(updatedOrder);
+        } else {
+            res.status(500).json({ error: "Failed to update order" });
+        }
+    } catch (error) {                
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+          
+

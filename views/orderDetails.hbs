@@ -243,8 +243,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="cancelOrderForm">
                         <div class="mb-3">
+                            <input type="hidden" id="orderId" value="{{order._id}}">
                             <label for="cars">Choose Your Reason for Cancelling the order:</label>
                             <select name="reason" id="reasons" class="form-select">
                                 <option value="Product is takin too long to be delivered">Product is takin too long to be delivered</option>
@@ -252,11 +253,8 @@
                                 <option value="Loss of interest or need">Loss of interest or need</option>
                             </select>
                         </div>
+                        <button type="button" class="btn btn-primary">Submit</button>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onsubmit="return cancelOrder('{{order._id}}')">Submit</button>
                 </div>
             </div>
         </div>

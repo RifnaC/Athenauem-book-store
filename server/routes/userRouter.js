@@ -49,6 +49,7 @@ route.put("/profile/:id", auth.authMiddleware, user.deleteAddress);
 // myOrder Routes
 route.get('/myOrder', auth.authMiddleware, user.myOrder);
 route.get('/order/:id', auth.authMiddleware, user.orderSummary);
+route.get('/orders/:id', auth.authMiddleware, user.cancelOrderView);
 route.put('/order/:id', auth.authMiddleware, user.cancelOrder);
 
 // checkout Routes
