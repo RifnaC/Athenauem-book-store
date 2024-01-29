@@ -116,7 +116,7 @@
     </Header>
     <!-- Header End -->
     <main>
-        <div class="container-fluid rounded bg-white mt-5 mb-5">
+        <div class="container-fluid rounded mt-5 mb-5">
             <div class="row">
                 <div class="col-md-3 border-right bg-light">
                     <div class="d-flex  m-5 mb-0">
@@ -148,357 +148,84 @@
                 </div>
                 <div class="col-md-9 border-right">
                     <div class="p-3 pb-0 py-5">
-                        <div class="card">
-                            <div class="card-body">
-                                {{#if Cancelled }}
-                                <div class="row mb-1">
-                                    <h3 class="text-center" style="display: none;">Order Details <span>
-                                        <a id="cancel"
-                                                data-order-id="{{myOrder._id}}" class="btn text-danger float-end">Cancel
-                                                Order</a></span></h3>
+                        <div class="row  my-2 me-5 py-3 bg-white">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="text-secondary my-auto">Order Details</h5>
+                                <a href="/order/{{order._id}}" class="btn btn-outline-dark float-end ">Cancel</a>
+                            </div>
+                        </div>
+                        <div class="row  my-2 me-5 py-3 bg-white">
+                            <h5 class="text-secondary">Delivery Address</h5>
+                            <div class="d-flex flex-column">
+                                <b>{{address.fullName}}</b>
+                                <div>
+                                    <span>{{address.address}}</span>
+                                    <span class="ps-1">{{address.city}}</span>
+                                    <span class="ps-1">{{address.district}}</span>
+                                    <span class="ps-1">{{address.state}} - {{address.pincode}}</span>
                                 </div>
-
-                                <div class="row mb-1">
-                                    <h3 class="text-center" style="display:block">Order Details <span><a id="deleteord"
-                                                data-order-id="{{myOrder._id}}" class="btn text-danger float-end">Delete
-                                                Order</a></span></h3>
-                                </div>
-                                {{!-- {{/if}} --}}
-                                {{else if Outofdelivery }}
-                                <div class="row mb-1">
-                                    <h3 class="text-center" style="display: none;">Order Details <span><a id="cancel"
-                                                data-order-id="{{myOrder._id}}" class="btn text-danger float-end">Cancel
-                                                Order</a></span></h3>
-                                </div>
-                                <div class="row mb-1">
-                                    <h3 class="text-center" style="display: block;">Order Details <span></span></h3>
-                                </div>
-
-
-                                <div class="row mb-1">
-                                    <h3 class="text-center" style="display:none">Order Details <span><a id="deleteord"
-                                                data-order-id="{{myOrder._id}}" class="btn text-danger float-end">Delete
-                                                Order</a></span></h3>
-                                </div>
-                                {{else }}
-                                <div class="row mb-1">
-                                    <h3 class="text-center" style="display: block;">Order Details <span><a id="cancel"
-                                                data-order-id="{{myOrder._id}}" class="btn text-danger float-end">Cancel
-                                                Order</a></span></h3>
-                                </div>
-
-                                <div class="row mb-1">
-                                    <h3 class="text-center" style="display:none">Order Details <span><a id="deleteord"
-                                                data-order-id="{{myOrder._id}}" class="btn text-danger float-end">Delete
-                                                Order</a></span></h3>
-                                </div>
+                                <div> <b>Phone Number:</b> {{address.phone}}</div>
+                            </div>
+                        </div>
+                        <div class="row me-5 bg-white">
+                            <h5 class="text-secondary">Order Info</h5>
+                            <div class="d-flex flex-column"> 
+                                <p><b>OrderId:</b> {{order._id}}</p>
+                                <p><b>Payment Method: </b> {{order.paymentMethod}}</p>
+                                <p><b>Payment Amount: </b> &#8377 {{order.payableTotal}}</p>
+                                <p><b>Order Status: </b> {{order.orderStatus}}</p>
+                                <p><b>Order Date: </b> {{orderDate}}</p>
+                                <p><b>Delivery Date: </b> {{deliveryDate}}</p>
+                                {{#if order.couponCode}}
+                                <p><b>Coupon: </b>{{order.couponCode}}</p>
                                 {{/if}}
-
-
                             </div>
                         </div>
-
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row mb-1">
-                                    <div class="card shadow-0 border mb-4">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <h5 class="">Delivery Address</h5>
-                                                <p class=""><span
-                                                        style="font-weight: 600;">{{addressDetails.name}},</span>
-                                                    {{addressDetails.address}},{{addressDetails.area}},{{addressDetails.city}},{{addressDetails.state}},{{addressDetails.pincode}}<br>Phone:
-                                                    <span style="font-weight: 600;">{{addressDetails.phone}}</span>
-                                                </p>
-
+                        <div class="row mt-3 me-5 ">
+                            <h5 class="text-secondary">Order Items</h5>
+                            {{#each orderData}}
+                            <div class="cart-item bg-white my-3">
+                                <div class="row">
+                                    <div class="col-md-4 my-auto">
+                                        <label class="product-name d-flex">
+                                            <img src={{this.orderItem.productImg}} style="width: 80px; height: 80px"
+                                                alt="">
+                                            <div class="d-flex flex-column ms-2 my-auto">
+                                                <div class="fs-5 text-dark">{{this.orderItem.bookName}}</div>
+                                                <div class="fs-6 text-light">By {{this.orderItem.author}}</div>
                                             </div>
-                                        </div>
+                                        </label>
+                                        </a>
                                     </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row ">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row mb-1">
-                                        <div class="card shadow-0 border mb-4">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <h5 class="">Order Info</h5>
-                                                    <div>
-                                                        <p class="">OrderId : <span class="">{{myOrder._id}}</p></small>
-                                                        <p class="">Payment Method :<span
-                                                                class="">{{myOrder.paymentMethod}}</span></p>
-                                                        {{!-- <p class="">Status :<span class="text-success"
-                                                                style="font-weight: 700;">{{myOrder.orderStatus}}</span>
-                                                        </p>
-                                                        --}}
-                                                        {{#if Orderplaced}}
-                                                        <p class="">Status :<span class="text-success"
-                                                                style="font-weight: 700;">{{myOrder.orderStatus}}</span>
-                                                        </p>
-                                                        {{/if}}
-                                                        {{#if shipped}}
-                                                        <p class="">Status :<span class="text-warning"
-                                                                style="font-weight: 700;">{{myOrder.orderStatus}}</span>
-                                                        </p>
-                                                        {{/if}}
-                                                        {{#if deliverd}}
-                                                        <p class="">Status :<span class="text-success"
-                                                                style="font-weight: 700;">{{myOrder.orderStatus}}</span>
-                                                        </p>
-                                                        {{/if}}
-                                                        {{#if Cancelled}}
-                                                        <p class="">Status :<span class="text-danger"
-                                                                style="font-weight: 700;">{{myOrder.orderStatus}}</span>
-                                                        </p>
-                                                        {{/if}}
-                                                        {{#if Outofdelivery}}
-                                                        <p class="">Status :<span class="text-danger"
-                                                                style="font-weight: 700;">{{myOrder.orderStatus}}</span>
-                                                        </p>
-                                                        {{/if}}
-
-                                                        <p class="">Amount :<span class="text-dark" id="amountDisplay"
-                                                                style="font-weight: 700;"></span></p>
-
-                                                        <p class="">Order Date: <span id="orderDate"></span> </p>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-2 my-auto">
+                                        <b>Genre</b>
+                                        <label class="price d-flex"><span class="me-1"></span>
+                                            {{this.orderItem.genre}} </label>
+                                    </div>
+                                    <div class="col-md-2 my-auto">
+                                        <b>Qty</b>
+                                        <label class="price d-flex"><span class="me-1"></span>
+                                            {{this.quantity}}</label>
+                                    </div>
+                                     <div class="col-md-2 my-auto">
+                                        <b>Price</b>
+                                        <label class="price d-flex"><span class="me-1"></span>
+                                            &#8377 {{this.orderItem.price}}</label>
+                                    </div>
+                                    <div class="col-md-2 my-auto">
+                                        <b>Sub Total</b>
+                                        <label class="price d-flex"><span class="me-1"></span>
+                                            &#8377 {{this.total}} </label>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <script>
-                            var amountDisplay = document.getElementById("amountDisplay");
-                            var displayAmount =
-                                {{ #if myOrder.totalAmountAfterDiscount }}
-                            { { myOrder.totalAmountAfterDiscount } }
-                            { {else } }
-                            { { myOrder.grandtotal } }
-                            {
-                                {
-                                    /if}};
-
-                                    amountDisplay.textContent = displayAmount;
-                        </script>
-
-
-
-
-                        <div class="row mb-1">
-                            <div class="card shadow-0 border mb-4">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <h5>Product Details</h5>
-                                        {{#each orderData}}
-                                        <div class="card shadow-0 border mb-4">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-1">
-                                                        <a href="/shop/{{this.orderProduct._id}}"><img
-                                                                src="{{this.orderProduct.images}}" class="img-fluid"
-                                                                alt="product"></a>
-                                                    </div>
-                                                    <div
-                                                        class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                        <p class="text-muted mb-0">{{this.orderProduct.name}}
-                                                        </p>
-                                                    </div>
-                                                    <div
-                                                        class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                        <p class="text-muted mb-0"><span
-                                                                class="text-dark">Brand:</span><br>{{this.orderProduct.brand}}
-                                                        </p>
-                                                    </div>
-                                                    <div
-                                                        class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                        <p class="text-muted mb-0"><span
-                                                                class="text-dark">Category:</span><br>
-                                                            {{this.orderProduct.category}}
-                                                        </p>
-                                                    </div>
-                                                    <div
-                                                        class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                        <p class="text-muted mb-0 small"><span
-                                                                class="text-dark">Quantity:</span><br>{{this.quantity}}
-                                                        </p>
-                                                    </div>
-                                                    <div
-                                                        class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                        <p class="text-muted mb-0 small"><i
-                                                                class="fa-solid fa-indian-rupee-sign"></i>{{this.total}}
-                                                        </p>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{/each}}
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
-
-            </section>
-
-            <!-- Modal edit form -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 style="text-align: center; font-family: cursive; font-weight: bold;">Edit Form</h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="editForm">
-                                <div class="mb-4">
-                                    <input type="text" class="form-control" id="InputName1" placeholder="Enter Name"
-                                        name="name" value="{{user.name}}">
-                                </div>
-                                <div class="mb-4">
-                                    <input type="email" class="form-control" id="InputEmail1" placeholder="Enter Email"
-                                        name="email" value="{{user.email}}">
-                                </div>
-                                <div class="mb-4">
-                                    <input type="number" class="form-control" id="Inputphone1"
-                                        placeholder="Enter Phone number" name="phone" value="{{user.phone}}">
-                                </div>
-                                <button type="button" id="userButton" onclick="func()" class="btn btn-outline-dark"
-                                    data-bs-toggle="modal" data-bs-dismiss="modal">Save Changes</button>
-                            </form>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            {{!-- modal changepassword --}}
-
-            <div class="modal fade" id="passwordchange" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 style="text-align: center; font-family: cursive; font-weight: bold;">Change Password
-                            </h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="changepassword">
-                                <input type="text" class="form-control" name="_id" hidden value="{{user._id}}">
-                                <div class="mb-4">
-                                    <input type="password" class="form-control" id="currentpassword"
-                                        placeholder="Enter current password" name="currentpassword">
-                                </div>
-                                <div class="mb-4">
-                                    <input type="password" class="form-control" id="newpassword"
-                                        placeholder="Enter New password" name="newpassword">
-                                </div>
-                                <div class="mb-4">
-                                    <input type="password" class="form-control" id="cnewpassword"
-                                        placeholder="Confirm New password" name="cnewpassword">
-                                </div>
-                                <button type="button" id="changeButton" onclick="change()" class="btn btn-outline-dark"
-                                    data-bs-toggle="modal" data-bs-dismiss="modal">Save Changes</button>
-                            </form>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-
-
-            {{!----------------------------------- modal3 edit data from the table
-            -------------------------------------------}}
-            <div class="modal fade" id="ordercancelmodal" data-bs-backdrop="static" data-bs-keyboard="false"
-                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Cancel Order</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="cancelorder">
-
-                        </div>
-                        <div class="modal-footer">
-                            <a href="/orderSummary"><button type="button" class="btn btn-secondary">Close</button></a>
+                            {{/each}}
                         </div>
                     </div>
                 </div>
             </div>
 
-
-
-            {{!-- modal4 view delete data from the table --}}
-            <div class="modal fade" id="deleteordr" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Delete Order</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="deleteorder">
-
-                        </div>
-                        <div class="modal-footer">
-                            <a href="/orderSummary"><button type="button" class="btn btn-secondary">Close</button></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            {{!-- modal delete user --}}
-
-            <div class="modal fade" id="deletemodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="deletebody">
-
-                        </div>
-                        <div class="modal-footer">
-                            <a href="/user"><button type="button" class="btn btn-secondary">Close</button></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <script>
-                    const orderDate = "{{myOrder.orderDate}}"
-                    document.getElementById("orderDate").innerHTML = orderDate.split(" ").slice(0, 4).join(" ");
-            </script>
-
-            {{#if alert}}
-            <script>
-                    alert("User not found")
-            </script>
-            {{/if}}
-
+        </div>
     </main>
 
     <!-- footer Section Start -->
