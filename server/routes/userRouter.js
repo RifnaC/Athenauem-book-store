@@ -58,7 +58,6 @@ route.get("/", checkout.payment);
 route.post("/createOrder", auth.authMiddleware, checkout.proceedToPayment);
 route.post("/api/checkout", auth.authMiddleware, checkout.getOrder);
 
-
 // invoice Routes
 route.get("/invoice", auth.authMiddleware, checkout.invoice);
 

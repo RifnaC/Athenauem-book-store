@@ -60,6 +60,9 @@ const orderScheme = new mongoose.Schema({
         return deliveryDate.toLocaleDateString();
         }
     },
+    cancelReason:{
+        type: String,
+    }
 });
 
 async function updateOrderStatus(){

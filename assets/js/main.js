@@ -2482,18 +2482,13 @@ $("#paymentSection").submit(async function (event) {
 
 $("#cancelOrderForm").submit(function (event) {
   event.preventDefault();
-  alert('jeeeeeeeeeeeeeee');
   let unindexed_array = $(this).serializeArray();
   let data = {};
-
   $.map(unindexed_array, function (n, i) {
     data[n['name']] = n['value'];
   });
-
   // Extract the user's ID from the form data
   const orderId = data.id;
-alert(orderId );
-
   let request = {
     "url": `http://localhost:8080/order/${orderId}`,
     "method": "PUT",
@@ -2519,7 +2514,7 @@ alert(orderId );
             confirmButtonColor: '#15877C',
             text: 'Data updated successfully',
           }).then((result) => {
-              history.back();
+              window.location.reload();
             })
         } else if (result.isDenied) {
           Swal.fire({

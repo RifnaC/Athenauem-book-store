@@ -140,12 +140,9 @@ exports.orderSummary = async (req, res, next) => {
     const dateObject1 = new Date(order.deliveryDate);
     const deliveryDate = dateObject1.toISOString().split('T')[0].split('-').reverse().join('-');
 
-    let cancelledOrder = false;
-    if (order.orderStatus !== "Delivered"){
-      cancelledOrder = true
-    }
+    
 
-    res.render('orderDetails', { length, user, address, order, orderData, orderDate, deliveryDate, cancelledOrder});
+    res.render('orderDetails', { length, user, address, order, orderData, orderDate, deliveryDate});
 }
 
 
@@ -153,8 +150,6 @@ exports.cancelOrder = async (req, res, next) => {
     try {
         const id = req.params.id;
         const reason = req.body.reason;
-        
-        // Fetch the order by ID
         const order = await Order.findById(id);
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
@@ -164,9 +159,9 @@ exports.cancelOrder = async (req, res, next) => {
             const quantity = orderItem.quantity;
             await Book.findByIdAndUpdate({_id:itemId},{ $inc: { quantity: quantity } });
         }
-        const updatedOrder = await orderCollection.findOneAndUpdate(
+        const updatedOrder = await Order.findOneAndUpdate(
             { _id: id },
-            { $set: { orderStatus: "Cancelled", reason } },
+            { $set: { orderStatus: "Cancelled", cancelReason: reason } },
             { new: true } 
         );
         if (updatedOrder) {
