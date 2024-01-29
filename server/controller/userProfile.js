@@ -148,20 +148,6 @@ exports.orderSummary = async (req, res, next) => {
     res.render('orderDetails', { length, user, address, order, orderData, orderDate, deliveryDate, cancelledOrder});
 }
 
-exports.cancelOrderView = async(req,res) =>{
-    const id = req.params.id;
-    try {
-        const order = await orderCollection.findById(id)
-        if(order) {
-            return res.json(order)
-        }else {
-            res.status(404).json({error : "Order not found"})
-        }
-    } catch (error) {
-        res.status(500).json({error: "Internal server error"})
-    }
-}
-
 
 exports.cancelOrder = async (req, res, next) => {
     try {
