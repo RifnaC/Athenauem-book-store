@@ -173,3 +173,9 @@ function resetFilters() {
 // Add this function to your Reset button click event
 document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
 
+const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+})

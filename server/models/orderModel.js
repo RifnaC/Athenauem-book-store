@@ -59,8 +59,10 @@ const orderScheme = new mongoose.Schema({
         deliveryDate.setDate(deliveryDate.getDate() + 5); 
         return deliveryDate.toLocaleDateString();
         }
-
     },
+    reason: {
+        type: String,
+    }
 });
 
 async function updateOrderStatus(){
@@ -73,7 +75,7 @@ async function updateOrderStatus(){
         if(status.length > 0){
             await Promise.all(
                 status.map(async (order) =>{
-                    order.status = "Delivered";
+                    order.orderStatus = "Delivered";
                     await order.save();
                 })
             )

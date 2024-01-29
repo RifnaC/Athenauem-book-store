@@ -134,35 +134,22 @@ exports.orderSummary = async (req, res, next) => {
         total += orderItem.price * quantity;
         orderData.push({ orderItem, quantity, total });
     }
-
-    console.log(order);
     const dateObject = new Date(order.orderDate);
     const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
 
     const dateObject1 = new Date(order.deliveryDate);
     const deliveryDate = dateObject1.toISOString().split('T')[0].split('-').reverse().join('-');
 
+    let cancelledOrder = false;
+    if (order.orderStatus !== "Delivered"){
+      cancelledOrder = true
+    }
 
+    res.render('orderDetails', { length, user, address, order, orderData, orderDate, deliveryDate, cancelledOrder});
+}
 
-    // let Orderplaced = false;
-    // let shipped = false;
-    // let deliverd = false;
-    // let Outofdelivery = false;
-    // let Cancelled = false;
-
-
-    // if (myOrder.orderStatus == "Order placed"){
-    //   Orderplaced =true 
-    // }else if (myOrder.orderStatus == "Shipped"){
-    //   shipped =true
-    // }else if (myOrder.orderStatus == "Deliverd"){
-    //   deliverd = true
-    // }else if (myOrder.orderStatus == "Outof delivery"){
-    //   Outofdelivery = true
-    // }else {
-    //   Cancelled = true
-    // }
-// {total,Cancelled,Orderplaced,shipped,deliverd,Outofdelivery})
-
-    res.render('orderDetails', { length, user, address, order, orderData, orderDate, deliveryDate});
+exports.cancelOrder = async (res, req, next) => {
+    const id = req.params.id;
+    const order = await Order.findByIdAndUpdate({ _id: id }, { $set: { orderStatus: "Cancelled" } });
+    res.redirect('/orderDetails/' + id);
 }
