@@ -114,18 +114,21 @@ li.subtotal:before {
 .subtotal {
   width: 15%;
 }
-.rate{
+
+.rate {
   margin-left: -400px;
 }
+
 .subtotal {
   text-align: right;
 }
 
-.CouponSection{
- 
+.CouponSection {
+
   margin-top: -8px;
 }
-.inputField{
+
+.inputField {
   width: 380px;
 }
 
@@ -134,20 +137,23 @@ li.subtotal:before {
   color: #131213;
   float: none;
 }
-.table-left{
+
+.table-left {
   float: left;
   width: 800px
-
 }
-.qty-container input{
+
+.qty-container input {
   border-top: 1px solid #15877C;
   border-bottom: 1px solid #15877C;
 }
-.input-qty{
+
+.input-qty {
   width: 24%;
   text-align: center;
 }
-.qty-container{
+
+.qty-container {
   display: flex;
   justify-content: center;
 }
@@ -293,11 +299,12 @@ aside {
   width: 100%;
 }
 
-.cartItem{
+.cartItem {
   margin-left: 32px;
 }
 
 @media screen and (max-width: 640px) {
+
   aside,
   .basket,
   .summary,
@@ -305,40 +312,51 @@ aside {
   .remove {
     width: 100%;
   }
+
   .basket-labels {
     display: none;
   }
+
   .basket-module {
     margin-bottom: 1rem;
   }
+
   .item {
     margin-bottom: 1rem;
   }
+
   .product-image {
     width: 20%;
   }
+
   .product-details {
     width: 60%;
   }
+
   .price,
   .subtotal {
     width: 33%;
   }
+
   .quantity {
     text-align: center;
     width: 34%;
   }
+
   .quantity-field {
     float: none;
   }
+
   .remove {
     text-align: left;
     margin-top: 1.6rem;
     position: relative;
   }
+
   .remove button {
     padding: 0;
   }
+
   .summary {
     margin-top: 1.25rem;
     position: relative;
@@ -349,6 +367,7 @@ aside {
   aside {
     padding: 0 1rem 0 0;
   }
+
   .summary {
     width: 28%;
   }
@@ -358,6 +377,7 @@ aside {
   main {
     width: 100%;
   }
+
   .product-details {
     padding: 0 1rem;
   }

@@ -8,6 +8,8 @@ const categoryController = require('../controller/categoryController');
 const bannerController = require('../controller/bannerController');
 const auth = require('../middlewares/authMiddleware')
 const user = require('../controller/userController');
+const order = require('../controller/orderController');
+
 // ***********************Admin Management********************************
 /** 
  * @description Root Route
@@ -146,12 +148,13 @@ route.put('/api/banner/:id',auth.authMiddleware, bannerController.update);
 route.delete('/api/banner/:id',auth.authMiddleware,  bannerController.delete);
 
 route.get('/user',auth.authMiddleware, auth.isAdmin, services.user)
-
 route.get("/editUser" ,auth.authMiddleware, auth.isAdmin, user.editUser);
 route.put('/users/:id', auth.authMiddleware, auth.isAdmin,  user.update);
 route.delete('/users/:id', auth.authMiddleware, auth.isAdmin, user.delete);
 route.get('/userDetails', auth.authMiddleware, auth.isAdmin, user.userDetails);
 
+
+route.get('/order', auth.authMiddleware, order.allOrderDetails)
 // Error page
 route.get('/error', services.error);
 
