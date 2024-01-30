@@ -44,3 +44,28 @@ exports.orderDetails = async(req, res, next) => {
     console.log(orderData)
     res.render('order', {admin:name, users: user, address: userAddress.addresses[0], order:order, deliveryDate:deliveryDate, orderDate:orderDate, orderDatas:orderData});
 }
+
+exports.editOrder = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const status = req.body.orderStatus;
+        const order = await Order.findById(id);
+        if (!order) {
+            return res.status(404).json({ error: 'Order not found' });
+        }
+        
+        const updatedOrder = await Order.findOneAndUpdate(
+            { _id: id },
+            { $set: { orderStatus: status} },
+            { new: true } 
+        );
+        if (updatedOrder) {
+            res.json(updatedOrder);
+        } else {
+            res.status(500).json({ error: "Failed to update order" });
+        }
+    } catch (error) {                
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}

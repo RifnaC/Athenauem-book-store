@@ -157,7 +157,7 @@ route.get('/userDetails', auth.authMiddleware, auth.isAdmin, user.userDetails);
 // order Management
 route.get('/order', auth.authMiddleware, order.allOrderDetails);
 route.get('/orders', auth.authMiddleware, order.orderDetails);
-// route.put('/order/:id', auth.authMiddleware, order.editOrder);
+route.put('/order/:id', auth.authMiddleware, order.editOrder);
 // Error page
 route.get('/error', services.error);
 

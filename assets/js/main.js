@@ -2479,7 +2479,7 @@ $("#paymentSection").submit(async function (event) {
   }
 });
 
-
+// order Cancellation
 $("#cancelOrderForm").submit(function (event) {
   event.preventDefault();
   let unindexed_array = $(this).serializeArray();
@@ -2491,6 +2491,58 @@ $("#cancelOrderForm").submit(function (event) {
   const orderId = data.id;
   let request = {
     "url": `http://localhost:8080/order/${orderId}`,
+    "method": "PUT",
+    "data": data
+  };
+  // Send the PUT request
+  $.ajax(request).done(function (response) {
+    Swal.fire({
+      title: 'Athenuam',
+      text: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+      confirmButtonColor: '#15877C'
+    })
+      .then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Athenuam',
+            confirmButtonColor: '#15877C',
+            text: 'Data updated successfully',
+          }).then((result) => {
+              window.location.reload();
+            })
+        } else if (result.isDenied) {
+          Swal.fire({
+            icon: 'info',
+            title: 'Athenuam',
+            text: 'Changes are not saved',
+            confirmButtonColor: '#15877C',
+          })
+            .then((result) => {
+              history.back();
+            })
+        }
+      })
+  });
+});
+
+// order edit
+$("#editOrderForm").submit(function (event) {
+  event.preventDefault();
+  let unindexed_array = $(this).serializeArray();
+  let data = {};
+  $.map(unindexed_array, function (n, i) {
+    data[n['name']] = n['value'];
+  });
+  // Extract the user's ID from the form data
+  const orderId = data.id;
+  let request = {
+    "url": `http://localhost:3000/order/${orderId}`,
     "method": "PUT",
     "data": data
   };

@@ -258,14 +258,10 @@ exports.user = async (req, res) => {
 // logined user
 exports.userHome = async (req, res) => {
     try {
+        console.log(req.user);
         const cartCount = await Cart.findOne({ userId: req.user.id });
-        let length = 0;
-        let cartId = null;
-        if(cartCount !== null){
-            length =  cartCount.items.length;
-            cartId = cartCount._id
-            return length, cartId;
-        }
+        
+        
         const search = req.query.searchQuery || "";
         const latestImages = await bannerCollection
             .find({})
@@ -292,7 +288,15 @@ exports.userHome = async (req, res) => {
         if (products.stock === "Out Of Stock") {
             availibility = true;
         }
-        res.render('home', { images: latestImages, category: categories, product: products, count: count, length:length, cartId: cartId, availibility: availibility });
+        if(cartCount !== null){
+            const length =  cartCount.items.length;
+            const cartId = cartCount._id
+            
+            res.render('home', { images: latestImages, category: categories, product: products, count: count, length:length, cartId: cartId, availibility: availibility });
+        }else{
+            res.render('home', { images: latestImages, category: categories, product: products, count: count, availibility: availibility });
+        }
+        
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
