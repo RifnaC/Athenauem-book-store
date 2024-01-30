@@ -120,7 +120,7 @@
                 <tbody>
                   {{#each orderData}}
                   <tr>
-                    <td class="text-dark ">{{this.order._id}}</td>
+                    <td class="text-dark">{{this.order._id}}</td>
                     <td class="text-dark">{{this.userName}}</td>
                     <td class="text-dark">&#8377 {{this.order.payableTotal}}</td>
                     <td class="text-dark">{{this.order.orderStatus}}</td>
@@ -128,7 +128,9 @@
                     <td class="text-dark">{{this.orderDate}}</td>
                     <td class="text-dark">
                       <a href="orders?id={{this.order._id}}"><i class="bi bi-eye-fill"></i></a>
-                      <a href="orders/{{this.order._id}}"  data-bs-toggle="modal" data-bs-target="#exampleModal" id="orderEdit"><i class="bi bi-pencil-square ms-3"></i></a>
+                      <a href="order/{{this.order._id}}" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        id="orderEdit" data-order-id="{{this.order._id}}" class="edit-order-btn"><i
+                          class="bi bi-pencil-square ms-3"></i></a>
                     </td>
                   </tr>
                   {{/each}}
@@ -141,33 +143,32 @@
     </div>
   </div>
   <!-- Content End -->
-
-  {{!-- cancel order --}}
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit the order Status</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editOrderForm">
-                        <div class="mb-3">
-                            <input type="hidden" id="orderId" name="id" value="{{order._id}}">
-                            <label for="orderStatus">Order Status</label>
-                            <select name="orderStatus" id="orderStatus" class="form-select">
-                                <option value="Order Placed">Order Placed</option>
-                                <option value="Shipped">Shipped</option>
-                                <option value="Delivered">Delivered</option>
-                                <option value="Cancelled">Cancelled</option>
-                            </select>
-                        </div>
-                        <button type="sumbit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
+  {{!-- edit order --}}
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit the order Status</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <form id="editOrderForm">
+            <div class="mb-3">
+              <label for="orderStatus">Order Status</label>
+              <select name="orderStatus" id="orderStatus" class="form-select">
+                <option value="Order Placed">Order Placed</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+            <button type="sumbit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
+
   <!-- Back to Top -->
   <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
   </div>

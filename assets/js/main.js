@@ -2531,6 +2531,11 @@ $("#cancelOrderForm").submit(function (event) {
   });
 });
 
+
+let currentOrderId;
+$('.edit-order-btn').click(function () {
+  currentOrderId = $(this).data('order-id');
+});
 // order edit
 $("#editOrderForm").submit(function (event) {
   event.preventDefault();
@@ -2539,8 +2544,9 @@ $("#editOrderForm").submit(function (event) {
   $.map(unindexed_array, function (n, i) {
     data[n['name']] = n['value'];
   });
-  // Extract the user's ID from the form data
-  const orderId = data.id;
+  // Use the stored order ID
+  const orderId = currentOrderId;
+  alert(orderId);
   let request = {
     "url": `http://localhost:3000/order/${orderId}`,
     "method": "PUT",
@@ -2858,65 +2864,62 @@ Chart.defaults.borderColor = "#ffffffff";
     Retarget
   );
 
-  $("#cancelOrderForm").submit(function (event) {
-    alert('jeeeeeeeeeeeeeee');
-    event.preventDefault();
-    const formData = new FormData(this);
+  // $("#cancelOrderForm").submit(function (event) {
+  //   event.preventDefault();
+  //   const formData = new FormData(this);
     
-    // Extract the book's ID from the form data
-    const orderId = formData.get('id')
-    const reason = formData.get('reason');
-    alert(reason);
-  
-    // Append the bookid to the URL
-    const request = {
-      'url': `http://localhost:8080/order/${orderId}`,
-      'method': 'PUT',
-      'data': formData,
-      processData: false,
-      contentType: false,
-    };
-    // // Send the PUT request        
-    $.ajax(request).done(function (response) {
-      Swal.fire({
-        title: 'Do you want to save the changes?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        denyButtonText: `Don't save`,
-        confirmButtonColor: '#15877C'
-      })
-        .then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            Swal.fire({
-              icon:'success', 
-              title: 'Atheneaum',
-              text: 'Data updated successfully',
-              confirmButtonColor: '#15877C'
-            })
-              .then(() => {
-                history.back();
-              })
-          } else if (result.isDenied) {
-            Swal.fire({
-              icon:'info',
-              title:'Atheneuam',
-              text: 'Changes are not saved', 
-              confirmButtonColor:'#15877C'})
-              .then(() => {
-                history.back();
-              })
-          }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-          console.error('AJAX request failed:', textStatus, errorThrown);
-          console.log('XHR status:', jqXHR.status);
-          console.log('XHR response text:', jqXHR.responseText);
-          Swal.fire('Error', 'Something Went Wrong.', 'error');
-        });
+  //   // Extract the book's ID from the form data
+  //   const orderId = formData.get('id')
+  //   const reason = formData.get('reason');
+  //   // Append the bookid to the URL
+  //   const request = {
+  //     'url': `http://localhost:8080/order/${orderId}`,
+  //     'method': 'PUT',
+  //     'data': formData,
+  //     processData: false,
+  //     contentType: false,
+  //   };
+  //   // // Send the PUT request        
+  //   $.ajax(request).done(function (response) {
+  //     Swal.fire({
+  //       title: 'Do you want to save the changes?',
+  //       showDenyButton: true,
+  //       showCancelButton: true,
+  //       confirmButtonText: 'Save',
+  //       denyButtonText: `Don't save`,
+  //       confirmButtonColor: '#15877C'
+  //     })
+  //       .then((result) => {
+  //         /* Read more about isConfirmed, isDenied below */
+  //         if (result.isConfirmed) {
+  //           Swal.fire({
+  //             icon:'success', 
+  //             title: 'Atheneaum',
+  //             text: 'Data updated successfully',
+  //             confirmButtonColor: '#15877C'
+  //           })
+  //             .then(() => {
+  //               history.back();
+  //             })
+  //         } else if (result.isDenied) {
+  //           Swal.fire({
+  //             icon:'info',
+  //             title:'Atheneuam',
+  //             text: 'Changes are not saved', 
+  //             confirmButtonColor:'#15877C'})
+  //             .then(() => {
+  //               history.back();
+  //             })
+  //         }
+  //       }).fail(function (jqXHR, textStatus, errorThrown) {
+  //         console.error('AJAX request failed:', textStatus, errorThrown);
+  //         console.log('XHR status:', jqXHR.status);
+  //         console.log('XHR response text:', jqXHR.responseText);
+  //         Swal.fire('Error', 'Something Went Wrong.', 'error');
+  //       });
 
-    });
-  });
+  //   });
+  // });
   
 
 

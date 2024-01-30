@@ -8,13 +8,6 @@ exports.productView = async (req, res) => {
   try {
     const id = req.params.id;
     const cartCount = await cart.findOne({ userId: req.user.id });
-    let length = 0;
-    let cartId = null;
-    if(cartCount !== null){
-        length =  cartCount.items.length;
-        cartId = cartCount._id
-        return length, cartId;
-    }
     const search = req.query.searchQuery || "";
     if (search !== "") {
       res.redirect('/shop-page')
@@ -25,7 +18,15 @@ exports.productView = async (req, res) => {
     const vendorId = item.shopId;
     const shop = await shops.findById(vendorId);
     const off = Math.floor((item.discount * 100) / item.originalPrice)
-    res.render('singleProductView', { item: item, off: off, shop: shop, genre: category, length:length, cartId: cartId });
+
+    if(cartCount !== null){
+      const length =  cartCount.items.length;
+      const  cartId = cartCount._id
+      res.render('singleProductView', { item: item, off: off, shop: shop, genre: category, length:length, cartId: cartId });
+    }else{
+      res.render('singleProductView', { item: item, off: off, shop: shop, genre: category, length:0});
+    }
+    
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');

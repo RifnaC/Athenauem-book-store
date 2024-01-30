@@ -8,16 +8,17 @@ exports.allOrderDetails = async (req, res, next) => {
     const id = req.user.id;
     const admin = await Admin.findById(id);
     const name = admin.name.split(" ")[0];
-    const orders = await Order.find({}).sort({orderDate:-1})
+    const orders = await Order.find().sort({ orderDate: -1 }).exec();
+    
     let orderData = [];
     for(let order of orders){
         const user = await User.findOne({_id: order.userId});
         const userName = user.name.split(" ")[0];
         const dateObject = new Date(order.orderDate);
-        const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
+        const orderDate = dateObject.toISOString().split('T')[0];
         orderData.push({order,userName,orderDate})
     }
-    res.render('orders', {admin:name, orders: orders, orderData: orderData})
+    res.render('orders', {admin:name, orders: orders, orderData});
 }
 
 exports.orderDetails = async(req, res, next) => {
@@ -41,24 +42,32 @@ exports.orderDetails = async(req, res, next) => {
         const total = itemDetails.price *quantity
         orderData.push({itemDetails,total,quantity})
     }
-    console.log(orderData)
     res.render('order', {admin:name, users: user, address: userAddress.addresses[0], order:order, deliveryDate:deliveryDate, orderDate:orderDate, orderDatas:orderData});
 }
 
 exports.editOrder = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const status = req.body.orderStatus;
+        const status = req.body.orderStatus; 
         const order = await Order.findById(id);
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
         }
-        
-        const updatedOrder = await Order.findOneAndUpdate(
-            { _id: id },
-            { $set: { orderStatus: status} },
-            { new: true } 
-        );
+        let updatedOrder;
+        if(req.body.orderStatus === "Delivered") {
+             updatedOrder = await Order.findOneAndUpdate(
+                { _id: id },
+                { $set: { orderStatus: req.body.orderStatus, orderDate: new Date().toLocaleDateString()} },
+                { new: true } 
+            );
+        }else{
+            updatedOrder = await Order.findOneAndUpdate(
+                { _id: id },
+                { $set: { orderStatus: req.body.orderStatus}},
+                { new: true } 
+            );
+        }
+        console.log(updatedOrder);
         if (updatedOrder) {
             res.json(updatedOrder);
         } else {

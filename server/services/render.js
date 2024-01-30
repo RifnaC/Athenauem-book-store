@@ -260,8 +260,6 @@ exports.userHome = async (req, res) => {
     try {
         console.log(req.user);
         const cartCount = await Cart.findOne({ userId: req.user.id });
-        
-        
         const search = req.query.searchQuery || "";
         const latestImages = await bannerCollection
             .find({})
@@ -290,11 +288,10 @@ exports.userHome = async (req, res) => {
         }
         if(cartCount !== null){
             const length =  cartCount.items.length;
-            const cartId = cartCount._id
-            
+            const cartId = cartCount._id;
             res.render('home', { images: latestImages, category: categories, product: products, count: count, length:length, cartId: cartId, availibility: availibility });
         }else{
-            res.render('home', { images: latestImages, category: categories, product: products, count: count, availibility: availibility });
+            res.render('home', { images: latestImages, category: categories, product: products,length:0, count: count, availibility: availibility });
         }
         
     } catch (err) {
