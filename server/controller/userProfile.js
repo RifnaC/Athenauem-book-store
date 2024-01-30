@@ -5,7 +5,10 @@ const Book = require('../models/products');
 
 exports.profile = async (req, res) => {
     const cartCount = await cart.findOne({ userId: req.user.id })
-    const length = cartCount.items.length
+    let length = 0;
+    if(cartCount !== null){
+        return length =  cartCount.items.length;
+    }
     const id = req.user.id;
     const user = await users.findById(id);
     const userAddress = user.addresses;
@@ -29,8 +32,12 @@ exports.updateProfile = async (req, res) => {
 exports.address = async (req, res) => {
     const id = req.user.id;
     const cartCount = await cart.findOne({ userId: req.user.id })
+    let length = 0;
+    if(cartCount !== null){
+        return length =  cartCount.items.length;
+    }
     const user = await users.findById(id);
-    res.render('address', { user, length: cartCount.items.length });
+    res.render('address', { user, length: length });
 }
 
 exports.addAddress = async (req, res) => {
@@ -58,10 +65,14 @@ exports.addAddress = async (req, res) => {
 exports.editAddress = async (req, res) => {
     const id = req.user.id;
     const cartCount = await cart.findOne({ userId: req.user.id })
+    let length = 0;
+    if(cartCount !== null){
+        return length =  cartCount.items.length;
+    }
     const addressId = req.query.id;
     const user = await users.findById(id);
     const userAddress = user.addresses.find(address => address._id == addressId);
-    res.render('addresses', { user, userAddress, length: cartCount.items.length });
+    res.render('addresses', { user, userAddress, length: length });
 }
 
 exports.updateAddress = async (req, res) => {
@@ -102,7 +113,10 @@ exports.myOrder = async (req, res) => {
     const id = req.user.id;
     const user = await users.findById(id);
     const cartCount = await cart.findOne({ userId: req.user.id })
-    const length = cartCount.items.length;
+    let length = 0;
+    if(cartCount !== null){
+        return length =  cartCount.items.length;
+    }
     const orders = await Order.find({ userId: id }).sort({ orderDate: -1 });
     const orderDatas = [];
     for (let order of orders) {
