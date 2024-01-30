@@ -100,31 +100,25 @@
         <!-- Navbar End -->
 
         <div class="container my-5">
-            <div class="row pt-3 ">
-                <h2 class="text-center text-primary">Order Details</h2>
-                <hr>
-            </div>
             <div class="row pt-3">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
                     <div class="card shadow-lg">
                         <div class="card-body text-center">
-                            <h4 class="card-title">User Info</h4>
-                            <h5 class="card-text text-muted">{{userDetails.name}}</h5>
-                            <h5 class="card-text text-muted">{{userDetails.email}}</h5>
-                            <h5 class="card-text text-muted">{{userDetails.phone}}</h5>
+                            <h4 class="text-dark">User Info</h4>
+                            <h6 class=" text-muted">{{users.name}}</h6>
+                            <h6 class="text-muted">{{users.email}}</h6>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 ">
                     <div class="card">
                         <div class="card-body shadow-lg">
-                            <h4 class="card-title text-center">Delivery Address</h4>
-
-                            {{!-- <h5 class="text-muted text-center"><span style="">{{addressDetails.name}},</span>
-                                {{addressDetails.address}},{{addressDetails.area}},{{addressDetails.city}},{{addressDetails.state}},{{addressDetails.pincode}}<br>Phone:
-                                <span style="">{{addressDetails.phone}}</span>
-                            </h5> --}}
-
+                            <h4 class="text-dark text-center">Delivery Address</h4>
+                            <h6 class="text-muted text-center">
+                                <span>{{address.fullName}},</span><br>
+                                {{address.address}},{{address.city}},{{address.district}},{{address.state}}-{{address.pincode}}<br>Phone:
+                                <span style="">{{address.phone}}</span>
+                            </h6>
                         </div>
                     </div>
                 </div>
@@ -133,43 +127,67 @@
                 <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 ">
                     <div class="card">
                         <div class="card-body shadow-lg">
-                            <h4 class="card-title text-center">Order Info</h4>
-                            {{!--
-                            <h5 class="text-dark ">{{orders._id}}</h5>
-                            <h5><span class="text-dark" style="font-size: 17px;">paymentMethod :
-                                </span>{{orders.paymentMethod}}</h5>
-                            <h5><span class="text-dark" style="font-size: 17px;">Grandtotal :
-                                </span>{{orders.grandtotal}}/-</h5>
-                            <h5 class=""><span class="text-dark" style="font-size: 17px;">orderStatus :
-                                </span>{{orders.orderStatus}}</h5>
-                            <p><span class="text-dark" style="font-size: 17px;">orderDate : </span> <span
-                                    style="font-size: 16px;" id="orderDatePlace"></span></p>
-                            <p><span class="text-dark" style="font-size: 17px;">DeliveryDate : </span> <span
-                                    style="font-size: 16px;" id="expiredate"></span></p> --}}
-
-                            </h5>
+                            <h4 class="text-dark text-center">Order Info</h4>
+                            <h6>
+                                <span class="text-light" style="font-size: 17px;">order Id : </span>{{order._id}}
+                            </h6>
+                            <h6>
+                                <span class="text-light" style="font-size: 17px;">payment Method : </span>{{order.paymentMethod}}
+                            </h6>
+                            <h6>
+                                <span class="text-light" style="font-size: 17px;">Total Amount : </span>&#8377 {{order.TotalAmt}}/-
+                            </h6>
+                            <div id="discountDisplay" style="display: none;">
+                                <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Coupon Code:
+                                    </span>{{order.couponCode:}}/-</h6>
+                                <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Discount Amout:
+                                    </span> &#8377 {{order.dicount}}/-</h6>
+                                <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Payable Amount :
+                                    </span>&#8377 {{order.payableTotal}}/-</h6>
+                            </div>
+                            <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Order Status :
+                                </span>{{order.orderStatus}}</h6>
+                            <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Order Date : </span>{{orderDate}}</h6>
+                            <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Delivery Date : </span>{{deliveryDate}}
                         </div>
+                        <script>
+                            if ({{ order.couponCode }} !== '') {
+                                document.getElementById('discountDisplay').style.display = 'block';
+                            }
+                        </script>
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 ">
                     <div class="card">
                         <div class="card-body shadow-lg">
-                            <h4 class="card-title text-center">Product Details</h4>
-                            {{!-- {{#each productDetails}}
-                            <h5><span class="text-dark" style="font-size: 17px;">Product Name :
-                                </span>{{this.productItem.name}}</h5>
-                            <h5><span class="text-dark" style="font-size: 17px;">Category :
-                                </span>{{this.productItem.category}}</h5>
-                            <h5 class=""><span class="text-dark" style="font-size: 17px;">Brand :
-                                </span>{{this.productItem.brand}}</h5>
-                            <h5 class=""><span class="text-dark" style="font-size: 17px;">Price :
-                                </span>{{this.productItem.price}} /-</h5>
-                            <h5 class=""><span class="text-dark" style="font-size: 17px;">Quantity :
-                                </span>{{this.quantity}}</h5>
-
+                            <h4 class="text-dark text-center">Product Details</h4>
+                            {{#each orderDatas}}
+                            <h6 class="text-muted">
+                                <span class="text-light" style="font-size: 17px;">Product Name :
+                                </span>{{this.itemDetails.bookName}}
+                            </h6>
+                            <h6 class="text-muted">
+                                <span class="text-light" style="font-size: 17px;">Genre :
+                                </span>{{this.itemDetails.genre}}
+                            </h6>
+                            <h6 class="text-muted">
+                                <span class="text-light" style="font-size: 17px;">Shop Id :
+                                </span>{{this.itemDetails.shopId}}
+                            </h6>
+                            <h6 class="text-muted">
+                                <span class="text-ligh" style="font-size: 17px;">Price :
+                                </span>&#8377 {{this.itemDetails.price}} /-
+                            </h6>
+                            <h6 class="text-muted">
+                                <span class="text-light" style="font-size: 17px;">Quantity :
+                                </span>{{this.quantity}}
+                            </h6>
+                            <h6 class="text-muted">
+                                <span class="text-light" style="font-size: 17px;">Sub Total :
+                                </span>&#8377 {{this.total}} /-
+                            </h6>
                             <hr>
-
-                            {{/each}} --}}
+                            {{/each}}
                         </div>
                     </div>
                 </div>
@@ -179,6 +197,7 @@
 
     </div>
     <!-- Content End -->
+    
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>

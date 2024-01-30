@@ -11,10 +11,10 @@ const productController = require('../controller/productViewController')
 
 // home page
 route.get('/home', services.home);
-route.get('/homes',auth.authMiddleware, services.userHome);
+route.get('/homes', auth.authMiddleware, services.userHome);
 
 // product view page
-route.get('/productView/:id',auth.authMiddleware,productController.productView);
+route.get('/productView/:id', auth.authMiddleware, productController.productView);
 route.get('/shop-page', auth.authMiddleware, productController.shopPage);
 route.post('/shop-page', auth.authMiddleware, productController.shopPageFilter);
 route.get('/category', auth.authMiddleware, productController.category);
@@ -22,15 +22,15 @@ route.get('/author', auth.authMiddleware, productController.author);
 route.get('/contact', productController.contact);
 
 // wishlist Routes
-route.get("/wishlist",auth.authMiddleware, wishlistController.wishlist);
-route.get("/wishlist/:id",auth.authMiddleware, wishlistController.addToWishlist);
+route.get("/wishlist", auth.authMiddleware, wishlistController.wishlist);
+route.get("/wishlist/:id", auth.authMiddleware, wishlistController.addToWishlist);
 route.put("/wishlists", auth.authMiddleware, wishlistController.deleteWishlistItem);
-route.put("/wishlist",auth.authMiddleware, wishlistController.addAllToCart);
+route.put("/wishlist", auth.authMiddleware, wishlistController.addAllToCart);
 route.put("/clearWishlist", auth.authMiddleware, wishlistController.clearWishlist);
 
 // cart Routes
 route.get("/cart", auth.authMiddleware, cart.cartView);
-route.get("/carts/:id",  auth.authMiddleware, cart.addToCart);
+route.get("/carts/:id", auth.authMiddleware, cart.addToCart);
 route.post("/carts", auth.authMiddleware, cart.updateCart);
 route.post("/changeInQuantity", cart.changeQuantity);
 route.post("/removeItem", cart.deleteCartItem);
