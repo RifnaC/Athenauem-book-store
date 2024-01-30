@@ -118,17 +118,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {{#each orders}}
+                  {{#each orderData}}
                   <tr>
-                    <td class="text-dark ">{{this._id}}</td>
-                    <td class="text-dark">{{orderData.user.name}}</td>
-                    <td class="text-dark">&#8377 {{this.payableTotal}}</td>
-                    <td class="text-dark">{{this.orderStatus}}</td>
-                    <td class="text-dark"> {{this.paymentMethod}}</td>
+                    <td class="text-dark ">{{this.order._id}}</td>
+                    <td class="text-dark">{{this.userName}}</td>
+                    <td class="text-dark">&#8377 {{this.order.payableTotal}}</td>
+                    <td class="text-dark">{{this.order.orderStatus}}</td>
+                    <td class="text-dark"> {{this.order.paymentMethod}}</td>
                     <td class="text-dark">{{this.orderDate}}</td>
                       <td class="text-dark">
-                          <a href="orders?id={{_id}}"><i class="bi bi-eye-fill"></i></a>
-                          <a href="orders?id={{_id}}" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
+                          <a href="orders?id={{this.order._id}}"><i class="bi bi-eye-fill"></i></a>
+                          <a href="orders?id={{this.order._id}}"><i class="bi bi-pencil-square ms-3"></i></a>
                       </td>
                     
                   </tr>
