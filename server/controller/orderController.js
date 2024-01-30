@@ -1,12 +1,25 @@
 const Order = require('../models/orderModel');
 const Book = require('../models/products');
+const User = require('../models/userModel');
+const Admin = require('../models/model');
 const user = require('../models/userModel');
-const Admin = require('../models/model')
 
 exports.allOrderDetails = async (req, res, next) => {
     const id = req.user.id;
     const admin = await Admin.findById(id);
     const name = admin.name.split(" ")[0];
-    const order = await Order.find({}).sort({orderDate:-1})
-    res.render('orders', {admin:name, orders: order})
+    const orders = await Order.find({}).sort({orderDate:-1})
+    let orderData = []
+    for(let order of orders){
+        const user = await User.findOne({_id: order.userId});
+        
+        for(let item of order.orderItems){
+            const itemDetails = await Book.findOne({_id:item.itemId})
+            const total = itemDetails.price * item.quantity
+            const quantity = item.quantity;
+            orderData.push({order,itemDetails,user,total, quantity})
+        }
+    }
+    console.log(orderData)
+    res.render('orders', {admin:name, orders: orders, orderData: orderData})
 }

@@ -49,7 +49,7 @@ const orderScheme = new mongoose.Schema({
     },
     orderDate:{
         type: Date,
-        default: new Date().toLocaleDateString(),
+        default: new Date().toLocaleDateString().slice(0,12),
     },
     deliveryDate :{
         type: Date,
@@ -57,7 +57,7 @@ const orderScheme = new mongoose.Schema({
         const orderDate = new Date(this.orderDate); 
         const deliveryDate = new Date(orderDate);
         deliveryDate.setDate(deliveryDate.getDate() + 5); 
-        return deliveryDate.toLocaleDateString();
+        return deliveryDate.toLocaleDateString().slice(0,12);
         }
     },
     cancelReason:{
