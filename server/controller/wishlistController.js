@@ -38,10 +38,6 @@ exports.addToWishlist = async(req, res) => {
 exports.wishlist = async(req, res) => {
     const userId = req.user.id; 
     const cartCount = await Cart.findOne({userId: req.user.id});
-    let length = 0;
-    if(cartCount !== null){
-        return length =  cartCount.items.length;
-    }
     const search = req.query.searchQuery || "";
     if(search !== ""){
         res.redirect('/shop-page')
@@ -79,7 +75,11 @@ exports.wishlist = async(req, res) => {
     if(wishlistItems.length === 0){
         emptyWishlist = true;
     }
-    res.render('wishlist', {wishlistItems, length: length, emptyWishlist: emptyWishlist});
+    if(cartCount !== null){
+        const length =  cartCount.items.length;
+        res.render('wishlist', {wishlistItems, length: length, emptyWishlist: emptyWishlist});
+    }
+    res.render('wishlist', {wishlistItems, length: 0, emptyWishlist: emptyWishlist});
 }
 
 // delete wishlist item

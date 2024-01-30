@@ -35,13 +35,7 @@ exports.productView = async (req, res) => {
 exports.shopPage = async (req, res, next) => {
   const cartCount = await cart.findOne({ userId: req.user.id });
   const category = await genre.find({});
-  let length = 0;
-  let cartId = null;
-  if(cartCount !== null){
-      length =  cartCount.items.length;
-      cartId = cartCount._id
-      return length, cartId;
-  }
+  
   const selectedGenre = req.query.genre;
   const selectedAuthor = req.query.author;
   const search = req.query.searchQuery || "";
@@ -98,7 +92,14 @@ exports.shopPage = async (req, res, next) => {
   if(books.stock === "Out Of Stock"){
     availibility = true;
   }
-  res.render('shop-page', { pages, currentPage: page, prev: prev, next: nxt, books: books, genre: category, length:length, cartId: cartId, authors: authors, availibility: availibility });
+  if(cartCount !== null){
+    const length =  cartCount.items.length;
+    const cartId = cartCount._id
+    res.render('shop-page', { pages, currentPage: page, prev: prev, next: nxt, books: books, genre: category, length:length, cartId: cartId, authors: authors, availibility: availibility });
+  }else{
+    res.render('shop-page', { pages, currentPage: page, prev: prev, next: nxt, books: books, genre: category, length:0, authors: authors, availibility: availibility });
+  }
+  
 }
 
 exports.shopPageFilter = async (req, res, next) => {
@@ -123,13 +124,6 @@ exports.shopPageFilter = async (req, res, next) => {
 exports.category = async (req, res, next) => {
   const search = req.query.searchQuery || "";
   const cartCount = await cart.findOne({ userId: req.user.id });
-  let length = 0;
-  let cartId = null;
-  if(cartCount !== null){
-      length =  cartCount.items.length;
-      cartId = cartCount._id
-      return length, cartId;
-  }
   const fiction = await product.find({
     genre: "Fiction", $or: [
       { bookName: { $regex: new RegExp(search, 'i') } },
@@ -172,19 +166,19 @@ exports.category = async (req, res, next) => {
       { genre: { $regex: new RegExp(search, 'i') } }
     ]
   });
-  res.render('categories', { fiction: fiction, biography: biography, novels: novels, horror: horror, science: science, selfhelp: selfhelp, length: length, cartId: cartId });
+  if(cartCount !== null){
+    const length =  cartCount.items.length;
+    const cartId = cartCount._id
+    res.render('categories', { fiction: fiction, biography: biography, novels: novels, horror: horror, science: science, selfhelp: selfhelp, length: length, cartId: cartId });
+  }else{
+    res.render('categories', { fiction: fiction, biography: biography, novels: novels, horror: horror, science: science, selfhelp: selfhelp, length: 0 });
+  }
+  
 }
 
 exports.author = async (req, res, next) => {
   const search = req.query.searchQuery || "";
   const cartCount = await cart.findOne({ userId: req.user.id });
-  let length = 0;
-  let cartId = null;
-  if(cartCount !== null){
-      length =  cartCount.items.length;
-      cartId = cartCount._id
-      return length, cartId;
-  }
   const Robert = await product.find({
     author: 'Robert T. Kiyosaki ', $or: [
       { bookName: { $regex: new RegExp(search, 'i') } },
@@ -206,7 +200,12 @@ exports.author = async (req, res, next) => {
       { genre: { $regex: new RegExp(search, 'i') } }
     ]
   });
-  res.render('author', { robert: Robert, jay: jay, james: james, length: length, cartId: cartId });
+  if(cartCount !== null){
+    const length =  cartCount.items.length;
+    const cartId = cartCount._id
+    res.render('author', { robert: Robert, jay: jay, james: james, length: length, cartId: cartId });
+  }
+  res.render('author', { robert: Robert, jay: jay, james: james, length: 0});
 }
 
 exports.contact = async (req, res, next) => {

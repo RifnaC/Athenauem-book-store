@@ -9,16 +9,15 @@ exports.allOrderDetails = async (req, res, next) => {
     const admin = await Admin.findById(id);
     const name = admin.name.split(" ")[0];
     const orders = await Order.find().sort({ orderDate: -1 }).exec();
-    
     let orderData = [];
     for(let order of orders){
         const user = await User.findOne({_id: order.userId});
         const userName = user.name.split(" ")[0];
         const dateObject = new Date(order.orderDate);
-        const orderDate = dateObject.toISOString().split('T')[0];
+        const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
         orderData.push({order,userName,orderDate})
     }
-    res.render('orders', {admin:name, orders: orders, orderData});
+    res.render('orders', {admin:name, orders: orders, orderData: orderData});
 }
 
 exports.orderDetails = async(req, res, next) => {
