@@ -54,13 +54,14 @@
             <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
           </div>
         </a>
-        <div class="navbar-nav w-100 d-flex ">
+        <div class="navbar-nav w-100 d-flex navbar-nav-scroll" id="navbar-nav-scroll">
           <div>
             <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
             <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
             <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
             <a href="products" class="nav-item nav-link" id="productSection"><i class="bi bi-book"></i>Products</a>
             <a href="category" class="nav-item nav-link"><i class="bi bi-book"></i>Category</a>
+            <a href="/report" class="nav-item nav-link"><i class="bi bi-bar-chart-line"></i>Report</a>
             <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
             <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
             <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
@@ -87,12 +88,12 @@
         </h6>
         <div class="nav-item dropdown">
           <a href="" class="dropdown-item">
-            <h3><i class="bi bi-person text-dark"></i></h3>        
+            <h3><i class="bi bi-person text-dark"></i></h3>
           </a>
         </div>
         <div class="mt-2 text-primary">
           <p class="">{{admin}}</p>
-        </div> 
+        </div>
       </div>
     </nav>
     <!-- Navbar End -->
@@ -101,9 +102,9 @@
       <div class="d-flex justify-content-between ">
         <h2 class="text-primary text-center ">{{shop.name}}</h2>
         {{!-- {{#if isVendor}} --}}
-          <div>
-            <a href="addProduct?id={{shop._id}}" class="btn btn-4 btn-outline-primary mx-2">add</a>
-          </div>
+        <div>
+          <a href="addProduct?id={{shop._id}}" class="btn btn-4 btn-outline-primary mx-2">add</a>
+        </div>
         {{!-- {{/if}} --}}
       </div>
       <div class="bg-secondary mb-5">
@@ -121,7 +122,7 @@
                     <th>Quantity</th>
                     <th>Availability</th>
                     {{!-- {{#if isVendor}} --}}
-                      <th>Action</th>
+                    <th>Action</th>
                     {{!-- {{/if}} --}}
                   </tr>
                 </thead>
@@ -135,13 +136,13 @@
                     <td class="text-dark">&#8377 {{this.price}}</td>
                     <td class="text-dark">{{this.quantity}}</td>
                     <td class="text-dark">{{this.stock}}</td>
-                      <td class="text-dark">
-                        {{!-- {{#if isVendor}} --}}
-                          <a href="editProduct?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
-                          <a class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
+                    <td class="text-dark">
+                      {{!-- {{#if isVendor}} --}}
+                      <a href="editProduct?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
+                      <a class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
                       {{!-- {{/if}} --}}
-                      </td>
-                    
+                    </td>
+
                   </tr>
                   {{/each}}
                 </tbody>
