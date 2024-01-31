@@ -24,7 +24,7 @@
   color: #130B0B;
 }
 
-.row  {
+.row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -90,7 +90,7 @@
 }
 
 .contact-form .input-box input,
-.contact-form .input-box textarea{
+.contact-form .input-box textarea {
   width: 100%;
   padding: 5px 0;
   font-size: 16px;
@@ -112,15 +112,14 @@
   color: #666;
 }
 
-.contact-form .input-box input:focus ~ span,
-.contact-form .input-box textarea:focus ~ span{
+.contact-form .input-box input:focus~span,
+.contact-form .input-box textarea:focus~span {
   color: #15877C;
   font-size: 12px;
   transform: translateY(-20px);
 }
 
-.contact-form .input-box input[type="submit"]
-{
+.contact-form .input-box input[type="submit"] {
   width: 100%;
   background: #15877C;
   color: #130B0B;
@@ -132,8 +131,7 @@
   transition: 0.5s;
 }
 
-.contact-form .input-box input[type="submit"]:hover
-{
+.contact-form .input-box input[type="submit"]:hover {
   background: #FFF;
   color: #15877C;
 }
@@ -143,16 +141,16 @@
     padding-top: 50px;
     padding-bottom: 50px;
   }
-  
+
   .row {
     flex-direction: column;
   }
-  
+
   .contact-info {
     margin-bottom: 40px;
     width: 100%;
   }
-  
+
   .contact-form {
     width: 100%;
   }
