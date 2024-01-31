@@ -2597,7 +2597,6 @@
   // Chart Global Color
   Chart.defaults.color = "#6C7293";
   Chart.defaults.borderColor = "#ffffffff";
-
   // Worldwide Sales Chart
   let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
   let myChart1 = new Chart(ctx1, {

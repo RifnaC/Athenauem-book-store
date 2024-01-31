@@ -3,16 +3,22 @@ $(document).ready(function () {
     Chart.defaults.color = "#15877C";
     Chart.defaults.borderColor = "#f0f0f0";
 
+    const dates = document.getElementById('dates').value;
+    const date = dates.split(",").map(Number);
+    const amounts = document.getElementById('amounts').value;
+    const price = amounts.split(",").map(Number);
+
     // Single Line Chart
     let ctx3 = $("#line-chart").get(0).getContext("2d");
     let myChart3 = new Chart(ctx3, {
         type: "line",
         data: {
-            labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,31],
+            labels: date,
             datasets: [{
+                label: "Amount Received",
                 fill: false,
                 backgroundColor: "#15877C",
-                data: [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15]
+                data:price,
             }]
         },
         options: {

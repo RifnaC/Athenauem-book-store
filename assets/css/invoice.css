@@ -1,6 +1,7 @@
-.padding{
+.padding {
     padding: 2rem !important;
 }
+
 .card {
     margin-bottom: 30px;
     border: none;
@@ -8,20 +9,24 @@
     -moz-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
     box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
 }
+
 .card-header {
     background-color: #fff;
     border-bottom: 1px solid #e6e6f2;
-}  
+}
+
 h3 {
     font-size: 20px;
 }
+
 h5 {
     font-size: 15px;
     line-height: 26px;
     color: #130B0B;
     margin: 0px 0px 15px 0px;
     font-family: 'Circular Std Medium';
-}  
+}
+
 .text-dark {
     color: #130B0B !important;
 }

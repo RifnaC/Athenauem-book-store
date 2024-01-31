@@ -86,7 +86,7 @@
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-center p-4">
                             <div class=" text-center">
                                 <h5 class="mb-2 text-primary">Total Orders</h5>
-                                <h6 class="mb-0">33</h6>
+                                <h6 class="mb-0">{{count}}</h6>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-center p-4">
                             <div class=" text-center">
                                 <h5 class="mb-2 text-primary">Delivered Orders</h5>
-                                <h6 class="mb-0">34</h6>
+                                <h6 class="mb-0">{{deliveredLength}}</h6>
                             </div>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-center p-4">
                             <div class=" text-center">
                                 <h5 class="mb-2 text-primary">Pending Orders</h5>
-                                <h6 class="mb-0">12</h6>
+                                <h6 class="mb-0">{{pendingLength}}</h6>
                             </div>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-center p-4">
                             <div class=" text-center">
                                 <h5 class="mb-2 text-primary">Cancelled Orders</h5>
-                                <h6 class="mb-0">2</h6>
+                                <h6 class="mb-0">{{cancelledLength}}</h6>
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,10 @@
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Daily Report</h6>
                             <canvas id="line-chart"></canvas>
-
+                            <div>
+                                <input type="hidden" id="dates" value="{{dates}}">
+                                <input type="hidden" id="amounts" value="{{amounts}}">
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-xl-6">

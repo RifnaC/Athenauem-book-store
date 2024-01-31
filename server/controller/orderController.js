@@ -81,7 +81,42 @@ exports.reportView = async(req, res, next) => {
     const id = req.user.id;
     const admin = await Admin.findById(id);
     const name = admin.name.split(" ")[0];
-    const orders = await Order.find().sort({ orderDate: -1 }).exec();
+    const orderLength = await Order.find().countDocuments();
+    const deliveredLength = await Order.find({orderStatus: "Delivered"}).countDocuments();
+    const pendingLength = await Order.find({orderStatus: "Pending"}).countDocuments();
+    const cancelledLength = await Order.find({orderStatus: "Canceled"}).countDocuments();
+
+    const dailyReport = await Order.aggregate([
+        {$group: {
+            _id: {
+                $dateToString: {
+                    format: "%d",
+                    date: "$orderDate"
+                }
+            },
+            totalAmount:{$sum:"$payableTotal"}
+        }},
+        {
+            $project:{
+                _id:0,
+                date:'$_id',
+                totalAmount:1,
+            }
+        },
+        {
+            $sort: { date: 1 }
+        }
+    ])
+    
+    const allDates = Array.from({ length: 31 }, (e, index) => (index + 1).toString());
+
+    // Initialize a new array with totalAmount set to 0 for each date
+    const dailyOrders = allDates.map(date => {
+        const entry = dailyReport.find(report => report.date === date);
+        return { totalAmount: entry ? entry.totalAmount : 0, date };
+    });
+    const dates = dailyOrders.map(date=>date.date);
+    const amounts = dailyOrders.map(date=>date.totalAmount);
     // let orderData = [];
     // for(let order of orders){
     //     const user = await User.findOne({_id: order.userId});
@@ -90,5 +125,5 @@ exports.reportView = async(req, res, next) => {
     //     const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
     //     orderData.push({order,userName,orderDate})
     // }
-    res.render('chart', {admin:name, orders: orders, });
+    res.render('chart', {admin:name, count : orderLength,deliveredLength: deliveredLength, pendingLength: pendingLength, cancelledLength: cancelledLength, dates: dates, amounts: amounts});
 }
