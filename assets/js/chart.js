@@ -15,7 +15,7 @@ $(document).ready(function () {
         data: {
             labels: date,
             datasets: [{
-                label: "Amount Received",
+                label: "Amount",
                 fill: false,
                 backgroundColor: "#15877C",
                 data:price,
@@ -26,21 +26,33 @@ $(document).ready(function () {
         }
     });
 
+
+    const count = document.getElementById('weekDates').value
+    const counts = count.split(",").map(Number);
+    if(counts.length !==7){
+        while(counts.length !==7){
+            counts.push(0);
+        }
+    }
     // Single Bar Chart
     const ctx4 = $("#bar-chart").get(0).getContext("2d");
     const myChart4 = new Chart(ctx4, {
         type: "bar",
         data: {
-            labels: ["Italy", "France", "Spain", "USA", "Argentina"],
+            labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"],
             datasets: [{
+                label: "Orders",
                 backgroundColor: [
                     "rgba(21, 135, 124, .7)",
                     "rgba(21, 135, 124, .6)",
-                    "rgba(21, 135, 124, .5)",
-                    "rgba(21, 135, 124, .4)",
-                    "rgba(21, 135, 124, .3)"
+                    "rgba(21, 135, 124, .7)",
+                    "rgba(21, 135, 124, .6)",
+                    "rgba(21, 135, 124, .7)",
+                    "rgba(21, 135, 124, .6)",
+                    "rgba(21, 135, 124, .7)",
+                    "rgba(21, 135, 124, .6)",
                 ],
-                data: [55, 49, 44, 24, 15]
+                data: counts
             }]
         },
         options: {
@@ -48,21 +60,31 @@ $(document).ready(function () {
         }
     });
 
+
+    const monthlyAmount = document.getElementById('monthlyReport').value;
+    const amount = monthlyAmount.split(",").map(Number);
      // Pie Chart
     const ctx5 = $("#pie-chart").get(0).getContext("2d");
     const myChart5 = new Chart(ctx5, {
         type: "pie",
         data: {
-            labels: ["Italy", "France", "Spain", "USA", "Argentina"],
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
             datasets: [{
                 backgroundColor: [
+                    "rgb(21, 135, 124)",
+                    "rgba(21, 135, 124, .9)",
                     "rgba(21, 135, 124, .7)",
-                    "rgba(21, 135, 124, .6)",
                     "rgba(21, 135, 124, .5)",
-                    "rgba(21, 135, 124, .4)",
-                    "rgba(21, 135, 124, .3)"
+                    "rgba(21, 135, 124, .3)",
+                    "rgba(21, 135, 124, .1)",
+                    "rgba(21, 135, 124, .9)",
+                    "rgba(21, 135, 124, .7)",
+                    "rgba(21, 135, 124, .5)",
+                    "rgba(21, 135, 124, .3)",
+                    "rgba(21, 135, 124, .1)",
+                    "rgba(21, 135, 123)",
                  ],
-                 data: [55, 49, 44, 24, 15]
+                 data: amount,
              }]
          },
          options: {
