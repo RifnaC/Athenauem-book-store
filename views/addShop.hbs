@@ -52,7 +52,7 @@
                         <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
                     </div>
                 </a>
-                <div class="navbar-nav w-100 d-flex ">
+                <div class="navbar-nav w-100 d-flex navbar-nav-scroll" id="navbar-nav-scroll">
                     <div>
                         <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
                         <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
@@ -60,6 +60,7 @@
                         <a href="products" class="nav-item nav-link" id="productSection"><i
                                 class="bi bi-book"></i>Products</a>
                         <a href="category" class="nav-item nav-link"><i class="bi bi-box"></i>Category</a>
+                        <a href="/report" class="nav-item nav-link"><i class="bi bi-bar-chart-line"></i>Report</a>
                         <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
                         <a href="admin" class="nav-item nav-link "><i class="bi bi-person"></i>Admin</a>
                         <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
@@ -110,10 +111,12 @@
                     </div>
                     <div class="row m-2">
                         <div class="input-group my-3">
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Enter the address of Shop"
-                                aria-label="Enter the address of Shop" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control" id="address" name="address"
+                                placeholder="Enter the address of Shop" aria-label="Enter the address of Shop"
+                                aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" onclick="getLocation()" type="button">Get location</button>
+                                <button class="btn btn-outline-secondary" onclick="getLocation()" type="button">Get
+                                    location</button>
                             </div>
                         </div>
                     </div>
@@ -121,15 +124,15 @@
                         <div class="form-group m-2 d-flex justify-content-between flex-wrap">
                             <div class="col">
                                 <label for="opens">Opening Time:</label>
-                                <input type="time"  id="OpenTime" name="openingTime" class="timeInput" value="">
+                                <input type="time" id="OpenTime" name="openingTime" class="timeInput" value="">
                             </div>
                             <div class="col ">
-                                <label  for="closes">Closing Time:</label>
+                                <label for="closes">Closing Time:</label>
                                 <input type="time" id="closeTime" name="closingTime" class="timeInput" value="">
                             </div>
                             <div class="col  mt-3 mt-lg-1">
                                 <input type="file" name="shopImg" id="shopImg" class="">
-                           </div>
+                            </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center mb-3">
