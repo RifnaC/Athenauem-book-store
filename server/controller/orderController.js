@@ -2,7 +2,6 @@ const Order = require('../models/orderModel');
 const Book = require('../models/products');
 const User = require('../models/userModel');
 const Admin = require('../models/model');
-const user = require('../models/userModel');
 
 exports.allOrderDetails = async (req, res, next) => {
     const id = req.user.id;
@@ -76,4 +75,20 @@ exports.editOrder = async (req, res, next) => {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
     }
+}
+
+exports.reportView = async(req, res, next) => {
+    const id = req.user.id;
+    const admin = await Admin.findById(id);
+    const name = admin.name.split(" ")[0];
+    const orders = await Order.find().sort({ orderDate: -1 }).exec();
+    // let orderData = [];
+    // for(let order of orders){
+    //     const user = await User.findOne({_id: order.userId});
+    //     const userName = user.name.split(" ")[0];
+    //     const dateObject = new Date(order.orderDate);
+    //     const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
+    //     orderData.push({order,userName,orderDate})
+    // }
+    res.render('chart', {admin:name, orders: orders, });
 }
