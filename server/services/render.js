@@ -5,10 +5,10 @@ const bannerCollection = require('../models/bannerModel');
 const categoryCollection = require('../models/categoryModel');
 const productCollection = require('../models/products');
 const shops = require('../models/shopModel');
-const user = require('../models/userModel');
+const User = require('../models/userModel');
 const Cart = require('../models/cartModel');
 const Coupon = require('../models/couponModel');
-
+const Order = require('../models/orderModel');
 
 // ***********************Admin Management********************************
 exports.homeRoutes = async (req, res) => {
@@ -18,7 +18,15 @@ exports.homeRoutes = async (req, res) => {
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
-    res.render('dashboard', { admin: name });
+    const userCount = await User.find().countDocuments();
+    const adminCount = await adminCollection.find().countDocuments();
+    const prdtsCount = await productCollection.find().countDocuments();
+    const genre = await categoryCollection.find().countDocuments();
+    const orders = await Order.find();
+    const offers = await Coupon.find().countDocuments();
+    const banners = await bannerCollection.find().countDocuments();
+    const totalRevenue = orders.filter(order => order.orderStatus === 'Delivered').reduce((acc, order) => acc + order.payableTotal, 0);
+    res.render('dashboard', { admin: name, userCount: userCount, adminCount: adminCount, prdtsCount: prdtsCount, totalRevenue: totalRevenue, genre: genre, totalOrders: orders.length, offers: offers, banners: banners});
 }
 
 exports.admin = async (req, res) => {

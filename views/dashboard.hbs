@@ -58,18 +58,19 @@
                     </div>
                 </a>
 
-                <div class="navbar-nav w-100  d-flex navbar-nav-scroll" id="navbar-nav-scroll" >
+                <div class="navbar-nav w-100  d-flex navbar-nav-scroll" id="navbar-nav-scroll">
                     <div>
                         <a href="dashboard" class="nav-item nav-link active"><i class="bi bi-stack"></i>Dashboard</a>
                         <a href="shop" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Shops</a>
-                       {{!-- {{#if isAdmin}} --}}
-                             <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-                              <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
-                       {{!-- {{/if}} --}}
-                        <a href="products" class="nav-item nav-link" id="productSection"><i class="bi bi-book"></i>Products</a>
+                        {{!-- {{#if isAdmin}} --}}
+                        <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
+                        <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
+                        {{!-- {{/if}} --}}
+                        <a href="products" class="nav-item nav-link" id="productSection"><i
+                                class="bi bi-book"></i>Products</a>
                         <a href="category" class="nav-item nav-link"><i class="bi bi-box"></i>Category</a>
                         <a href="/report" class="nav-item nav-link"><i class="bi bi-bar-chart-line"></i>Report</a>
-                        <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>           
+                        <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
                         <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
                         <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
                     </div>
@@ -101,6 +102,48 @@
             </nav>
             <!-- Navbar End -->
 
+ <!-- Sale & Revenue Start -->
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                                <i class="bi bi-person fa-3x text-primary"></i>
+                                <div class="ms-3 text-center">
+                                    <p class="mb-2">Total Users</p>
+                                    <h6 class="mb-0">{{userCount}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                                <i class="bi bi-person fa-3x text-primary"></i>
+                                <div class="ms-3 text-center">
+                                    <p class="mb-2">Total Admins</p>
+                                    <h6 class="mb-0">{{adminCount}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                                <i class="bi bi-bar-chart-line fa-3x text-primary"></i>
+                                <div class="ms-3 text-center">
+                                    <p class="mb-2">Total Products</p>
+                                    <h6 class="mb-0">{{prdtsCount}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                                <i class="bi bi-pie-chart-fill fa-3x text-primary"></i>
+                                <div class="ms-3 text-center">
+                                    <p class="mb-2">Total Revenue</p>
+                                    <h6 class="mb-0">&#8377 {{totalRevenue}}/-</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sale & Revenue End -->
             <!-- Sales Chart Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
@@ -118,27 +161,27 @@
                     </div>
                     <div class="col-12 col-xl-4">
                         <div class="bg-secondary rounded p-4">
-                            <h5 class="mb-0 text-primary">Customers</h5>
-                            <p class="fs-6">Information About Customers</p>
+                            <h5 class="mb-0 text-primary">Orders</h5>
+                            <p class="fs-6">Information About Orders</p>
                             {{!-- <canvas id="customerChart"></canvas> --}}
                             <div class="row">
                                 <div class="col">
                                     <canvas id="doughnut"></canvas>
-                                    <p class="mt-2 chart-text">Current Customers</p>
+                                    <p class="mt-2 chart-text">Total Orders</p>
                                 </div>
                                 <div class="col">
                                     <canvas id="doughnut2"></canvas>
-                                    <p class="mt-2 chart-text">New Customers</p>
+                                    <p class="mt-2 chart-text">Delivered Orders</p>
                                 </div>
                             </div>
                             <div class="row mt-4">
                                 <div class="col">
                                     <canvas id="doughnut3"></canvas>
-                                    <p class="mt-2 chart-text">Target Customers</p>
+                                    <p class="mt-2 chart-text">Pending Orders</p>
                                 </div>
                                 <div class="col">
                                     <canvas id="doughnut4"></canvas>
-                                    <p class="mt-2 chart-text">Retarget Customers</p>
+                                    <p class="mt-2 chart-text">Cancelled Orders</p>
                                 </div>
                             </div>
                         </div>
@@ -152,37 +195,37 @@
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="bi bi-person fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Total visit </p>
-                                <h6 class="mb-0">10.8M</h6>
+                            <i class="bi bi-box fa-3x text-primary"></i>
+                            <div class="ms-3 text-center">
+                                <p class="mb-2">Total Category</p>
+                                <h6 class="mb-0">{{genre}}</h6>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                             <i class="bi bi-cart3 fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Total Sales</p>
-                                <h6 class="mb-0">100,345</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="bi bi-bar-chart-line fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Product Sold</p>
-                                <h6 class="mb-0">200K</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="bi bi-pie-chart-fill fa-3x text-primary"></i>
-                            <div class="ms-3">
+                            <div class="ms-3 text-center">
                                 <p class="mb-2">Total Orders</p>
-                                <h6 class="mb-0">98,771</h6>
+                                <h6 class="mb-0">{{totalOrders}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="bi bi-percent fa-3x text-primary"></i>
+                            <div class="ms-3 text-center">
+                                <p class="mb-2">Total Offers</p>
+                                <h6 class="mb-0">{{offers}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="bi bi-card-image fa-3x text-primary"></i>
+                            <div class="ms-3 text-center">
+                                <p class="mb-2">Active Banners</p>
+                                <h6 class="mb-0">{{banners}}</h6>
                             </div>
                         </div>
                     </div>
