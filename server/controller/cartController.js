@@ -101,6 +101,7 @@ exports.cartView = async (req, res) => {
             }
         },
     ]);
+    
     cartItems.forEach(cartItem => {
         cartItem.totalPrice = cartItem.subTotal
     })

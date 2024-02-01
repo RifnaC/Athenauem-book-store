@@ -102,19 +102,22 @@
             </nav>
             <!-- Navbar End -->
 
- <!-- Sale & Revenue Start -->
-                <div class="container-fluid pt-4 px-4">
-                    <div class="row g-4">
-                        <div class="col-sm-6 col-xl-3">
+            <!-- Sale & Revenue Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-6 col-xl-3">
+                        <a href="user">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                                 <i class="bi bi-person fa-3x text-primary"></i>
                                 <div class="ms-3 text-center">
-                                    <p class="mb-2">Total Users</p>
+                                    <p class="mb-2">Total Customers</p>
                                     <h6 class="mb-0">{{userCount}}</h6>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-xl-3">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <a href="admin">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                                 <i class="bi bi-person fa-3x text-primary"></i>
                                 <div class="ms-3 text-center">
@@ -122,8 +125,10 @@
                                     <h6 class="mb-0">{{adminCount}}</h6>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-xl-3">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <a href="products">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                                 <i class="bi bi-bar-chart-line fa-3x text-primary"></i>
                                 <div class="ms-3 text-center">
@@ -131,19 +136,22 @@
                                     <h6 class="mb-0">{{prdtsCount}}</h6>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-xl-3">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <a href="/report">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                                <i class="bi bi-pie-chart-fill fa-3x text-primary"></i>
-                                <div class="ms-3 text-center">
-                                    <p class="mb-2">Total Revenue</p>
-                                    <h6 class="mb-0">&#8377 {{totalRevenue}}/-</h6>
-                                </div>
+                            <i class="bi bi-pie-chart-fill fa-3x text-primary"></i>
+                            <div class="ms-3 text-center">
+                                <p class="mb-2">Total Revenue</p>
+                                <h6 class="mb-0">&#8377 {{totalRevenue}}/-</h6>
                             </div>
                         </div>
+                        </a>
                     </div>
                 </div>
-                <!-- Sale & Revenue End -->
+            </div>
+            <!-- Sale & Revenue End -->
             <!-- Sales Chart Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
@@ -151,8 +159,8 @@
                         <div class="bg-secondary text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h5 class="mb-0 text-primary">Overview</h5>
-                                  <input type="hidden" name="amount" id="amounts" value="{{amounts}}">
-                                    <input type="hidden" name="total" id="totals" value="{{counts}}">
+                                <input type="hidden" name="amount" id="amounts" value="{{amounts}}">
+                                <input type="hidden" name="total" id="totals" value="{{counts}}">
                                 <div id="reportrange" class="date-range-report">
                                 </div>
                             </div>
@@ -167,24 +175,27 @@
                                 <div class="col">
                                     <canvas id="doughnut"></canvas>
                                     <p class="mt-2 chart-text">Total Orders</p>
-                                    <input type="hidden" name="totalOrders" id = "total-orders" value = "{{totalOrders}}">
+                                    <input type="hidden" name="totalOrders" id="total-orders" value="{{totalOrders}}">
                                 </div>
                                 <div class="col">
                                     <canvas id="doughnut2"></canvas>
                                     <p class="mt-2 chart-text">Delivered Orders</p>
-                                    <input type="hidden" name="deliveredOrders" id="deliveredOrders" value="{{deliveredOrders}}">
+                                    <input type="hidden" name="deliveredOrders" id="deliveredOrders"
+                                        value="{{deliveredOrders}}">
                                 </div>
                             </div>
                             <div class="row mt-4">
                                 <div class="col">
                                     <canvas id="doughnut3"></canvas>
                                     <p class="mt-2 chart-text">Pending Orders</p>
-                                    <input type="hidden" name="pendingOrders" id="pendingOrders" value="{{pendingOrders}}">
+                                    <input type="hidden" name="pendingOrders" id="pendingOrders"
+                                        value="{{pendingOrders}}">
                                 </div>
                                 <div class="col">
                                     <canvas id="doughnut4"></canvas>
                                     <p class="mt-2 chart-text">Cancelled Orders</p>
-                                    <input type="hidden" name="cancelledOrders" id="cancelledOrders" value="{{cancelledOrders}}">
+                                    <input type="hidden" name="cancelledOrders" id="cancelledOrders"
+                                        value="{{cancelledOrders}}">
                                 </div>
                             </div>
                         </div>
@@ -194,13 +205,16 @@
             <!-- Sales Chart End -->
 
             <!-- Sale & Revenue Start -->
-            <div class="container-fluid pt-4 px-4">        
+            <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-lg-12 col-xl-12">
                         <div class="card-body table-responsive p-1 mx-0 px-0 bg-secondary">
-                            <table class="table table-bordered card-table text-center caption-top m-3" style="width:95%">
-                                <caption> <h2 class="text-primaryLight">Latest Orders</h2></caption>
-                                
+                            <table class="table table-bordered card-table text-center caption-top m-3"
+                                style="width:95%">
+                                <caption>
+                                    <h2 class="text-primaryLight">Latest Orders</h2>
+                                </caption>
+
                                 <thead>
                                     <tr class="table-primary">
                                         <th>UserName</th>
@@ -220,7 +234,8 @@
                                         <td class="text-dark"> {{this.order.paymentMethod}}</td>
                                         <td class="text-dark">{{this.orderDate}}</td>
                                         <td class="text-dark">
-                                            <a href="orders?id={{this.order._id}}"><i class="bi bi-eye-fill text-secondary"></i></a>
+                                            <a href="orders?id={{this.order._id}}"><i
+                                                    class="bi bi-eye-fill text-secondary"></i></a>
                                         </td>
                                     </tr>
                                     {{/each}}
@@ -231,40 +246,48 @@
                 </div>
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                        <a href="category">
+                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                             <i class="bi bi-box fa-3x text-primary"></i>
                             <div class="ms-3 text-center">
                                 <p class="mb-2">Total Category</p>
                                 <h6 class="mb-0">{{genre}}</h6>
                             </div>
                         </div>
+                        </a>
                     </div>
                     <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                        <a href="order">
+                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                             <i class="bi bi-cart3 fa-3x text-primary"></i>
                             <div class="ms-3 text-center">
                                 <p class="mb-2">Total Orders</p>
-                                <h6 class="mb-0" >{{totalOrders}}</h6>
+                                <h6 class="mb-0">{{totalOrders}}</h6>
                             </div>
                         </div>
+                        </a>
                     </div>
                     <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                        <a href="offer">
+                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                             <i class="bi bi-percent fa-3x text-primary"></i>
                             <div class="ms-3 text-center">
                                 <p class="mb-2">Total Offers</p>
                                 <h6 class="mb-0">{{offers}}</h6>
                             </div>
                         </div>
+                        </a>
                     </div>
                     <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                        <a href="banner">
+                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                             <i class="bi bi-card-image fa-3x text-primary"></i>
                             <div class="ms-3 text-center">
                                 <p class="mb-2">Active Banners</p>
                                 <h6 class="mb-0">{{banners}}</h6>
                             </div>
                         </div>
+                        </a>
                     </div>
                 </div>
             </div>
