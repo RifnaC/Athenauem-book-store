@@ -2597,20 +2597,26 @@
   // Chart Global Color
   Chart.defaults.color = "#6C7293";
   Chart.defaults.borderColor = "#ffffffff";
-  // Worldwide Sales Chart
+
+  const count = document.getElementById('totals').value;
+  const counts = count.split(",").map(Number);
+  const amount = document.getElementById('amounts').value;
+  const amounts = amount.split(",").map(x => Number(x)/1000);
+ 
+  //overall order
   let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
   let myChart1 = new Chart(ctx1, {
     type: "bar",
     data: {
-      labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       datasets: [{
-        label: "Sales",
-        data: [2, 20, 35, 55, 50, 70, 75, 55, 20, 45, 45, 40, 60],
+        label: "Total",
+        data: counts,
         backgroundColor: "#CCEBD7"
       },
       {
-        label: "Target",
-        data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80],
+        label: "Amount",
+        data: amounts,
         backgroundColor: "#15877C"
       }]
     },

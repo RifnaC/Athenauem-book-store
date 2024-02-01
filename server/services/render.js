@@ -18,6 +18,7 @@ exports.homeRoutes = async (req, res) => {
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
+
     const userCount = await User.find().countDocuments();
     const adminCount = await adminCollection.find().countDocuments();
     const prdtsCount = await productCollection.find().countDocuments();
@@ -29,8 +30,61 @@ exports.homeRoutes = async (req, res) => {
     const deliveredOrders = orders.filter(order => order.orderStatus === 'Delivered');
     const pendingOrders = orders.filter(order => order.orderStatus !== 'Delivered' && order.orderStatus !== 'Cancelled');
     const cancelledOrders = orders.filter(order => order.orderStatus === 'Cancelled');
-    console.log(deliveredOrders.length, pendingOrders.length, cancelledOrders.length);
-    res.render('dashboard', { admin: name, userCount: userCount, adminCount: adminCount, prdtsCount: prdtsCount, totalRevenue: totalRevenue, genre: genre, totalOrders: orders.length, offers: offers, banners: banners, deliveredOrders: deliveredOrders.length, pendingOrders: pendingOrders.length, cancelledOrders: cancelledOrders.length });
+
+    const monthlyReport = await Order.aggregate([
+        {
+            $group: {
+                _id: {
+                    year: { $year: '$orderDate' },
+                    month: { $month: '$orderDate' }
+                },
+                amount: { $sum: '$payableTotal' },
+                count: { $sum: 1 },
+            }
+        }
+    ]);
+    const month = monthlyReport.map((months) => months._id.month);
+    const monthlyAmt = monthlyReport.map((amt) => amt.amount);
+    const monthlyCount = monthlyReport.map((count) => count.count);
+    const allMonths = Array.from({ length: 12 }, (_, index) => index + 1);
+
+    // Create a new array with zero amounts for months with no orders
+    const monthlyAmount = allMonths.map((m) => {
+        const index = month.indexOf(m);
+        return index !== -1 ? monthlyAmt[index] : 0;
+    });
+    const monthlyCounts = allMonths.map((m) => {
+        const index = month.indexOf(m);
+        return index !== -1 ? monthlyCount[index] : 0;
+    });
+
+    const totalOrders = await Order.find({}).limit(5).sort({ orderDate: -1 });
+    let orderData = [];
+    for (let order of totalOrders) {
+        const user = await User.findOne({ _id: order.userId });
+        const userName = user.name.split(" ")[0];
+        const dateObject = new Date(order.orderDate);
+        const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
+        orderData.push({ order, userName, orderDate })
+    }
+    
+    res.render('dashboard', {
+        admin: name,
+        userCount: userCount,
+        adminCount: adminCount,
+        prdtsCount: prdtsCount,
+        totalRevenue: totalRevenue,
+        genre: genre,
+        totalOrders: orders.length,
+        offers: offers,
+        banners: banners,
+        deliveredOrders: deliveredOrders.length,
+        pendingOrders: pendingOrders.length,
+        cancelledOrders: cancelledOrders.length,
+        amounts: monthlyAmount,
+        counts: monthlyCounts,
+        orderData: orderData,
+    });
 }
 
 exports.admin = async (req, res) => {
@@ -298,14 +352,14 @@ exports.userHome = async (req, res) => {
         if (products.stock === "Out Of Stock") {
             availibility = true;
         }
-        if(cartCount !== null){
-            const length =  cartCount.items.length;
+        if (cartCount !== null) {
+            const length = cartCount.items.length;
             const cartId = cartCount._id;
-            res.render('home', { images: latestImages, category: categories, product: products, count: count, length:length, cartId: cartId, availibility: availibility });
-        }else{
-            res.render('home', { images: latestImages, category: categories, product: products,length:0, count: count, availibility: availibility });
+            res.render('home', { images: latestImages, category: categories, product: products, count: count, length: length, cartId: cartId, availibility: availibility });
+        } else {
+            res.render('home', { images: latestImages, category: categories, product: products, length: 0, count: count, availibility: availibility });
         }
-        
+
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -336,8 +390,8 @@ exports.home = async (req, res) => {
         products.forEach(product => {
             product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
         });
-        
-        res.render('home', { images: latestImages, category: categories, product: products, count: count, length:0});
+
+        res.render('home', { images: latestImages, category: categories, product: products, count: count, length: 0 });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');

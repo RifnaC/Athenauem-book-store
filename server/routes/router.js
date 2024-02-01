@@ -83,7 +83,6 @@ route.get('/products',auth.authMiddleware, auth.isAdmin, services.product)
 // */
 route.get("/addProduct",auth.authMiddleware, auth.isVendor, services.add_product)
 
-
 // /** 
 //  * @description Edit product 
 //  * @method GET/
@@ -160,7 +159,7 @@ route.get('/orders', auth.authMiddleware, order.orderDetails);
 route.put('/order/:id', auth.authMiddleware, order.editOrder);
 
 // report Management
-route.get('/report', auth.authMiddleware, order.reportView)
+route.get('/report', auth.authMiddleware, order.reportView);
 // Error page
 route.get('/error', services.error);
 
