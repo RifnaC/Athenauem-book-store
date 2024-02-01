@@ -2602,10 +2602,10 @@
   let myChart1 = new Chart(ctx1, {
     type: "bar",
     data: {
-      labels: ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
       datasets: [{
         label: "Sales",
-        data: [0, 20, 35, 55, 50, 70, 75, 55, 20, 45, 45, 40, 60],
+        data: [2, 20, 35, 55, 50, 70, 75, 55, 20, 45, 45, 40, 60],
         backgroundColor: "#CCEBD7"
       },
       {
@@ -2642,10 +2642,10 @@
 
   cb(start, end);
 
-  // current customer chart
+  // Total order chart
   const currentData = {
     datasets: [{
-      data: [85, 15],
+      data: [100, 0],
       backgroundColor: [
         '#15877C',
         '#E2E2E2'
@@ -2683,13 +2683,13 @@
         }
       },
       centerText: {
-        text: '85%',
+        text: '100%',
         font: '16px Roboto',
         color: '#000'
       },
       borderWidth: 0,
       cutout: '80%',
-      rotation: 70
+      rotation: 0
     }, plugins: [centerTextPlugin],
   };
   const myChart = new Chart(
@@ -2698,10 +2698,13 @@
   );
 
 
-  // New customers chart
+  // Delivered order chart
+  const totalData = document.getElementById('total-orders').value;
+  const deliveredData = document.getElementById('deliveredOrders').value;
+  const deliveredOrders = Math.round((deliveredData*100)/totalData)
   const newData = {
     datasets: [{
-      data: [66, 34],
+      data: [deliveredOrders, 100 - deliveredOrders],
       backgroundColor: [
         '#0E5A6A',
         '#E2E2E2'
@@ -2739,13 +2742,13 @@
         }
       },
       centerText: {
-        text: '66%',
+        text: `${deliveredOrders}%`,
         font: '16px Roboto',
         color: '#000'
       },
       borderWidth: 0,
       cutout: '80%',
-      rotation: 70
+      rotation: 0
     }, plugins: [centerTextPlugin],
   };
   const newChart = new Chart(
@@ -2754,10 +2757,12 @@
   );
 
 
-  // target customers chart
+  // Pending Orders
+  const pendingOrders = document.getElementById('pendingOrders').value;
+  const pending = Math.round((pendingOrders*100)/totalData)
   const targetData = {
     datasets: [{
-      data: [90, 10],
+      data: [pending, 100 - pending],
       backgroundColor: [
         '#0E5A6A',
         '#E2E2E2'
@@ -2795,13 +2800,13 @@
         }
       },
       centerText: {
-        text: '90%',
+        text: `${pending}%`,
         font: '16px Roboto',
         color: '#000'
       },
       borderWidth: 0,
       cutout: '80%',
-      rotation: 70
+      rotation: 0
     }, plugins: [centerTextPlugin],
   };
   const targetChart = new Chart(
@@ -2809,10 +2814,12 @@
     target
   );
 
-  // Retarget customers chart
+  // Cancelled order chart
+  const cancelledData = document.getElementById('cancelledOrders').value;
+  const cancelled = Math.round((cancelledData*100)/totalData)
   const retargetData = {
     datasets: [{
-      data: [30, 70],
+      data: [cancelled, 100 - cancelled],
       backgroundColor: [
         '#6CCCC3',
         '#E2E2E2'
@@ -2850,13 +2857,13 @@
         }
       },
       centerText: {
-        text: '30%',
+        text: `${cancelled}%`,
         font: '16px Roboto',
         color: '#000'
       },
       borderWidth: 0,
       cutout: '80%',
-      rotation: 70
+      rotation: 0
     }, plugins: [centerTextPlugin],
   };
   const retargetChart = new Chart(
@@ -2864,23 +2871,7 @@
     Retarget
   );
 
-  // // Single Line Chart
-  // let ctx3 = $("#line-chart").get(0).getContext("2d");
-  // let myChart3 = new Chart(ctx3, {
-  //   type: "line",
-  //   data: {
-  //     labels: [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150],
-  //     datasets: [{
-  //       label: "Sales",
-  //       fill: false,
-  //       backgroundColor: "rgba(235, 22, 22, .7)",
-  //       data: [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15]
-  //     }]
-  //   },
-  //   options: {
-  //     responsive: true
-  //   }
-  // });
+
 
 
   // $("#cancelOrderForm").submit(function (event) {

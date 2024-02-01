@@ -2,28 +2,28 @@
 // cart quantity 
 function changeQty(cartId, productId, count, subTotal) {
     $.ajax({
-      url:'/changeInQuantity',
-      data:{
-        cartId: cartId,
-        productId: productId,
-        count: count,
-        subTotal: subTotal,
-      },
-      method: 'POST',
-      success: (data) => {
-        window.location.reload();
-      }
+        url: '/changeInQuantity',
+        data: {
+            cartId: cartId,
+            productId: productId,
+            count: count,
+            subTotal: subTotal,
+        },
+        method: 'POST',
+        success: (data) => {
+            window.location.reload();
+        }
     })
 }
-function addToCartAndShowAlert(productId){
+function addToCartAndShowAlert(productId) {
     Swal.fire({
-        position:'top-end',
-        text:'Successfully added to cart!',
+        position: 'top-end',
+        text: 'Successfully added to cart!',
         showConfirmButton: false,
         timer: 1000,
     }).then(() => {
-        const addToCartElement = document.getElementById('addToCart-'+ productId);
-        const qtyContainerElement = document.getElementById('qty-'+ productId);
+        const addToCartElement = document.getElementById('addToCart-' + productId);
+        const qtyContainerElement = document.getElementById('qty-' + productId);
 
         if (addToCartElement) {
             addToCartElement.style.display = 'none';
@@ -91,8 +91,8 @@ function removeItem(cartId, productId) {
         success: (data) => {
             if (data.success) {
                 Swal.fire({
-                    position:'top-end',
-                    text:'Item removed successfully!',
+                    position: 'top-end',
+                    text: 'Item removed successfully!',
                     showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
@@ -106,27 +106,27 @@ function removeItem(cartId, productId) {
 // remove item from the wishlist
 function removeWishlistItem(wishlistId, productId) {
     $.ajax({
-        url: '/wishlists',           
+        url: '/wishlists',
         data: {
             wishlistId: wishlistId,
             productId: productId,
         },
         method: 'PUT',
-        success: (data) => { 
+        success: (data) => {
             Swal.fire({
-                position:"top-end",
-                text:'Product removed successfully from wishlist!',
-                showConfirmButton:false,
-                timer:3000,
+                position: "top-end",
+                text: 'Product removed successfully from wishlist!',
+                showConfirmButton: false,
+                timer: 3000,
             }).then(() => {
                 window.location.reload();
-            });              
+            });
         }
     })
 }
 
 // remove all items from the wishlist
-function clearWishlist(){
+function clearWishlist() {
     $.ajax({
         url: '/clearWishlist',
         method: 'PUT',
@@ -149,7 +149,7 @@ function clearWishlist(){
                             confirmButtonColor: '#15877C',
                             text: 'Wishlist cleared Successfully',
                         }).then(() => {
-                            window.location.href= ''
+                            window.location.href = ''
                         });
                     });
                 } else {
@@ -165,8 +165,8 @@ function clearWishlist(){
         }
     })
 }
-   
-function addAllToCart(){
+
+function addAllToCart() {
     $.ajax({
         url: '/wishlist',
         method: 'PUT',
@@ -177,7 +177,7 @@ function addAllToCart(){
                 showConfirmButton: false,
                 timer: 3000,
             }).then(() => {
-                window.location.href= '/cart'
+                window.location.href = '/cart'
             });
         }
     })

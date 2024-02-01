@@ -26,7 +26,11 @@ exports.homeRoutes = async (req, res) => {
     const offers = await Coupon.find().countDocuments();
     const banners = await bannerCollection.find().countDocuments();
     const totalRevenue = orders.filter(order => order.orderStatus === 'Delivered').reduce((acc, order) => acc + order.payableTotal, 0);
-    res.render('dashboard', { admin: name, userCount: userCount, adminCount: adminCount, prdtsCount: prdtsCount, totalRevenue: totalRevenue, genre: genre, totalOrders: orders.length, offers: offers, banners: banners});
+    const deliveredOrders = orders.filter(order => order.orderStatus === 'Delivered');
+    const pendingOrders = orders.filter(order => order.orderStatus !== 'Delivered' && order.orderStatus !== 'Cancelled');
+    const cancelledOrders = orders.filter(order => order.orderStatus === 'Cancelled');
+    console.log(deliveredOrders.length, pendingOrders.length, cancelledOrders.length);
+    res.render('dashboard', { admin: name, userCount: userCount, adminCount: adminCount, prdtsCount: prdtsCount, totalRevenue: totalRevenue, genre: genre, totalOrders: orders.length, offers: offers, banners: banners, deliveredOrders: deliveredOrders.length, pendingOrders: pendingOrders.length, cancelledOrders: cancelledOrders.length });
 }
 
 exports.admin = async (req, res) => {
