@@ -2273,8 +2273,6 @@
   })
 
 
-
-
   $("#paymentSection").submit(async function (event) {
     event.preventDefault();
     const shippingId = $("#shippingId").val();
@@ -2333,37 +2331,35 @@
               }).then(function (result) {
                 window.location.href = '/invoice';
               });
+              const settings = {
+                "url": "/api/payment/verify",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "data": JSON.stringify({ response }),
+              };
             },
             "theme": {
               "color": "#15877C"
             },
             "modal": {
               "ondismiss": function () {
+                rzp.close();
                 Swal.fire({
                   icon: 'error',
                   title: 'Athenuam',
                   text: 'Payment Failed',
                   showConfirmButton: true,
-                  confirmButtonColor: '#FF0000',
-                });
+                  confirmButtonColor: '#13877C',
+                }).then(() => {
+                  window.reload();
+                })
               }
-            },
-            prefill: {
-              name: document.getElementById('savedName').value,
-              contact: document.getElementById('savedPhone').value,
             },
           };
           const rzp = new Razorpay(options);
-          rzp.on('payment.failed', function (response) {
-            rzp.close();
-            Swal.fire({
-              icon: 'error',
-              title: 'Athenuam',
-              text: 'Payment Failed',
-              showConfirmButton: true,
-              confirmButtonColor: '#FF0000',
-            });
-          });
           rzp.open();
         } else {
           console.error('Error creating order:', createOrderResponse.statusText);
@@ -2396,7 +2392,7 @@
         title: 'Athenuam',
         text: 'An unexpected error occurred',
         showConfirmButton: true,
-        confirmButtonColor: '#FF0000',
+        confirmButtonColor: '#15877C',
       });
     }
   });

@@ -68,6 +68,7 @@ exports.homeRoutes = async (req, res) => {
         orderData.push({ order, userName, orderDate })
     }
     
+
     res.render('dashboard', {
         admin: name,
         userCount: userCount,
@@ -353,9 +354,9 @@ exports.userHome = async (req, res) => {
             availibility = true;
         }
         if (cartCount !== null) {
-            const length = cartCount.items.length;
+            
             const cartId = cartCount._id;
-            res.render('home', { images: latestImages, category: categories, product: products, count: count, length: length, cartId: cartId, availibility: availibility });
+            res.render('home', { images: latestImages, category: categories, product: products, count: count, cartId: cartId, availibility: availibility });
         } else {
             res.render('home', { images: latestImages, category: categories, product: products, length: 0, count: count, availibility: availibility });
         }

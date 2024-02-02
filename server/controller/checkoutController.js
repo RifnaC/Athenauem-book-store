@@ -111,10 +111,6 @@ exports.changeAddress = async (req, res) => {
 }
 
 
-exports.payment = async (req, res) => {
-  res.render('checkout');
-}
-
 exports.proceedToPayment = async (req, res) => {
   const options = {
     amount: req.body.amount * 100,
@@ -130,7 +126,6 @@ exports.proceedToPayment = async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 };
-
 
 exports.getOrder = async (req, res) => {
   try {
@@ -225,6 +220,19 @@ exports.getOrder = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+exports.verifyPayment = (req,res) =>{
+  let body = req.body.response.razorpay_order_id + "|" + req.body.response.razorpay_payment_id;
+
+  const crypto = require('crypto');
+  const expectedSignature = crypto.createHmac('sha256',process.env.KEY_SECRET).update(body.toString()).digest('hex');
+
+  const response = {"signatureIsvalid":"false"}
+  if (expectedSignature === req.body.response.razorpay_signature)
+  response={"signatureIsvalid":"true"}
+  res.send(response);
+
+}
 
 exports.invoice = async (req, res) => {
   const id = req.user.id;

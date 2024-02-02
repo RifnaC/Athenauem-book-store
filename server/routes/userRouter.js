@@ -8,10 +8,11 @@ const userController = require('../controller/userController');
 const checkout = require('../controller/checkoutController');
 const wishlistController = require('../controller/wishlistController');
 const productController = require('../controller/productViewController')
+const cartQty = require('../middlewares/cartQuantity');
 
 // home page
 route.get('/home', services.home);
-route.get('/homes', auth.authMiddleware, services.userHome);
+route.get('/homes', auth.authMiddleware, cartQty.cartQty, services.userHome);
 
 // product view page
 route.get('/productView/:id', auth.authMiddleware, productController.productView);
@@ -28,7 +29,7 @@ route.put("/wishlists", auth.authMiddleware, wishlistController.deleteWishlistIt
 route.put("/wishlist", auth.authMiddleware, wishlistController.addAllToCart);
 route.put("/clearWishlist", auth.authMiddleware, wishlistController.clearWishlist);
 
-// cart Routes
+// cart api 
 route.get("/cart", auth.authMiddleware, cart.cartView);
 route.get("/carts/:id", auth.authMiddleware, cart.addToCart);
 route.post("/carts", auth.authMiddleware, cart.updateCart);
@@ -54,9 +55,10 @@ route.put('/order/:id', auth.authMiddleware, user.cancelOrder);
 // checkout Routes
 route.get("/checkout", auth.authMiddleware, checkout.checkout);
 route.put("/checkout/:id", auth.authMiddleware, checkout.changeAddress);
-route.get("/", checkout.payment);
+
 route.post("/createOrder", auth.authMiddleware, checkout.proceedToPayment);
 route.post("/api/checkout", auth.authMiddleware, checkout.getOrder);
+route.post("/api/payment/verify", auth.authMiddleware, checkout.verifyPayment);
 
 // invoice Routes
 route.get("/invoice", auth.authMiddleware, checkout.invoice);
