@@ -18,7 +18,7 @@ $(document).ready(function () {
                 label: "Amount",
                 fill: false,
                 backgroundColor: "#15877C",
-                data:price,
+                data: price,
             }]
         },
         options: {
@@ -29,8 +29,8 @@ $(document).ready(function () {
 
     const count = document.getElementById('weekDates').value
     const counts = count.split(",").map(Number);
-    if(counts.length !==7){
-        while(counts.length !==7){
+    if (counts.length !== 7) {
+        while (counts.length !== 7) {
             counts.push(0);
         }
     }
@@ -63,7 +63,7 @@ $(document).ready(function () {
 
     const monthlyAmount = document.getElementById('monthlyReport').value;
     const amount = monthlyAmount.split(",").map(Number);
-     // Pie Chart
+    // Pie Chart
     const ctx5 = $("#pie-chart").get(0).getContext("2d");
     const myChart5 = new Chart(ctx5, {
         type: "pie",
@@ -83,13 +83,13 @@ $(document).ready(function () {
                     "rgba(21, 135, 124, .3)",
                     "rgba(21, 135, 124, .1)",
                     "rgba(21, 135, 123)",
-                 ],
-                 data: amount,
-             }]
-         },
-         options: {
-             responsive: true
-         }
-     });
+                ],
+                data: amount,
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
 
 });
