@@ -18,8 +18,6 @@ const adminApp = express();
 const adminPort = process.env.ADMIN_PORT ;
 const userPort = process.env.USER_PORT;
 
-
-
 adminApp.use(session({
     secret: process.env.SESSION_KEY,
     resave: false,
