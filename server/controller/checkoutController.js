@@ -217,7 +217,7 @@ exports.getOrder = async (req, res) => {
       paymentStatus: paymentMethod=== "Online Payment" ? "Paid" : "Not Paid",
       paymentMethod: paymentMethod,
     });
-    const result = await order.save();
+    await order.save();
 
     res.redirect("/invoice");
   } catch (error) {

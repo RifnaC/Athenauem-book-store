@@ -2273,94 +2273,6 @@
   })
 
 
-  // $("#paymentSection").submit(function (event) {
-  //   const shippingId = $("#shippingId").val();
-  //   const paymentMethod = $("input[name='paymentMethod']:checked").val();
-  //   const couponCode = $("input[name='couponCode']").val();
-  //   const amount = Number(document.getElementById('total').innerText.split(" ")[1]);
-  //   if (paymentMethod === undefined) {
-  //     Swal.fire({
-  //       title: 'Athenuam',
-  //       text: 'Please select a payment method',      
-  //       showConfirmButton: true,
-  //       confirmButtonColor: '#15877C',
-  //     })
-  //     return false;
-  //   }
-  //   fetch('/api/checkout', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ 
-  //       shippingId: shippingId,
-  //       paymentMethod: paymentMethod,
-  //       couponCode: couponCode
-  //     }), 
-  //   });
-  //   if(paymentMethod === "Online Payment"){
-  //     let orderId;
-  //     $(document).ready(function () {
-  //       const settings = {
-  //         url: "/createOrder",
-  //         method: "POST",
-  //         contentType: "application/json",
-  //         dataType: "json",
-  //         data: JSON.stringify({
-  //           amount: amount * 100,
-  //         }),
-  //         success: function (response) {
-  //           orderId = response.orderId;
-  //           $("button").show();
-  //         },
-  //         error: function (xhr, status, error) {
-  //           console.error('Error creating order:', error);
-  //         }
-  //       };
-  //       $.ajax(settings);
-  //     });
-  //     const options = {
-  //       "key": "rzp_test_a2pY3SL0qqjGHN",
-  //       "amount": amount * 100,
-  //       "currency": "INR",
-  //       "name": "Atheneuam",
-  //       "description": "Test Transaction",
-  //       "image": "https://asset.cloudinary.com/dfyuibin9/7dfd4f365929133e3282794643564a88",
-  //       "handler": function (response) {
-  //         Swal.fire({
-  //           icon: 'success',
-  //           title: 'Athenuam',
-  //           text: 'New Order is Placed Successfully',      
-  //           showConfirmButton: true,
-  //           confirmButtonColor: '#15877C',
-  //         }).then(function (result) {
-  //           window.location.href = '/invoice';
-  //         })
-  //       },
-  //       "theme": {
-  //         "color": "#15877C"
-  //       }
-  //     };
-  //     const rzp = new Razorpay(options);
-  //     rzp.open();
-  //     event.preventDefault();
-
-  //     //creates new orderId es
-  //     s.ajax(settings).done(function (response) {
-  //       alert(JSON.stringify(response));
-  //     });
-  //   }
-  //   Swal.fire({
-  //     icon: 'success',
-  //     title: 'Athenuam',
-  //     text: 'New Order is Placed Successfully',      
-  //     showConfirmButton: true,
-  //     confirmButtonColor: '#15877C',
-  //   }).then(function (result) {
-  //     window.location.href = '/invoice';
-  //   })
-  // });
-
 
 
   $("#paymentSection").submit(async function (event) {
@@ -2379,95 +2291,104 @@
       });
       return false;
     }
-
     try {
-      const checkoutResponse = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          shippingId: shippingId,
-          paymentMethod: paymentMethod,
-          couponCode: couponCode
-        }),
-      });
-
-      if (checkoutResponse.ok) {
-        if (paymentMethod === "Online Payment") {
-          const createOrderResponse = await fetch("/createOrder", {
-            method: "POST",
-            headers: {
-              'Content-Type': 'application/json',
+      if (paymentMethod === "Online Payment") {
+        const createOrderResponse = await fetch("/createOrder", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            amount: amount * 100,
+          }),
+        });
+        if (createOrderResponse.ok) {
+          const responseJson = await createOrderResponse.json();
+          const orderId = responseJson.orderId;
+          const options = {
+            "key": "rzp_test_a2pY3SL0qqjGHN",
+            "amount": amount * 100,
+            "currency": "INR",
+            "name": "Atheneuam",
+            "description": "Test Transaction",
+            "image": "https://asset.cloudinary.com/dfyuibin9/7dfd4f365929133e3282794643564a88",
+            handler: async function (response) {
+              const checkoutResponse = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  shippingId: shippingId,
+                  paymentMethod: paymentMethod,
+                  couponCode: couponCode
+                }),
+              });
+              Swal.fire({
+                icon: 'success',
+                title: 'Athenuam',
+                text: 'New Order is Placed Successfully',
+                showConfirmButton: true,
+                confirmButtonColor: '#15877C',
+              }).then(function (result) {
+                window.location.href = '/invoice';
+              });
             },
-            body: JSON.stringify({
-              amount: amount * 100,
-            }),
-          });
-
-          if (createOrderResponse.ok) {
-            const responseJson = await createOrderResponse.json();
-            const orderId = responseJson.orderId;
-            const options = {
-              "key": "rzp_test_a2pY3SL0qqjGHN",
-              "amount": amount * 100,
-              "currency": "INR",
-              "name": "Atheneuam",
-              "description": "Test Transaction",
-              "image": "https://asset.cloudinary.com/dfyuibin9/7dfd4f365929133e3282794643564a88",
-              handler: function (response) {
+            "theme": {
+              "color": "#15877C"
+            },
+            "modal": {
+              "ondismiss": function () {
                 Swal.fire({
-                  icon: 'success',
+                  icon: 'error',
                   title: 'Athenuam',
-                  text: 'New Order is Placed Successfully',
+                  text: 'Payment Failed',
                   showConfirmButton: true,
-                  confirmButtonColor: '#15877C',
-                }).then(function (result) {
-                  window.location.href = '/invoice';
+                  confirmButtonColor: '#FF0000',
                 });
-              },
-              "theme": {
-                "color": "#15877C"
               }
-            };
-
-
-            const rzp = new Razorpay(options);
-
-
-            rzp.open();
-          } else {
-            console.error('Error creating order:', createOrderResponse.statusText);
+            },
+            prefill: {
+              name: document.getElementById('savedName').value,
+              contact: document.getElementById('savedPhone').value,
+            },
+          };
+          const rzp = new Razorpay(options);
+          rzp.on('payment.failed', function (response) {
+            rzp.close();
             Swal.fire({
               icon: 'error',
               title: 'Athenuam',
-              text: 'Error creating order',
+              text: 'Payment Failed',
               showConfirmButton: true,
               confirmButtonColor: '#FF0000',
             });
-          }
+          });
+          rzp.open();
         } else {
-          // For non-online payment methods
+          console.error('Error creating order:', createOrderResponse.statusText);
           Swal.fire({
-            icon: 'success',
+            icon: 'error',
             title: 'Athenuam',
-            text: 'New Order is Placed Successfully',
+            text: 'Error creating order',
             showConfirmButton: true,
-            confirmButtonColor: '#15877C',
-          }).then(function (result) {
-            window.location.href = '/invoice';
+            confirmButtonColor: '#FF0000',
           });
         }
       } else {
-        console.error('Error during checkout:', checkoutResponse.statusText);
+        // For non-online payment methods
         Swal.fire({
-          icon: 'error',
+          icon: 'success',
           title: 'Athenuam',
-          text: 'Error during checkout',
+          text: 'New Order is Placed Successfully',
           showConfirmButton: true,
-          confirmButtonColor: '#FF0000',
+          confirmButtonColor: '#15877C',
+        }).then(function (result) {
+          window.location.href = '/invoice';
         });
       }
+
+
     } catch (error) {
       console.error('An unexpected error occurred:', error);
       Swal.fire({
@@ -2601,8 +2522,8 @@
   const count = document.getElementById('totals').value;
   const counts = count.split(",").map(Number);
   const amount = document.getElementById('amounts').value;
-  const amounts = amount.split(",").map(x => Number(x)/1000);
- 
+  const amounts = amount.split(",").map(x => Number(x) / 1000);
+
   //overall order
   let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
   let myChart1 = new Chart(ctx1, {
@@ -2707,7 +2628,7 @@
   // Delivered order chart
   const totalData = document.getElementById('total-orders').value;
   const deliveredData = document.getElementById('deliveredOrders').value;
-  const deliveredOrders = Math.round((deliveredData*100)/totalData)
+  const deliveredOrders = Math.round((deliveredData * 100) / totalData)
   const newData = {
     datasets: [{
       data: [deliveredOrders, 100 - deliveredOrders],
@@ -2765,7 +2686,7 @@
 
   // Pending Orders
   const pendingOrders = document.getElementById('pendingOrders').value;
-  const pending = Math.round((pendingOrders*100)/totalData)
+  const pending = Math.round((pendingOrders * 100) / totalData)
   const targetData = {
     datasets: [{
       data: [pending, 100 - pending],
@@ -2822,7 +2743,7 @@
 
   // Cancelled order chart
   const cancelledData = document.getElementById('cancelledOrders').value;
-  const cancelled = Math.round((cancelledData*100)/totalData)
+  const cancelled = Math.round((cancelledData * 100) / totalData)
   const retargetData = {
     datasets: [{
       data: [cancelled, 100 - cancelled],
