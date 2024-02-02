@@ -20,11 +20,10 @@ exports.productView = async (req, res) => {
     const off = Math.floor((item.discount * 100) / item.originalPrice)
 
     if(cartCount !== null){
-      const length =  cartCount.items.length;
       const  cartId = cartCount._id
-      res.render('singleProductView', { item: item, off: off, shop: shop, genre: category, length:length, cartId: cartId });
+      res.render('singleProductView', { item: item, off: off, shop: shop, genre: category,  cartId: cartId });
     }else{
-      res.render('singleProductView', { item: item, off: off, shop: shop, genre: category, length:0});
+      res.render('singleProductView', { item: item, off: off, shop: shop, genre: category, });
     }
     
   } catch (err) {

@@ -27,6 +27,8 @@ module.exports = {
     "prettier/prettier": "error",
     "no-unused-vars": "error",
     "no-console": "off",
+    "semi": ["error", "always"],
+      "quotes": ["error", "double"]
   }
 
 }

@@ -354,11 +354,10 @@ exports.userHome = async (req, res) => {
             availibility = true;
         }
         if (cartCount !== null) {
-            
             const cartId = cartCount._id;
             res.render('home', { images: latestImages, category: categories, product: products, count: count, cartId: cartId, availibility: availibility });
         } else {
-            res.render('home', { images: latestImages, category: categories, product: products, length: 0, count: count, availibility: availibility });
+            res.render('home', { images: latestImages, category: categories, product: products, count: count, availibility: availibility });
         }
 
     } catch (err) {

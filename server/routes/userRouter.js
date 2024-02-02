@@ -9,13 +9,12 @@ const checkout = require('../controller/checkoutController');
 const wishlistController = require('../controller/wishlistController');
 const productController = require('../controller/productViewController')
 const cartQty = require('../middlewares/cartQuantity');
-
 // home page
 route.get('/home', services.home);
 route.get('/homes', auth.authMiddleware, cartQty.cartQty, services.userHome);
 
 // product view page
-route.get('/productView/:id', auth.authMiddleware, productController.productView);
+route.get('/productView/:id', auth.authMiddleware,cartQty.cartQty, productController.productView);
 route.get('/shop-page', auth.authMiddleware, productController.shopPage);
 route.post('/shop-page', auth.authMiddleware, productController.shopPageFilter);
 route.get('/category', auth.authMiddleware, productController.category);
