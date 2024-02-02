@@ -76,10 +76,9 @@ exports.wishlist = async(req, res) => {
         emptyWishlist = true;
     }
     if(cartCount !== null){
-        const length =  cartCount.items.length;
-        res.render('wishlist', {wishlistItems, length: length, emptyWishlist: emptyWishlist});
+        res.render('wishlist', {wishlistItems, emptyWishlist: emptyWishlist});
     }
-    res.render('wishlist', {wishlistItems, length: 0, emptyWishlist: emptyWishlist});
+    res.render('wishlist', {wishlistItems, emptyWishlist: emptyWishlist});
 }
 
 // delete wishlist item

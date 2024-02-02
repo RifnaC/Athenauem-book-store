@@ -14,15 +14,15 @@ route.get('/home', services.home);
 route.get('/homes', auth.authMiddleware, cartQty.cartQty, services.userHome);
 
 // product view page
-route.get('/productView/:id', auth.authMiddleware,cartQty.cartQty, productController.productView);
-route.get('/shop-page', auth.authMiddleware, productController.shopPage);
+route.get('/productView/:id', auth.authMiddleware, cartQty.cartQty, productController.productView);
+route.get('/shop-page', auth.authMiddleware, cartQty.cartQty, productController.shopPage);
 route.post('/shop-page', auth.authMiddleware, productController.shopPageFilter);
-route.get('/category', auth.authMiddleware, productController.category);
-route.get('/author', auth.authMiddleware, productController.author);
+route.get('/category', auth.authMiddleware, cartQty.cartQty, productController.category);
+route.get('/author', auth.authMiddleware, cartQty.cartQty, productController.author);
 route.get('/contact', productController.contact);
 
 // wishlist Routes
-route.get("/wishlist", auth.authMiddleware, wishlistController.wishlist);
+route.get("/wishlist", auth.authMiddleware, cartQty.cartQty, wishlistController.wishlist);
 route.get("/wishlist/:id", auth.authMiddleware, wishlistController.addToWishlist);
 route.put("/wishlists", auth.authMiddleware, wishlistController.deleteWishlistItem);
 route.put("/wishlist", auth.authMiddleware, wishlistController.addAllToCart);
@@ -36,25 +36,24 @@ route.post("/changeInQuantity", cart.changeQuantity);
 route.post("/removeItem", cart.deleteCartItem);
 
 // profile Routes
-route.get("/profile", auth.authMiddleware, user.profile);
+route.get("/profile", auth.authMiddleware, cartQty.cartQty, user.profile);
 route.put("/profiles/:id", auth.authMiddleware, user.updateProfile);
 
 // address Routes
-route.get("/address", auth.authMiddleware, user.address);
+route.get("/address", auth.authMiddleware, cartQty.cartQty, user.address);
 route.put("/address/:id", auth.authMiddleware, user.addAddress);
-route.get("/addresses", auth.authMiddleware, user.editAddress);
+route.get("/addresses", auth.authMiddleware, cartQty.cartQty, user.editAddress);
 route.put("/addresses/:id", auth.authMiddleware, user.updateAddress);
 route.put("/profile/:id", auth.authMiddleware, user.deleteAddress);
 
 // myOrder Routes
-route.get('/myOrder', auth.authMiddleware, user.myOrder);
-route.get('/order/:id', auth.authMiddleware, user.orderSummary);
+route.get('/myOrder', auth.authMiddleware, cartQty.cartQty, user.myOrder);
+route.get('/order/:id', auth.authMiddleware, cartQty.cartQty, user.orderSummary);
 route.put('/order/:id', auth.authMiddleware, user.cancelOrder);
 
 // checkout Routes
-route.get("/checkout", auth.authMiddleware, checkout.checkout);
+route.get("/checkout", auth.authMiddleware, cartQty.cartQty, checkout.checkout);
 route.put("/checkout/:id", auth.authMiddleware, checkout.changeAddress);
-
 route.post("/createOrder", auth.authMiddleware, checkout.proceedToPayment);
 route.post("/api/checkout", auth.authMiddleware, checkout.getOrder);
 route.post("/api/payment/verify", auth.authMiddleware, checkout.verifyPayment);
@@ -62,4 +61,4 @@ route.post("/api/payment/verify", auth.authMiddleware, checkout.verifyPayment);
 // invoice Routes
 route.get("/invoice", auth.authMiddleware, checkout.invoice);
 
-module.exports = route
+module.exports = route;
