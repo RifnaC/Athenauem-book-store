@@ -20,9 +20,7 @@ exports.addToCart = async(req, res) => {
                 items: [{ productId, quantity, subTotal}],
                 totalPrice: 0,
             });
-            await cart.save().then(()=>{
-                res.json(cart);
-            })
+            await cart.save()
         }else{
             const productExist = cart.items.findIndex(items => items.productId == productId);
             if(productExist !== -1){
@@ -34,9 +32,7 @@ exports.addToCart = async(req, res) => {
                 const updateCart = await Cart.findOneAndUpdate({ userId }, {
                     $push:{items: {productId: productId, quantity: quantity, subTotal: subTotal}},
                 })
-                await updateCart.save().then(()=>{
-                    res.redirect('/cart');
-                })
+                await updateCart.save()
             }
         }         
     } catch (error) {
@@ -45,8 +41,33 @@ exports.addToCart = async(req, res) => {
     }
 }
 
+
+exports.updateCart = async (req, res) => {
+    const cart = await Cart.findOne({userId: req.user.id});
+    const cartId = cart._id;
+    const productId = req.body.productId;
+    const count = Number(req.body.quantity);
+    const book = await Books.find({_id: productId});
+    const price = book[0].price;
+    const subTotal = price * count;
+    await Cart.findOneAndUpdate(
+        {_id: cartId,'items.productId':productId}, 
+        { $inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal},}
+    )
+    await Cart.updateMany(
+        { _id: new mongoose.Types.ObjectId(cartId) },
+        { $pull: { items: { quantity: { $lt: 1 } } } },
+    );
+
+    // Send a response back to the client
+    res.json({ success: true });
+}
 exports.cartView = async (req, res) => {
     const userId = req.user.id; 
+    const search = req.query.searchQuery || '';
+    if (search !== ""){
+        res.redirect('/shop-page');
+    }
     const cartItems = await Cart.aggregate([
         {
             $match: { 
@@ -80,12 +101,16 @@ exports.cartView = async (req, res) => {
             }
         },
     ]);
+    
     cartItems.forEach(cartItem => {
         cartItem.totalPrice = cartItem.subTotal
     })
     cartItems.totalPrice = cartItems.reduce((total, item) => total + item.subTotal, 0);
-    const count = cartItems.length;
-    res.render('cart', {cartItems});
+    let emptyCart = false;
+    if(cartItems.length === 0){
+        emptyCart = true;
+    }
+    res.render('cart', {cartItems, emptyCart});
 }
 
 exports.changeQuantity = async (req, res) => {

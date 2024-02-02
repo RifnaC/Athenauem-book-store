@@ -52,7 +52,7 @@
                         <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
                     </div>
                 </a>
-                <div class="navbar-nav w-100 d-flex ">
+                <div class="navbar-nav w-100 d-flex navbar-nav-scroll" id="navbar-nav-scroll">
                     <div>
                         <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
                         <a href="shop" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Shops</a>
@@ -60,6 +60,7 @@
                         <a href="products" class="nav-item nav-link" id="productSection"><i
                                 class="bi bi-book"></i>Products</a>
                         <a href="category" class="nav-item nav-link"><i class="bi bi-box"></i>Category</a>
+                        <a href="/report" class="nav-item nav-link"><i class="bi bi-bar-chart-line"></i>Report</a>
                         <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
                         <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
                         <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
@@ -110,30 +111,43 @@
                         <div class="my-2 col-lg-6">
                             <label for="shop">Shop</label>
                             <select class="form-select" aria-label="choose  a shop" name="shop">
-                                <option value="EC Books" selected>EC Books</option>
-                                <option value="DC Books">DC books</option>
+                                {{#each shop}}
+                                <option value="{{this.name}}">{{this.name}}</option>
+                                {{/each}}
                             </select>
                         </div>
                         <div class="form-group col-lg-6  my-2">
                             <label for="Click type">Click Type</label>
                             <select class="form-select" aria-label="choose click type" name="type" id="clickType">
-                                <option value="category" selected>Category</option>
+                                <option value="category">Category</option>
                                 <option value="product">Product</option>
                             </select>
                         </div>
                         <div class="form-group col-lg-6  my-2" id="bannerCategory">
                             <label for="Category ID">Category ID</label>
-                            <input type="text" class="form-control" id="categoryId" value="" name="categoryId"
-                                placeholder="Category ID">
+                            <select class="form-select" aria-label="choose category" name="categoryId" id="categoryId">
+                                {{#each genre}}
+                                <option value="{{this.genre}}" selected>{{this.genre}}</option>
+                                {{/each}}
+                            </select>
                         </div>
                         <div class="form-group col-lg-6  my-2" id="bannerProduct">
                             <label for="Product ID">Product ID</label>
-                            <input type="text" class="form-control" id="productId" value="" name="productId"
-                                placeholder="Product ID">
+                            <select class="form-select" aria-label="choose category" name="productId" id="productId">
+                                {{#each book}}
+                                <option value="{{this._id}}" selected>{{this._id}}</option>
+                                {{/each}}
+                            </select>
                         </div>
-                        <label for="image">Banner Image</label>
+
                         <div class="form-group col-lg-6  mb-3">
+                            <label for="image">Banner Image</label>
                             <input type="file" class="form-control" id="bannerImg" name="bannerImg">
+                        </div>
+                        <div class="form-group col-lg-6  mb-3">
+                            <label for="bannerDescription">Description</label>
+                            <input type="text" class="form-control" id="description" name="description"
+                                placeholder="Description">
                         </div>
                         <div class="d-flex justify-content-center my-3">
                             <a href="banner" class="btn btn-4 btn-outline-dark me-4">Cancel</a>

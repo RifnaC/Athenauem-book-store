@@ -81,14 +81,16 @@
                     <div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
                             <li class="nav-item homeNav">
-                                <div class="search-bar-container active nav-link">
-                                    <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
-                                        alt="magnifier" class="magnifier" />
-                                    <input type="text" class="input" placeholder="Search ..." />
-                                </div>
+                                <form autocomplete="off">
+                                    <div class="search-bar-container active">
+                                        <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
+                                            alt="magnifier" class="magnifier" />
+                                        <input  type="text" class="input" name="searchQuery" placeholder="Search ..." autocomplete="off">
+                                    </div>
+                                </form>
                             </li>
                             <li class="nav-item homeNav space">
-                                <a class="nav-link" href="cart">
+                                <a class="nav-link" href="/cart">
                                     <i class="bi bi-cart3"></i>
                                 </a>
 
@@ -123,49 +125,54 @@
                 </div>
                 <div class="row">
                     <div class="col-8">
-                        <div class="container">                        
-                                {{!-- <div class="cart-item bg-white mt-2 " id="shippingCard">
-                                    <div class="row m-2 mt-3 d-flex justify-content-between">
-                                        <h5 class="text-secondary mt-3">Shipping Address</h5>
+                        <div class="container">
+                            <div class="row" id="addressArea">
+                                <a href="/address" class="btn btn-outline-secondary my-3" id="checkoutAddBtn">Add new
+                                    Address</a>
+                                <div class="cart-item bg-white" id="updatedAddress">
+                                    <div class="row m-2 mt-3">
+                                        <h5 class="text-secondary">Delivery Address</h5>
                                         <div class="d-flex justify-content-between">
                                             <p>
-                                                <b>{{updatedAdr}}</b>
-                                                <span class="ps-1">{{name}}</span>
-                                                <span class="ps-1">{{address}}</span>
-                                                <span class="ps-1">{{district }}</span>
-                                                <span class="ps-1">{{state}}-{{pin}}</span>
+                                                <b id="savedName"></b>
+                                                <span id="savedId" class="ps-1 d-none"></span>
+                                                <span id="savedPhone" class="ps-1"></span>
+                                                <span id="savedAddress" class="ps-1"></span>
+                                                <span id="savedCity" class="ps-1"></span>
+                                                <span id="savedDistrict" class="ps-1"></span>
+                                                <span id="savedState" class="ps-1"> </span>
+                                                <span id="savedPin"></span>
                                             </p>
-                                            <a class="btn btn-outline-secondary mb-3">change</a>
+                                            <a class="btn btn-outline-secondary adrChange" id="changeBtn">change
+                                            </a>
                                         </div>
                                     </div>
-                                </div> --}}
-                            <div class="row" id="addressArea">
-                                <div class="cart-item bg-white" id="addressCard">
+                                </div>
+                                <div class="cart-item bg-white my-2" id="addressCard">
                                     {{#each address}}
                                     <div class="row m-2 mt-3">
                                         <h5 class="text-secondary">Delivery Address</h5>
                                         <div class="d-flex justify-content-between">
                                             <p>
-                                                <b>{{this.fullName}}</b>
+                                                <b id="savedName">{{this.fullName}}</b>
+                                                <span class="ps-1" id="savedPhone">{{this.phone}}</span>
                                                 <span class="ps-1">{{this.address}}</span>
                                                 <span class="ps-1">{{this.city}}</span>
                                                 <span class="ps-1">{{this.district}}</span>
-                                                <span class="ps-1">{{this.state}}-{{this.pincode}}</span>
+                                                <span class="ps-1">{{this.state}} - {{this.pincode}}</span>
                                             </p>
                                             <a class="btn btn-outline-secondary adrSelection"
-                                                data-address='{"fullName": "{{this.fullName}}", "phone": "{{this.phone}}", "address": "{{this.address}}", "city": "{{this.city}}", "district": "{{this.district}}", "state": "{{this.state}}", "pincode": "{{this.pincode}}", "_id":"{{this._id}}"}'>Select</a>
-                                                <a class="btn btn-outline-secondary adrChange">change</a>
+                                                data-address='{"fullName": "{{this.fullName}}", "phone": "{{this.phone}}", "address": "{{this.address}}", "city": "{{this.city}}", "district": "{{this.district}}", "state": "{{this.state}}", "pincode": "{{this.pincode}}", "_id":"{{this._id}}"}'>Select
+                                            </a>
                                         </div>
                                     </div>
                                     {{/each}}
                                 </div>
-
                                 <div id="editShipping">
                                     <p class="fs-5 text-primary ms-3">Shipping Address</p>
                                     <div class="col-12 ">
                                         <div class="border p-3">
                                             <form id="shippingAdr">
-
                                                 <div class="row">
                                                     <div class="d-flex flex-column form-group col-6">
                                                         <label for="name"> <i class="fa fa-user"></i><span
@@ -183,24 +190,24 @@
                                                 </div>
                                                 <div class="row  mt-2">
                                                     <div class="d-flex flex-column form-group col-6">
-                                                        <label for="adr"><i class="fa fa-address-card-o"></i> <span
-                                                                class="ps-2">Address</span></label>
+                                                        <label for="adr"><i class="fa fa-address-card-o"></i>
+                                                            <span class="ps-2">Address</span></label>
                                                         <input type="text" id="adr" name="address" class="form-control"
                                                             placeholder="Address" value="">
                                                     </div>
                                                     <div class="form-group col-6">
                                                         <label for="city"><i class="fa fa-institution"></i><span
                                                                 class="ps-2">City</span> </label>
-                                                        <input type="text" id="city" name="city" placeholder="New York"
+                                                        <input type="text" id="city" name="city" placeholder="City"
                                                             class="form-control" value="">
                                                     </div>
                                                 </div>
                                                 <div class="row  mt-2">
                                                     <div class="d-flex flex-column form-group col-6">
-                                                        <label for="districtRegion" class="labels">District/
+                                                        <label for="districtRegion" class="form-group ">District/
                                                             Region</label>
                                                         <input type="text" class="form-control" id="district"
-                                                            name="district" placeholder="district">
+                                                            name="district" placeholder="District">
                                                     </div>
                                                     <div class="d-flex flex-column form-group col-6">
                                                         <label for="state">State</label>
@@ -213,44 +220,51 @@
                                                         <label for="pincode">Pin Code</label>
                                                         <input type="text" id="pincode" name="pincode"
                                                             placeholder="Pin code" class="form-control" value="">
+
                                                     </div>
-                                                </div>
-                                                <div class="form-group mt-3">
-                                                    <a href="" class="btn btn-outline-secondary">Cancel</a>
-                                                    <button class="btn btn-primary">Save</button>
+                                                    <div class="d-flex flex-column form-group col-6 mt-4">
+                                                        <button class="btn btn-primary mt-3">Save and
+                                                            Proceed</button>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="paymentSection">
-                            <div class="container bg-white mt-3">
+                            <form id="paymentSection" class="paymentSection">
                                 <div>
-                                    <input class="form-check-input me-2" type="radio" id="COD" name="payementMethod"
-                                        value="cod" checked />
-                                    <label class="form-check-label payementRadioBtn" for="COD">Cash on Delivery</label>
+                                    <input type="hidden" name="couponCode" id="orderCoupon" value="{{CouponCode}}">
+                                    <div class="container bg-white mt-3">
+                                        <div>
+                                            <input class="form-check-input me-2 payementRadioBtn" type="radio" id="COD"
+                                                name="paymentMethod" value="COD" />
+                                            <label class="form-check-label payementMethodBtn" for="COD">Cash on
+                                                Delivery</label>
+                                        </div>
+                                    </div>
+                                    <div class="container bg-white mt-3">
+                                        <div>
+                                            <input class="form-check-input me-2 paymentMethodBtn" type="radio"
+                                                id="onlinePayment" name="paymentMethod"
+                                                value="Online Payment" />
+                                            <label class="form-check-label payementRadioBtn" for="onlinePayment">Online
+                                                Payment</label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="container bg-white mt-3">
-                                <div>
-                                    <input class="form-check-input me-2" type="radio" id="onlinePayment"
-                                        name="payementMethod" value="onlinePayment" />
-                                    <label class="form-check-label payementRadioBtn" for="onlinePayment">Online
-                                        Payment</label>
+                                <div class="d-flex justify-content-center col-12 py-3 ">
+                                    <button class="btn btn-outline-primary" id="orderBtn" type="submit" >Place
+                                        Order</button>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-center col-12 py-3">
-                            <button class="btn btn-outline-primary" type="submit">Place Order</button>
-                        </div>
+                            </form>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="container bg-white">
-                            <form id="couponBtn" class=" py-3">
-                                <div class="input-group mb-3">
+                           <div class="off">
+                             <form id="couponBtn" class=" py-3">
+                                <div class="couponSection input-group mb-3">
                                     <input type="text" class="form-control " placeholder="Coupon" aria-label="Coupon"
                                         aria-describedby="basic-addon2" id="coupon" name="couponCode">
                                     <div class="input-group-append">
@@ -258,6 +272,7 @@
                                     </div>
                                 </div>
                             </form>
+                           </div>
                             <div id="placeOrder">
                                 <div class="d-flex justify-content-between ">
                                     <h5 class="text-primary">Product Details</h5>
@@ -278,27 +293,16 @@
                                 <hr>
                                 <div class="d-flex justify-content-between ">
                                     <p class="text-dark">Total</p>
-                                    <p class="text-dark font-weight-bold">&#8377 {{mrp}}</p>
+                                    <p class="text-dark font-weight-bold" id="total">&#8377 {{mrp}}</p>
                                 </div>
-
-
                             </div>
                         </div>
-                       
-                        {{!-- <div class="container bg-white mt-3"> --}}
-                            {{!-- <div>
-                                <input class="form-check-input me-2" type="radio" id="cardPayement"
-                                    name="payementMethod" value="card payement" />
-                                <label class="form-check-label payementRadioBtn" for="card">Debit card/credit
-                                    card</label>
-                            </div> --}}
-                            {{!-- </div> --}}
-
                     </div>
                 </div>
 
             </div>
         </div>
+
     </main>
 
 
@@ -368,6 +372,7 @@
     <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/3b161c540c.js" crossorigin="anonymous"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>

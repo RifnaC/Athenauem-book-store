@@ -1,45 +1,82 @@
+
 // cart quantity 
 function changeQty(cartId, productId, count, subTotal) {
     $.ajax({
-      url:'/changeInQuantity',
-      data:{
-        cartId: cartId,
-        productId: productId,
-        count: count,
-        subTotal: subTotal,
-      },
-      method: 'POST',
-      success: (data) => {
-        window.location.reload();
-      }
-    })
-}
-function addToCart(){
-    $.ajax({
-        url: '/removeItem',
+        url: '/changeInQuantity',
         data: {
             cartId: cartId,
             productId: productId,
+            count: count,
+            subTotal: subTotal,
         },
         method: 'POST',
         success: (data) => {
-            if (data.success) {
-                Swal.fire({
-                    position:'top-end',
-                    text:'Item removed successfully!',
-                    showConfirmButton: false,
-                    timer: 1000,
-                }).then(() => {
-                    window.location.reload();
-                });
-            }
+            window.location.reload();
         }
     })
+}
+function addToCartAndShowAlert(productId) {
     Swal.fire({
-        icon:'success',
-        title:'Atheneuam',
-        text:'Item added to cart successfully!',
-        confirmButtonColor: '#15877C',
+        position: 'top-end',
+        text: 'Successfully added to cart!',
+        showConfirmButton: false,
+        timer: 1000,
+    }).then(() => {
+        const addToCartElement = document.getElementById('addToCart-' + productId);
+        const qtyContainerElement = document.getElementById('qty-' + productId);
+
+        if (addToCartElement) {
+            addToCartElement.style.display = 'none';
+        }
+        if (qtyContainerElement) {
+            qtyContainerElement.style.display = 'block ';
+            qtyContainerElement.style.setProperty('display', 'flex', 'important');
+        }
+        window.reload();
+    })
+}
+
+function incrementQuantity(productId) {
+    const quantityInput = document.querySelector(`#qty-${productId} input[name="qty"]`);
+    let currentQuantity = parseInt(quantityInput.value, 10);
+    currentQuantity++;
+    quantityInput.value = currentQuantity;
+
+    // You may also want to update the cart state on the server here
+    updateCart(productId, currentQuantity);
+}
+
+function decrementQuantity(productId) {
+    const quantityInput = document.querySelector(`#qty-${productId} input[name="qty"]`);
+    let currentQuantity = parseInt(quantityInput.value, 10);
+
+    // Ensure the quantity doesn't go below 1
+    if (currentQuantity > 1) {
+        currentQuantity--;
+        quantityInput.value = currentQuantity;
+
+        // You may also want to update the cart state on the server here
+        updateCart(productId, currentQuantity);
+    }
+}
+
+function updateCart(productId, quantity,) {
+    // Make an AJAX request to the server to update the cart
+    $.ajax({
+        type: 'POST',
+        url: '/carts',
+        data: {
+            productId: productId,
+            quantity: quantity,
+        },
+        success: function (response) {
+            console.log('Cart updated successfully');
+            // Handle success, if needed
+        },
+        error: function (error) {
+            console.error('Error updating cart:', error);
+            // Handle error, if needed
+        }
     });
 }
 // Function to change cart quantity
@@ -54,8 +91,8 @@ function removeItem(cartId, productId) {
         success: (data) => {
             if (data.success) {
                 Swal.fire({
-                    position:'top-end',
-                    text:'Item removed successfully!',
+                    position: 'top-end',
+                    text: 'Item removed successfully!',
                     showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
@@ -69,27 +106,27 @@ function removeItem(cartId, productId) {
 // remove item from the wishlist
 function removeWishlistItem(wishlistId, productId) {
     $.ajax({
-        url: '/wishlists',           
+        url: '/wishlists',
         data: {
             wishlistId: wishlistId,
             productId: productId,
         },
         method: 'PUT',
-        success: (data) => { 
+        success: (data) => {
             Swal.fire({
-                position:"top-end",
-                text:'Product removed successfully from wishlist!',
-                showConfirmButton:false,
-                timer:3000,
+                position: "top-end",
+                text: 'Product removed successfully from wishlist!',
+                showConfirmButton: false,
+                timer: 3000,
             }).then(() => {
                 window.location.reload();
-            });              
+            });
         }
     })
 }
 
 // remove all items from the wishlist
-function clearWishlist(){
+function clearWishlist() {
     $.ajax({
         url: '/clearWishlist',
         method: 'PUT',
@@ -112,7 +149,7 @@ function clearWishlist(){
                             confirmButtonColor: '#15877C',
                             text: 'Wishlist cleared Successfully',
                         }).then(() => {
-                            window.location.href= ''
+                            window.location.href = ''
                         });
                     });
                 } else {
@@ -128,8 +165,8 @@ function clearWishlist(){
         }
     })
 }
-   
-function addAllToCart(){
+
+function addAllToCart() {
     $.ajax({
         url: '/wishlist',
         method: 'PUT',
@@ -140,17 +177,9 @@ function addAllToCart(){
                 showConfirmButton: false,
                 timer: 3000,
             }).then(() => {
-                window.location.href= '/cart'
+                window.location.href = '/cart'
             });
         }
     })
 }
 
-// const changeAdr = document.getElementById('changeAdress');
-// const adr = document.getElementById('editShipping');
-// const cardAdr = document.getElementById('cardAdress');
-
-// changeAdr.onclick = () => {
-//     adr.style.display = 'block';
-//     cardAdr.style.display = 'none';
-// }

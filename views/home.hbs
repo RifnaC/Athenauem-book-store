@@ -30,6 +30,7 @@
 
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/cart.css" rel="stylesheet">
 </head>
 
 <body>
@@ -41,12 +42,11 @@
         </div>
     </div>
     <!-- Spinner End -->
-
     <!-- Header Start -->
     <Header class="container-fluid m-0 p-0">
         <nav class="navbar navbar-expand-lg bg-secondary fixed-top">
             <div class="container-fluid mx-lg-5">
-                <a class="navbar-brand " href="home">
+                <a class="navbar-brand " href="/home">
                     <div class="d-flex justify-content-between me-5 pe-5">
                         <img src="/img/book collection 0.png" alt="logo"
                             style="width: 40px; height: 40px; border-radius: 50%;">
@@ -62,39 +62,41 @@
                     <div class="mx-lg-5 px-lg-5">
                         <ul class="navbar-nav mx-lg-5 me-auto mb-2 mb-lg-0 home-nav ">
                             <li class="nav-item ">
-                                <a class="nav-link active" aria-current="page" href="home">Home</a>
+                                <a class="nav-link active" aria-current="page" href="/home">Home</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="shop-page">Shop</a>
+                                <a class="nav-link" href="/shop-page">Shop</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="category">Category</a>
+                                <a class="nav-link" href="/category">Category</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="author">Author</a>
+                                <a class="nav-link" href="/author">Author</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="contact">Contact</a>
+                                <a class="nav-link" href="/contact">Contact</a>
                             </li>
                         </ul>
                     </div>
                     <div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
                             <li>
-                                <div class="search-bar-container active" >
-                                    <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
-                                        alt="magnifier" class="magnifier" />
-                                    <input type="text" class="input" placeholder="Search ..." />
-                                </div>
+                                <form autocomplete="off">
+                                    <div class="search-bar-container active">
+                                        <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
+                                            alt="magnifier" class="magnifier" />
+                                        <input type="text" class="input" name="searchQuery" placeholder="Search ..."
+                                            autocomplete="off">
+                                    </div>
+                                </form>
                             </li>
                             <li class="nav-item homeNav space ">
                                 <a class="nav-link" href="/cart">
-                                    <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{count}}</sup>
+                                    <i class="bi bi-cart3"></i><sup class="total-count">{{length}}</sup>
                                 </a>
-
                             </li>
                             <li class="nav-item homeNav space ">
-                                <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
+                                <a class="nav-link" href="/wishlist"><i class="bi bi-heart"></i></a>
                             </li>
                             <li class="nav-item homeNav space ">
                                 <div class="nav-item dropdown">
@@ -104,7 +106,7 @@
                                     </a>
                                     <div
                                         class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                                        <a href="profile" class="dropdown-item">My Profile</a>
+                                        <a href="/profile" class="dropdown-item">My Profile</a>
                                         <a href="/logout" class="dropdown-item">Log Out</a>
                                     </div>
                                 </div>
@@ -112,38 +114,40 @@
                         </ul>
                     </div>
                 </div>
-
-
             </div>
         </nav>
     </Header>
     <!-- Header End -->
-
     <!-- Banner Section Start -->
     <section>
-        <div class="container-fluid position-relative d-flex p-0">
-            <div class="bgImg">
+        <div class="container-fluid position-relative d-flex p-0 mt-5">
+            <div class="bgImg row">
                 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         {{#each images}}
                         <div class="carousel-item {{#if @first}}active{{/if}}">
+                            <div class="bannerText">
+                                <h1 class="position-absolute m-5 py-5 bannerHeading text-uppercase">{{this.name}}</h1>
+                                <p class="position-absolute m-5 bannerDescription">{{this.description}}</p>
+                                <button class="banner-button twenty-one py-1 mx-5 my-5" type="button" id="shopNow"
+                                    onclick="return bannerShopNow( '{{this.type}}','{{this.productId}}','{{this.categoryId}}')">
+                                    <span class="mx-2 my-5">Shop Now</span>
+                                </button>
+                            </div>
                             <img src="{{this.bannerImg}}" alt="{{this.name}}">
                         </div>
                         {{/each}}
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="prev">
+                        data-bs-slide="prev" id="banner-prev" style="background: none;">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="next">
+                        data-bs-slide="next" style="background: none;">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
-                    <button class="carousel-control twenty-one py-1 mx-5 my-5 " type="button" id="shopNow"><span
-                            class="mx-2 my-5">Shop
-                            Now</span></button>
                 </div>
             </div>
         </div>
@@ -154,6 +158,7 @@
     <section class="mx-lg-4">
         <div class="m-5">
             <h1 class="text-primary">Featured Category</h1>
+            {{#if count}}
             <div class="slider">
                 <div id="slide-left-container">
                     <div class="slide-left">
@@ -164,22 +169,26 @@
                     </div>
                 </div>
             </div>
+            {{/if}}
         </div>
         <div class="container mx-4 cardContainer">
             <div id="cards-container">
                 <div class="cards row">
                     {{#each category}}
-                    <div class="cardCat col-5">
+                    <a href="/category?genre={{this.genre}}" class="cardCat col-5">
                         <img src="{{this.categoryImg}}" alt="{{this.genre}} icon">
                         <div class="containerCard ">
                             <h4><b>{{this.genre}}</b></h4>
                         </div>
-                    </div>
+
+                    </a>
                     {{/each}}
                 </div>
             </div>
+            {{#if count}}
             <a id="exploreMoreBtn" class="load-more">Explore More <i class="bi bi-arrow-right"></i></a>
             <a id="exploreLessBtn" class="load-less">Explore Less </a>
+            {{/if}}
         </div>
     </section>
     <!-- Category Section End -->
@@ -193,22 +202,17 @@
             <div class="row me-5 pe-4">
                 {{#each product}}
                 <div class="col col-lg-2 productCard m-3 mb-5">
-                    <img src="{{this.productImg}}" alt="{{this.bookName}}" class="card-img">
+                    <div class="discount">
+                        <div class="discount-text ">
+                            <span>{{this.offerPercentage}} %</span>
+                        </div>
+                    </div>
+                    <a href="/productView/{{this._id}}">
+                        <img src="{{this.productImg}}" alt="{{this.bookName}}" class="card-img">
+                    </a>
                     <div class="card-info">
                         <p class="text-title text-center mb-0">{{this.bookName}} </p>
                         <p class="text-center mb-0">By {{this.author}}</p>
-                        <div class="d-flex justify-content-center m-0">
-                            <div class="review-star me-1 ">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-half"></i>
-                                <i class="bi bi-star"></i>
-
-                            </div>
-                            <span class="review-count">(13)</span>
-                        </div>
-
                         <div class="old-price text-center">
                             &#8377 {{this.originalPrice}}
                         </div>
@@ -216,76 +220,49 @@
                             &#8377 {{this.price}}
                         </div>
                     </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <a onclick="return addToCart()" href="/carts/{{this._id}}" >
-                            <div class="card-button">
+                    <div class="d-flex justify-content-between mt-3">
+                        <div class="bg-danger text-center text-white my-2 py-1" id="outOfStock-{{this._id}}" style="display: none; width: 400px">
+                            {{this.stock}}
+                        </div>
+                        <a href="/carts/{{this._id}}" onclick='return addToCartAndShowAlert("{{this._id}}")'>
+                            <div class="card-button" id="addToCart-{{this._id}}">
                                 <b>Add to Cart</b>
                             </div>
                         </a>
-                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link">
-                             <div class="icon-wishlist"></div>
+                        <script>
+                            if ({{ this.quantity }} == 0 || "{{this.stock}}" == "Out Of Stock") {
+                                document.getElementById(`outOfStock-{{this._id}}`).style.display = 'block';
+                                document.getElementById("addToCart-{{this._id}}").style.display = 'none';
+                            }
+                        </script>
+                        <div class="qty-container text-dark home-qty" id="qty-{{this._id}}">
+                            <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
+                                onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
+                            </button>
+                            <input type="text" name="qty" value="1" class=" text-center w-100" readonly />
+                            <button class="qty-btn-plus btn-primary" type="button"
+                                onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link ms-4">
+                            <div class="icon-wishlist"></div>
                         </a>
                     </div>
                 </div>
                 {{/each}}
-            </div>
-        </div>
-
-    </section>
-    <!-- product Section End -->
-
-    <!-- Author Section Start -->
-    <section class="mx-lg-4">
-        <div class="testim">
-            <div class="container-fluid">
-                <h2 class="text-primary">Testimonial</h2>
-                <div class="testim-content my-5 mx-0  row">
-
-                    <div class="testim-box col col-lg-3  ms-0">
-                        <div class="testim-box-content">
-                            <img src="https://i.postimg.cc/rpRQv1sc/3.jpg" alt="">
-                            <h3>Mahmoud Mohamed</h3>
-                            <p>FrontEnd Developer</p>
-                        </div>
-                        <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae iure non
-                            reiciendis
-                            reprehenderit? Dicta eaque illo ut beatae alias quod, distinctio ad, asperiores vitae culpa
-                            qui nisi rerum debitis modi.</p>
-
-                    </div>
-                    <div class="testim-box col col-lg-3">
-                        <div class="testim-box-content">
-                            <img src="https://i.postimg.cc/rpRQv1sc/3.jpg" alt="">
-                            <h3>Mahmoud Mohamed</h3>
-                            <p>FrontEnd Developer</p>
-                        </div>
-                        <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae iure non
-                            reiciendis
-                            reprehenderit? Dicta eaque illo ut beatae alias quod, distinctio ad, asperiores vitae culpa
-                            qui nisi rerum debitis modi.</p>
-
-                    </div>
-                    <div class="testim-box col col-lg-3">
-                        <div class="testim-box-content">
-                            <img src="https://i.postimg.cc/rpRQv1sc/3.jpg" alt="">
-                            <h3>Mahmoud Mohamed</h3>
-                            <p>FrontEnd Developer</p>
-                        </div>
-                        <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae iure non
-                            reiciendis
-                            reprehenderit? Dicta eaque illo ut beatae alias quod, distinctio ad, asperiores vitae culpa
-                            qui nisi rerum debitis modi.</p>
-
-                    </div>
-
+                <div class="d-flex justify-content-center">
+                    <a href="/shop-page" class="fs-4 fw-bold me-5 pe-5">Explore More <i
+                            class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Author Section End -->
+    <!-- product Section End -->
+
+
     <footer class="footer pt-5 ">
         <div class="container row mx-5 ">
-            <a class="my-2" href="home">
+            <a class="my-2" href="/home">
                 <div class="d-flex me-5 pe-5">
                     <img src="/img/book collection 0.png" alt="logo"
                         style="width: 40px; height: 40px; border-radius: 50%;">
@@ -306,19 +283,19 @@
             <div class="footer-col pe-5">
                 <h4>Information</h4>
                 <ul>
-                    <li><a href="#">Shop</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">privacy policy</a></li>
-                    <li><a href="#">Blogs</a></li>
+                    <li><a href="/shop">Shop</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/category">Category</a></li>
+                    <li><a href="/author">author</a></li>
                 </ul>
             </div>
             <div class="footer-col pe-3">
                 <h4>My Account</h4>
                 <ul>
-                    <li><a href="login">Sign In</a></li>
-                    <li><a href="cart">View Cart</a></li>
-                    <li><a href="wishlist">My Wishlist</a></li>
-                    <li><a href="help">Help</a></li>
+                    <li><a href="/login">Sign In</a></li>
+                    <li><a href="/cart">View Cart</a></li>
+                    <li><a href="/wishlist">My Wishlist</a></li>
+                    <li><a href="/help">Help</a></li>
                 </ul>
             </div>
             <div class="footer-col ">
@@ -352,9 +329,10 @@
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
+    <script src="/js/cart.js"></script>
     <script src="/js/slider.js"></script>
     <script src="/js/search.js"></script>
-    
+
 
 </body>
 

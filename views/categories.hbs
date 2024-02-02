@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Atheneuam - Book Colleciton</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/book collection 0.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/product.css" rel="stylesheet">
+    {{!--
+    <link href="/css/shopPage.css" rel="stylesheet"> --}}
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Header Start -->
+    <Header class="container-fluid m-0 p-0">
+        <nav class="navbar navbar-expand-lg bg-secondary fixed-top">
+            <div class="container-fluid mx-lg-5">
+                <a class="navbar-brand " href="/home">
+                    <div class="d-flex justify-content-between me-5 pe-5">
+                        <img src="/img/book collection 0.png" alt="logo"
+                            style="width: 40px; height: 40px; border-radius: 50%;">
+                        <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+                    </div>
+                </a>
+                <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon py-1"><i class="fa fa-bars"></i></span>
+                </button>
+                <div class="collapse navbar-collapse d-lg-flex justify-content-lg-between" id="navbarTogglerDemo02">
+                    <div class="mx-lg-5 px-lg-5">
+                        <ul class="navbar-nav mx-lg-5 me-auto mb-2 mb-lg-0 home-nav ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-dark" href="/home">Home</a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link " href="/shop-page">Shop</a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link text-primary" href="/category">Category</a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="/author">Author</a>
+                            </li>
+                            <li class="nav-item homeNav">
+                                <a class="nav-link" href="/contact">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
+                            <li>
+                                <form autocomplete="off">
+                                    <div class="search-bar-container active">
+                                        <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
+                                            alt="magnifier" class="magnifier" />
+                                        <input type="text" class="input" name="searchQuery" placeholder="Search ..."
+                                            autocomplete="off">
+                                    </div>
+                                </form>
+                            </li>
+                            <li class="nav-item homeNav space ">
+                                <a class="nav-link" href="/cart">
+                                    <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{length}}</sup>
+                                </a>
+
+                            </li>
+                            <li class="nav-item homeNav space ">
+                                <a class="nav-link" href="wishlist"><i class="bi bi-heart"></i></a>
+                            </li>
+                            <li class="nav-item homeNav space ">
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link" data-bs-toggle="dropdown">
+                                        <i class="bi bi-person"></i>
+                                        <div class="d-none d-lg-inline-flex text fs-5 display-6 ps-2">{{user}}</div>
+                                    </a>
+                                    <div
+                                        class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                                        <a href="profile" class="dropdown-item">My Profile</a>
+                                        <a href="/logout" class="dropdown-item">Log Out</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </Header>
+    <!-- Header End -->
+
+    <section class="sec bg-light my-5 py-5 me-5 pe-5">
+        <div class="container-fluid mx-5 pe-4">
+            <details class="my-2">
+                <summary class="text-primary d-flex">
+                    <div class="col-sm-12 title_bx">
+                        <img src="/img/fantasy.png" alt="fiction" style="height: 24px; width: 24px">
+                        <h3 class="title ms-5 ">Fiction</h3>
+                    </div>
+                </summary>
+                <div class="row">
+                    <div class="col-md-12 list-slider mt-5">
+                        <div class=" row common_wd  owl-theme" id="recent_post">
+                            {{#each fiction}}
+                            <div class="item  col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                                <div class="sq_box shadow">
+                                    <div class="pdis_img">
+                                        <span class="wishlist singleWishlist">
+                                            <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
+                                                <div class="icon-wishlist mt-0 pt-0"></div>
+                                            </a>
+                                        </span>
+                                        <a href="/productView/{{this._id}}">
+                                            <img src="{{this.productImg}}">
+                                        </a>
+                                    </div>
+                                    <h4 class="mb-1">{{this.bookName}} </h4>
+                                    <div class="price-box mb-2">
+                                        <span> Price <i class="fa fa-inr"></i> {{this.originalPrice}} </span>
+                                        <span class="offer-price"> Offer Price <i class="fa fa-inr"></i> {{this.price}}
+                                        </span>
+                                    </div>
+                                    <div class="bg-danger text-center text-white py-1" id="outOfStock-{{this._id}}"style="display: none;">{{this.stock}}
+                                    </div>
+                                    <a class="text-white btn btn-sm " href="/carts/{{this._id}}"
+                                        onclick='return addToCartAndShowAlert("{{this._id}}")'
+                                        id="addToCart-{{this._id}}" style="border-radius: 0;">
+                                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                    </a>
+                                    <script>
+                                        if ({{ this.quantity }} == 0 || "{{this.stock}}" == "Out Of Stock") {
+                                            document.getElementById(`outOfStock-{{this._id}}`).style.display = 'block';
+                                            document.getElementById("addToCart-{{this._id}}").style.display = 'none';
+                                        }
+                                    </script>
+
+                                    <div class="qty-container text-dark home-qty ms-5 ps-2" id="qty-{{this._id}}">
+                                        <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
+                                            onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
+                                        </button>
+                                        <input type="text" name="qty" value="1" class=" text-center w-100" readonly />
+                                        <button class="qty-btn-plus btn-primary" type="button"
+                                            onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </details>
+            <details class="my-2">
+                <summary class="text-primary d-flex">
+                    <div class="col-sm-12 title_bx">
+                        <img src="/img/—Pngtree—book icon_4358423.png" alt="fiction" style="height: 24px; width: 24px">
+                        <h3 class="title ms-5">Novels</h3>
+                    </div>
+                </summary>
+                <div class="row">
+                    <div class="col-md-12 list-slider mt-5">
+                        <div class=" row common_wd  owl-theme" id="recent_post">
+                            {{#each novels}}
+                            <div class="item  col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                                <div class="sq_box shadow">
+                                    <div class="pdis_img">
+                                        <span class="wishlist singleWishlist">
+                                            <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
+                                                <div class="icon-wishlist mt-0 pt-0"></div>
+                                            </a>
+                                        </span>
+                                        <a href="/productView/{{this._id}}">
+                                            <img src="{{this.productImg}}">
+                                        </a>
+                                    </div>
+                                    <h4 class="mb-1">{{this.bookName}} </h4>
+                                    <div class="price-box mb-2">
+                                        <span> Price <i class="fa fa-inr"></i> {{this.originalPrice}} </span>
+                                        <span class="offer-price"> Offer Price <i class="fa fa-inr"></i> {{this.price}}
+                                        </span>
+                                    </div>
+                                    <div class="bg-danger text-center text-white py-1" id="outOfStock-{{this._id}}" style="display: none;">{{this.stock}}</div>
+                                    <a class="text-white btn btn-sm " href="/carts/{{this._id}}"
+                                        onclick='return addToCartAndShowAlert("{{this._id}}")'
+                                        id="addToCart-{{this._id}}" style="border-radius: 0;">
+                                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                    </a>
+                                    <script>
+                                        if ({{ this.quantity }} == 0 || "{{this.stock}}" == "Out Of Stock") {
+                                            document.getElementById(`outOfStock-{{this._id}}`).style.display = 'block';
+                                            document.getElementById("addToCart-{{this._id}}").style.display = 'none';
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </details>
+            <details class="my-2">
+                <summary class="text-primary d-flex">
+                    <div class="col-sm-12 title_bx">
+                        <img src="/img/biography.png" alt="fiction" style="height: 24px; width: 24px">
+                        <h3 class="title ms-5">Biography</h3>
+                    </div>
+                </summary>
+                <div class="row">
+                    <div class="col-md-12 list-slider mt-5">
+                        <div class=" row common_wd  owl-theme" id="recent_post">
+                            {{#each biography}}
+                            <div class="item  col-12 col-sm-6 col-md-5 col-lg-3 col-xl-3">
+                                <div class="sq_box shadow">
+                                    <div class="pdis_img">
+                                        <span class="wishlist singleWishlist">
+                                            <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
+                                                <div class="icon-wishlist mt-0 pt-0"></div>
+                                            </a>
+                                        </span>
+                                        <a href="/productView/{{this._id}}">
+                                            <img src="{{this.productImg}}">
+                                        </a>
+                                    </div>
+                                    <h4 class="mb-1">{{this.bookName}} </h4>
+                                    <div class="price-box mb-2">
+                                        <span> Price <i class="fa fa-inr"></i> {{this.originalPrice}} </span>
+                                        <span class="offer-price"> Offer Price <i class="fa fa-inr"></i> {{this.price}}
+                                        </span>
+                                    </div>
+                                    <div class="bg-danger text-center text-white py-1" id="outOfStock-{{this._id}}"
+                                        style="display: none;">
+                                        {{this.stock}}
+                                    </div>
+                                    <a class="text-white btn btn-sm " href="/carts/{{this._id}}"
+                                        onclick='return addToCartAndShowAlert("{{this._id}}")'
+                                        id="addToCart-{{this._id}}" style="border-radius: 0;">
+                                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                    </a>
+                                    <script>
+                                        console.log({{ this.quantity }}, "{{this.stock}}");
+                                        if ({{ this.quantity }} == 0 || "{{this.stock}}" == "Out Of Stock") {
+                                            document.getElementById("outOfStock-{{this._id}}").style.display = 'block';
+                                            document.getElementById("addToCart-{{this._id}}").style.display = 'none';
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </section>
+
+
+    <footer class="footer pt-5 ">
+        <div class="container row mx-5 ">
+            <a class="my-2" href="home">
+                <div class="d-flex me-5 pe-5">
+                    <img src="/img/book collection 0.png" alt="logo"
+                        style="width: 40px; height: 40px; border-radius: 50%;">
+                    <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+                </div>
+            </a>
+            <div class="footer-col pe-3">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>
+                        1998 Wall Street 707,
+                        Washington DC, USA</li>
+                    <li>athenauem@domain.com</li>
+                    <li>+91 97782458923</li>
+
+                </ul>
+            </div>
+            <div class="footer-col pe-5">
+                <h4>Information</h4>
+                <ul>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">privacy policy</a></li>
+                    <li><a href="#">Blogs</a></li>
+                </ul>
+            </div>
+            <div class="footer-col pe-3">
+                <h4>My Account</h4>
+                <ul>
+                    <li><a href="login">Sign In</a></li>
+                    <li><a href="cart">View Cart</a></li>
+                    <li><a href="wishlist">My Wishlist</a></li>
+                    <li><a href="help">Help</a></li>
+                </ul>
+            </div>
+            <div class="footer-col ">
+                <h4>follow us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="text-center pt-4">
+            <small>&copy; 2023 athenauem.Inc.All rights reserved</small>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/chart/chart.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/waypoints/waypoints.min.js"></script>
+    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/3b161c540c.js" crossorigin="anonymous"></script>
+
+    <!-- Template Javascript -->
+    <script src="/js/main.js"></script>
+    <script src="/js/cart.js"></script>
+    {{!--
+    <script src="/js/shopPage.js"></script> --}}
+    <script src="/js/search.js"></script>
+
+
+</body>
+
+</html>

@@ -49,7 +49,7 @@ exports.create = async (req, res) => {
         price: originalPrice - discount,
         quantity,
         description, 
-        stock,
+        stock: quantity>0 ? "Availiable" : "Out of stock",
         productImg: results.secure_url,
         cloudinaryId: results.public_id,
       });
@@ -141,7 +141,7 @@ exports.update = async (req, res) => {
       book.shopId = req.body.shopId || book.shopId;
       book.originalPrice = req.body.originalPrice || book.originalPrice;
       book.discount = req.body.discount || book.discount;
-      book.stock = req.body.stock || book.stock; 
+      book.stock = book.quantity > 0 ? "availiable" : "out of stock";
       
       // Save the updated book to the database
       await book.save()

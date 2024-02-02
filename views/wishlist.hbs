@@ -46,7 +46,7 @@
     <Header class="container-fluid m-0 p-0">
         <nav class="navbar navbar-expand-lg bg-secondary fixed-top">
             <div class="container-fluid mx-lg-5">
-                <a class="navbar-brand " href="home">
+                <a class="navbar-brand " href="/home">
                     <div class="d-flex justify-content-between me-5 pe-5">
                         <img src="/img/book collection 0.png" alt="logo"
                             style="width: 40px; height: 40px; border-radius: 50%;">
@@ -62,34 +62,37 @@
                     <div class="mx-lg-5 px-lg-5">
                         <ul class="navbar-nav mx-lg-5 me-auto mb-2 mb-lg-0 home-nav ">
                             <li class="nav-item homeNav">
-                                <a class="nav-link "  href="home">Home</a>
+                                <a class="nav-link " href="/home">Home</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="shop-page">Shop</a>
+                                <a class="nav-link" href="/shop-page">Shop</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="blog">Blog</a>
+                                <a class="nav-link" href="/blog">Blog</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="author">Author</a>
+                                <a class="nav-link" href="/author">Author</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="contact">Contact</a>
+                                <a class="nav-link" href="/contact">Contact</a>
                             </li>
                         </ul>
                     </div>
                     <div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-icon">
                             <li class="nav-item homeNav">
-                                <div class="search-bar-container active nav-link">
-                                    <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
-                                        alt="magnifier" class="magnifier" />
-                                    <input type="text" class="input" placeholder="Search ..." />
-                                </div>
+                                <form autocomplete="off">
+                                    <div class="search-bar-container active">
+                                        <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
+                                            alt="magnifier" class="magnifier" />
+                                        <input type="text" class="input" name="searchQuery" placeholder="Search ..."
+                                            autocomplete="off">
+                                    </div>
+                                </form>
                             </li>
                             <li class="nav-item homeNav space">
                                 <a class="nav-link" href="cart">
-                                    <i class="bi bi-cart3"></i>
+                                    <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{length}}</sup>
                                 </a>
 
                             </li>
@@ -115,9 +118,22 @@
         </nav>
     </Header>
     <!-- Header End -->
-     <main class="bg-light">
+    <main class="bg-light">
         <div class="py-3 py-md-5 bg-light">
             <div class="container">
+                {{#if emptyWishlist}}
+                <div class="container text-center" style="margin-top: 100px;">
+                    <div class="row ">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 text-center">
+                            <img src="/img/empty-wishlist.png" alt="" class="img-fluid" width="25%">
+                            <div class="mt-3">
+                                <h4 class="text-primary text-center">Your Wishlist is Empty! </h4>
+                                <a href="/shop-page" class="btn btn-outline-dark">Start Shopping</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{else}}
                 <div class="text-center  mt-5">
                     <h1 class="text-primary">Wishlist</h1>
                 </div>
@@ -145,14 +161,16 @@
                                 <div class="row">
                                     <div class="col-md-1 my-auto fs-5">
                                         <a class="remove ms-4"
-                                            onclick="return removeWishlistItem('{{this._id}}', '{{this.wishlistItem._id}}')"><i class="bi bi-x-circle"></i></a>
+                                            onclick="return removeWishlistItem('{{this._id}}', '{{this.wishlistItem._id}}')"><i
+                                                class="bi bi-x-circle"></i></a>
                                     </div>
                                     <div class="col-md-6 my-auto">
                                         <a href="">
                                             <label class="product-name">
-                                                <img src={{this.wishlistItem.productImg}} style="width: 80px; height: 80px" alt="">
+                                                <img src={{this.wishlistItem.productImg}}
+                                                    style="width: 80px; height: 80px" alt="">
                                                 <div class="d-flex flex-column mx-1 ">
-                                                   <div class="fs-5 text-dark"> {{this.wishlistItem.bookName}}</div>
+                                                    <div class="fs-5 text-dark"> {{this.wishlistItem.bookName}}</div>
                                                     <div class="fs-6 text-light">By {{this.wishlistItem.author}}</div>
                                                 </div>
                                             </label>
@@ -164,7 +182,12 @@
                                     <div class="col-md-2 col-7 my-auto">
                                         <div class="quantity">
                                             <div class="input-group">
-                                                <a href="/carts/{{this.wishlistItem._id}}">
+                                                <div class="bg-danger text-center text-white px-2 my-2 py-1 "
+                                                    id="outOfStock-{{this.wishlistItem._id}}" style="display: none;">Out
+                                                    of stock
+                                                </div>
+                                                <a href="/carts/{{this.wishlistItem._id}}"
+                                                    id="addtocartItems-{{this.wishlistItem._id}}">
                                                     <div class="card-button">
                                                         <b>Add to Cart</b>
                                                     </div>
@@ -174,22 +197,30 @@
                                     </div>
                                 </div>
                             </div>
+                            <script>
+                                if ({{ this.wishlistItem.quantity }} == 0 || "{{this.wishlistItem.stock}}" == "Out Of Stock") {
+                                    document.getElementById(`outOfStock-{{this.wishlistItem._id}}`).style.display = 'block';
+                                    document.getElementById("addtocartItems-{{this.wishlistItem._id}}").style.display = 'none';
+                                }
+                            </script>
                             {{/each}}
                             <div class="py-2 border">
-                               <div class="d-flex justify-content-between mx-2">
+                                <div class="d-flex justify-content-between mx-2">
                                     <a class="btn btn-outline-dark" onclick="return clearWishlist()">Clear</a>
-                                    <a class="btn btn-outline-primary" onclick="return addAllToCart()">Add All to cart</a>
-                               </div>
+                                    <a class="btn btn-outline-primary" onclick="return addAllToCart()">Add All to
+                                        cart</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {{/if}}
 
             </div>
         </div>
     </main>
-    
-    
+
+
 
     <footer class="footer pt-5 ">
         <div class="container row mx-5 ">

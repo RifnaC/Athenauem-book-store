@@ -1,6 +1,6 @@
 const { config } = require('dotenv');
 const express = require('express')
-const hbs = require ('express-handlebars');
+const exphbs = require ('express-handlebars');
 const Handlebars = require('handlebars');
 const path = require('path')
 const dotenv = require('dotenv').config({path:'config.env'})
@@ -10,12 +10,15 @@ const session = require('express-session');
 const {superAdmin} = require('./server/seeder/adminSeeder');
 const connectDB = require('./server/database/connection');
 
+
 const userApp = express();
 const adminApp = express();
 
 // port for admin and user
 const adminPort = process.env.ADMIN_PORT ;
 const userPort = process.env.USER_PORT;
+
+
 
 adminApp.use(session({
     secret: process.env.SESSION_KEY,
@@ -29,13 +32,14 @@ userApp.use(session({
     saveUninitialized: true,
 }));
 
+
 //log request
 adminApp.use(morgan('tiny'));
 userApp.use(morgan('tiny'));
 
 // mongodb connection
 connectDB();
-
+userApp.use(bodyParser.json());
 adminApp.use(bodyParser.urlencoded({extended: true}))
 userApp.use(bodyParser.urlencoded({extended: true}))
 
@@ -46,14 +50,6 @@ adminApp.set('view engine','hbs')
 userApp.use (express.static(path.join(__dirname,'views')));
 userApp.set('view engine','hbs')
   
-
-// adminApp.engine('hbs', hbs.engine({
-//     extname: 'hbs',
-//     defaultLayout: 'login',
-//     layoutDir: __dirname + '/views/layouts/',
-//     partialsDir: __dirname + '/views/partials/',
-// }));
-
 
 // load assets
 adminApp.use('/css', express.static(path.resolve(__dirname,"assets/css")))

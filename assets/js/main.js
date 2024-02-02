@@ -43,7 +43,7 @@
     if (name === "") {
       Swal.fire({
         title: 'Atheneuam',
-        text:'Please enter your name!',
+        text: 'Please enter your name!',
         confirmButtonColor: '#15877C',
       })
       return false;
@@ -174,8 +174,8 @@
               confirmButtonColor: '#15877C',
               text: 'Data updated successfully',
             }).then((result) => {
-                window.location.href = '/admin';
-              })
+              window.location.href = '/admin';
+            })
           } else if (result.isDenied) {
             Swal.fire({
               icon: 'info',
@@ -219,7 +219,7 @@
                 text: 'Data deleted Successfully',
                 confirmButtonColor: '#15877C'
               }).then(() => {
-                location.reload(); 
+                location.reload();
               });
             });
           } else {
@@ -253,7 +253,7 @@
     }
     if (name.length < 3) {
       Swal.fire({
-        title:'Atheneuam',
+        title: 'Atheneuam',
         text: 'Shop name should have at least 3 characters!',
         confirmButtonColor: '#15877C'
       })
@@ -269,7 +269,7 @@
     }
     if (openingTime === "") {
       Swal.fire({
-        title:'Atheneuam',
+        title: 'Atheneuam',
         text: 'Please enter opening time of the shop!',
         confirmButtonColor: '#15877C',
       })
@@ -302,6 +302,7 @@
     return true;
   }
 
+  // add shop
   $("#add_shop").submit(function (event) {
     if (!shopValidation()) {
       Swal.fire({
@@ -320,7 +321,7 @@
       })
     }
   })
-  
+
   //update shop details
   $("#edit_shop").submit(function (event) {
     event.preventDefault();
@@ -329,7 +330,7 @@
 
     if (!formData.get('name')) {
       Swal.fire({
-        title:'Atheneuam',
+        title: 'Atheneuam',
         text: 'Please enter the shop name!',
         confirmButtonColor: '#15877C',
       })
@@ -359,7 +360,7 @@
       })
       return;
     }
-    if(!formData.get('shopImg')) {
+    if (!formData.get('shopImg')) {
       Swal.fire({
         title: 'Atheneuam',
         text: 'Please upload shop image!',
@@ -412,9 +413,9 @@
       })
       .fail(function (error) {
         Swal.fire({
-          icon:'error',
-          title:'Error', 
-          text: 'Failed to update data', 
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to update data',
           confirmButtonColor: '#15877C',
         });
       });
@@ -431,38 +432,38 @@
       };
       Swal.fire({
         title: 'Atheneuam',
-        text:'Do you really want to delete this record?',
+        text: 'Do you really want to delete this record?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Yes, delete it',
         cancelButtonText: 'cancel',
         confirmButtonColor: '#d33',
       })
-      .then((result) => {
-        if (result.isConfirmed) {
+        .then((result) => {
+          if (result.isConfirmed) {
             // The user clicked the "Yes, delete it" button
-          $.ajax(request).done(function (response) {
+            $.ajax(request).done(function (response) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Atheneuam',
+                text: 'Data deleted Successfully!',
+                showConfirmButton: true,
+                confirmButtonColor: '#15877C',
+              }).then(() => {
+                location.reload();
+              });
+            });
+          } else {
+            // The user clicked the "cancel" button or closed the dialog
             Swal.fire({
-              icon: 'success',
+              icon: 'info',
               title: 'Atheneuam',
-              text: 'Data deleted Successfully!',
+              text: 'Action canceled!',
               showConfirmButton: true,
               confirmButtonColor: '#15877C',
-            }).then(() => {
-                location.reload();
             });
-          });
-        } else {
-          // The user clicked the "cancel" button or closed the dialog
-          Swal.fire({
-            icon: 'info',
-            title: 'Atheneuam',
-            text: 'Action canceled!',
-            showConfirmButton: true,
-            confirmButtonColor: '#15877C',
-          });
-        }
-      });
+          }
+        });
     })
   }
 
@@ -476,9 +477,9 @@
     let description = document.forms["add_product"]["description"].value;
     let price = document.forms["add_product"]["price"].value;
     let originalPrice = document.forms["add_product"]["originalPrice"].value;
-    let discount = document.forms["add_product"]["discount"].value; 
+    let discount = document.forms["add_product"]["discount"].value;
     let stock = document.forms["add_product"]["stock"].value;
-    
+
     // Check if book details are not empty
     if (bookName === "") {
       Swal.fire({
@@ -496,7 +497,7 @@
       })
       return false;
     }
-    if(productImg === " "){
+    if (productImg === " ") {
       Swal.fire({
         title: 'Athenuam',
         text: 'Please enter the product image of the book!',
@@ -522,7 +523,7 @@
     }
     if (description === "") {
       Swal.fire({
-        title: 'Athenuam',  
+        title: 'Athenuam',
         text: 'Please provide the decription of the book!',
         confirmButtonColor: '#15877C',
       })
@@ -536,15 +537,15 @@
       })
       return false;
     }
-    if(originalPrice === " "){
+    if (originalPrice === " ") {
       Swal.fire({
-        title: 'Athenuam',  
+        title: 'Athenuam',
         text: 'Please enter the original price of the book!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
-    if(discount === " "){
+    if (discount === " ") {
       Swal.fire({
         title: 'Athenuam',
         text: 'Please enter the discount of the book!',
@@ -554,13 +555,13 @@
     }
     if (price === "") {
       Swal.fire({
-        title:'Athenuam',
+        title: 'Athenuam',
         text: 'Please enter the price of the Book!',
         confirmButtonColor: '#15877C',
       })
       return false;
     }
-    if(stock === " "){
+    if (stock === " ") {
       Swal.fire({
         title: 'Athenuam',
         text: 'Please enter the stock of the book!',
@@ -568,7 +569,7 @@
       })
       return false;
     }
-    if(productImg === "") {
+    if (productImg === "") {
       Swal.fire({
         title: 'Athenuam',
         text: 'Please provide the image of the book!',
@@ -578,15 +579,16 @@
     }
     return true;
   }
+  // Get parameter from URL
   function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     // alert('url' =  url);
     name = name.replace(/[\[\]]/g, "\\$&");
     // alert('name' =  name);
-    
+
     const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-        // alert('results' =  results);
+      results = regex.exec(url);
+    // alert('results' =  results);
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
@@ -594,7 +596,7 @@
   const idFromURL = getParameterByName('id');
   $('#shopId').val(idFromURL);
 
-  // *************************************ALERT MODIFICATION****************************************/
+
   // Add new book
   $("#add_product").submit(function (event) {
     if (!productValidation()) {
@@ -604,7 +606,7 @@
         icon: 'success',
         title: 'Atheneaum',
         text: 'New Book is added Successfully',
-        showConfirmColor: '#15877C', 
+        showConfirmColor: '#15877C',
       })
     }
   })
@@ -612,7 +614,7 @@
   $("#edit_product").submit(function (event) {
     event.preventDefault();
     const formData = new FormData(this);
-    
+
     formData.append('additionalField', 'additionalValue');
     // Extract the book's ID from the form data
     const bookId = formData.get('id');
@@ -644,12 +646,12 @@
     }
     if (formData.get('author').length < 3) {
       Swal.fire({
-        title:'Athenuam',
+        title: 'Athenuam',
         text: 'The Author should be at least 3 characters',
         confirmButtonColor: '#15877C'
       })
       return;
-    } 
+    }
     if (!formData.get('description')) {
       Swal.fire({
         title: 'Athenuam',
@@ -658,16 +660,16 @@
       })
       return;
     }
-    if(!formData.get('originalPrice')){
+    if (!formData.get('originalPrice')) {
       Swal.fire({
         title: 'Athenuam',
         text: "Please enter the original price of the book",
         confirmButtonColor: '#15877C'
       })
       return;
-    
+
     }
-    if(!formData.get('discount')){
+    if (!formData.get('discount')) {
       Swal.fire({
         title: 'Athenuam',
         text: "Please enter the discount of the book",
@@ -675,7 +677,7 @@
       })
       return;
     }
-    if(!formData.get('stock')){
+    if (!formData.get('stock')) {
       Swal.fire({
         title: 'Athenuam',
         text: "Please enter the stock of the book",
@@ -713,29 +715,30 @@
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
             Swal.fire({
-              icon:'success', 
+              icon: 'success',
               title: 'Atheneaum',
               text: 'Data updated successfully',
               confirmButtonColor: '#15877C'
             })
               .then(() => {
-                if(!shopId){
+                if (!shopId) {
                   window.location.href = '/products';
-                }else{
-                  window.location.href = '/books?id='+shopId;
+                } else {
+                  window.location.href = '/books?id=' + shopId;
                 }
               })
           } else if (result.isDenied) {
             Swal.fire({
-              icon:'info',
-              title:'Atheneuam',
-              text: 'Changes are not saved', 
-              confirmButtonColor:'#15877C'})
+              icon: 'info',
+              title: 'Atheneuam',
+              text: 'Changes are not saved',
+              confirmButtonColor: '#15877C'
+            })
               .then(() => {
-                if(!shopId){
+                if (!shopId) {
                   window.location.href = '/products';
-                }else{
-                  window.location.href = '/books?id='+shopId;
+                } else {
+                  window.location.href = '/books?id=' + shopId;
                 }
               })
           }
@@ -748,7 +751,7 @@
 
     });
   });
-
+  // *************************************ALERT MODIFICATION****************************************/
   // Delete the product
   if (window.location.pathname === "/products" || window.location.pathname === "/books") {
     $(document).on("click", ".table tbody td a.delete", function (event) {
@@ -766,18 +769,18 @@
         cancelButtonText: 'cancel',
         confirmButtonColor: '#d33',
       })
-      .then((result) => {
-        if (result.isConfirmed) {
-          $.ajax(request).done(function (response) {
-            Swal.fire('Data deleted Successfully', '', 'success').then(() => {
-              location.reload();
+        .then((result) => {
+          if (result.isConfirmed) {
+            $.ajax(request).done(function (response) {
+              Swal.fire('Data deleted Successfully', '', 'success').then(() => {
+                location.reload();
+              });
             });
-          });
-        } else {            
-          // The user clicked the "cancel" button or closed the dialog
-          Swal.fire('Action canceled', '', 'info');
-        }
-      });
+          } else {
+            // The user clicked the "cancel" button or closed the dialog
+            Swal.fire('Action canceled', '', 'info');
+          }
+        });
     })
   }
   // validation for category
@@ -964,6 +967,7 @@
     let categoryId = document.forms["createBanner"]["categoryId"].value;
     let productId = document.forms["createBanner"]["productId"].value;
     let bannerImg = document.getElementById("bannerImg");
+    let desc = document.forms["createBanner"]["description"].value;
 
     // Check if book details are not empty
     if (!name) {
@@ -1012,9 +1016,16 @@
         return false;
       }
     }
-    if (!bannerImg.value && !imgUrl) {
+    if (!bannerImg.value || !imgUrl) {
       Swal.fire({
         title: 'Please provide the image of the book banner!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!desc || desc.length < 4 || desc === null) {
+      Swal.fire({
+        title: 'Please provide the description of the book banner!',
         confirmButtonColor: '#15877C',
       })
       return false;
@@ -1049,16 +1060,12 @@
   // Update banner
   $("#editBanner").submit(function (event) {
     event.preventDefault();
-
     // Create a FormData object
     const formData = new FormData(this);
-
     // Append additional data to the FormData object
     formData.append('additionalField', 'additionalValue');
-
     // Extract the banner's ID from the form data
     const bannerId = formData.get('id');
-
     // Validation
     if (!formData.get('name')) {
       Swal.fire({
@@ -1088,6 +1095,7 @@
       })
       return;
     }
+
     if (formData.get('type') === 'category') {
       if (!formData.get('categoryId') || formData.get('categoryId').length < 4) {
         Swal.fire({
@@ -1096,8 +1104,7 @@
         })
         return false;
       }
-    }
-    if (formData.get('type') === 'product') {
+    } else {
       if (!formData.get('productId') || formData.get('productId').length < 4) {
         Swal.fire({
           title: 'Please enter the product ID with at least 4 characters!',
@@ -1105,6 +1112,13 @@
         })
         return false;
       }
+    }
+    if (!formData.get('description') || formData.get('description').length < 4) {
+      Swal.fire({
+        title: 'Please enter the descriptin with at least 4 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
     }
     // Construct the AJAX request object
     let request = {
@@ -1303,986 +1317,1223 @@
     }
   })
 
-// pagination 
+  // pagination 
   $(document).ready(function () {
     $('#categoryTable').DataTable({
-        "paging": true,
-        "pageLength": 10, 
+      "paging": true,
+      "pageLength": 10,
     });
   });
 
 
-$(function () {
-  // Initially show the first 4 categories
-  $(".cardCat").slice(0, 4).show();
+  $(function () {
+    // Initially show the first 4 categories
+    $(".cardCat").slice(0, 4).show();
 
-  // Hide the "Load Less" button initially
-  $(".load-less").css('display', 'none');
+    // Hide the "Load Less" button initially
+    $(".load-less").css('display', 'none');
 
-  // Handle the "Load More" button click
-  $("body").on('click touchstart', '.load-more', function (e) {
-    e.preventDefault();
-    $(".cardCat:hidden").slideDown();
+    // Handle the "Load More" button click
+    $("body").on('click touchstart', '.load-more', function (e) {
+      e.preventDefault();
+      $(".cardCat:hidden").slideDown();
 
-    // Check if there are no hidden categories
-    if ($(".cardCat:hidden").length === 0) {
-      $(".load-more").css('display', 'none');
-      $(".cards").css('width', '90vw');
-      $(".load-less").css('display', 'block');
-      $("#slide-right-container").css('display', 'none');
+      // Check if there are no hidden categories
+      if ($(".cardCat:hidden").length === 0) {
+        $(".load-more").css('display', 'none');
+        $(".cards").css('width', '90vw');
+        $(".load-less").css('display', 'block');
+        $("#slide-right-container").css('display', 'none');
+      }
+
+      // Scroll to the top of the "Load More" button
+      $('html, body').animate({
+        scrollTop: $(this).offset().top
+      }, 1000);
+    });
+
+    // Handle the "Load Less" button click
+    $("body").on('click touchstart', '.load-less', function (e) {
+      e.preventDefault();
+      $(".cardCat:visible").slice(5).slideUp();
+
+      // Show the "Load More" button
+      $(".load-less").css('display', 'none');
+      $(".load-more").css('display', 'block');
+      $("#slide-right-container").css('display', 'block');
+    });
+  });
+
+  // radio button value
+  $(document).ready(function () {
+    const selectedStatus = 'Active' || 'Block';
+    const selectedRadio = $(`input[name="status"][value="${selectedStatus}"]`);
+    selectedRadio.prop('checked', true);
+  });
+
+  // update customer
+  $("#editUser").submit(function (event) {
+    event.preventDefault();
+    const formData = $(this).serializeArray();
+    const data = {};
+
+    $.each(formData, function () {
+      if (this.type === 'radio') {
+        const status = $(`input[name="${this.name}"]`);
+        const selectedValues = [];
+        for (const radioValue of status) {
+          if (radioValue.checked) {
+            selectedValues.push(radioValue.value);
+          }
+        }
+        data[this.name] = selectedValues;
+
+      } else {
+        data[this.name] = this.value;
+      }
+    });
+
+    // Extract the customer's ID from the form data
+    const userId = data.id;
+    // Validation: Check if the name and email fields are empty
+    if (!data.name) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Please enter the name!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (data.name.length < 3) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Name should be at least 3 characters',
+        confirmButtonColor: '#15877C',
+      });
+      return;
+    }
+    if (!data.email) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Please enter the name!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
     }
 
-    // Scroll to the top of the "Load More" button
-    $('html, body').animate({
-      scrollTop: $(this).offset().top
-    }, 1000);
-  });
-
-  // Handle the "Load Less" button click
-  $("body").on('click touchstart', '.load-less', function (e) {
-    e.preventDefault();
-    $(".cardCat:visible").slice(5).slideUp();
-
-    // Show the "Load More" button
-    $(".load-less").css('display', 'none');
-    $(".load-more").css('display', 'block');
-    $("#slide-right-container").css('display', 'block');
-  });
-});
-
-// radio button value
-$(document).ready(function() {
-  const selectedStatus = 'Active' || 'Block';
-  const selectedRadio = $(`input[name="status"][value="${selectedStatus}"]`);
-  selectedRadio.prop('checked', true);
-});
-
-// update customer
-$("#editUser").submit(function (event) {
-  event.preventDefault();
-  const formData = $(this).serializeArray();
-  const data = {};
-
-  $.each(formData, function () {
-    if (this.type === 'radio') {
-      const status =  $(`input[name="${this.name}"]`);
-      const selectedValues = [];
-      for(const radioValue of status){
-        if(radioValue.checked){
-          selectedValues.push(radioValue.value);
-        }
-      }
-      data[this.name] =selectedValues;
-      
-    } else {
-      data[this.name] = this.value;
-    } 
-  });
-
-  // Extract the customer's ID from the form data
-  const userId = data.id;
-  // Validation: Check if the name and email fields are empty
-  if (!data.name) {
-    Swal.fire({
-      title: 'Athenuam',
-      text: 'Please enter the name!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (data.name.length < 3) {
-    Swal.fire({
-      title: 'Athenuam',
-      text: 'Name should be at least 3 characters',
-      confirmButtonColor: '#15877C',
-    });
-    return;
-  }
-  if (!data.email) {
-    Swal.fire({
-      title: 'Athenuam',
-      text: 'Please enter the name!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-
-  let request = {
-    "url": `http://localhost:3000/users/${userId}`,
-    "method": "PUT",
-    "data": data
-  };
-  // Send the PUT request
-  $.ajax(request).done(function (response) {
-    Swal.fire({
-      title: 'Athenuam',
-      text: 'Do you want to save the changes?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Save',
-      denyButtonText: `Don't save`,
-      confirmButtonColor: '#15877C'
-    })
-      .then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Athenuam',
-            confirmButtonColor: '#15877C',
-            text: 'Data updated successfully',
-          }).then((result) => {
-              window.location.href = '/user';
-            })
-        } else if (result.isDenied) {
-          Swal.fire({
-            icon: 'info',
-            title: 'Athenuam',
-            text: 'Changes are not saved',
-          })
-            .then((result) => {
-              window.location.href = '/user';
-            })
-        }
-      })
-  });
-});
-
-// Delete the customer
-if (window.location.pathname === "/user") {
-  $(document).on("click", ".table tbody td a.delete", function (event) {
-    event.preventDefault();
-    const id = $(this).attr('data-id');
-    const request = {
-      "url": `http://localhost:3000/users/${id}`,
-      "method": "DELETE"
+    let request = {
+      "url": `http://localhost:3000/users/${userId}`,
+      "method": "PUT",
+      "data": data
     };
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Do you really want to delete this record?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it',
-      cancelButtonText: 'cancel',
-      confirmButtonColor: '#d33',
-    })
-      .then((result) => {
-        if (result.isConfirmed) {
-          // The user clicked the "Yes, delete it" button
-          $.ajax(request).done(function (response) {
+    // Send the PUT request
+    $.ajax(request).done(function (response) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#15877C'
+      })
+        .then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
             Swal.fire({
               icon: 'success',
+              title: 'Athenuam',
+              confirmButtonColor: '#15877C',
+              text: 'Data updated successfully',
+            }).then((result) => {
+              window.location.href = '/user';
+            })
+          } else if (result.isDenied) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Athenuam',
+              text: 'Changes are not saved',
+            })
+              .then((result) => {
+                window.location.href = '/user';
+              })
+          }
+        })
+    });
+  });
+
+  // Delete the customer
+  if (window.location.pathname === "/user") {
+    $(document).on("click", ".table tbody td a.delete", function (event) {
+      event.preventDefault();
+      const id = $(this).attr('data-id');
+      const request = {
+        "url": `http://localhost:3000/users/${id}`,
+        "method": "DELETE"
+      };
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Do you really want to delete this record?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it',
+        cancelButtonText: 'cancel',
+        confirmButtonColor: '#d33',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            // The user clicked the "Yes, delete it" button
+            $.ajax(request).done(function (response) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Atheneuam',
+                confirmButtonColor: '#15877C',
+                text: 'Data deleted Successfully',
+              }).then(() => {
+                location.reload();
+              });
+            });
+          } else {
+            // The user clicked the "cancel" button or closed the dialog
+            Swal.fire({
+              icon: 'info',
               title: 'Atheneuam',
               confirmButtonColor: '#15877C',
-              text: 'Data deleted Successfully',
-            }).then(() => {
-              location.reload(); 
+              text: 'Action canceled',
             });
-          });
-        } else {
-          // The user clicked the "cancel" button or closed the dialog
-          Swal.fire({
-            icon: 'info',
-            title: 'Atheneuam',
-            confirmButtonColor: '#15877C',
-            text: 'Action canceled',
-          });
-        }
-      });
-  })
-}
-
-// ***********************Offer CRUD Section*******************************
-// add offer
-function offerValidation () {
-  let couponCode = document.forms["addCoupon"]["couponCode"].value;
-  let expireDate = document.forms["addCoupon"]["expireDate"].value;
-  let discount = document.forms["addCoupon"]["discount"].value;
-
-  // Check if couponCode, expireDate and discount are not empty
-  if (!couponCode ) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text:'Please enter your coupon code!',
-      confirmButtonColor: '#15877C',
+          }
+        });
     })
-    return false;
-  }
-  if (couponCode.length < 3) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Coupon Code should have at least 3 characters!',
-      confirmButtonColor: '#15877C',
-    })
-    return false;
-  }
-  if (couponCode !== couponCode.toUpperCase()) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Coupon Code Capital letters!',
-      confirmButtonColor: '#15877C',
-    })
-    return false;
-  }
-  if (!expireDate) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter expire date of the coupon!',
-      confirmButtonColor: '#15877C',
-    })
-    return false;
-  }
-  if (!discount) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter discount!',
-      confirmButtonColor: '#15877C',
-    })
-    return false;
-  }
-  return true;
-}
-// Add new coupon
-$("#addCoupon").submit(function (event) {
-  if (!offerValidation()) {
-    event.preventDefault();
-  } else {
-    Swal.fire({
-      icon: 'success',
-      title: 'Athenuam',
-      text: 'New coupon is created Successfully',
-      showConfirmButton: true,
-      confirmButtonColor: '#15877C',
-    })
-  }
-})
-// update admin
-$("#editCoupon").submit(function (event) {
-  event.preventDefault();
-  let unindexed_array = $(this).serializeArray();
-  let data = {};
-
-  $.map(unindexed_array, function (n, i) {
-    data[n['name']] = n['value'];
-  });
-  // Extract the coupon id from the form data
-  const couponId = data.id;
-  // Validation: Check if the coupon fields are empty
-  if (!data.couponCode) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your coupon code!',
-      confirmButtonColor: '#15877C',
-    })
-    return false;
-  }
-  if (data.couponCode.length < 3) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Coupon Code should have at least 3 characters!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (data.couponCode !== data.couponCode.toUpperCase()) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Coupon Code Capital letters!',
-      confirmButtonColor: '#15877C',
-    })
-    return;    
-  }
-  if (!data.expireDate) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter expire date of the coupon!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (!data.discount) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter discount!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
   }
 
-  let request = {
-    "url": `http://localhost:3000/coupon/${couponId}`,
-    "method": "PUT",
-    "data": data
-  };
-  // Send the PUT request
-  $.ajax(request).done(function (response) {
-    Swal.fire({
-      title: 'Athenuam',
-      text: 'Do you want to save the changes?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Save',
-      denyButtonText: `Don't save`,
-      confirmButtonColor: '#15877C'
-    })
-      .then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Athenuam',
-            confirmButtonColor: '#15877C',
-            text: 'Data updated successfully',
-          }).then((result) => {
-              window.location.href = '/offer';
-            })
-        } else if (result.isDenied) {
-          Swal.fire({
-            icon: 'info',
-            title: 'Athenuam',
-            text: 'Changes are not saved',
-            confirmButtonColor: '#15877C',
-          })
-            .then((result) => {
-              window.location.href = '/offer';
-            })
-        }
+  // ***********************Offer CRUD Section*******************************
+  // add offer
+  function offerValidation() {
+    let couponCode = document.forms["addCoupon"]["couponCode"].value;
+    let expireDate = document.forms["addCoupon"]["expireDate"].value;
+    let discount = document.forms["addCoupon"]["discount"].value;
+
+    // Check if couponCode, expireDate and discount are not empty
+    if (!couponCode) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your coupon code!',
+        confirmButtonColor: '#15877C',
       })
-  });
-});
-
-//delete offer
-if (window.location.pathname === "/offer") {
-  $(document).on("click", ".table tbody td a.delete", function (event) {
+      return false;
+    }
+    if (couponCode.length < 3) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Coupon Code should have at least 3 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (couponCode !== couponCode.toUpperCase()) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Coupon Code Capital letters!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!expireDate) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter expire date of the coupon!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!discount) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter discount!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    return true;
+  }
+  // Add new coupon
+  $("#addCoupon").submit(function (event) {
+    if (!offerValidation()) {
+      event.preventDefault();
+    } else {
+      Swal.fire({
+        icon: 'success',
+        title: 'Athenuam',
+        text: 'New coupon is created Successfully',
+        showConfirmButton: true,
+        confirmButtonColor: '#15877C',
+      })
+    }
+  })
+  // update admin
+  $("#editCoupon").submit(function (event) {
     event.preventDefault();
-    const id = $(this).attr('data-id');
-    const request = {
-      "url": `http://localhost:3000/coupon/${id}`,
-      "method": "DELETE",
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
+
+    $.map(unindexed_array, function (n, i) {
+      data[n['name']] = n['value'];
+    });
+    // Extract the coupon id from the form data
+    const couponId = data.id;
+    // Validation: Check if the coupon fields are empty
+    if (!data.couponCode) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your coupon code!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (data.couponCode.length < 3) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Coupon Code should have at least 3 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (data.couponCode !== data.couponCode.toUpperCase()) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Coupon Code Capital letters!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (!data.expireDate) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter expire date of the coupon!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (!data.discount) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter discount!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+
+    let request = {
+      "url": `http://localhost:3000/coupon/${couponId}`,
+      "method": "PUT",
+      "data": data
     };
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Do you really want to delete this record?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it',
-      cancelButtonText: 'cancel',
-      confirmButtonColor: '#d33',
-    })
-      .then((result) => {
-        if (result.isConfirmed) {
-          // The user clicked the "Yes, delete it" button
-          $.ajax(request).done(function (response) {
+    // Send the PUT request
+    $.ajax(request).done(function (response) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#15877C'
+      })
+        .then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
             Swal.fire({
               icon: 'success',
-              title: 'Atheneuam',
-              text: 'Data deleted Successfully',
-              confirmButtonColor: '#15877C'
-            }).then(() => {
-              location.reload(); 
-            });
-          });
-        } else {
-          // The user clicked the "cancel" button or closed the dialog
-          Swal.fire({
-            icon: 'info',
-            title: 'Atheneuam',
-            text: 'Action canceled',
-            confirmButtonColor: '#15877C'
-          });
-        }
-      });
-  })
-}
-
-// ***********************user profile Section*******************************
-// updating the user profile
-$("#userProfile").submit(function (event) {
-  event.preventDefault();
-  let unindexed_array = $(this).serializeArray();
-  let data = {};
-
-  $.map(unindexed_array, function (n, i) {
-    data[n['name']] = n['value'];
+              title: 'Athenuam',
+              confirmButtonColor: '#15877C',
+              text: 'Data updated successfully',
+            }).then((result) => {
+              window.location.href = '/offer';
+            })
+          } else if (result.isDenied) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Athenuam',
+              text: 'Changes are not saved',
+              confirmButtonColor: '#15877C',
+            })
+              .then((result) => {
+                window.location.href = '/offer';
+              })
+          }
+        })
+    });
   });
 
-  // Extract the user's ID from the form data
-  const userId = data.id;
- 
-  // Validation: Check if the name and email fields are empty
-  if (!data.name) {
-    Swal.fire({
-      title: 'Athenuam',
-      text: 'Please enter the name!',
-      confirmButtonColor: '#15877C',
+  //delete offer
+  if (window.location.pathname === "/offer") {
+    $(document).on("click", ".table tbody td a.delete", function (event) {
+      event.preventDefault();
+      const id = $(this).attr('data-id');
+      const request = {
+        "url": `http://localhost:3000/coupon/${id}`,
+        "method": "DELETE",
+      };
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Do you really want to delete this record?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it',
+        cancelButtonText: 'cancel',
+        confirmButtonColor: '#d33',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            // The user clicked the "Yes, delete it" button
+            $.ajax(request).done(function (response) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Atheneuam',
+                text: 'Data deleted Successfully',
+                confirmButtonColor: '#15877C'
+              }).then(() => {
+                location.reload();
+              });
+            });
+          } else {
+            // The user clicked the "cancel" button or closed the dialog
+            Swal.fire({
+              icon: 'info',
+              title: 'Atheneuam',
+              text: 'Action canceled',
+              confirmButtonColor: '#15877C'
+            });
+          }
+        });
     })
-    return;
-  }
-  if (data.name.length < 4) {
-    Swal.fire({
-      title: 'Athenuam',
-      text: 'Name should be at least 4 characters',
-      confirmButtonColor: '#15877C',
-    });
-    return;
-  }
-  if (!data.email) {
-    Swal.fire({
-      title: 'Athenuam',
-      text: 'Please enter the name!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
   }
 
-  let request = {
-    "url": `http://localhost:8080/profiles/${userId}`,
-    "method": "PUT",
-    "data": data
-  };
-  // Send the PUT request
-  $.ajax(request).done(function (response) {
-    Swal.fire({
-      title: 'Athenuam',
-      text: 'Do you want to save the changes?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Save',
-      denyButtonText: `Don't save`,
-      confirmButtonColor: '#15877C'
-    })
-      .then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Athenuam',
-            confirmButtonColor: '#15877C',
-            text: 'Data updated successfully',
-          }).then((result) => {
+  // ***********************user profile Section*******************************
+  // updating the user profile
+  $("#userProfile").submit(function (event) {
+    event.preventDefault();
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
+
+    $.map(unindexed_array, function (n, i) {
+      data[n['name']] = n['value'];
+    });
+
+    // Extract the user's ID from the form data
+    const userId = data.id;
+
+    // Validation: Check if the name and email fields are empty
+    if (!data.name) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Please enter the name!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (data.name.length < 4) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Name should be at least 4 characters',
+        confirmButtonColor: '#15877C',
+      });
+      return;
+    }
+    if (!data.email) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Please enter the name!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+
+    let request = {
+      "url": `http://localhost:8080/profiles/${userId}`,
+      "method": "PUT",
+      "data": data
+    };
+    // Send the PUT request
+    $.ajax(request).done(function (response) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#15877C'
+      })
+        .then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Athenuam',
+              confirmButtonColor: '#15877C',
+              text: 'Data updated successfully',
+            }).then((result) => {
               window.location.href = '/profile';
             })
-        } else if (result.isDenied) {
-          Swal.fire({
-            icon: 'info',
-            title: 'Athenuam',
-            text: 'Changes are not saved',
-            confirmButtonColor: '#15877C',
-          })
-            .then((result) => {
-              window.location.href = '/admin';
+          } else if (result.isDenied) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Athenuam',
+              text: 'Changes are not saved',
+              confirmButtonColor: '#15877C',
             })
-        }
+              .then((result) => {
+                window.location.href = '/admin';
+              })
+          }
+        })
+    });
+  });
+
+  // radio button value for gender
+  $(document).ready(function () {
+    const selectedStatus = document.querySelector('#gender').value;
+    const selectedRadio = $(`input[name="gender"][value="${selectedStatus}"]`);
+    selectedRadio.prop('checked', true);
+    if (selectedStatus === 'Female') {
+      document.querySelector("#profileImg").src = 'https://i.pinimg.com/564x/3f/4b/cd/3f4bcd8a42877276895c8faf702f5773.jpg';
+    }
+
+  });
+  // updation for adding address
+  $("#userAddress").submit(function (event) {
+    event.preventDefault();
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
+
+    $.map(unindexed_array, function (n, i) {
+      data[n['name']] = n['value'];
+    });
+    // Extract the admin's ID from the form data
+    const userId = data.id;
+    // Validation: Check if the name and email fields are empty
+    if (!data.fullName) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your name!',
+        confirmButtonColor: '#15877C',
       })
-  });
-});
-
-// radio button value for gender
-$(document).ready(function() {
-  const selectedStatus = document.querySelector('#gender').value;
-  const selectedRadio = $(`input[name="gender"][value="${selectedStatus}"]`);
-  selectedRadio.prop('checked', true);
-  if(selectedStatus === 'Female'){
-    document.querySelector("#profileImg").src = 'https://i.pinimg.com/564x/3f/4b/cd/3f4bcd8a42877276895c8faf702f5773.jpg';
-  }
-
-});
-// updation for adding address
-$("#userAddress").submit(function (event) {
-  event.preventDefault();
-  let unindexed_array = $(this).serializeArray();
-  let data = {};
-
-  $.map(unindexed_array, function (n, i) {
-    data[n['name']] = n['value'];
-  });
-  // Extract the admin's ID from the form data
-  const userId = data.id;
-  // Validation: Check if the name and email fields are empty
-  if (!data.fullName) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text:'Please enter your name!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (data.fullName.length < 3) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Name should have at least 3 characters!',
-      confirmButtonColor: '#15877C',
-    })
-    return 
-  }
-  if (!data.phone) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your phone Number!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (data.phone.length !==10  ) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter Valid Phone Number!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (!data.address) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your  Address!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (!data.city) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your City!',
-      confirmButtonColor: '#15877C',
-    })
-    return 
-  }
-  if (!data.district) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your District!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (!data.state) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please select your State!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (!data.pincode) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your Pincode!',
-      confirmButtonColor: '#15877C',
-    })
-    return ;
-  }
-  if (data.pincode.length !== 6) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter Valid Pincode!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  let request = {
-    "url": `http://localhost:8080/address/${userId}`,
-    "method": "PUT",
-    "data": data
-  };
-  // Send the PUT request
-  $.ajax(request).done(function (response) {
+      return;
+    }
+    if (data.fullName.length < 3) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Name should have at least 3 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return
+    }
+    if (!data.phone) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your phone Number!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (data.phone.length !== 10) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter Valid Phone Number!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (!data.address) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your  Address!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (!data.city) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your City!',
+        confirmButtonColor: '#15877C',
+      })
+      return
+    }
+    if (!data.district) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your District!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (!data.state) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please select your State!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (!data.pincode) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your Pincode!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (data.pincode.length !== 6) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter Valid Pincode!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    let request = {
+      "url": `http://localhost:8080/address/${userId}`,
+      "method": "PUT",
+      "data": data
+    };
+    // Send the PUT request
+    $.ajax(request).done(function (response) {
       Swal.fire({
         icon: 'success',
         title: 'Athenuam',
         text: 'New Address data is inserted Successfully',
         showConfirmButton: true,
         confirmButtonColor: '#15877C',
-    }).then((result) => {
-      window.location.href = '/profile';
-    })
-  });
-});
-
-// updating address
-$("#userAddressEdit").submit(function (event) {
-  event.preventDefault();
-  let unindexed_array = $(this).serializeArray();
-  let data = {};
-
-  $.map(unindexed_array, function (n, i) {
-    data[n['name']] = n['value'];
-  });
-  // Extract the admin's ID from the form data
-  const addressId = data.id;
-  // Validation: Check if the name and email fields are empty
-  if (!data.fullName) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text:'Please enter your name!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (data.fullName.length < 3) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Name should have at least 3 characters!',
-      confirmButtonColor: '#15877C',
-    })
-    return 
-  }
-  if (!data.phone) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your phone Number!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (data.phone.length !==10  ) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter Valid Phone Number!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (!data.address) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your  Address!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (!data.city) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your City!',
-      confirmButtonColor: '#15877C',
-    })
-    return 
-  }
-  if (!data.district) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your District!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (!data.state) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please select your State!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (!data.pincode) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your Pincode!',
-      confirmButtonColor: '#15877C',
-    })
-    return ;
-  }
-  if (data.pincode.length !== 6) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter Valid Pincode!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-
-  let request = {
-    "url": `http://localhost:8080/addresses/${addressId}`,
-    "method": "PUT",
-    "data": data
-  };
-  // Send the PUT request
-  $.ajax(request).done(function (response) {
-    Swal.fire({
-      title: 'Athenuam',
-      text: 'Do you want to save the changes?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Save',
-      denyButtonText: `Don't save`,
-      confirmButtonColor: '#15877C'
-    })
-      .then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Athenuam',
-            confirmButtonColor: '#15877C',
-            text: 'Data updated successfully',
-          }).then((result) => {
-              window.location.href = '/profile';
-            })
-        } else if (result.isDenied) {
-          Swal.fire({
-            icon: 'info',
-            title: 'Athenuam',
-            text: 'Changes are not saved',
-            confirmButtonColor: '#15877C',
-          })
-            .then((result) => {
-              window.location.href = '/profile';
-            })
-        }
+      }).then((result) => {
+        window.location.href = '/profile';
       })
+    });
   });
-});
 
-if (window.location.pathname === "/profile") {
-  $(document).on("click", ".addressCard .card-body .addressFooter a.delete", function (event) {
+  // updating address
+  $("#userAddressEdit").submit(function (event) {
     event.preventDefault();
-    const id = $(this).attr('data-id');
-    const request = {
-      "url": `http://localhost:8080/profile/${id}`,
-      "method": "PUT"
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
+
+    $.map(unindexed_array, function (n, i) {
+      data[n['name']] = n['value'];
+    });
+    // Extract the admin's ID from the form data
+    const addressId = data.id;
+    // Validation: Check if the name and email fields are empty
+    if (!data.fullName) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your name!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (data.fullName.length < 3) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Name should have at least 3 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return
+    }
+    if (!data.phone) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your phone Number!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (data.phone.length !== 10) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter Valid Phone Number!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (!data.address) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your  Address!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (!data.city) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your City!',
+        confirmButtonColor: '#15877C',
+      })
+      return
+    }
+    if (!data.district) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your District!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (!data.state) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please select your State!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (!data.pincode) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your Pincode!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (data.pincode.length !== 6) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter Valid Pincode!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+
+    let request = {
+      "url": `http://localhost:8080/addresses/${addressId}`,
+      "method": "PUT",
+      "data": data
     };
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Do you really want to delete this record?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it',
-      cancelButtonText: 'cancel',
-      confirmButtonColor: '#d33',
-    })
-      .then((result) => {
-        if (result.isConfirmed) {
-          // The user clicked the "Yes, delete it" button
-          $.ajax(request).done(function (response) {
+    // Send the PUT request
+    $.ajax(request).done(function (response) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#15877C'
+      })
+        .then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
             Swal.fire({
               icon: 'success',
-              title: 'Atheneuam',
-              text: 'Data deleted Successfully',
-              confirmButtonColor: '#15877C'
-            }).then(() => {
-              location.reload(); 
-            });
-          });
-        } else {
-          // The user clicked the "cancel" button or closed the dialog
-          Swal.fire({
-            icon: 'info',
-            title: 'Atheneuam',
-            text: 'Action canceled',
-            confirmButtonColor: '#15877C'
-          });
-        }
-      });
-  })
-}
-
-// ***********************Wishlist Section*******************************
-$('.icon-wishlist').on('click', function(){
-  $(this).toggleClass('in-wishlist');
-});
-
-// ***********************Checkout Section*******************************
-$('.adrSelection').on('click', function () {
-  // Assuming you have a data attribute on the button containing the address information
-  const addressData =$(this).data('address');
-  $('#fname').val(addressData.fullName);
-  $('#phone').val(addressData.phone);
-  $('#adr').val(addressData.address);
-  $('#city').val(addressData.city);
-  $('#district').val(addressData.district);
-  $('#state').val(addressData.state);
-  $('#pincode').val(addressData.pincode);
-  $('#shippingId').val(addressData._id);
-});
-
-$("#shippingAdr").submit(function (event) {
-  event.preventDefault();
-  let unindexed_array = $(this).serializeArray();
-  let data = {};
-
-  $.map(unindexed_array, function (n, i) {
-    data[n['name']] = n['value'];
-  }); 
-
-  const addressId = data._id;
-  // Validation: Check if the name and email fields are empty
-  if (!data.fullName) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text:'Please enter your name!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (data.fullName.length < 3) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Name should have at least 3 characters!',
-      confirmButtonColor: '#15877C',
-    })
-    return 
-  }
-  if (!data.phone) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your phone Number!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (data.phone.length !==10  ) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter Valid Phone Number!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (!data.address) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your  Address!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (!data.city) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your City!',
-      confirmButtonColor: '#15877C',
-    })
-    return 
-  }
-  if (!data.state) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please select your State!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  if (!data.pincode) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter your Pincode!',
-      confirmButtonColor: '#15877C',
-    })
-    return ;
-  }
-  if (data.pincode.length !== 6) {
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter Valid Pincode!',
-      confirmButtonColor: '#15877C',
-    })
-    return;
-  }
-  let request = {
-    "url": `http://localhost:8080/checkout/${addressId}`,
-    "method": "PUT",
-    "data": data
-  };
-  // Send the PUT request
-  $.ajax(request).done(function (response) {
-    Swal.fire({
-      title: 'Athenuam',
-      text: 'Do you want to save the changes?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Save',
-      denyButtonText: `Don't save`,
-      confirmButtonColor: '#15877C'
-    })
-      .then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Athenuam',
-            confirmButtonColor: '#15877C',
-            text: 'shipping address is updated successfully',
-          }).then((result) => {
-            $('#editShipping').css('display', 'none');
-            $('.adrSelection').css('display', 'none');
-            $('.adrChange').css('display', 'block');
-            $('.paymentSection').css('display', 'block');
-            // $("#addressArea").css('display', 'none');    
-            // window.location.href = '/checkout' 
-          })
-        } else if (result.isDenied) {
-          Swal.fire({
-            icon: 'info',
-            title: 'Athenuam',
-            text: 'Changes are not saved',
-            confirmButtonColor: '#15877C',
-          })
-            .then((result) => {
-              window.location.href = '/checkout';
+              title: 'Athenuam',
+              confirmButtonColor: '#15877C',
+              text: 'Data updated successfully',
+            }).then((result) => {
+              window.location.href = '/profile';
             })
-        }
-      })
-  });
-});
-
-$("#couponBtn").submit(function (event){
-  let coupon = $("#coupon").val();
-  if(!coupon){
-    Swal.fire({
-      title: 'Atheneuam',
-      text: 'Please enter coupon code!',
-      confirmButtonColor: '#15877C',
-    }).then((result) => {
-      window.location.href = '/checkout';
+          } else if (result.isDenied) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Athenuam',
+              text: 'Changes are not saved',
+              confirmButtonColor: '#15877C',
+            })
+              .then((result) => {
+                window.location.href = '/profile';
+              })
+          }
+        })
     });
-  }
-})
+  });
 
-
-// radio button value for payment
-$(document).ready(function() {
-  fetch('/checkout', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    }
-})
-  const paymentMethod = $("input[type='radio'][name='payementMethod']:checked").val();
-  if(paymentMethod === 'card payement'){
-    alert(paymentMethod);
-  }
- 
-});
-
-$("#placeOrder").submit(function (event) {
-    event.preventDefault();
-    Swal.fire({
-      icon: 'success',
-      title: 'Athenuam',
-      text: 'New Order is inserted Successfully',
-      showConfirmButton: true,
-      confirmButtonColor: '#15877C',
+  if (window.location.pathname === "/profile") {
+    $(document).on("click", ".addressCard .card-body .addressFooter a.delete", function (event) {
+      event.preventDefault();
+      const id = $(this).attr('data-id');
+      const request = {
+        "url": `http://localhost:8080/profile/${id}`,
+        "method": "PUT"
+      };
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Do you really want to delete this record?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it',
+        cancelButtonText: 'cancel',
+        confirmButtonColor: '#d33',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            // The user clicked the "Yes, delete it" button
+            $.ajax(request).done(function (response) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Atheneuam',
+                text: 'Data deleted Successfully',
+                confirmButtonColor: '#15877C'
+              }).then(() => {
+                location.reload();
+              });
+            });
+          } else {
+            // The user clicked the "cancel" button or closed the dialog
+            Swal.fire({
+              icon: 'info',
+              title: 'Atheneuam',
+              text: 'Action canceled',
+              confirmButtonColor: '#15877C'
+            });
+          }
+        });
     })
-})
-// ***********************Chart Section*******************************
-// Chart Global Color
-Chart.defaults.color = "#6C7293";
-Chart.defaults.borderColor = "#ffffffff";
+  }
 
-// Worldwide Sales Chart
+  // ***********************Wishlist Section*******************************
+  $('.icon-wishlist').on('click', function () {
+    $(this).toggleClass('in-wishlist');
+  });
+
+  // ***********************Checkout Section*******************************
+  $('.adrSelection').on('click', function () {
+    // Assuming you have a data attribute on the button containing the address information
+    const addressData = $(this).data('address');
+    $('#fname').val(addressData.fullName);
+    $('#phone').val(addressData.phone);
+    $('#adr').val(addressData.address);
+    $('#city').val(addressData.city);
+    $('#district').val(addressData.district);
+    $('#state').val(addressData.state);
+    $('#pincode').val(addressData.pincode);
+    $('#shippingId').val(addressData._id);
+  });
+
+  $("#shippingAdr").submit(function (event) {
+    event.preventDefault();
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
+
+    $.map(unindexed_array, function (n, i) {
+      data[n['name']] = n['value'];
+    });
+
+    const addressId = data._id;
+    // Validation: Check if the name and email fields are empty
+    if (!data.fullName) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your name!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (data.fullName.length < 3) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Name should have at least 3 characters!',
+        confirmButtonColor: '#15877C',
+      })
+      return
+    }
+    if (!data.phone) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your phone Number!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (data.phone.length !== 10) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter Valid Phone Number!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (!data.address) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your  Address!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (!data.city) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your City!',
+        confirmButtonColor: '#15877C',
+      })
+      return
+    }
+    if (!data.state) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please select your State!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (!data.pincode) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your Pincode!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    if (data.pincode.length !== 6) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter Valid Pincode!',
+        confirmButtonColor: '#15877C',
+      })
+      return;
+    }
+    let request = {
+      "url": `http://localhost:8080/checkout/${addressId}`,
+      "method": "PUT",
+      "data": data
+    };
+    // Send the PUT request
+    $.ajax(request).done(function (response) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#15877C'
+      })
+        .then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Athenuam',
+              confirmButtonColor: '#15877C',
+              text: 'shipping address is updated successfully',
+            }).then((result) => {
+
+              $('#editShipping').css('display', 'none');
+              $('.adrSelection').css('display', 'none');
+              $('.adrChange').css('display', 'block');
+              $('.paymentSection').css('display', 'block');
+              $('#checkoutAddBtn').css('display', 'none');
+              $('#addressCard').css('display', 'none');
+              $('#updatedAddress').css('display', 'block');
+              $('#savedId').text(addressId);
+              $('#savedName').text(data.fullName);
+              $('#savedPhone').text(data.phone);
+              $('#savedAddress').text(data.address);
+              $('#savedCity').text(data.city);
+              $('#savedDistrict').text(data.district);
+              $('#savedState').text(data.state);
+              $('#savedPin').text(-data.pincode);
+            })
+          } else if (result.isDenied) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Athenuam',
+              text: 'Changes are not saved',
+              confirmButtonColor: '#15877C',
+            })
+              .then((result) => {
+                window.location.href = '/checkout';
+              })
+          }
+        })
+    });
+  });
+
+  $("#changeBtn").click(function () {
+    $('#editShipping').css('display', 'block');
+    $('.adrSelection').css('display', 'block');
+    $('#addressCard').css('display', 'block')
+    $('#changeBtn').css('display', 'none');
+    $('.paymentSection').css('display', 'none');
+    $('#updatedAddress').css('display', 'none');
+  });
+
+  $("#couponBtn").submit(function (event) {
+    const coupon = $("#coupon").val();
+    if (!coupon) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter coupon code!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    } else {
+      $('.off').css('display', 'none');
+    }
+  })
+
+
+  $("#paymentSection").submit(async function (event) {
+    event.preventDefault();
+    const shippingId = $("#shippingId").val();
+    const paymentMethod = $("input[name='paymentMethod']:checked").val();
+    const couponCode = $("input[name='couponCode']").val();
+    const amount = Number(document.getElementById('total').innerText.split(" ")[1]);
+
+    if (paymentMethod === undefined) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Please select a payment method',
+        showConfirmButton: true,
+        confirmButtonColor: '#15877C',
+      });
+      return false;
+    }
+    try {
+      if (paymentMethod === "Online Payment") {
+        const createOrderResponse = await fetch("/createOrder", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            amount: amount * 100,
+          }),
+        });
+        if (createOrderResponse.ok) {
+          const responseJson = await createOrderResponse.json();
+          const orderId = responseJson.orderId;
+          const options = {
+            "key": "rzp_test_a2pY3SL0qqjGHN",
+            "amount": amount * 100,
+            "currency": "INR",
+            "name": "Atheneuam",
+            "description": "Test Transaction",
+            "image": "https://asset.cloudinary.com/dfyuibin9/7dfd4f365929133e3282794643564a88",
+            handler: async function (response) {
+              const checkoutResponse = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  shippingId: shippingId,
+                  paymentMethod: paymentMethod,
+                  couponCode: couponCode
+                }),
+              });
+              Swal.fire({
+                icon: 'success',
+                title: 'Athenuam',
+                text: 'New Order is Placed Successfully',
+                showConfirmButton: true,
+                confirmButtonColor: '#15877C',
+              }).then(function (result) {
+                window.location.href = '/invoice';
+              });
+              const settings = {
+                "url": "/api/payment/verify",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "data": JSON.stringify({ response }),
+              };
+            },
+            "theme": {
+              "color": "#15877C"
+            },
+            "modal": {
+              "ondismiss": function () {
+                rzp.close();
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Athenuam',
+                  text: 'Payment Failed',
+                  showConfirmButton: true,
+                  confirmButtonColor: '#13877C',
+                }).then(() => {
+                  window.reload();
+                })
+              }
+            },
+          };
+          const rzp = new Razorpay(options);
+          rzp.open();
+        } else {
+          console.error('Error creating order:', createOrderResponse.statusText);
+          Swal.fire({
+            icon: 'error',
+            title: 'Athenuam',
+            text: 'Error creating order',
+            showConfirmButton: true,
+            confirmButtonColor: '#FF0000',
+          });
+        }
+      } else {
+        // For non-online payment methods
+        Swal.fire({
+          icon: 'success',
+          title: 'Athenuam',
+          text: 'New Order is Placed Successfully',
+          showConfirmButton: true,
+          confirmButtonColor: '#15877C',
+        }).then(function (result) {
+          window.location.href = '/invoice';
+        });
+      }
+
+
+    } catch (error) {
+      console.error('An unexpected error occurred:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Athenuam',
+        text: 'An unexpected error occurred',
+        showConfirmButton: true,
+        confirmButtonColor: '#15877C',
+      });
+    }
+  });
+
+  // order Cancellation
+  $("#cancelOrderForm").submit(function (event) {
+    event.preventDefault();
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
+    $.map(unindexed_array, function (n, i) {
+      data[n['name']] = n['value'];
+    });
+    // Extract the user's ID from the form data
+    const orderId = data.id;
+    let request = {
+      "url": `http://localhost:8080/order/${orderId}`,
+      "method": "PUT",
+      "data": data
+    };
+    // Send the PUT request
+    $.ajax(request).done(function (response) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#15877C'
+      })
+        .then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Athenuam',
+              confirmButtonColor: '#15877C',
+              text: 'Data updated successfully',
+            }).then((result) => {
+              window.location.reload();
+            })
+          } else if (result.isDenied) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Athenuam',
+              text: 'Changes are not saved',
+              confirmButtonColor: '#15877C',
+            })
+              .then((result) => {
+                history.back();
+              })
+          }
+        })
+    });
+  });
+
+
+  let currentOrderId;
+  $('.edit-order-btn').click(function () {
+    currentOrderId = $(this).data('order-id');
+  });
+  // order edit
+  $("#editOrderForm").submit(function (event) {
+    event.preventDefault();
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
+    $.map(unindexed_array, function (n, i) {
+      data[n['name']] = n['value'];
+    });
+    // Use the stored order ID
+    const orderId = currentOrderId;
+    alert(orderId);
+    let request = {
+      "url": `http://localhost:3000/order/${orderId}`,
+      "method": "PUT",
+      "data": data
+    };
+    // Send the PUT request
+    $.ajax(request).done(function (response) {
+      Swal.fire({
+        title: 'Athenuam',
+        text: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#15877C'
+      })
+        .then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Athenuam',
+              confirmButtonColor: '#15877C',
+              text: 'Data updated successfully',
+            }).then((result) => {
+              window.location.reload();
+            })
+          } else if (result.isDenied) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Athenuam',
+              text: 'Changes are not saved',
+              confirmButtonColor: '#15877C',
+            })
+              .then((result) => {
+                history.back();
+              })
+          }
+        })
+    });
+  });
+
+
+
+
+  // ***********************Chart Section*******************************
+  // Chart Global Color
+  Chart.defaults.color = "#6C7293";
+  Chart.defaults.borderColor = "#ffffffff";
+
+  const count = document.getElementById('totals').value;
+  const counts = count.split(",").map(Number);
+  const amount = document.getElementById('amounts').value;
+  const amounts = amount.split(",").map(x => Number(x) / 1000);
+
+  //overall order
   let ctx1 = $("#worldwide-sales").get(0).getContext("2d");
   let myChart1 = new Chart(ctx1, {
     type: "bar",
     data: {
-      labels: ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       datasets: [{
-        label: "Sales",
-        data: [0, 20, 35, 55, 50, 70, 75, 55, 20, 45, 45, 40, 60],
+        label: "Total",
+        data: counts,
         backgroundColor: "#CCEBD7"
       },
       {
-        label: "Target",
-        data: [15, 30, 55, 65, 60, 80, 95, 65, 30, 55, 65, 60, 80],
+        label: "Amount",
+        data: amounts,
         backgroundColor: "#15877C"
       }]
     },
@@ -2314,10 +2565,10 @@ Chart.defaults.borderColor = "#ffffffff";
 
   cb(start, end);
 
-  // current customer chart
+  // Total order chart
   const currentData = {
     datasets: [{
-      data: [85, 15],
+      data: [100, 0],
       backgroundColor: [
         '#15877C',
         '#E2E2E2'
@@ -2355,13 +2606,13 @@ Chart.defaults.borderColor = "#ffffffff";
         }
       },
       centerText: {
-        text: '85%',
+        text: '100%',
         font: '16px Roboto',
         color: '#000'
       },
       borderWidth: 0,
       cutout: '80%',
-      rotation: 70
+      rotation: 0
     }, plugins: [centerTextPlugin],
   };
   const myChart = new Chart(
@@ -2370,10 +2621,13 @@ Chart.defaults.borderColor = "#ffffffff";
   );
 
 
-  // New customers chart
+  // Delivered order chart
+  const totalData = document.getElementById('total-orders').value;
+  const deliveredData = document.getElementById('deliveredOrders').value;
+  const deliveredOrders = Math.round((deliveredData * 100) / totalData)
   const newData = {
     datasets: [{
-      data: [66, 34],
+      data: [deliveredOrders, 100 - deliveredOrders],
       backgroundColor: [
         '#0E5A6A',
         '#E2E2E2'
@@ -2411,13 +2665,13 @@ Chart.defaults.borderColor = "#ffffffff";
         }
       },
       centerText: {
-        text: '66%',
+        text: `${deliveredOrders}%`,
         font: '16px Roboto',
         color: '#000'
       },
       borderWidth: 0,
       cutout: '80%',
-      rotation: 70
+      rotation: 0
     }, plugins: [centerTextPlugin],
   };
   const newChart = new Chart(
@@ -2426,10 +2680,12 @@ Chart.defaults.borderColor = "#ffffffff";
   );
 
 
-  // target customers chart
+  // Pending Orders
+  const pendingOrders = document.getElementById('pendingOrders').value;
+  const pending = Math.round((pendingOrders * 100) / totalData)
   const targetData = {
     datasets: [{
-      data: [90, 10],
+      data: [pending, 100 - pending],
       backgroundColor: [
         '#0E5A6A',
         '#E2E2E2'
@@ -2467,13 +2723,13 @@ Chart.defaults.borderColor = "#ffffffff";
         }
       },
       centerText: {
-        text: '90%',
+        text: `${pending}%`,
         font: '16px Roboto',
         color: '#000'
       },
       borderWidth: 0,
       cutout: '80%',
-      rotation: 70
+      rotation: 0
     }, plugins: [centerTextPlugin],
   };
   const targetChart = new Chart(
@@ -2481,10 +2737,12 @@ Chart.defaults.borderColor = "#ffffffff";
     target
   );
 
-  // Retarget customers chart
+  // Cancelled order chart
+  const cancelledData = document.getElementById('cancelledOrders').value;
+  const cancelled = Math.round((cancelledData * 100) / totalData)
   const retargetData = {
     datasets: [{
-      data: [30, 70],
+      data: [cancelled, 100 - cancelled],
       backgroundColor: [
         '#6CCCC3',
         '#E2E2E2'
@@ -2522,19 +2780,79 @@ Chart.defaults.borderColor = "#ffffffff";
         }
       },
       centerText: {
-        text: '30%',
+        text: `${cancelled}%`,
         font: '16px Roboto',
         color: '#000'
       },
       borderWidth: 0,
       cutout: '80%',
-      rotation: 70
+      rotation: 0
     }, plugins: [centerTextPlugin],
   };
   const retargetChart = new Chart(
     document.getElementById('doughnut4'),
     Retarget
   );
+
+
+
+
+  // $("#cancelOrderForm").submit(function (event) {
+  //   event.preventDefault();
+  //   const formData = new FormData(this);
+
+  //   // Extract the book's ID from the form data
+  //   const orderId = formData.get('id')
+  //   const reason = formData.get('reason');
+  //   // Append the bookid to the URL
+  //   const request = {
+  //     'url': `http://localhost:8080/order/${orderId}`,
+  //     'method': 'PUT',
+  //     'data': formData,
+  //     processData: false,
+  //     contentType: false,
+  //   };
+  //   // // Send the PUT request        
+  //   $.ajax(request).done(function (response) {
+  //     Swal.fire({
+  //       title: 'Do you want to save the changes?',
+  //       showDenyButton: true,
+  //       showCancelButton: true,
+  //       confirmButtonText: 'Save',
+  //       denyButtonText: `Don't save`,
+  //       confirmButtonColor: '#15877C'
+  //     })
+  //       .then((result) => {
+  //         /* Read more about isConfirmed, isDenied below */
+  //         if (result.isConfirmed) {
+  //           Swal.fire({
+  //             icon:'success', 
+  //             title: 'Atheneaum',
+  //             text: 'Data updated successfully',
+  //             confirmButtonColor: '#15877C'
+  //           })
+  //             .then(() => {
+  //               history.back();
+  //             })
+  //         } else if (result.isDenied) {
+  //           Swal.fire({
+  //             icon:'info',
+  //             title:'Atheneuam',
+  //             text: 'Changes are not saved', 
+  //             confirmButtonColor:'#15877C'})
+  //             .then(() => {
+  //               history.back();
+  //             })
+  //         }
+  //       }).fail(function (jqXHR, textStatus, errorThrown) {
+  //         console.error('AJAX request failed:', textStatus, errorThrown);
+  //         console.log('XHR status:', jqXHR.status);
+  //         console.log('XHR response text:', jqXHR.responseText);
+  //         Swal.fire('Error', 'Something Went Wrong.', 'error');
+  //       });
+
+  //   });
+  // });
 
 
 

@@ -1,5 +1,6 @@
 const { log } = require('handlebars');
 const bannerCollection = require('../models/bannerModel');
+const Shop = require('../models/shopModel')
 const cloudinary = require('../services/cloudinary');
 const path = require('path')
 const multer = require('multer');
@@ -20,45 +21,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// // create new banner
-// exports.create = async (req, res) => {
-//   upload.single('bannerImg')(req, res, async (err) => {
-//     if (err) {
-//       res.status(500).send({ message: err.message });
-//       return;
-//     }
-//     if (!req.body) {
-//       res.status(400).send({ message: 'Content can not be empty' });
-//       return;
-//     }
-//     const { name,  shop,  type, categoryId, productId} = req.body;
-//     const bannerImg = req.file.path;
-//     cloudinary.uploader.upload(bannerImg, (cloudinaryErr, result) => {
-//       if (cloudinaryErr) {
-//         res.status(500).send({ message: cloudinaryErr.message });
-//         return;
-//       }
-//       const banner = new bannerCollection({
-//         name,
-//         shop, 
-//         type, 
-//         categoryId, 
-//         productId,
-//         bannerImg: result.secure_url,
-//         cloudinaryId: result.public_id,
-//       });
-//       banner.save()
-//       .then(savedBanner => {
-//         console.log(savedBanner);
-//         res.redirect('/banner');
-//        })
-//       .catch(saveErr => {
-//         res.status(500).send({ message: saveErr.message });
-//       });
-//     });
-//   });
-// };
-
 
 exports.create = async (req, res) => {
   upload.single('bannerImg')(req, res, async (err) => {
@@ -69,11 +31,9 @@ exports.create = async (req, res) => {
     if (!req.body) {
       res.status(400).send({ message: 'Content can not be empty' });
       return;
-    }
-    
-    const { name, shop, type, categoryId, productId } = req.body;
+    }  
+    const { name, shop, type, categoryId, productId,description } = req.body;
     const bannerImg = req.file.path;
-    
     cloudinary.uploader.upload(bannerImg, async (cloudinaryErr, result) => {
       if (cloudinaryErr) {
         res.status(500).send({ message: cloudinaryErr.message });
@@ -100,10 +60,10 @@ exports.create = async (req, res) => {
             productId,
             bannerImg: result.secure_url,
             cloudinaryId: result.public_id,
+            description,
           });
 
           const savedBanner = await banner.save();
-          console.log(savedBanner);
           res.redirect('/banner');
         } else {
           // Create and save the new banner if the count is less than 3
@@ -115,6 +75,7 @@ exports.create = async (req, res) => {
             productId,
             bannerImg: result.secure_url,
             cloudinaryId: result.public_id,
+            description,
           });
 
           const savedBanner = await banner.save();
@@ -128,9 +89,8 @@ exports.create = async (req, res) => {
   });
 };
 
-
 // retrieve and return all banner or  retrieve and return a single banner 
-exports.find = (req, res) => {
+exports.find = async(req, res) => { 
   if (req.query.id) {
     const id = req.query.id;
     bannerCollection.findById(id)
@@ -152,7 +112,7 @@ exports.find = (req, res) => {
         res.json(banner);
       } else {
         // If it's a web request, render the "banner" page with the data
-        res.render('banner', { banners: banner });
+        res.render('banner', { banners: banner});
       }
     })
     .catch(err => {
@@ -170,11 +130,9 @@ exports.update = async(req, res) => {
         try {
             const bannerId = req.params.id;
             const banner = await bannerCollection.findById(bannerId);
-            // console.log(shop)
             if (!banner) {
                 return res.status(404).json({ message: 'Shop not found' });
             }   
-            // console.log(req.file)
             // Check if a new file is being uploaded
             if (req.file) {
                 // Delete the old banner image from Cloudinary
@@ -193,6 +151,7 @@ exports.update = async(req, res) => {
             banner.type = req.body.type || banner.type;        
             banner.categoryId = req.body.categoryId || banner.categoryId;
             banner.productId = req.body.productId || banner.productId;
+            banner.description = req.body.description || banner.description
 
             // Save the banner changes to the database  
             const savedBan = await banner.save();
@@ -204,19 +163,6 @@ exports.update = async(req, res) => {
         }
     })
 };
-
-exports.banner = async(req, res) => {
-  try {
-    const bannerId = req.body.id;
-    // Update the banner's isEnabled field to true
-    await bannerCollection.findByIdAndUpdate(bannerId, { isEnabled: true });
-
-    res.json({ success: true, message: 'Banner updated successfully' });
-  } catch (error) {
-    console.error('Error updating banner:', error);
-    res.status(500).json({ success: false, message: 'Banner update failed' });
-  }
-}
 
 exports.delete = (req, res) => {
     const id = req.params.id;

@@ -52,13 +52,15 @@
                         <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
                     </div>
                 </a>
-                <div class="navbar-nav w-100 d-flex ">
+                <div class="navbar-nav w-100 d-flex navbar-nav-scroll" id="navbar-nav-scroll">
                     <div>
                         <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
                         <a href="shop" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Shops</a>
                         <a href="user" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-                        <a href="products" class="nav-item nav-link" id="productSection"><i class="bi bi-book"></i>Products</a>
+                        <a href="products" class="nav-item nav-link" id="productSection"><i
+                                class="bi bi-book"></i>Products</a>
                         <a href="category" class="nav-item nav-link active"><i class="bi bi-box"></i>Category</a>
+                        <a href="/report" class="nav-item nav-link"><i class="bi bi-bar-chart-line"></i>Report</a>
                         <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
                         <a href="admin" class="nav-item nav-link"><i class="bi bi-person"></i>Admin</a>
                         <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
@@ -99,7 +101,8 @@
         <div class="container-fluid pt-4 px-4">
             <h2 class="text-primary text-center">Add Category</h2>
             <div class="bg-secondary border rounded">
-                <form action="/api/categories" method="POST" id="add_cat" onsubmit="return categoryValidation()" enctype="multipart/form-data">
+                <form action="/api/categories" method="POST" id="add_cat" onsubmit="return categoryValidation()"
+                    enctype="multipart/form-data">
                     <div class="row m-2">
                         <div class="form-group m-2">
                             <input type="text" class="form-control" id="name" name="genre" value=""
@@ -144,7 +147,7 @@
     <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
 </body>

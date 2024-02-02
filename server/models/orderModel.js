@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
+const cron = require('node-cron');
 
 const orderScheme = new mongoose.Schema({   
     userId:{
-        type:  mongoose.Schema.Types.ObjectId,
-        ref: 'users'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
     },
     addressId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'users'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
     },
     orderItems:[{
         itemId: {
@@ -26,18 +27,25 @@ const orderScheme = new mongoose.Schema({
     }],
     TotalAmt:{
         type: Number,
+        required: true,
     },
     discount:{
         type: Number,
     },
-    couponCode: String,
+    couponCode: {
+        type: String,
+    },
     payableTotal: Number,
     paymentMethod:{
         type: String,
     },
+    paymentStatus:{
+        type: String,
+        default: "Not Paid",
+    },
     orderStatus:{
         type: String,
-        default: "pending",
+        default: "Order Placed",
     },
     orderDate:{
         type: Date,
@@ -45,13 +53,43 @@ const orderScheme = new mongoose.Schema({
     },
     deliveryDate :{
         type: Date,
-        default:  function() { new Date(this.orderDate);
-            DateExpire.setDate(orderDate.getDate() + 5);
-            return DateExpire.toLocaleDateString();
+        default: function() {
+        const orderDate = new Date(this.orderDate); 
+        const deliveryDate = new Date(orderDate);
+        deliveryDate.setDate(deliveryDate.getDate() + 5); 
+        return deliveryDate.toLocaleDateString();
         }
+    },
+    cancelReason:{
+        type: String,
     }
-})
+});
 
+async function updateOrderStatus(){
+    const currentDate = new Date();
+    try {
+        const status = await orderCollection.find({
+            orderStatus: "Order Placed",
+            deliveryDate: {$lt: currentDate},
+        })
+        if(status.length > 0){
+            await Promise.all(
+                status.map(async (order) =>{
+                    order.orderStatus = "Delivered";
+                    await order.save();
+                })
+            )
+            console.log('Updated orderStatus to "delivered" for orders:');
+        }
+
+    } catch (error) {
+        console.error('Error updating delivered orders:', error);
+    }
+}
+cron.schedule('0 0 * * *', async () => {
+    console.log('Running task to update delivered orders...');
+    await updateOrderStatus();
+  });
 
 const orderCollection = mongoose.model('Orders', orderScheme);
 module.exports = orderCollection;

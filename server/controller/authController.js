@@ -42,7 +42,7 @@ exports.register = async(req, res) => {
         // save user in database
         const savedUser = await user.save();
         if(token){
-            res.redirect('/home');
+            res.redirect('/homes');
         }
     }catch(err){
         res.status(500).send({
@@ -81,7 +81,7 @@ exports.login = async(req, res) => {
            if(user.status === 'Block'){
             res.render('login',{Blocked: true});
            }else{
-            res.redirect('/home');
+            res.redirect('/homes');
            }
         }
     }catch (e) {
