@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 const session = require('express-session');
 const JWT_SECRET = process.env.JWT_SECRET;
-const cookie = require('cookie');
 // ***********************user Management********************************
 // Register and save new user
 const signToken = (id,user)=> {
@@ -93,15 +92,6 @@ exports.login = async(req, res) => {
 
 // Logout function
 exports.logout = async(req, res) => {
-    // Clear the session and redirect to the login page
-    // req.session.destroy((err) => {
-    //     // if (err) {
-    //     //     console.error('Error destroying session:', err);
-    //     //     res.status(500).send({ message: 'Internal Server Error' });
-    //     // } else {
-    //         res.redirect('/login');
-    //     }
-    // });
     res.clearCookie('token');
     res.redirect('/login');
 };

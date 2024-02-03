@@ -312,6 +312,10 @@ exports.login = (req, res) => {
 exports.signup = (req, res) => {
     res.render('signUp');
 }
+
+exports.forgotPswd = (req, res) => {
+    res.render('changePswd');
+}
 // ***********************Customer CRUD Section*******************************
 exports.user = async (req, res) => {
     const id = req.user.id;

@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const {superAdmin} = require('./server/seeder/adminSeeder');
 const connectDB = require('./server/database/connection');
+const cookieParser= require('cookie-parser');
 
 
 const userApp = express();
@@ -18,18 +19,19 @@ const adminApp = express();
 const adminPort = process.env.ADMIN_PORT ;
 const userPort = process.env.USER_PORT;
 
+adminApp.use(cookieParser());
 adminApp.use(session({
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: true,
 }));
 
+userApp.use(cookieParser());
 userApp.use(session({
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: true,
 }));
-
 
 //log request
 adminApp.use(morgan('tiny'));
