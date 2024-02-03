@@ -42,132 +42,46 @@
             </div>
         </div>
         <!-- Spinner End -->
-
-
-        <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-secondary navbar-dark">
-                <a href="dashboard" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary">Atheneuam</h3>
-                </a>
-
-                <div class="navbar-nav w-100 d-flex ">
-                    <div>
-                        <a href="dashboard" class="nav-item nav-link "><i class="bi bi-stack"></i>Dashboard</a>
-
-                        <a href="shop" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Shops</a>
-                        <a href="users" class="nav-item nav-link"><i class="bi bi-people"></i>Customers</a>
-                        <a href="orders" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
-                        <a href="chart" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
-                                    class="bi bi-gear"></i>Settings</a>
-                            <div class="dropdown-menu bg-transparent border-0">
-                                <a href="admin" class="dropdown-item">Admin </a>
-                                <a href="coupon" class="dropdown-item">Coupon</a>
-                                <a href="banner" class="dropdown-item">Banner </a>
-                                <a href="profile" class="dropdown-item">Profile</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <a href="/logout" class="nav-link" data-bs-toggle="dropdown"><i
-                                class="bi bi-box-arrow-right"></i>/logout</a>
-
-                    </div>
-                </div>
-            </nav>
-        </div>
-        </nav>
     </div>
-    <!-- Sidebar End -->
-
-
-    <!-- Content Start -->
-    <div class="content">
-        <!-- Navbar Start -->
-        <nav class="navbar navbar-expand bg-secondary navbar-dark  px-4 py-0">
-            <div class="navbar-nav align-items-center ms-auto">
-                <h5>
-                    <a href="#" class="sidebar-toggler flex-shrink-0">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                </h5>
-
-                <div class="nav-item dropdown">
-                    <a href="profile" class="nav-link ">
-                        <h3><i class=" bi-person text-dark"></i>
-                        </h3>
-                    </a>
-                </div>
-            </div>
-        </nav>
-        <!-- Navbar End -->
-
-
-        <!-- Button Start -->
-        <div class="container-fluid pt-4 px-4 mb-5">
-            <div class="bg-secondary border rounded">
-                <div class="row no-gutters">
-
-                    <div class="col-lg-12 col-xl-12">
-                        <div class="profile-content-right profile-right-spacing py-5">
-                            <ul class="nav nav-tabs px-0 px-xl-5 nav-style-border" id="myTab" role="tablist">
-
-
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                                    aria-controls="profile" aria-selected="false">change password</a>
-
-                            </ul>
-
-                            <div class="tab-content px-3 px-xl-5" id="myTabContent">
-
-
-
-                                <div class="tab-pane fade show active" id="profile" role="tabpanel"
-                                    aria-labelledby="settings-tab">
-                                    <div class="tab-pane-content my-5">
-                                        <form method="POST" id="change_pswd" action="/updatePassword" >
-                                            <div class="form-group mb-4">
-                                                <label for="oldPassword">Old password</label>
-                                                <input type="password" class="form-control" id="oldPassword" name="oldPassword" value="{{admin.password}}">
-                                            </div>
-
-                                            <div class="form-group mb-4">
-                                                <label for="newPassword">New password</label>
-                                                <input type="password" name="newPassword" class="form-control" id="newPassword">
-                                            </div>
-
-                                            <div class="form-group mb-4">
-                                                <label for="conPassword">Confirm password</label>
-                                                <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
-                                            </div>
-
-                                            <div class="d-flex justify-content-start mt-5">
-                                                <a href="editAdmin" class="btn btn-outline-dark mx-3 ">Cancel</a>
-                                                <button type="submit" class="btn btn-primary mb-2 btn-pill">Save</button>
-                                            </div>
-                                        </form>
-
-                                    </div>
+    <!-- Button Start -->
+    <div class="container-fluid pt-4 mb-5">
+        <div class="bg-secondary border rounded">
+            <div class="row no-gutters">
+                <div class="col-lg-12 col-xl-12">
+                    <div class="profile-content-right profile-right-spacing py-5">
+                        <ul class="nav nav-tabs px-0  nav-style-border" id="myTab" role="tablist">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">change password</a>
+                        </ul>
+                        <div class="tab-content px-3 px-xl-5" id="myTabContent">
+                            <div class="tab-pane fade show active" id="profile" role="tabpanel"
+                                aria-labelledby="settings-tab">
+                                <div class="tab-pane-content my-5">
+                                    <form method="POST" id="change_pswd" action="/updatePassword" >
+                                        <div class="form-group mb-4">
+                                            <label for="oldPassword">Old password</label>
+                                            <input type="password" class="form-control" id="oldPassword" name="oldPassword" value="{{admin.password}}">
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label for="newPassword">New password</label>
+                                            <input type="password" name="newPassword" class="form-control" id="newPassword">
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label for="conPassword">Confirm password</label>
+                                            <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
+                                        </div>
+                                        <div class="d-flex justify-content-start mt-5">
+                                            <a href="editAdmin" class="btn btn-outline-dark mx-3 ">Cancel</a>
+                                            <button type="submit" class="btn btn-primary mb-2 btn-pill">Save</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
         </div>
-
-
-
-
     </div>
     <!-- Content End -->
 

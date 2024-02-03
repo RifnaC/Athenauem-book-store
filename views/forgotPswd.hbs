@@ -31,22 +31,14 @@
     <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
-    <main class="container d-flex justify-content-center loginBox">
-        <div class="my-5 loginBox">
+    <main class="container d-flex justify-content-center align-items-center">
+        <div class="my-5 ">
             <form action="/login" method="POST" class="login" id="login" name="loginForm"
-                onsubmit="return loginValidation()">
-                <h2>Atheneuam</h2>
-                <p>Please login</p>
-                <div class="loginInputs">
-                    <input type="email" name="email" id="Email" placeholder="Email" value="" />
-                    <input type="password" name="password" id="Password" placeholder="Password" value="" />
+                onsubmit="return forgotPswd()">
+                <div class="d-flex justify-content-center align-items-center">
+                    <input type="email" name="email" id="Email" placeholder="Please enter your email" value="" />
                     <div class="d-flex justify-content-center">
-                        <input type="submit" value="Login" class="loginBtn" />
-                    </div>
-                    <div><a class="linkText mb-0" href="/password" style="font-size: 14px;">Forgot password?</a></div>
-                    <div class="links d-flex justify-content-between mt-1">
-                        <a href="/signUp" class="mt-2">Don’t have an account?</a>
-                        <a class="linkText" href="/signUp">Sign Up</a>
+                        <input type="submit" value="submit" class="loginBtn" />
                     </div>
                 </div>
             </form>
@@ -67,10 +59,5 @@
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
-{{#if Blocked}}
-<script src="/js/user.js"></script>
-{{/if}}
-
-
 
 </html>

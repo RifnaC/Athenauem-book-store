@@ -314,7 +314,7 @@ exports.signup = (req, res) => {
 }
 
 exports.forgotPswd = (req, res) => {
-    res.render('changePswd');
+    res.render('forgotPswd');
 }
 // ***********************Customer CRUD Section*******************************
 exports.user = async (req, res) => {
