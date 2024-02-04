@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Atheneuam - Book Colleciton</title>
@@ -30,15 +31,18 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
 </head>
-<body>
-    <main class="container d-flex justify-content-center align-items-center">
-        <div class="my-5 ">
-            <form action="/login" method="POST" class="login" id="login" name="loginForm"
+
+<body >
+    <main class="mt-auto pt-auto">
+        <div style="display: flex; justify-content: center; align-items: center; height: 100vh">
+            <form action="/login" method="POST" class="login" id="forgotPswd" name="forgotPswd"
                 onsubmit="return forgotPswd()">
-                <div class="d-flex justify-content-center align-items-center">
-                    <input type="email" name="email" id="Email" placeholder="Please enter your email" value="" />
+                <h2>Atheneuam</h2>
+                <P>Please enter your email</P>
+                <div>
+                    <input type="email" name="email" id="Email" placeholder="Email" value="" />
                     <div class="d-flex justify-content-center">
-                        <input type="submit" value="submit" class="loginBtn" />
+                        <input type="submit" value="Send OTP" class="loginBtn" />
                     </div>
                 </div>
             </form>

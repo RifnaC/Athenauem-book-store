@@ -1317,6 +1317,34 @@
     }
   })
 
+  function forgotPswd(){
+    const email = document.forms["forgotPswd"]["email"].value;
+    if (!email) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter your email!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    if (!email.includes('.')) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please Enter a valid email address!',
+        confirmButtonColor: '#15877C',
+      })
+      return false;
+    }
+    return true;
+  }
+
+  $("#forgotPswd").submit(function (event) {
+    if (!forgotPswd()) {
+      event.preventDefault();
+    } else {
+      location.window.href = '/login';
+    }
+  })
   // pagination 
   $(document).ready(function () {
     $('#categoryTable').DataTable({
