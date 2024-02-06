@@ -97,6 +97,21 @@ exports.logout = async(req, res) => {
 };
 
 
+exports.forgotPassword = async(req, res) => {
+    try{
+        const email = req.body.email;
+        const existingEmail = await adminCollection.findOne({ email: email });
+        const existingUser = await userCollection.findOne({ email: email });
+        if(!existingEmail && !existingUser){
+            res.status(404).send({message: "This email is not found."})
+            return;
+        }
+
+    }catch(err){
+        
+    }
+}
+
 
 
 

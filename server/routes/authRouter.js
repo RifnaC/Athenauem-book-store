@@ -9,6 +9,7 @@ const seeder = require('../seeder/adminSeeder');
 route.get('/login', services.login);
 route.get('/signup', services.signup);
 route.get('/password', services.forgotPswd);
+route.post('/forgot-password', auth.forgotPassword);
 
 route.get('/logout', auth.logout);
 
