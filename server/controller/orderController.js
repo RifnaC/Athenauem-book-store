@@ -182,3 +182,17 @@ exports.reportView = async (req, res, next) => {
     });
     res.render('chart', { admin: name, count: orderLength, deliveredLength: deliveredLength, pendingLength: pendingLength, cancelledLength: cancelledLength, dates: dates, amounts: amounts, orderData: orderData, weeklyReport: data, monthlyAmount: monthlyAmount });
 }
+
+exports.latestOrder = async(req, res) => {
+    const orders = await Order.find({}).limit(10).sort({ orderDate: -1 });
+    let orderData = [];
+    for (let order of orders) {
+        const user = await User.findOne({ _id: order.userId });
+        const userName = user.name.split(" ")[0];
+        const dateObject = new Date(order.orderDate);
+        const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
+        orderData.push({ order, userName, orderDate });
+    }
+
+    res.render('latestOrder', { orderData: orderData })
+}
