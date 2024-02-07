@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 const JWT_SECRET = process.env.JWT_SECRET;
 const nodemailer = require('nodemailer');
+const { reset } = require('nodemon');
 
 // ***********************user Management********************************
 // Register and save new user
@@ -137,18 +138,18 @@ exports.forgotPassword = async (req, res) => {
             </html>`);
             return;
         }
-        
+
         await updatedEmail(existingEmail, email, otp);
 
         await sendEmail(email, otp);
-        res.redirect('/password');
+        res.render('reset', {email: email});
 
     } catch (err) {
         console.log(err);
         res.status(500).send({ message: 'Internal Server Error' });
     }
 }
-
+//  otp generation
 function generateOTP() {
     return Math.floor(100000 + Math.random() * 900000);
 }
@@ -188,12 +189,66 @@ async function sendEmail(email, otp) {
            console.log(err);
        }else{
            console.log("Email sent: " + info.response);
-           window.location.href = '/reset';
        }
     })
 }
 exports.reset = async (req, res) => {
     res.render('reset')
+}
+
+exports.otp = async (req, res) => {
+    const otp = req.body.otp;
+    const email = req.body.email;
+    const user = await userCollection.findOne({ email: email, otp: otp,otpExpiry:{$gt: Date.now()}});
+        if (!user) {
+            res.status(404).send(`<!DOCTYPE html>
+            <html lang="en">
+            
+            <head>
+                <meta charset="utf-8">
+                <title>Atheneuam - Book Colleciton</title>
+                <meta content="width=device-width, initial-scale=1.0" name="viewport">
+                <meta content="" name="keywords">
+                <meta content="" name="description">
+            
+                <!-- Favicon -->
+                <link href="img/book collection 0.png" rel="icon">
+            
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            </head>
+            <body>
+            <script> 
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Atheneuam',
+                    text: 'please check the OTP',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#15877C',
+                }).then((result) => {
+                    window.location.href = '/password';
+                })
+            </script>
+            </body>
+            <!-- JavaScript Libraries -->
+            
+            </html>`);
+          }
+          else{
+            res.render('changepswd', {email: email, otp: otp});
+          }
+
+}
+
+exports.resetPswd = async (req, res) => {
+    const otp = req.body.otp;
+    const email = req.body.email;
+    const newPswd = req.body.pswd;
+    const user = await userCollection.findOne({ email: email, otp: otp, otpExpiry:{$gt: Date.now()}});
+    if(!user){
+        res.redirect('/password');
+    }
+    user.password = await bcrypt.hash(newPswd, saltRounds);
+
 }
 
 

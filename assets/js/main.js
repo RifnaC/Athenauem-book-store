@@ -1345,6 +1345,60 @@
     }
   });
 
+
+  function otpValidation(){
+    const otp6 = document.forms["otp"]["otp"].value;
+    const email = document.forms["otp"]["email"].value;
+    // const otp = Number(otp1 + otp2 + otp3 + otp4 + otp5 + otp6);
+    if (!otp1 || !otp2 || !otp3 || !otp4 || !otp5 || !otp6) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter valid OTP!',
+        confirmButtonColor: '#15877C',
+      });
+      return false;
+    }
+    return true;
+  }
+  $("#otp").submit(function(event) {
+    if (!otpValidation()) {
+      event.preventDefault();
+    }else{
+      window.location.href = '/reset';
+    }
+  });
+
+
+  function resetPswd(){
+    const pswd = document.forms["resetPswd"]["newPassword"].value;
+    const confirmPswd = document.forms["resetPswd"]["confirmPassword"].value;
+    const email = document.forms["resetPswd"]["email"].value;
+    const otp = document.forms["resetPswd"]["otp"].value;
+    
+    if (!pswd || !confirmPswd) {
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter password!',
+        confirmButtonColor: '#15877C',
+      });
+      return false;
+    }
+    if(confirmPswd===6 || pswd===6){
+      Swal.fire({
+        title: 'Atheneuam',
+        text: 'Please enter valid password!',
+        confirmButtonColor: '#15877C',
+      });
+      return false;
+    }
+    return true;
+  }
+
+  $("#change_pswd").submit(function(event){
+    if(!resetPswd()){
+      event.preventDefault();
+    }
+  })
   // pagination 
   $(document).ready(function () {
     $('#categoryTable').DataTable({

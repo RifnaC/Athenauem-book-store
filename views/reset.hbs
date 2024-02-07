@@ -74,19 +74,15 @@
 <body>
     <main class="mt-auto pt-auto">
         <div style="display: flex; justify-content: center; align-items: center; height: 100vh">
-            <form id="forgotPswd" action="/forgot-password" method="POST" class="login"
-                onsubmit='return forgotPassword()'>
+            <form id="otp" action="/otp" method="POST" class="login"
+                onsubmit='return otpValidation()'>
                 <h2>Atheneuam</h2>
                 <P>Please enter verification code</P>
                 <div>
-                    <div class="otp-container">
-                        <!-- Six input fields for OTP digits -->
-                        <input type="text" class="otp-input me-1" pattern="\d" maxlength="1">
-                        <input type="text" class="otp-input me-1" pattern="\d" maxlength="1" disabled>
-                        <input type="text" class="otp-input me-1" pattern="\d" maxlength="1" disabled>
-                        <input type="text" class="otp-input me-1" pattern="\d" maxlength="1" disabled>
-                        <input type="text" class="otp-input me-1" pattern="\d" maxlength="1" disabled>
-                        <input type="text" class="otp-input" pattern="\d" maxlength="1" disabled>
+                    <input type="text" name="otp" id="otp" placeholder="OTP" value="" />
+                    <input type="hidden" name="email" value="{{email}}">
+                    <div class="d-flex justify-content-center">
+                        <input type="submit" value="Verify" class="loginBtn" />
                     </div>
                 </div>
             </form>
