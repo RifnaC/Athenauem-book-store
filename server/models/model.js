@@ -25,6 +25,12 @@ const schema = new mongoose.Schema({
         type: String, 
         enum: ['vendor', 'admin'], 
         default: 'vendor' 
+    },
+    otp:{
+        type: Number,
+    },
+    otpExpiry:{
+        type: Date,      
     }
 })
 

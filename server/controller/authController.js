@@ -4,12 +4,9 @@ const adminCollection = require('../models/model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
-const session = require('express-session');
 const JWT_SECRET = process.env.JWT_SECRET;
 const nodemailer = require('nodemailer');
-const crypto = require('crypto');
-const Token = require('../models/tokenModel');
-const sendEmail = require('../services/sendEmail');
+
 // ***********************user Management********************************
 // Register and save new user
 const signToken = (id,user)=> {
@@ -104,6 +101,7 @@ exports.logout = async(req, res) => {
 exports.forgotPassword = async(req, res) => {
     try{
         const email = req.body.email;
+        const otp =  Math.floor(100000 + Math.random() * 900000).toString();
         const existingEmail = await adminCollection.findOne({ email: email });
         const existingUser = await userCollection.findOne({ email: email });
         if(!existingEmail && !existingUser){
@@ -111,28 +109,42 @@ exports.forgotPassword = async(req, res) => {
             Swal.fire('Error', 'Email not found', 'error');</script>`);
             return;
         }
-        const token = await Token.findOne({ $or: [{ userId: user._id}, { adminId: user._id}]});
-        if (token) { 
-            await token.deleteOne()
-        };
-        let resetToken = crypto.randomBytes(32).toString("hex");
-        const hash = await bcrypt.hash(resetToken, 10);
-
-        const updatedToken = await new Token({
-            userId: user._id,
-            token: hash,
-            createdAt: Date.now(),
-        }).save();
-        
-        updatedToken.then(() => {
+        let updatedEmail;
+        if(existingEmail){
+            updatedEmail = await adminCollection.findOneAndUpdate({ email: email }, {
+                otp: otp,
+                otpExpiry: Date.now() + 600000, // 10 minutes expiry
+            })
+            return updatedEmail;
+        }
+        if(existingUser){
+            updatedEmail = await userCollection.findOneAndUpdate({ email: email }, {
+                otp: otp,
+                otpExpiry: Date.now() + 600000, // 10 minutes expiry
+            })
+            return updatedEmail;
+        }
+        updatedEmail.then(() => {
             const transporter = nodemailer.createTransport({
                 service: 'Gmail',
                 auth:{
                     user: process.env.EMAIL,
-                    password: process.env.PASSWORD
+                    pass: process.env.PASSWORD,
                 }
-
-
+            });
+            const mailOptions = {
+                to: email,
+                from: process.env.EMAIL,
+                subject: "Password Reset",
+                html:`
+                    <p style="font-size:1.1em">Hi,</p>
+                    <p>Thank you for choosing Atheneuam. Use the following OTP to complete your Password Recovery Procedure. OTP is valid for 10 minutes</p>
+                    <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${token}</h2>`
+                    
+            };
+            transporter.sendMail(mailOptions, (err, info) => {
+                console.log('mail sent successfully');
+                res.redirect('/forgotPswd');
             })
         })
     }catch(err){
