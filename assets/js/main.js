@@ -1313,11 +1313,11 @@
     if (!loginValidation()) {
       event.preventDefault();
     } else {
-      location.window.href = '/login';
+      window.location.href = '/login';
     }
   })
 
-  function forgotPswd(){
+  function forgotPassword() {
     const email = document.forms["forgotPswd"]["email"].value;
     if (!email) {
       Swal.fire({
@@ -1337,14 +1337,14 @@
     }
     return true;
   }
-
-  $("#forgotPswd").submit(function (event) {
-    if (!forgotPswd()) {
+  $("#forgotPswd").submit(function(event) {
+    if (!forgotPassword()) {
       event.preventDefault();
-    } else {
-      location.window.href = '/login';
+    }else{
+      window.location.href = '/reset';
     }
-  })
+  });
+
   // pagination 
   $(document).ready(function () {
     $('#categoryTable').DataTable({

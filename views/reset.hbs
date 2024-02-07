@@ -30,19 +30,63 @@
 
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
-</head>
+    <style>
+        .otp-form {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
 
+        /* OTP input styles */
+        .otp-container,
+        .email-otp-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .otp-input,
+        .email-otp-input {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 18px;
+            margin: 0 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .otp-input:focus,
+        .email-otp-input:focus {
+            border-color: #15877C;
+        }
+
+
+
+    </style>
+</head>
 <body>
     <main class="mt-auto pt-auto">
         <div style="display: flex; justify-content: center; align-items: center; height: 100vh">
             <form id="forgotPswd" action="/forgot-password" method="POST" class="login"
                 onsubmit='return forgotPassword()'>
                 <h2>Atheneuam</h2>
-                <P>Please enter your email</P>
+                <P>Please enter verification code</P>
                 <div>
-                    <input type="email" name="email" id="Email" placeholder="Email" value="" />
-                    <div class="d-flex justify-content-center">
-                        <input type="submit" value="Send OTP" class="loginBtn" />
+                    <div class="otp-container">
+                        <!-- Six input fields for OTP digits -->
+                        <input type="text" class="otp-input me-1" pattern="\d" maxlength="1">
+                        <input type="text" class="otp-input me-1" pattern="\d" maxlength="1" disabled>
+                        <input type="text" class="otp-input me-1" pattern="\d" maxlength="1" disabled>
+                        <input type="text" class="otp-input me-1" pattern="\d" maxlength="1" disabled>
+                        <input type="text" class="otp-input me-1" pattern="\d" maxlength="1" disabled>
+                        <input type="text" class="otp-input" pattern="\d" maxlength="1" disabled>
                     </div>
                 </div>
             </form>
@@ -63,5 +107,6 @@
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
+<script src="/js/otp.js"></script>
 
 </html>
