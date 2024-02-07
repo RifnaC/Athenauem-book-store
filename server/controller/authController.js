@@ -6,6 +6,10 @@ const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 const session = require('express-session');
 const JWT_SECRET = process.env.JWT_SECRET;
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+const Token = require('../models/tokenModel');
+const sendEmail = require('../services/sendEmail');
 // ***********************user Management********************************
 // Register and save new user
 const signToken = (id,user)=> {
@@ -103,14 +107,40 @@ exports.forgotPassword = async(req, res) => {
         const existingEmail = await adminCollection.findOne({ email: email });
         const existingUser = await userCollection.findOne({ email: email });
         if(!existingEmail && !existingUser){
-            res.status(404).send({message: "This email is not found."})
+            res.status(404).send(`<script>alert('Email not found');
+            Swal.fire('Error', 'Email not found', 'error');</script>`);
             return;
         }
+        const token = await Token.findOne({ $or: [{ userId: user._id}, { adminId: user._id}]});
+        if (token) { 
+            await token.deleteOne()
+        };
+        let resetToken = crypto.randomBytes(32).toString("hex");
+        const hash = await bcrypt.hash(resetToken, 10);
 
+        const updatedToken = await new Token({
+            userId: user._id,
+            token: hash,
+            createdAt: Date.now(),
+        }).save();
+        
+        updatedToken.then(() => {
+            const transporter = nodemailer.createTransport({
+                service: 'Gmail',
+                auth:{
+                    user: process.env.EMAIL,
+                    password: process.env.PASSWORD
+                }
+
+
+            })
+        })
     }catch(err){
         
     }
 }
+
+
 
 
 
