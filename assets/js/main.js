@@ -1370,12 +1370,12 @@
 
 
   function resetPswd(){
-    const pswd = document.forms["resetPswd"]["newPassword"].value;
-    const confirmPswd = document.forms["resetPswd"]["confirmPassword"].value;
-    const email = document.forms["resetPswd"]["email"].value;
-    const otp = document.forms["resetPswd"]["otp"].value;
-    
-    if (!pswd || !confirmPswd) {
+    const password = document.forms["change_pswd"]["password"].value;
+    const confirmPswd = document.forms["change_pswd"]["confirmPassword"].value;
+    const email = document.forms["change_pswd"]["email"].value;
+    const otp = document.forms["change_pswd"]["otp"].value;
+
+    if (!password || !confirmPswd) {
       Swal.fire({
         title: 'Atheneuam',
         text: 'Please enter password!',
@@ -1383,7 +1383,7 @@
       });
       return false;
     }
-    if(confirmPswd===6 || pswd===6){
+    if(confirmPswd!==6 || password!==6){
       Swal.fire({
         title: 'Atheneuam',
         text: 'Please enter valid password!',
@@ -1397,6 +1397,15 @@
   $("#change_pswd").submit(function(event){
     if(!resetPswd()){
       event.preventDefault();
+    }else{
+      swal.fire({
+        icon:'success',
+        title: 'Atheneuam',
+        text: 'Password changed successfully!',
+        confirmButtonColor: '#15877C',
+      }).then(() =>{
+        window.location.href = '/login';
+      })
     }
   })
   // pagination 

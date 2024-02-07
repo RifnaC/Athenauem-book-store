@@ -9,6 +9,41 @@ const nodemailer = require('nodemailer');
 const { reset } = require('nodemon');
 
 // ***********************user Management********************************
+
+function notification(msg, links){
+    return `<!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Atheneuam - Book Colleciton</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+    
+        <!-- Favicon -->
+        <link href="img/book collection 0.png" rel="icon">
+    
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+    <script> 
+        Swal.fire({
+            icon: 'error',
+            title: 'Atheneuam',
+            text: "${msg}",
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#15877C',
+        }).then((result) => {
+            window.location.href = "${links}";
+        })
+    </script>
+    </body>
+    <!-- JavaScript Libraries -->
+    
+    </html>`
+}
+
 // Register and save new user
 const signToken = (id, user) => {
     if (!user) return jwt.sign(id, JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
@@ -17,7 +52,7 @@ const signToken = (id, user) => {
 
 exports.register = async (req, res) => {
     if (!req.body) {
-        res.status(400).send({ message: 'Content can not be empty' })
+        res.status(400).send(notification("Content can not be empty" , "/signup"));
         return;
     }
     try {
@@ -26,9 +61,7 @@ exports.register = async (req, res) => {
         const existingEmail = await adminCollection.findOne({ email: req.body.email });
         if (existingUser || existingEmail) {
             // Display an alert when email is already taken.
-            res.status(200).send(
-                "<script>alert('Email already exists'); window.location.href ='/signup';</script>"
-            );
+            res.status(200).send(notification("Email already exists" , "/signup"));
             return;
         }
         // Hash the password
@@ -47,9 +80,7 @@ exports.register = async (req, res) => {
             res.redirect('/homes');
         }
     } catch (err) {
-        res.status(500).send({
-            message: err.message || "Some error occured while creating a create operation"
-        });
+        res.status(500).send(notification("Some error occured while creating a create operation", "/signup"));
     }
 };
 
@@ -59,12 +90,12 @@ exports.login = async (req, res) => {
         const user = await userCollection.findOne({ email: req.body.email });
         const admin = await adminCollection.findOne({ email: req.body.email });
         if (!user && !admin) {
-            res.status(404).send({ message: "This email is not found." })
+            res.status(404).send(notification("This email is not found.", "/login"));
             return;
         }
         const ispswdValid = await bcrypt.compare(req.body.password, (user || admin).password);
         if (!ispswdValid) {
-            res.status(401).send({ message: "Invalid password." });
+            res.status(401).send(notification("Invalid password.", "/login"));
             return;
         }
         const data = {
@@ -88,7 +119,7 @@ exports.login = async (req, res) => {
         }
     } catch (e) {
         console.error(e);
-        res.status(500).send({ message: 'Internal Server Error' });
+        res.status(500).send(notification('Internal Server Error', '/login'));
     }
 }
 
@@ -104,49 +135,18 @@ exports.forgotPassword = async (req, res) => {
         const email = req.body.email;
         const otp = generateOTP();
         const existingEmail = await findExistingEmail(email);
-        if (!existingEmail ) {
-            res.status(404).send(`<!DOCTYPE html>
-            <html lang="en">
-            
-            <head>
-                <meta charset="utf-8">
-                <title>Atheneuam - Book Colleciton</title>
-                <meta content="width=device-width, initial-scale=1.0" name="viewport">
-                <meta content="" name="keywords">
-                <meta content="" name="description">
-            
-                <!-- Favicon -->
-                <link href="img/book collection 0.png" rel="icon">
-            
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            </head>
-            <body>
-            <script> 
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Atheneuam',
-                    text: 'Email does not exist',
-                    confirmButtonText: 'Ok',
-                    confirmButtonColor: '#15877C',
-                }).then((result) => {
-                    window.location.href = '/password';
-                })
-            </script>
-            </body>
-            <!-- JavaScript Libraries -->
-            
-            </html>`);
+        if (!existingEmail) {
+            res.status(404).send(notification('Email does not exist', '/password'));
             return;
         }
-
         await updatedEmail(existingEmail, email, otp);
 
         await sendEmail(email, otp);
-        res.render('reset', {email: email});
+        res.render('reset', { email: email });
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ message: 'Internal Server Error' });
+        res.status(500).send(notification('Internal Server Error', '/password'));
     }
 }
 //  otp generation
@@ -160,8 +160,8 @@ async function findExistingEmail(email) {
     return existingAdmin || existingUser;
 }
 async function updatedEmail(existingEmail, email, otp) {
-    const updateOtp =  await (existingEmail.role === 'User' ? userCollection : adminCollection).findOneAndUpdate({ email: email },
-        { $set:{ otp: otp, otpExpiry: Date.now() + 300000 } }, 
+    const updateOtp = await (existingEmail.role === 'User' ? userCollection : adminCollection).findOneAndUpdate({ email: email },
+        { $set: { otp: otp, otpExpiry: Date.now() + 300000 } },
         { new: true });
     return updateOtp;
 }
@@ -185,11 +185,11 @@ async function sendEmail(email, otp) {
             <h2>${otp}</h2>`
     };
     transporter.sendMail(mailOptions, (err, info) => {
-       if (err) {
-           console.log(err);
-       }else{
-           console.log("Email sent: " + info.response);
-       }
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Email sent: " + info.response);
+        }
     })
 }
 exports.reset = async (req, res) => {
@@ -199,59 +199,33 @@ exports.reset = async (req, res) => {
 exports.otp = async (req, res) => {
     const otp = req.body.otp;
     const email = req.body.email;
-    const user = await userCollection.findOne({ email: email, otp: otp,otpExpiry:{$gt: Date.now()}});
-        if (!user) {
-            res.status(404).send(`<!DOCTYPE html>
-            <html lang="en">
-            
-            <head>
-                <meta charset="utf-8">
-                <title>Atheneuam - Book Colleciton</title>
-                <meta content="width=device-width, initial-scale=1.0" name="viewport">
-                <meta content="" name="keywords">
-                <meta content="" name="description">
-            
-                <!-- Favicon -->
-                <link href="img/book collection 0.png" rel="icon">
-            
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            </head>
-            <body>
-            <script> 
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Atheneuam',
-                    text: 'please check the OTP',
-                    confirmButtonText: 'Ok',
-                    confirmButtonColor: '#15877C',
-                }).then((result) => {
-                    window.location.href = '/password';
-                })
-            </script>
-            </body>
-            <!-- JavaScript Libraries -->
-            
-            </html>`);
-          }
-          else{
-            res.render('changepswd', {email: email, otp: otp});
-          }
+    const user = await userCollection.findOne({ email: email, otp: otp, otpExpiry: { $gt: Date.now() } });
+    if (!user) {
+        res.status(404).send(notification("please check the OTP", "/password"));
+    }
+    else {
+        res.render('changepswd', { email: email, otp: otp });
+    }
 
 }
 
 exports.resetPswd = async (req, res) => {
-    const otp = req.body.otp;
-    const email = req.body.email;
-    const newPswd = req.body.pswd;
-    const user = await userCollection.findOne({ email: email, otp: otp, otpExpiry:{$gt: Date.now()}});
-    if(!user){
-        res.redirect('/password');
+    try {
+        const otp = req.body.otp;
+        const email = req.body.email;
+        const password = req.body.password;
+        const user = await userCollection.findOne({ email: email, otp: otp, otpExpiry: { $gt: Date.now() } });
+        if (!user) {
+            res.redirect('/password');
+        }
+        user.password =  await bcrypt.hash(password, saltRounds) ;
+        await user.save()
+        res.redirect('/login'); // Redirect to homepage or any other route
+    
+    } catch (error) {
+        res.status(500).send(notification('Error resetting password', '/password'));
     }
-    user.password = await bcrypt.hash(newPswd, saltRounds);
-
 }
-
-
 
 
 

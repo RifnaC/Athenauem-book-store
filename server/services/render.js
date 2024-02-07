@@ -12,7 +12,7 @@ const Order = require('../models/orderModel');
 
 // ***********************Admin Management********************************
 exports.homeRoutes = async (req, res) => {
-    if (!req.session.token) {
+    if (!req.cookies.token) {
         return res.render('home')
     }
     const id = req.user.id;
