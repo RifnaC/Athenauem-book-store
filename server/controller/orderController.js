@@ -212,46 +212,120 @@ exports.latestOrder = async(req, res) => {
     res.render('latestOrder', { orderData: orderData })
 }
 
-// exports.generatePdf = async(req, res) =>{
-//     try {
+exports.itemSales = async(req, res) => {
+    const id = req.user.id;
+    const admin = await Admin.findById(id);
+    const name = admin.name.split(" ")[0];
+    const orderLength = await Order.find().countDocuments();
+    const deliveredLength = await Order.find({ orderStatus: "Delivered" }).countDocuments();
+    const pendingLength = await Order.find({ $or: [{ orderStatus: "Order Placed" }, { orderStatus: "Shipped" }] }).countDocuments();
+    const cancelledLength = await Order.find({ orderStatus: "Cancelled" }).countDocuments();
+    const currentDate = new Date(); // Get the current date
+    const currentMonth = currentDate.getMonth() + 1; 
+    const dailyReport = await Order.aggregate([
+        {
+            $match: {
+                $expr: {
+                    $eq: [{ $month: "$orderDate" }, currentMonth] // Filter orders for the current month
+                }
+            }
+        },
+       {
+            $group: {
+                _id: {
+                    $dateToString: {
+                        format: "%d",
+                        date: "$orderDate"
+                    }
+                },
+                totalAmount: { $sum: "$payableTotal" }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                date: '$_id',
+                totalAmount: 1,
+            }
+        },
+        {
+            $sort: { date: 1 }
+        }
+    ])
 
-//         const browser = await puppeteer.launch();
 
-//         // Create a new page
-//         const page = await browser.newPage();
-//         // const htmlTemplate = fs.readFileSync('./views/chart.hbs', 'utf-8');
+    const allDates = Array.from({ length: 31 }, (e, index) => {
+        const day = index + 1;
+        return day < 10 ? '0' + day : day.toString();
+    });
 
-//         // // Compile the Handlebars template
-//         // const template = handlebars.compile(htmlTemplate);
+    // Initialize a new array with totalAmount set to 0 for each date
+    const dailyOrders = allDates.map(date => {
+        const entry = dailyReport.find(report => report.date === date);
+        return { totalAmount: entry ? entry.totalAmount : 0, date };
+    });
+    const dates = dailyOrders.map(date => date.date);
+    const amounts = dailyOrders.map(date => date.totalAmount);
 
-//         // Data for Handlebars variables (replace with actual data)
-//         const data = {
-//             count: 10, // Example data
-//             deliveredLength: 5, // Example data
-//             pendingLength: 3, // Example data
-//             cancelledLength: 2, // Example data
-//             dates: JSON.stringify(['2023-01-01', '2023-01-02']), // Example data
-//             amounts: JSON.stringify([100, 200]), // Example data
-//             weeklyReport: JSON.stringify(['2023-01-01', '2023-01-08']), // Example data
-//             monthlyAmount: JSON.stringify([300, 400]), // Example data
-//         };
+    // Calculate the start and end of the current week
+    const today = new Date();
+    const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
+    const endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 6);
+    const weeklyReport = await Order.aggregate([
+        {
+            $match: {
+                orderDate: {
+                    $gte: startOfWeek,
+                    $lte: endOfWeek,
+                },
+            },
+        },
+        {
+            $group: {
+                _id: {
+                    $dateToString: { format: "%d", date: "$orderDate" },
+                },
+                count: { $sum: 1 },
+            },
+        },
+        {
+            $sort: {
+                _id: 1,
+            },
+        },
+    ])
+    const data = weeklyReport.map(entry => entry.count);
 
-//         // Replace the Handlebars variables with actual values
-//         const htmlContent = fs.readFileSync('./views/report.html', 'utf-8');
-      
-//         await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
-//         // Generate the PDF of the current page
-//         const pdfPath = 'output.pdf'
-//         const pdfBuffer = await page.pdf({ path: pdfPath, format: 'A4', printBackground: true });
+    const orders = await Order.find({}).limit(5).sort({ orderDate: -1 });
+    let orderData = [];
+    for (let order of orders) {
+        const user = await User.findOne({ _id: order.userId });
+        const userName = user.name.split(" ")[0];
+        const dateObject = new Date(order.orderDate);
+        const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
+        orderData.push({ order, userName, orderDate })
+    }
 
-//         // Close the browser
-//         await browser.close();
+    const monthlyReport = await Order.aggregate([
+        {
+            $group: {
+                _id: {
+                    year: { $year: '$orderDate' },
+                    month: { $month: '$orderDate' }
+                },
+                amount: { $sum: '$payableTotal' }
+            }
+        }
+    ])
 
-//         // Send the PDF as a response
-//         res.contentType('application/pdf');
-//         res.send(pdfBuffer);
-//     } catch (error) {
-//         console.error('Error generating PDF:', error);
-//         res.status(500).send('Error generating PDF');
-//     }
-// }
+    const month = monthlyReport.map((months) => months._id.month);
+    const monthlyAmt = monthlyReport.map((amt) => amt.amount);
+    const allMonths = Array.from({ length: 12 }, (_, index) => index + 1);
+
+    // Create a new array with zero amounts for months with no orders
+    const monthlyAmount = allMonths.map((m) => {
+        const index = month.indexOf(m);
+        return index !== -1 ? monthlyAmt[index] : 0;
+    });
+    res.render('reports', { admin: name, count: orderLength, deliveredLength: deliveredLength, pendingLength: pendingLength, cancelledLength: cancelledLength, dates: dates, amounts: amounts, orderData: orderData, weeklyReport: data, monthlyAmount: monthlyAmount });
+}

@@ -162,7 +162,7 @@ route.put('/order/:id', auth.authMiddleware, order.editOrder);
 // report Management
 route.get('/report', auth.authMiddleware, order.reportView);
 route.get('/latestOrder', auth.authMiddleware, order.latestOrder);
-route.get('/generate-pdf', auth.authMiddleware, order.generatePdf);
+route.get('/itemsSales', auth.authMiddleware, order.itemSales);
 // Error page
 route.get('/error', services.error);
 
