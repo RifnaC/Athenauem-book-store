@@ -91,7 +91,7 @@
             <div class="row bg-secondary rounded p-0 m-0 mt-0 pb-2">
                 <div class="d-flex align-items-end justify-content-end mt-2">
                     {{!-- href="/generate-pdf" --}}
-                    <button onclick="return generatePDF()" class="btn btn-primary" class="text-center m-2"> <i
+                    <button onclick="return generatePDF('product-report')" class="btn btn-primary" class="text-center m-2"> <i
                             class="bi bi-download p-2"></i>Download PDF</button>
                 </div>
             </div>
@@ -185,31 +185,15 @@
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-    <script src="js/chart.js"></script>
-
-
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf-html2canvas@latest/dist/jspdf-html2canvas.min.js"></script>
 
-    <script>
-        function generatePDF() {
-            // Create a new jsPDF instance
-            window.jsPDF = window.jspdf.jsPDF;
-            const pdf = new jsPDF();
-            // Use html2canvas to convert HTML content to a canvas
-            html2canvas(document.querySelector('.print')).then(canvas => {
-                // Add the canvas content to the PDF
-                const imgData = canvas.toDataURL('image/png');
-                pdf.addImage(imgData, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+     <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/pdf.js"></script>
 
-                // Save the PDF
-                pdf.save('chart.pdf');
-            });
-        }
-    </script>
 </body>
 
 </html>

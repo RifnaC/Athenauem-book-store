@@ -9,7 +9,7 @@ const bannerController = require('../controller/bannerController');
 const auth = require('../middlewares/authMiddleware')
 const user = require('../controller/userController');
 const order = require('../controller/orderController');
-const pdf = require('../services/pdf');
+const pdf = require('../../assets/js/pdf');
 
 // ***********************Admin Management********************************
 /** 
