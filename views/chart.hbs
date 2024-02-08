@@ -88,7 +88,10 @@
         <!-- Content Start -->
         <div class="content">
             <!-- Sale & Revenue Start -->
+             <div class="row bg-secondary rounded d-flex align-items-end justify-content-end p-0 m-0 mt-0 pb-2">
+                <p class="text-end m-2"> <i class="bi bi-download p-2"></i>Download PDF</p> </div>
             <div class="container-fluid pt-4 px-4">
+               
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-center p-4">
@@ -154,46 +157,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="row py-4">
-                    <div class="col-lg-12 col-xl-12">
-                        <div class="card-body table-responsive p-1 mx-0 px-0 bg-secondary">
-                            <table class="table table-bordered card-table text-center caption-top m-3" style="width:95%">
-                                <caption> <h2 class="text-primaryLight">Latest Orders</h2></caption>
-                                
-                                <thead>
-                                    <tr class="table-primary">
-                                        <th>UserName</th>
-                                        <th>Total Amount</th>
-                                        <th>OrderStatus</th>
-                                        <th>Payment Method</th>
-                                        <th>Order Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each orderData}}
-                                    <tr>
-                                        <td class="text-dark">{{this.userName}}</td>
-                                        <td class="text-dark">&#8377 {{this.order.payableTotal}}</td>
-                                        <td class="text-dark">{{this.order.orderStatus}}</td>
-                                        <td class="text-dark"> {{this.order.paymentMethod}}</td>
-                                        <td class="text-dark">{{this.orderDate}}</td>
-                                        <td class="text-dark">
-                                            <a href="orders?id={{this.order._id}}"><i class="bi bi-eye-fill text-secondary"></i></a>
-                                        </td>
-                                    </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
             </div>
             <!-- Chart End -->
-
-
-
         </div>
         <!-- Content End -->
 

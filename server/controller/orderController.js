@@ -83,11 +83,19 @@ exports.reportView = async (req, res, next) => {
     const name = admin.name.split(" ")[0];
     const orderLength = await Order.find().countDocuments();
     const deliveredLength = await Order.find({ orderStatus: "Delivered" }).countDocuments();
-    const pendingLength = await Order.find({ orderStatus: "Pending" }).countDocuments();
-    const cancelledLength = await Order.find({ orderStatus: "Canceled" }).countDocuments();
-
+    const pendingLength = await Order.find({ $or: [{ orderStatus: "Order Placed" }, { orderStatus: "Shipped" }] }).countDocuments();
+    const cancelledLength = await Order.find({ orderStatus: "Cancelled" }).countDocuments();
+    const currentDate = new Date(); // Get the current date
+    const currentMonth = currentDate.getMonth() + 1; 
     const dailyReport = await Order.aggregate([
         {
+            $match: {
+                $expr: {
+                    $eq: [{ $month: "$orderDate" }, currentMonth] // Filter orders for the current month
+                }
+            }
+        },
+       {
             $group: {
                 _id: {
                     $dateToString: {
@@ -110,7 +118,11 @@ exports.reportView = async (req, res, next) => {
         }
     ])
 
-    const allDates = Array.from({ length: 31 }, (e, index) => (index + 1).toString());
+
+    const allDates = Array.from({ length: 31 }, (e, index) => {
+        const day = index + 1;
+        return day < 10 ? '0' + day : day.toString();
+    });
 
     // Initialize a new array with totalAmount set to 0 for each date
     const dailyOrders = allDates.map(date => {
