@@ -212,51 +212,46 @@ exports.latestOrder = async(req, res) => {
     res.render('latestOrder', { orderData: orderData })
 }
 
-exports.generatePdf = async(req, res) =>{
-    try {
+// exports.generatePdf = async(req, res) =>{
+//     try {
 
+//         const browser = await puppeteer.launch();
 
+//         // Create a new page
+//         const page = await browser.newPage();
+//         // const htmlTemplate = fs.readFileSync('./views/chart.hbs', 'utf-8');
 
-        const htmlTemplate = fs.readFileSync('./views/report.hbs', 'utf-8');
+//         // // Compile the Handlebars template
+//         // const template = handlebars.compile(htmlTemplate);
 
-        // Compile the Handlebars template
-        const template = handlebars.compile(htmlTemplate);
+//         // Data for Handlebars variables (replace with actual data)
+//         const data = {
+//             count: 10, // Example data
+//             deliveredLength: 5, // Example data
+//             pendingLength: 3, // Example data
+//             cancelledLength: 2, // Example data
+//             dates: JSON.stringify(['2023-01-01', '2023-01-02']), // Example data
+//             amounts: JSON.stringify([100, 200]), // Example data
+//             weeklyReport: JSON.stringify(['2023-01-01', '2023-01-08']), // Example data
+//             monthlyAmount: JSON.stringify([300, 400]), // Example data
+//         };
 
-        // Data for Handlebars variables (replace with actual data)
-        const data = {
-            count: 10, // Example data
-            deliveredLength: 5, // Example data
-            pendingLength: 3, // Example data
-            cancelledLength: 2, // Example data
-            dates: JSON.stringify(['2023-01-01', '2023-01-02']), // Example data
-            amounts: JSON.stringify([100, 200]), // Example data
-            weeklyReport: JSON.stringify(['2023-01-01', '2023-01-08']), // Example data
-            monthlyAmount: JSON.stringify([300, 400]), // Example data
-        };
+//         // Replace the Handlebars variables with actual values
+//         const htmlContent = fs.readFileSync('./views/report.html', 'utf-8');
+      
+//         await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
+//         // Generate the PDF of the current page
+//         const pdfPath = 'output.pdf'
+//         const pdfBuffer = await page.pdf({ path: pdfPath, format: 'A4', printBackground: true });
 
-        // Replace the Handlebars variables with actual values
-        const htmlContent = template(data);
+//         // Close the browser
+//         await browser.close();
 
-        // Launch headless Chromium browser
-        const browser = await puppeteer.launch();
-
-        // Create a new page
-        const page = await browser.newPage();
-
-        const pdfPath = 'output.pdf'
-        await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
-        // Generate the PDF of the current page
-        const pdfBuffer = await page.pdf({ path: pdfPath, format: 'A4', printBackground: true });
-        console.log('PDF saved successfully:', pdfPath);
-
-        // Close the browser
-        await browser.close();
-
-        // Send the PDF as a response
-        res.contentType('application/pdf');
-        res.send(pdfBuffer);
-    } catch (error) {
-        console.error('Error generating PDF:', error);
-        res.status(500).send('Error generating PDF');
-    }
-}
+//         // Send the PDF as a response
+//         res.contentType('application/pdf');
+//         res.send(pdfBuffer);
+//     } catch (error) {
+//         console.error('Error generating PDF:', error);
+//         res.status(500).send('Error generating PDF');
+//     }
+// }
