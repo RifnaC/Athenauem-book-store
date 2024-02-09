@@ -9,6 +9,7 @@ const User = require('../models/userModel');
 const Cart = require('../models/cartModel');
 const Coupon = require('../models/couponModel');
 const Order = require('../models/orderModel');
+const { itemSales } = require('../controller/orderController');
 
 // ***********************Admin Management********************************
 exports.homeRoutes = async (req, res) => {
@@ -30,6 +31,92 @@ exports.homeRoutes = async (req, res) => {
     const deliveredOrders = orders.filter(order => order.orderStatus === 'Delivered');
     const pendingOrders = orders.filter(order => order.orderStatus !== 'Delivered' && order.orderStatus !== 'Cancelled');
     const cancelledOrders = orders.filter(order => order.orderStatus === 'Cancelled');
+    const currentDate = new Date(); // Get the current date
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear();
+    let length =new Date(currentYear, currentMonth, 0).getDate();
+    
+
+    const dailyReport = await Order.aggregate([
+        {
+            $match: {
+                $expr: {
+                    $eq: [{ $month: "$orderDate" }, currentMonth] // Filter orders for the current month
+                }
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    $dateToString: {
+                        format: "%d",
+                        date: "$orderDate"
+                    }
+                },
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                date: '$_id',
+                count: 1,
+            }
+        },
+        {
+            $sort: { date: 1 }
+        }
+    ])
+
+    const dailyCart= await Cart.aggregate([
+        {
+            $match: {
+                $expr: {
+                    $eq: [{ $month: "$updatedAt" }, currentMonth] // Filter cart for the current month
+                }
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    $dateToString: {
+                        format: "%d",
+                        date: "$updatedAt"
+                    }
+                },
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                date: '$_id',
+                count: 1,
+            }
+        },
+        {
+            $sort: { date: 1 }
+        }
+    ])
+  
+    const allDates = Array.from({ length: length }, (e, index) => {
+        const day = index + 1;
+        return day < 10 ? '0' + day : day.toString();
+    });
+
+    // Initialize a new array with totalAmount set to 0 for each date
+    const dailyOrders = allDates.map(date => {
+        const entry = dailyReport.find(report => report.date === date);
+        return { count: entry ? entry.count : 0, date };
+    });
+    const dates = dailyOrders.map(date => date.date);
+    const counts = dailyOrders.map(date => date.count); 
+
+    const dailyCarts = allDates.map(date => {
+        const entry = dailyCart.find(report => report.date === date);
+        return { count: entry ? entry.count : 0, date };
+    });
+    const cartCounts = dailyCarts.map(itemSales => itemSales.count);
 
     const monthlyReport = await Order.aggregate([
         {
@@ -67,7 +154,7 @@ exports.homeRoutes = async (req, res) => {
         const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
         orderData.push({ order, userName, orderDate })
     }
-    
+
 
     res.render('dashboard', {
         admin: name,
@@ -85,6 +172,9 @@ exports.homeRoutes = async (req, res) => {
         amounts: monthlyAmount,
         counts: monthlyCounts,
         orderData: orderData,
+        dates: dates,
+        dailyOrders: counts,
+        cartCounts: cartCounts,
     });
 }
 

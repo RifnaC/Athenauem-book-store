@@ -87,7 +87,10 @@ exports.reportView = async (req, res, next) => {
     const pendingLength = await Order.find({ $or: [{ orderStatus: "Order Placed" }, { orderStatus: "Shipped" }] }).countDocuments();
     const cancelledLength = await Order.find({ orderStatus: "Cancelled" }).countDocuments();
     const currentDate = new Date(); // Get the current date
-    const currentMonth = currentDate.getMonth() + 1; 
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear();
+    let length =new Date(currentYear, currentMonth, 0).getDate();
+
     const dailyReport = await Order.aggregate([
         {
             $match: {
@@ -120,7 +123,7 @@ exports.reportView = async (req, res, next) => {
     ])
 
 
-    const allDates = Array.from({ length: 31 }, (e, index) => {
+    const allDates = Array.from({ length: length }, (e, index) => {
         const day = index + 1;
         return day < 10 ? '0' + day : day.toString();
     });

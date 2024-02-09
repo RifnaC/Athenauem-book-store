@@ -1337,16 +1337,16 @@
     }
     return true;
   }
-  $("#forgotPswd").submit(function(event) {
+  $("#forgotPswd").submit(function (event) {
     if (!forgotPassword()) {
       event.preventDefault();
-    }else{
+    } else {
       window.location.href = '/reset';
     }
   });
 
 
-  function otpValidation(){
+  function otpValidation() {
     const otp6 = document.forms["otp"]["otp"].value;
     const email = document.forms["otp"]["email"].value;
     // const otp = Number(otp1 + otp2 + otp3 + otp4 + otp5 + otp6);
@@ -1360,16 +1360,16 @@
     }
     return true;
   }
-  $("#otp").submit(function(event) {
+  $("#otp").submit(function (event) {
     if (!otpValidation()) {
       event.preventDefault();
-    }else{
+    } else {
       window.location.href = '/reset';
     }
   });
 
 
-  function resetPswd(){
+  function resetPswd() {
     const password = document.forms["change_pswd"]["password"].value;
     const confirmPswd = document.forms["change_pswd"]["confirmPassword"].value;
     const email = document.forms["change_pswd"]["email"].value;
@@ -1383,7 +1383,7 @@
       });
       return false;
     }
-    if(confirmPswd!==6 || password!==6){
+    if (confirmPswd !== 6 || password !== 6) {
       Swal.fire({
         title: 'Atheneuam',
         text: 'Please enter valid password!',
@@ -1394,16 +1394,16 @@
     return true;
   }
 
-  $("#change_pswd").submit(function(event){
-    if(!resetPswd()){
+  $("#change_pswd").submit(function (event) {
+    if (!resetPswd()) {
       event.preventDefault();
-    }else{
+    } else {
       swal.fire({
-        icon:'success',
+        icon: 'success',
         title: 'Atheneuam',
         text: 'Password changed successfully!',
         confirmButtonColor: '#15877C',
-      }).then(() =>{
+      }).then(() => {
         window.location.href = '/login';
       })
     }
@@ -2618,12 +2618,12 @@
     data: {
       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       datasets: [{
-        label: "Total",
+        label: "Sales",
         data: counts,
         backgroundColor: "#CCEBD7"
       },
       {
-        label: "Amount",
+        label: "Revenue",
         data: amounts,
         backgroundColor: "#15877C"
       }]
@@ -2885,65 +2885,40 @@
     Retarget
   );
 
+  // Salse & Revenue Chart
+  const dates = document.getElementById('dates').value;
+  const date = dates.split(",").map(Number);
+  const dailyOrders = document.getElementById('dailyOrders').value;
+  const dailyOrder = dailyOrders.split(",").map(Number);
+
+  const dailyCarts = document.getElementById('dailyCart').value;
+  const dailyCart = dailyCarts.split(",").map(Number);
+
+  const ctx2 = $("#salse-revenue").get(0).getContext("2d");
+  const myChart2 = new Chart(ctx2, {
+    type: "line",
+    data: {
+      labels: date,
+      datasets: [{
+        label: "Order",
+        data: dailyOrder,
+        backgroundColor: "rgba(21, 135, 124, .9)",
+        fill: true
+      },
+      {
+        label: "Cart",
+        data: dailyCart,
+        backgroundColor: "rgba(21, 135, 124, .5)",
+        fill: true
+      }
+      ]
+    },
+    options: {
+      responsive: true
+    }
+  });
 
 
-
-  // $("#cancelOrderForm").submit(function (event) {
-  //   event.preventDefault();
-  //   const formData = new FormData(this);
-
-  //   // Extract the book's ID from the form data
-  //   const orderId = formData.get('id')
-  //   const reason = formData.get('reason');
-  //   // Append the bookid to the URL
-  //   const request = {
-  //     'url': `http://localhost:8080/order/${orderId}`,
-  //     'method': 'PUT',
-  //     'data': formData,
-  //     processData: false,
-  //     contentType: false,
-  //   };
-  //   // // Send the PUT request        
-  //   $.ajax(request).done(function (response) {
-  //     Swal.fire({
-  //       title: 'Do you want to save the changes?',
-  //       showDenyButton: true,
-  //       showCancelButton: true,
-  //       confirmButtonText: 'Save',
-  //       denyButtonText: `Don't save`,
-  //       confirmButtonColor: '#15877C'
-  //     })
-  //       .then((result) => {
-  //         /* Read more about isConfirmed, isDenied below */
-  //         if (result.isConfirmed) {
-  //           Swal.fire({
-  //             icon:'success', 
-  //             title: 'Atheneaum',
-  //             text: 'Data updated successfully',
-  //             confirmButtonColor: '#15877C'
-  //           })
-  //             .then(() => {
-  //               history.back();
-  //             })
-  //         } else if (result.isDenied) {
-  //           Swal.fire({
-  //             icon:'info',
-  //             title:'Atheneuam',
-  //             text: 'Changes are not saved', 
-  //             confirmButtonColor:'#15877C'})
-  //             .then(() => {
-  //               history.back();
-  //             })
-  //         }
-  //       }).fail(function (jqXHR, textStatus, errorThrown) {
-  //         console.error('AJAX request failed:', textStatus, errorThrown);
-  //         console.log('XHR status:', jqXHR.status);
-  //         console.log('XHR response text:', jqXHR.responseText);
-  //         Swal.fire('Error', 'Something Went Wrong.', 'error');
-  //       });
-
-  //   });
-  // });
 
 
 
