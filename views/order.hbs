@@ -49,10 +49,9 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="dashboard" class="navbar-brand mx-4 mb-3">
-                    <div class="d-flex justify-content-between">
-                        <img src="/img/book collection 0.png" alt="logo"
-                            style="width: 40px; height: 40px; border-radius: 50%;">
-                        <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <img src="/img/logo.jpg" alt="logo" style="width: 60px; height: 60px; border-radius: 50%;">
+                        <h3 class="gradient-text "> <span>Atheneuam</span></h3>
                     </div>
                 </a>
                 <div class="navbar-nav w-100 d-flex navbar-nav-scroll" id="navbar-nav-scroll">
@@ -141,23 +140,28 @@
                                 <span class="text-light" style="font-size: 17px;">order Id : </span>{{order._id}}
                             </h6>
                             <h6>
-                                <span class="text-light" style="font-size: 17px;">payment Method : </span>{{order.paymentMethod}}
+                                <span class="text-light" style="font-size: 17px;">payment Method :
+                                </span>{{order.paymentMethod}}
                             </h6>
                             <h6>
-                                <span class="text-light" style="font-size: 17px;">Total Amount : </span>&#8377 {{order.TotalAmt}}/-
+                                <span class="text-light" style="font-size: 17px;">Total Amount : </span>&#8377
+                                {{order.TotalAmt}}/-
                             </h6>
                             <div id="discountDisplay" style="display: none;">
                                 <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Coupon Code:
                                     </span>{{order.couponCode:}}/-</h6>
                                 <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Discount Amout:
                                     </span> &#8377 {{order.dicount}}/-</h6>
-                                <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Payable Amount :
+                                <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Payable Amount
+                                        :
                                     </span>&#8377 {{order.payableTotal}}/-</h6>
                             </div>
                             <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Order Status :
                                 </span>{{order.orderStatus}}</h6>
-                            <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Order Date : </span>{{orderDate}}</h6>
-                            <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Delivery Date : </span>{{deliveryDate}}
+                            <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Order Date :
+                                </span>{{orderDate}}</h6>
+                            <h6 class="text-muted"><span class="text-light" style="font-size: 17px;">Delivery Date :
+                                </span>{{deliveryDate}}
                         </div>
                         <script>
                             if ({{ order.couponCode }} !== '') {
@@ -206,7 +210,7 @@
 
     </div>
     <!-- Content End -->
-    
+
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>

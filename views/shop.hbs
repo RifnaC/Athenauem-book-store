@@ -46,10 +46,9 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="dashboard" class="navbar-brand mx-4 mb-3">
-                    <div class="d-flex justify-content-between">
-                        <img src="/img/book collection 0.png" alt="logo"
-                            style="width: 40px; height: 40px; border-radius: 50%;">
-                        <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <img src="/img/logo.jpg" alt="logo" style="width: 60px; height: 60px; border-radius: 50%;">
+                        <h3 class="gradient-text "> <span>Atheneuam</span></h3>
                     </div>
                 </a>
                 <div class="navbar-nav w-100 d-flex  navbar-nav-scroll" id="navbar-nav-scroll">
@@ -61,7 +60,8 @@
                                 class="bi bi-book"></i>Products</a>
                         <a href="category" class="nav-item nav-link"><i class="bi bi-box"></i>Category</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-bar-chart-line-fill me-2"></i>Reports</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                    class="bi bi-bar-chart-line-fill me-2"></i>Reports</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="/latestOrder" class="dropdown-item">Latest Orders</a>
                                 <a href="/itemsSales" class="dropdown-item">Product Sales</a>
@@ -125,7 +125,7 @@
                         <div class="text-dark text-center fs-6 fw-bold"><i class="bi bi-geo-alt"></i>{{address}}</div>
                         <div class="text-center shopCard my-2">
                             {{!-- {{#if isVendor}} --}}
-                                <a href="editShop?id={{_id}}"><i class="bi bi-pencil-square me-3"></i></a>
+                            <a href="editShop?id={{_id}}"><i class="bi bi-pencil-square me-3"></i></a>
                             {{!-- {{/if}} --}}
                             <a href="" class="delete" data-id={{_id}}><i
                                     class="bi bi-trash-fill text-danger me-3"></i></a>
