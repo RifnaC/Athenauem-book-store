@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Atheneuam - Book Colleciton</title>
@@ -45,11 +46,10 @@
     <Header class="container-fluid m-0 p-0">
         <nav class="navbar navbar-expand-lg bg-secondary fixed-top">
             <div class="container-fluid mx-lg-5">
-                <a class="navbar-brand " href="home">
-                    <div class="d-flex justify-content-between me-5 pe-5">
-                        <img src="/img/book collection 0.png" alt="logo"
-                            style="width: 40px; height: 40px; border-radius: 50%;">
-                        <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+                <a class="navbar-brand " href="/homes">
+                    <div class="d-flex justify-content-between align-items-center me-5 pe-5">
+                        <img src="/img/logo.jpg" alt="logo" style="width: 40px; height: 40px; border-radius: 50%;">
+                        <h3 class="gradient-text"> <span>Atheneuam</span></h3>
                     </div>
                 </a>
                 <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
@@ -88,7 +88,7 @@
                             </li>
                             <li class="nav-item homeNav space">
                                 <a class="nav-link" href="cart">
-                                   <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{length}}</sup>
+                                    <i class="bi bi-cart3"></i><sup class="total-count fs-5">{{length}}</sup>
                                 </a>
 
                             </li>
@@ -100,13 +100,13 @@
                                     <a href="#" class="nav-link text-primary" aria-current="page"
                                         data-bs-toggle="dropdown">
                                         <i class="bi bi-person"></i>
-                                        </div>
-                                    </a>
                                 </div>
-                            </li>
-                        </ul>
+                                </a>
                     </div>
+                    </li>
+                    </ul>
                 </div>
+            </div>
             </div>
         </nav>
     </Header>
@@ -147,7 +147,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">
-                                    <form class="form-horizontal" role="form"   id="userAddress">
+                                    <form class="form-horizontal" role="form" id="userAddress">
                                         <div class="d-flex justify-content-between">
                                             <h2>Address</h2>
                                             <button type="button" class="btn btn-primary" onclick="getLocation()">Use
@@ -156,9 +156,9 @@
 
                                         <div class="form-group d-flex">
                                             <input type="hidden" name="id" value="{{user._id}}">
-                                           
+
                                             <div class="col-6 me-2">
-                                                 <label for="inputFullName" class="labels">Full Name</label>
+                                                <label for="inputFullName" class="labels">Full Name</label>
                                                 <input type="text" class="form-control" id="inputFullName"
                                                     name="fullName" placeholder=" Name">
                                             </div>
@@ -171,9 +171,9 @@
 
                                         <div class="form-group d-flex">
                                             <div class="col-6 me-2">
-                                                 <label for="address" class="labels">Address</label>
-                                                <input type="text" class="form-control" id="userAddressField" name="address"
-                                                    placeholder="Address">
+                                                <label for="address" class="labels">Address</label>
+                                                <input type="text" class="form-control" id="userAddressField"
+                                                    name="address" placeholder="Address">
                                             </div>
                                             <div class="col-6">
                                                 <label for="cityTown" class="labels">City /Town</label>
