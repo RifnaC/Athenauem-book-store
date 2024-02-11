@@ -513,3 +513,6 @@ exports.updateOffer = async (req, res) => {
     res.render('coupon', { offer: coupon, admin: name });
 }
 
+exports.notFound = (req, res) => {
+    res.render('404');
+}

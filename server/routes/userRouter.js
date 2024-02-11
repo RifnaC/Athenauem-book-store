@@ -19,7 +19,6 @@ route.get('/shop-page', auth.authMiddleware, cartQty.cartQty, productController.
 route.post('/shop-page', auth.authMiddleware, productController.shopPageFilter);
 route.get('/category', auth.authMiddleware, cartQty.cartQty, productController.category);
 route.get('/author', auth.authMiddleware, cartQty.cartQty, productController.author);
-route.get('/contact', productController.contact);
 
 // wishlist Routes
 route.get("/wishlist", auth.authMiddleware, cartQty.cartQty, wishlistController.wishlist);
@@ -60,5 +59,8 @@ route.post("/api/payment/verify", auth.authMiddleware, checkout.verifyPayment);
 
 // invoice Routes
 route.get("/invoice", auth.authMiddleware, checkout.invoice);
+
+// 404 page
+route.get('*', services.notFound);
 
 module.exports = route;
