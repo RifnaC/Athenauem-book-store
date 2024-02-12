@@ -419,7 +419,6 @@ exports.user = async (req, res) => {
 // logined user
 exports.userHome = async (req, res) => {
     try {
-        console.log(req.user);
         const cartCount = await Cart.findOne({ userId: req.user.id });
         const search = req.query.searchQuery || "";
         const latestImages = await bannerCollection
@@ -460,37 +459,6 @@ exports.userHome = async (req, res) => {
     }
 }
 
-exports.home = async (req, res) => {
-    try {
-        const search = req.query.searchQuery || "";
-        const latestImages = await bannerCollection
-            .find({})
-            .sort({ _id: -1 })
-            .limit(3);
-        const categories = await categoryCollection.find({});
-        const genreLength = categories.length;
-        let count;
-        if (genreLength > 5) {
-            count = true;
-        }
-        const products = await productCollection
-            .find({
-                discount: { $gt: 0 },
-                $or: [
-                    { bookName: { $regex: '.*' + search + '.*' } },
-                    { author: { $regex: '.*' + search + '.*' } },
-                ]
-            }).limit(10);
-        products.forEach(product => {
-            product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
-        });
-
-        res.render('home', { images: latestImages, category: categories, product: products, count: count, length: 0 });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Internal Server Error');
-    }
-}
 
 exports.wishlist = (req, res) => {
     res.render('wishlist');
