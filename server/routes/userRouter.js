@@ -4,7 +4,6 @@ const services = require('../services/render');
 const auth = require('../middlewares/authMiddleware');
 const cart = require('../controller/cartController');
 const user = require('../controller/userProfile');
-const userController = require('../controller/userController');
 const checkout = require('../controller/checkoutController');
 const wishlistController = require('../controller/wishlistController');
 const productController = require('../controller/productViewController')
