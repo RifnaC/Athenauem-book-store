@@ -39,6 +39,12 @@ const userSchema = new mongoose.Schema({
             pincode:Number,
         }
     ],
+    otp:{
+        type: Number,
+    },
+    otpExpiry:{
+        type: Date,      
+    }
 })
 
 const user = mongoose.model('users', userSchema);

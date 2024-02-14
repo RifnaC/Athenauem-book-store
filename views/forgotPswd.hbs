@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Atheneuam - Book Colleciton</title>
@@ -29,37 +30,25 @@
 
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
-    <script src="sweetalert2.all.min.js"></script>
-    <script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
 </head>
 
 <body>
-    <main class="container loginBox">
-        <div>
-            <form action="/api/auth/signup" method="POST" class="login" id="signup" name="signupForm"
-                onsubmit="return signupValidation()">
-                <div class="signUpInputs">
-                    <h2>Atheneuam</h2>
-                <p>Please fill the form</p>
-                </div>
-                <input type="text" name="name" id="name" placeholder="Name">
-                <input type="email" name="email" id="Email" placeholder="Email" />
-                <input type="password" name="password" id="Password" placeholder="Password" />
-                <input type="password" name="confirmPswd" id="confirmPswd" placeholder="Confirm Password" />
-                <div class="d-flex justify-content-center">
-                    <input type="submit" value="sign Up" />
-                </div>
-
-                <div class="links signUpLinks">
-                    <a href="/login">Already have an account?</a>
-                    <a class="linkText" href="/login">Login</a>
+    <main class="mt-auto pt-auto">
+        <div style="display: flex; justify-content: center; align-items: center; height: 100vh">
+            <form id="forgotPswd" action="/forgot-password" method="POST" class="login"
+                onsubmit='return forgotPassword()'>
+                <h2>Atheneuam</h2>
+                <P>Please enter your email</P>
+                <div>
+                    <input type="email" name="email" id="Email" placeholder="Email" value="" />
+                    <div class="d-flex justify-content-center">
+                        <input type="submit" value="Send OTP" class="loginBtn" />
+                    </div>
                 </div>
             </form>
         </div>
     </main>
 </body>
-
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

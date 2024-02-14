@@ -2,6 +2,7 @@ const Order = require('../models/orderModel');
 const Book = require('../models/products');
 const User = require('../models/userModel');
 const Admin = require('../models/model');
+const Genre = require('../models/categoryModel');
 
 exports.allOrderDetails = async (req, res, next) => {
     const id = req.user.id;
@@ -83,11 +84,22 @@ exports.reportView = async (req, res, next) => {
     const name = admin.name.split(" ")[0];
     const orderLength = await Order.find().countDocuments();
     const deliveredLength = await Order.find({ orderStatus: "Delivered" }).countDocuments();
-    const pendingLength = await Order.find({ orderStatus: "Pending" }).countDocuments();
-    const cancelledLength = await Order.find({ orderStatus: "Canceled" }).countDocuments();
+    const pendingLength = await Order.find({ $or: [{ orderStatus: "Order Placed" }, { orderStatus: "Shipped" }] }).countDocuments();
+    const cancelledLength = await Order.find({ orderStatus: "Cancelled" }).countDocuments();
+    const currentDate = new Date(); // Get the current date
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear();
+    let length =new Date(currentYear, currentMonth, 0).getDate();
 
     const dailyReport = await Order.aggregate([
         {
+            $match: {
+                $expr: {
+                    $eq: [{ $month: "$orderDate" }, currentMonth] // Filter orders for the current month
+                }
+            }
+        },
+       {
             $group: {
                 _id: {
                     $dateToString: {
@@ -110,7 +122,11 @@ exports.reportView = async (req, res, next) => {
         }
     ])
 
-    const allDates = Array.from({ length: 31 }, (e, index) => (index + 1).toString());
+
+    const allDates = Array.from({ length: length }, (e, index) => {
+        const day = index + 1;
+        return day < 10 ? '0' + day : day.toString();
+    });
 
     // Initialize a new array with totalAmount set to 0 for each date
     const dailyOrders = allDates.map(date => {
@@ -181,4 +197,78 @@ exports.reportView = async (req, res, next) => {
         return index !== -1 ? monthlyAmt[index] : 0;
     });
     res.render('chart', { admin: name, count: orderLength, deliveredLength: deliveredLength, pendingLength: pendingLength, cancelledLength: cancelledLength, dates: dates, amounts: amounts, orderData: orderData, weeklyReport: data, monthlyAmount: monthlyAmount });
+}
+
+exports.latestOrder = async(req, res) => {
+    const orders = await Order.find({}).limit(10).sort({ orderDate: -1 });
+    let orderData = [];
+    for (let order of orders) {
+        const user = await User.findOne({ _id: order.userId });
+        const userName = user.name.split(" ")[0];
+        const dateObject = new Date(order.orderDate);
+        const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
+        orderData.push({ order, userName, orderDate });
+    }
+
+    res.render('latestOrder', { orderData: orderData })
+}
+
+exports.itemSales = async(req, res) => {
+    const id = req.user.id;
+    const admin = await Admin.findById(id);
+    const name = admin.name.split(" ")[0];
+
+    const books = await Book.find();
+    const title = books.map((book) => book.bookName);
+    const outOfStock = await Book.find({ stock: "Out Of Stock" }).countDocuments();
+    const availablePrdts = await Book.find({stock: 'In Stock' }).countDocuments();
+    const orders = await Order.find({});
+    let orderData = [];
+    for (let order of orders) {
+        const orderItems = order.orderItems;
+
+        // Iterate over order items to aggregate quantity and price by genre
+        for (let item of orderItems) {
+            const book = await Book.findById(item.itemId); // Retrieve book details
+            if (!book) continue; 
+            const genre = book.genre;
+            const name = item.name;
+            const quantity = item.quantity;
+            const price = book.price * quantity;
+            orderData.push({ order, genre, name, quantity, price, });
+        }
+    
+    }
+    
+    const aggregatedData = {};
+    const bookData ={};
+    // Iterate over each item in orderData array
+    orderData.forEach(item => {
+        const {genre, name, quantity, price } = item;
+    
+        // If the genre doesn't exist in aggregatedData, initialize it with quantity and price
+        if (!aggregatedData[genre]) {
+            aggregatedData[genre] = { count: 0, total: 0 };
+        }
+        if(!bookData[name]){
+            bookData[name] = { count: 0, total: 0 };
+        }
+
+        // Accumulate quantity and price for each genre
+        aggregatedData[genre].count += quantity;
+        aggregatedData[genre].total += price;
+
+        bookData[name].total += price;
+    });
+
+    // Convert aggregatedData object into an array of objects
+    const genres = Object.entries(aggregatedData).map(([genre, { count, total }]) => ({ genre, count, total }));
+    const genre = genres.map((genre) => genre.genre);
+    const genreCount = genres.map((genreCount) => genreCount.count);
+
+    const bookstore = Object.entries(bookData).map(([name, {total }]) => ({name, total}));
+    const names = bookstore.map((name) => name.name);
+    const amounts = bookstore.map((amount) => amount.total);
+
+    res.render('reports', { admin: name, count: books.length, outOfStock: outOfStock, availablePrdts: availablePrdts, orderData: orderData,genre: genre, genreCount: genreCount, names: names, amounts: amounts});
 }

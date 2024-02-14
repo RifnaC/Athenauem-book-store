@@ -9,6 +9,7 @@ const bannerController = require('../controller/bannerController');
 const auth = require('../middlewares/authMiddleware')
 const user = require('../controller/userController');
 const order = require('../controller/orderController');
+const pdf = require('../../assets/js/pdf');
 
 // ***********************Admin Management********************************
 /** 
@@ -160,8 +161,13 @@ route.put('/order/:id', auth.authMiddleware, order.editOrder);
 
 // report Management
 route.get('/report', auth.authMiddleware, order.reportView);
+route.get('/latestOrder', auth.authMiddleware, order.latestOrder);
+route.get('/itemsSales', auth.authMiddleware, order.itemSales);
+
 // Error page
 route.get('/error', services.error);
 
+// 404 page
+route.get('*', services.notFound);
 
 module.exports = route

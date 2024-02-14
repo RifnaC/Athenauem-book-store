@@ -4,7 +4,6 @@ const Order = require('../models/orderModel');
 const Book = require('../models/products');
 
 exports.profile = async (req, res) => {
-    const cartCount = await cart.findOne({ userId: req.user.id })
     const id = req.user.id;
     const user = await users.findById(id);
     const userAddress = user.addresses;
@@ -12,11 +11,7 @@ exports.profile = async (req, res) => {
     if (search !== "") {
         res.redirect("/shop-page");
     }
-    if(cartCount !== null){
-        const length =  cartCount.items.length;
-        res.render('profile', { user, userAddress, length });
-    }
-    res.render('profile', { user, userAddress, length:0 });
+    res.render('profile', { user, userAddress,});
 }
 
 exports.updateProfile = async (req, res) => {
@@ -31,13 +26,8 @@ exports.updateProfile = async (req, res) => {
 
 exports.address = async (req, res) => {
     const id = req.user.id;
-    const cartCount = await cart.findOne({ userId: req.user.id })
     const user = await users.findById(id);
-    if(cartCount !== null){
-        const length =  cartCount.items.length;
-        res.render('address', { user, length: length });
-    }
-    res.render('address', { user, length: 0 });
+    res.render('address', { user});
 }
 
 exports.addAddress = async (req, res) => {
@@ -64,15 +54,10 @@ exports.addAddress = async (req, res) => {
 
 exports.editAddress = async (req, res) => {
     const id = req.user.id;
-    const cartCount = await cart.findOne({ userId: req.user.id })
     const addressId = req.query.id;
     const user = await users.findById(id);
     const userAddress = user.addresses.find(address => address._id == addressId);
-    if(cartCount !== null){
-        const length =  cartCount.items.length;
-        res.render('addresses', { user, userAddress, length: length });
-    }
-    res.render('addresses', { user, userAddress, length: 0 });
+    res.render('addresses', { user, userAddress,});
 }
 
 exports.updateAddress = async (req, res) => {
@@ -112,7 +97,6 @@ exports.deleteAddress = async (req, res) => {
 exports.myOrder = async (req, res) => {
     const id = req.user.id;
     const user = await users.findById(id);
-    const cartCount = await cart.findOne({ userId: req.user.id })
     const orders = await Order.find({ userId: id }).sort({ orderDate: -1 });
     const orderDatas = [];
     for (let order of orders) {
@@ -124,19 +108,13 @@ exports.myOrder = async (req, res) => {
             orderDatas.push({ itemDetails, total, status, quantity, order })
         }
     }
-    if(cartCount !== null){
-        const length =  cartCount.items.length;
-        res.render('myOrder', { length, user, orderDatas, orders });
-    }
-    res.render('myOrder', { length:0, user, orderDatas, orders });
+    res.render('myOrder', { user, orderDatas, orders });
 }
 
 exports.orderSummary = async (req, res, next) => {
     const id = req.params.id;
     const userId = req.user.id;
     const user = await users.findById(userId);
-    const cartCount = await cart.findOne({ userId: userId })
-    const length = cartCount.items.length;
     const order = await Order.findOne({ _id: id });
     const addressDetails = await users.aggregate([{ $unwind: "$addresses" }, { $match: { "addresses._id": order.addressId } }]);
     const address = addressDetails[0].addresses;
@@ -156,7 +134,7 @@ exports.orderSummary = async (req, res, next) => {
 
     
 
-    res.render('orderDetails', { length, user, address, order, orderData, orderDate, deliveryDate});
+    res.render('orderDetails', { user, address, order, orderData, orderDate, deliveryDate});
 }
 
 

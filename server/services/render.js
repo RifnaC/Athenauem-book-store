@@ -9,10 +9,11 @@ const User = require('../models/userModel');
 const Cart = require('../models/cartModel');
 const Coupon = require('../models/couponModel');
 const Order = require('../models/orderModel');
+const { itemSales } = require('../controller/orderController');
 
 // ***********************Admin Management********************************
 exports.homeRoutes = async (req, res) => {
-    if (!req.session.token) {
+    if (!req.cookies.token) {
         return res.render('home')
     }
     const id = req.user.id;
@@ -30,6 +31,92 @@ exports.homeRoutes = async (req, res) => {
     const deliveredOrders = orders.filter(order => order.orderStatus === 'Delivered');
     const pendingOrders = orders.filter(order => order.orderStatus !== 'Delivered' && order.orderStatus !== 'Cancelled');
     const cancelledOrders = orders.filter(order => order.orderStatus === 'Cancelled');
+    const currentDate = new Date(); // Get the current date
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear();
+    let length =new Date(currentYear, currentMonth, 0).getDate();
+    
+
+    const dailyReport = await Order.aggregate([
+        {
+            $match: {
+                $expr: {
+                    $eq: [{ $month: "$orderDate" }, currentMonth] // Filter orders for the current month
+                }
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    $dateToString: {
+                        format: "%d",
+                        date: "$orderDate"
+                    }
+                },
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                date: '$_id',
+                count: 1,
+            }
+        },
+        {
+            $sort: { date: 1 }
+        }
+    ])
+
+    const dailyCart= await Cart.aggregate([
+        {
+            $match: {
+                $expr: {
+                    $eq: [{ $month: "$updatedAt" }, currentMonth] // Filter cart for the current month
+                }
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    $dateToString: {
+                        format: "%d",
+                        date: "$updatedAt"
+                    }
+                },
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                date: '$_id',
+                count: 1,
+            }
+        },
+        {
+            $sort: { date: 1 }
+        }
+    ])
+  
+    const allDates = Array.from({ length: length }, (e, index) => {
+        const day = index + 1;
+        return day < 10 ? '0' + day : day.toString();
+    });
+
+    // Initialize a new array with totalAmount set to 0 for each date
+    const dailyOrders = allDates.map(date => {
+        const entry = dailyReport.find(report => report.date === date);
+        return { count: entry ? entry.count : 0, date };
+    });
+    const dates = dailyOrders.map(date => date.date);
+    const counts = dailyOrders.map(date => date.count); 
+
+    const dailyCarts = allDates.map(date => {
+        const entry = dailyCart.find(report => report.date === date);
+        return { count: entry ? entry.count : 0, date };
+    });
+    const cartCounts = dailyCarts.map(itemSales => itemSales.count);
 
     const monthlyReport = await Order.aggregate([
         {
@@ -67,7 +154,7 @@ exports.homeRoutes = async (req, res) => {
         const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
         orderData.push({ order, userName, orderDate })
     }
-    
+
 
     res.render('dashboard', {
         admin: name,
@@ -85,6 +172,9 @@ exports.homeRoutes = async (req, res) => {
         amounts: monthlyAmount,
         counts: monthlyCounts,
         orderData: orderData,
+        dates: dates,
+        dailyOrders: counts,
+        cartCounts: cartCounts,
     });
 }
 
@@ -312,6 +402,10 @@ exports.login = (req, res) => {
 exports.signup = (req, res) => {
     res.render('signUp');
 }
+
+exports.forgotPswd = (req, res) => {
+    res.render('forgotPswd');
+}
 // ***********************Customer CRUD Section*******************************
 exports.user = async (req, res) => {
     const id = req.user.id;
@@ -325,7 +419,6 @@ exports.user = async (req, res) => {
 // logined user
 exports.userHome = async (req, res) => {
     try {
-        console.log(req.user);
         const cartCount = await Cart.findOne({ userId: req.user.id });
         const search = req.query.searchQuery || "";
         const latestImages = await bannerCollection
@@ -354,11 +447,10 @@ exports.userHome = async (req, res) => {
             availibility = true;
         }
         if (cartCount !== null) {
-            
             const cartId = cartCount._id;
             res.render('home', { images: latestImages, category: categories, product: products, count: count, cartId: cartId, availibility: availibility });
         } else {
-            res.render('home', { images: latestImages, category: categories, product: products, length: 0, count: count, availibility: availibility });
+            res.render('home', { images: latestImages, category: categories, product: products, count: count, availibility: availibility });
         }
 
     } catch (err) {
@@ -367,37 +459,6 @@ exports.userHome = async (req, res) => {
     }
 }
 
-exports.home = async (req, res) => {
-    try {
-        const search = req.query.searchQuery || "";
-        const latestImages = await bannerCollection
-            .find({})
-            .sort({ _id: -1 })
-            .limit(3);
-        const categories = await categoryCollection.find({});
-        const genreLength = categories.length;
-        let count;
-        if (genreLength > 5) {
-            count = true;
-        }
-        const products = await productCollection
-            .find({
-                discount: { $gt: 0 },
-                $or: [
-                    { bookName: { $regex: '.*' + search + '.*' } },
-                    { author: { $regex: '.*' + search + '.*' } },
-                ]
-            }).limit(10);
-        products.forEach(product => {
-            product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
-        });
-
-        res.render('home', { images: latestImages, category: categories, product: products, count: count, length: 0 });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Internal Server Error');
-    }
-}
 
 exports.wishlist = (req, res) => {
     res.render('wishlist');
@@ -420,3 +481,6 @@ exports.updateOffer = async (req, res) => {
     res.render('coupon', { offer: coupon, admin: name });
 }
 
+exports.notFound = (req, res) => {
+    res.render('404');
+}

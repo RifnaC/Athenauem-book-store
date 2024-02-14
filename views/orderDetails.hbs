@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/book collection 0.png" rel="icon">
+    <link href="/img/logo.jpg" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,11 +46,10 @@
     <Header class="container-fluid m-0 p-0">
         <nav class="navbar navbar-expand-lg bg-secondary fixed-top">
             <div class="container-fluid mx-lg-5">
-                <a class="navbar-brand " href="/home">
-                    <div class="d-flex justify-content-between me-5 pe-5">
-                        <img src="/img/book collection 0.png" alt="logo"
-                            style="width: 40px; height: 40px; border-radius: 50%;">
-                        <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+                <a class="navbar-brand " href="/homes">
+                    <div class="d-flex justify-content-between align-items-center me-5 pe-5">
+                        <img src="/img/logo.jpg" alt="logo" style="width: 40px; height: 40px; border-radius: 50%;">
+                        <h3 class="gradient-text"> <span>Atheneuam</span></h3>
                     </div>
                 </a>
                 <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
@@ -62,19 +61,16 @@
                     <div class="mx-lg-5 px-lg-5">
                         <ul class="navbar-nav mx-lg-5 me-auto mb-2 mb-lg-0 home-nav ">
                             <li class="nav-item homeNav">
-                                <a class="nav-link " href="/home">Home</a>
+                                <a class="nav-link " href="/homes">Home</a>
                             </li>
                             <li class="nav-item homeNav">
                                 <a class="nav-link" href="/shop-page">Shop</a>
                             </li>
                             <li class="nav-item homeNav">
-                                <a class="nav-link" href="/blog">Blog</a>
+                                <a class="nav-link" href="/category">Category</a>
                             </li>
                             <li class="nav-item homeNav">
                                 <a class="nav-link" href="/author">Author</a>
-                            </li>
-                            <li class="nav-item homeNav">
-                                <a class="nav-link" href="/contact">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -151,9 +147,8 @@
                         <div class="row  my-2 me-5 py-3 bg-white">
                             <div class="d-flex justify-content-between">
                                 <h5 class="text-secondary my-auto">Order Details</h5>
-                                    <a href="/orders/{{order._id}}" class="btn btn-outline-dark float-end "
-                                    data-bs-toggle="modal" data-bs-target="#exampleModal" id="orderCancel"
-                                    >Cancel</a>
+                                <a href="/orders/{{order._id}}" class="btn btn-outline-dark float-end "
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal" id="orderCancel">Cancel</a>
                             </div>
                         </div>
                         <div class="row  my-2 me-5 py-3 bg-white">
@@ -176,20 +171,21 @@
                                 <p><b>Payment Method: </b> {{order.paymentMethod}}</p>
                                 <p><b>Payment Amount: </b> &#8377 {{order.payableTotal}}</p>
                                 <p><b>Order Status: </b> {{order.orderStatus}}</p>
-                                <p id="orderReason" style="display: none;"><b>Reason for Cancellation: </b> {{order.cancelReason}}</p>
+                                <p id="orderReason" style="display: none;"><b>Reason for Cancellation: </b>
+                                    {{order.cancelReason}}</p>
                                 <p><b>Order Date: </b> {{orderDate}}</p>
                                 <p><b>Delivery Date: </b> {{deliveryDate}}</p>
                                 <p id="couponSection" style="display: none;"><b>Coupon: </b>{{order.couponCode}}</p>
                             </div>
-                             <script>
-                                    if("{{order.orderStatus}}" == "Cancelled" || "{{order.orderStatus}}" == "Delivered"){
-                                        document.getElementById("orderCancel").style.display = "none";
-                                        document.getElementById("orderReason").style.display = "block";
-                                    }
-                                    if("{{order.couponCode}}" !== ""){
-                                        document.getElementById("couponSection").style.display = "block";
-                                    }
-                                </script>
+                            <script>
+                                if ("{{order.orderStatus}}" == "Cancelled" || "{{order.orderStatus}}" == "Delivered") {
+                                    document.getElementById("orderCancel").style.display = "none";
+                                    document.getElementById("orderReason").style.display = "block";
+                                }
+                                if ("{{order.couponCode}}" !== "") {
+                                    document.getElementById("couponSection").style.display = "block";
+                                }
+                            </script>
                         </div>
                         <div class="row mt-3 me-5 ">
                             <h5 class="text-secondary">Order Items</h5>
@@ -253,7 +249,8 @@
                             <input type="hidden" id="orderId" name="id" value="{{order._id}}">
                             <label for="reason">Choose Your Reason for Cancelling the order:</label>
                             <select name="reason" id="reasons" class="form-select">
-                                <option value="Product is taking too long to be delivered">Product is taking too long to be delivered</option>
+                                <option value="Product is taking too long to be delivered">Product is taking too long to
+                                    be delivered</option>
                                 <option value="High Price for the product">High Price for the product</option>
                                 <option value="Loss of interest or need">Loss of interest or need</option>
                             </select>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Atheneuam - Book Colleciton</title>
@@ -29,37 +30,65 @@
 
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
-    <script src="sweetalert2.all.min.js"></script>
-    <script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
+    <style>
+        .otp-form {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* OTP input styles */
+        .otp-container,
+        .email-otp-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .otp-input,
+        .email-otp-input {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 18px;
+            margin: 0 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .otp-input:focus,
+        .email-otp-input:focus {
+            border-color: #15877C;
+        }
+
+
+
+    </style>
 </head>
-
 <body>
-    <main class="container loginBox">
-        <div>
-            <form action="/api/auth/signup" method="POST" class="login" id="signup" name="signupForm"
-                onsubmit="return signupValidation()">
-                <div class="signUpInputs">
-                    <h2>Atheneuam</h2>
-                <p>Please fill the form</p>
-                </div>
-                <input type="text" name="name" id="name" placeholder="Name">
-                <input type="email" name="email" id="Email" placeholder="Email" />
-                <input type="password" name="password" id="Password" placeholder="Password" />
-                <input type="password" name="confirmPswd" id="confirmPswd" placeholder="Confirm Password" />
-                <div class="d-flex justify-content-center">
-                    <input type="submit" value="sign Up" />
-                </div>
-
-                <div class="links signUpLinks">
-                    <a href="/login">Already have an account?</a>
-                    <a class="linkText" href="/login">Login</a>
+    <main class="mt-auto pt-auto">
+        <div style="display: flex; justify-content: center; align-items: center; height: 100vh">
+            <form id="otp" action="/otp" method="POST" class="login"
+                onsubmit='return otpValidation()'>
+                <h2>Atheneuam</h2>
+                <P>Please enter verification code</P>
+                <div>
+                    <input type="text" name="otp" id="otp" placeholder="OTP" value="" />
+                    <input type="hidden" name="email" value="{{email}}">
+                    <div class="d-flex justify-content-center">
+                        <input type="submit" value="Verify" class="loginBtn" />
+                    </div>
                 </div>
             </form>
         </div>
     </main>
 </body>
-
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -74,5 +103,6 @@
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
+<script src="/js/otp.js"></script>
 
 </html>

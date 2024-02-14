@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/book collection 0.png" rel="icon">
+    <link href="/img/logo.jpg" rel="icon">
 
     {{!-- Date range picker --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -51,10 +51,10 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="dashboard" class="navbar-brand mx-4 mb-3">
-                    <div class="d-flex justify-content-between">
-                        <img src="/img/book collection 0.png" alt="logo"
-                            style="width: 40px; height: 40px; border-radius: 50%;">
-                        <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <img src="/img/logo.jpg" alt="logo"
+                            style="width: 60px; height: 60px; border-radius: 50%;">
+                        <h3 class="gradient-text "> <span >Atheneuam</span></h3>
                     </div>
                 </a>
 
@@ -69,7 +69,14 @@
                         <a href="products" class="nav-item nav-link" id="productSection"><i
                                 class="bi bi-book"></i>Products</a>
                         <a href="category" class="nav-item nav-link"><i class="bi bi-box"></i>Category</a>
-                        <a href="/report" class="nav-item nav-link"><i class="bi bi-bar-chart-line"></i>Report</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-bar-chart-line-fill me-2"></i>Reports</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="/latestOrder" class="dropdown-item">Latest Orders</a>
+                                <a href="/itemsSales" class="dropdown-item">Product Sales</a>
+                                <a href="/report" class="dropdown-item">Order Sales</a>
+                            </div>
+                        </div>
                         <a href="order" class="nav-item nav-link"><i class="bi bi-cart3"></i></i>Orders</a>
                         <a href="offer" class="nav-item nav-link"><i class="bi bi-percent"></i>Offer</a>
                         <a href="banner" class="nav-item nav-link"><i class="bi bi-card-image"></i>Banner</a>
@@ -141,62 +148,62 @@
                     <div class="col-sm-6 col-xl-3">
                         <a href="/report">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="bi bi-pie-chart-fill fa-3x text-primary"></i>
-                            <div class="ms-3 text-center">
-                                <p class="mb-2">Total Revenue</p>
-                                <h6 class="mb-0">&#8377 {{totalRevenue}}/-</h6>
+                                <i class="bi bi-pie-chart-fill fa-3x text-primary"></i>
+                                <div class="ms-3 text-center">
+                                    <p class="mb-2">Total Revenue</p>
+                                    <h6 class="mb-0">&#8377 {{totalRevenue}}/-</h6>
+                                </div>
                             </div>
-                        </div>
                         </a>
                     </div>
                 </div>
             </div>
             <!-- Sale & Revenue End -->
-             <!-- Sale & Revenue Start -->
+            <!-- Sale & Revenue Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
                         <a href="category">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="bi bi-box fa-3x text-primary"></i>
-                            <div class="ms-3 text-center">
-                                <p class="mb-2">Total Category</p>
-                                <h6 class="mb-0">{{genre}}</h6>
+                                <i class="bi bi-box fa-3x text-primary"></i>
+                                <div class="ms-3 text-center">
+                                    <p class="mb-2">Total Category</p>
+                                    <h6 class="mb-0">{{genre}}</h6>
+                                </div>
                             </div>
-                        </div>
                         </a>
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <a href="order">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="bi bi-cart3 fa-3x text-primary"></i>
-                            <div class="ms-3 text-center">
-                                <p class="mb-2">Total Orders</p>
-                                <h6 class="mb-0">{{totalOrders}}</h6>
+                                <i class="bi bi-cart3 fa-3x text-primary"></i>
+                                <div class="ms-3 text-center">
+                                    <p class="mb-2">Total Orders</p>
+                                    <h6 class="mb-0">{{totalOrders}}</h6>
+                                </div>
                             </div>
-                        </div>
                         </a>
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <a href="offer">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="bi bi-percent fa-3x text-primary"></i>
-                            <div class="ms-3 text-center">
-                                <p class="mb-2">Total Offers</p>
-                                <h6 class="mb-0">{{offers}}</h6>
+                                <i class="bi bi-percent fa-3x text-primary"></i>
+                                <div class="ms-3 text-center">
+                                    <p class="mb-2">Total Offers</p>
+                                    <h6 class="mb-0">{{offers}}</h6>
+                                </div>
                             </div>
-                        </div>
                         </a>
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <a href="banner">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="bi bi-card-image fa-3x text-primary"></i>
-                            <div class="ms-3 text-center">
-                                <p class="mb-2">Active Banners</p>
-                                <h6 class="mb-0">{{banners}}</h6>
+                                <i class="bi bi-card-image fa-3x text-primary"></i>
+                                <div class="ms-3 text-center">
+                                    <p class="mb-2">Active Banners</p>
+                                    <h6 class="mb-0">{{banners}}</h6>
+                                </div>
                             </div>
-                        </div>
                         </a>
                     </div>
                 </div>
@@ -208,7 +215,7 @@
                     <div class="col-sm-12 col-md-12 col-xl-8">
                         <div class="bg-secondary text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h5 class="mb-0 text-primary">Overview</h5>
+                                <h5 class="mb-0 text-primary">Sales & Revenue</h5>
                                 <input type="hidden" name="amount" id="amounts" value="{{amounts}}">
                                 <input type="hidden" name="total" id="totals" value="{{counts}}">
                                 <div id="reportrange" class="date-range-report">
@@ -251,10 +258,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="bg-secondary text-center rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h5 class="mb-0 text-primary">Daily Order & Cart</h5>
+                            </div>
+                            <canvas id="salse-revenue"></canvas>
+                            <input type="hidden" id="dates" value="{{dates}}">
+                            <input type="hidden" id="dailyOrders" value="{{dailyOrders}}">
+                            <input type="hidden" id="dailyCart" value="{{cartCounts}}">
+    
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Sales Chart End -->
 
-           
+
         </div>
     </div>
     <!-- Content End -->

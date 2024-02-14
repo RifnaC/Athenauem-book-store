@@ -20,11 +20,10 @@ exports.productView = async (req, res) => {
     const off = Math.floor((item.discount * 100) / item.originalPrice)
 
     if(cartCount !== null){
-      const length =  cartCount.items.length;
       const  cartId = cartCount._id
-      res.render('singleProductView', { item: item, off: off, shop: shop, genre: category, length:length, cartId: cartId });
+      res.render('singleProductView', { item: item, off: off, shop: shop, genre: category,  cartId: cartId });
     }else{
-      res.render('singleProductView', { item: item, off: off, shop: shop, genre: category, length:0});
+      res.render('singleProductView', { item: item, off: off, shop: shop, genre: category, });
     }
     
   } catch (err) {
@@ -93,11 +92,10 @@ exports.shopPage = async (req, res, next) => {
     availibility = true;
   }
   if(cartCount !== null){
-    const length =  cartCount.items.length;
     const cartId = cartCount._id
-    res.render('shop-page', { pages, currentPage: page, prev: prev, next: nxt, books: books, genre: category, length:length, cartId: cartId, authors: authors, availibility: availibility });
+    res.render('shop-page', { pages, currentPage: page, prev: prev, next: nxt, books: books, genre: category, cartId: cartId, authors: authors, availibility: availibility });
   }else{
-    res.render('shop-page', { pages, currentPage: page, prev: prev, next: nxt, books: books, genre: category, length:0, authors: authors, availibility: availibility });
+    res.render('shop-page', { pages, currentPage: page, prev: prev, next: nxt, books: books, genre: category, authors: authors, availibility: availibility });
   }
   
 }
@@ -167,11 +165,10 @@ exports.category = async (req, res, next) => {
     ]
   });
   if(cartCount !== null){
-    const length =  cartCount.items.length;
     const cartId = cartCount._id
-    res.render('categories', { fiction: fiction, biography: biography, novels: novels, horror: horror, science: science, selfhelp: selfhelp, length: length, cartId: cartId });
+    res.render('categories', { fiction: fiction, biography: biography, novels: novels, horror: horror, science: science, selfhelp: selfhelp, cartId: cartId });
   }else{
-    res.render('categories', { fiction: fiction, biography: biography, novels: novels, horror: horror, science: science, selfhelp: selfhelp, length: 0 });
+    res.render('categories', { fiction: fiction, biography: biography, novels: novels, horror: horror, science: science, selfhelp: selfhelp,});
   }
   
 }
@@ -201,11 +198,10 @@ exports.author = async (req, res, next) => {
     ]
   });
   if(cartCount !== null){
-    const length =  cartCount.items.length;
     const cartId = cartCount._id
-    res.render('author', { robert: Robert, jay: jay, james: james, length: length, cartId: cartId });
+    res.render('author', { robert: Robert, jay: jay, james: james, cartId: cartId });
   }
-  res.render('author', { robert: Robert, jay: jay, james: james, length: 0});
+  res.render('author', { robert: Robert, jay: jay, james: james,});
 }
 
 exports.contact = async (req, res, next) => {
