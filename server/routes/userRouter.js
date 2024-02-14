@@ -10,10 +10,7 @@ const productController = require('../controller/productViewController')
 const cartQty = require('../middlewares/cartQuantity');
 // home page
 route.get('/', auth.authMiddleware, cartQty.cartQty, services.userHome);
-route.get('/home', (req,res)=>{
-    res.redirect('/')
-});
-
+route.get('/home',services.notFound);
 // product view page
 route.get('/productView/:id', auth.authMiddleware, cartQty.cartQty, productController.productView);
 route.get('/shop-page', auth.authMiddleware, cartQty.cartQty, productController.shopPage);

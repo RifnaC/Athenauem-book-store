@@ -482,5 +482,5 @@ exports.updateOffer = async (req, res) => {
 }
 
 exports.notFound = (req, res) => {
-    res.render('404');
+    res.redirect('/');
 }
