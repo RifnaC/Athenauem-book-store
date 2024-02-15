@@ -44,22 +44,22 @@
         <!-- Spinner End -->
     </div>
     <!-- Button Start -->
-    <div class="container-fluid pt-4 mb-5 d-flex justify-content-center">
-        <div class="col-lg-6 col-xl-6 bg-secondary border rounded ">
+    <div class="container-fluid  changePswd" >
+        <div class="col-12 col-lg-6 col-xl-6 bg-secondary border rounded ">
             <div class="row no-gutters">
                 <div class="col-lg-12 col-xl-12">
                     <div class="profile-content-right profile-right-spacing py-5">
-                        <ul class="nav nav-tabs px-0  nav-style-border" id="myTab" role="tablist">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="profile" role="tab"
-                                aria-controls="profile" aria-selected="false">change password</a>
+                        <ul class="nav nav-tabs px-0  d-flex justify-content-center nav-style-border" id="myTab" role="tablist">
+                            <a class="nav-link text-center" id="profile-tab">Change Password</a>
                         </ul>
                         <div class="tab-content px-3 px-xl-5" id="myTabContent">
                             <div class="tab-pane fade show active" id="profile" role="tabpanel"
                                 aria-labelledby="settings-tab">
                                 <div class="tab-pane-content my-5">
-                                    <form method="POST" id="change_pswd" action="/resetPswd" onsubmit="return resetPswd()">
-                                    <input type="hidden" name="email" id="email" value="{{email}}">
-                                    <input type="hidden" name="otp" id="otp" value="{{otp}}">
+                                    <form method="POST" id="change_pswd" action="/resetPswd"
+                                        onsubmit="return resetPswd()">
+                                        <input type="hidden" name="email" id="email" value="{{email}}">
+                                        <input type="hidden" name="otp" id="otp" value="{{otp}}">
                                         <div class="form-group mb-4">
                                             <label for="newPassword">New password</label>
                                             <input type="password" name="password" class="form-control"
@@ -70,7 +70,7 @@
                                             <input type="password" name="confirmPassword" class="form-control"
                                                 id="confirmPassword">
                                         </div>
-                                        <div class="d-flex justify-content-start mt-5">
+                                        <div class="d-flex justify-content-center mt-5">
                                             <button type="submit" class="btn btn-primary mb-2 btn-pill">Save</button>
                                         </div>
                                     </form>
@@ -83,11 +83,6 @@
         </div>
     </div>
     <!-- Content End -->
-
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

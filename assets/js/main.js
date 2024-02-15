@@ -31,6 +31,11 @@
     return false;
   });
 
+  function SweetAlert(){
+    if(this.cond!){
+      icon
+    }
+  }
   //Admin alerts
   // Function to validate the add admin form
   function validateForm() {

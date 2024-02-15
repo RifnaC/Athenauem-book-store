@@ -169,6 +169,13 @@ body::-webkit-scrollbar-thumb {
     outline: none;
     transition: all .2s ease-in-out;
 }
+.changePswd{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+}
 
 .login input[type=submit] {
     width: 100px;
@@ -186,7 +193,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .login h2 {
-    margin: 20px 0 0;
+    margin: 0px 0 0;
     color: #084C5B;
     font-size: 28px;
 }
@@ -208,7 +215,7 @@ body::-webkit-scrollbar-thumb {
 
 .linkText {
     display: table-cell;
-    padding-top: 10px;
+    padding-top: 8px;
     color: #00B7FF !important;
 }
 
@@ -229,6 +236,13 @@ body::-webkit-scrollbar-thumb {
     text-decoration: underline;
 }
 
+.loginBox {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden !important;
+}
 .homeNav a,
 .nav-icon a {
     color: #130B0B;
@@ -1171,21 +1185,29 @@ button {
     }
 
     .login {
-        height: 92vh;
+        height: 93vh;
+        margin: 0 0;
         overflow: hidden !important;
+
     }
 
     .loginBox {
         height: 92vh;
+        margin: 0 0;
+        padding-top: 0;
         display: flex;
-        align-items: center;
         justify-content: center;
-        background: #15877C;
+        align-items: center;
         overflow: hidden !important;
     }
 
-    .loginBox h2 {
-        padding-top: 80px !important;
+    .loginBox h2{
+     
+        margin-top:-10px !important;
+        
+    }
+    .logoSection{
+        padding-top: 70px!important;
     }
 
     .links {
@@ -1208,6 +1230,13 @@ button {
 
     .signUpInputs {
         margin-top: -60px !important;
+    }
+    .changePswd{
+        height: 92vh;
+        overflow: hidden;
+        margin: 0 0;
+        padding: 0 0;
+        top: 0;
     }
 
 }

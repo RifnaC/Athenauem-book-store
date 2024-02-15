@@ -33,12 +33,17 @@
 </head>
 
 <body>
-    <main class="mt-auto pt-auto">
-        <div style="display: flex; justify-content: center; align-items: center; height: 100vh">
-            <form id="forgotPswd" action="/forgot-password" method="POST" class="login"
+    <main class="container">
+        <div class="loginBox">
+            <form id="forgotPswd" action="/forgot-password" method="POST" class="login" 
                 onsubmit='return forgotPassword()'>
-                <h2>Atheneuam</h2>
-                <P>Please enter your email</P>
+                <div class="logoSection ">
+                    <div class="d-flex justify-content-center" id="favLogo">
+                        <img src="/img/favicon.png" alt="" height="80" width="104">
+                    </div>
+                    <h2 class="gradient-text">Atheneuam</h2>
+                    <P>Please enter your email</P>
+                </div>
                 <div>
                     <input type="email" name="email" id="Email" placeholder="Email" value="" />
                     <div class="d-flex justify-content-center">

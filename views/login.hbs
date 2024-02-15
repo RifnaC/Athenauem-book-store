@@ -32,23 +32,25 @@
     <link href="/css/style.css" rel="stylesheet">
 </head>
 
-<body style="min-height: 100vh">
-    <main class="container d-flex justify-content-center loginBox">
-        <div class="my-5 loginBox">
+<body>
+    <main class="container" >
+        <div class="loginBox">
             <form action="/login" method="POST" class="login" id="login" name="loginForm"
                 onsubmit="return loginValidation()">
-                <div class="d-flex justify-content-center" id="favLogo">
-                    <img src="/img/favicon.png" alt="" height="60" width="80">
+                <div class="logoSection">
+                    <div class="d-flex justify-content-center " id="favLogo">
+                        <img src="/img/favicon.png" alt="" height="80" width="104">
+                    </div>
+                    <h2 class="gradient-text">Atheneuam</h2>
+                    <p>Please login</p>
                 </div>
-                <h2 class="gradient-text">Atheneuam</h2>
-                <p>Please login</p>
                 <div class="loginInputs">
                     <input type="email" name="email" id="Email" placeholder="Email" value="" />
                     <input type="password" name="password" id="Password" placeholder="Password" value="" />
                     <div class="d-flex justify-content-center">
                         <input type="submit" value="Login" class="loginBtn" />
                     </div>
-                    <div><a class="linkText mb-0" href="/password" style="font-size: 14px;">Forgot password?</a></div>
+                    <div><a class="linkText pb-1" href="/password">Forgot password?</a></div>
                     <div class="links d-flex justify-content-between mt-1">
                         <a href="/signUp" class="mt-2">Don’t have an account?</a>
                         <a class="linkText" href="/signUp">Sign Up</a>

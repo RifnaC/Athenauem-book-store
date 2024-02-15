@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Atheneuam - Book Colleciton</title>
@@ -31,17 +32,20 @@
     <link href="/css/style.css" rel="stylesheet">
     <script src="sweetalert2.all.min.js"></script>
     <script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
+    <link rel="stylesheet" href="sweetalert2.min.css">
 </head>
 
 <body>
-    <main class="container loginBox">
-        <div>
+    <main class="container" >
+        <div class="loginBox">
             <form action="/api/auth/signup" method="POST" class="login" id="signup" name="signupForm"
                 onsubmit="return signupValidation()">
-                <div class="signUpInputs">
-                    <h2>Atheneuam</h2>
-                <p>Please fill the form</p>
+                <div class="logoSection signUpInputs">
+                    <div class="d-flex justify-content-center" id="favLogo">
+                        <img src="/img/favicon.png" alt="" height="80" width="104">
+                    </div>
+                    <h2 class="gradient-text">Atheneuam</h2>
+                    <p>Please Register</p>
                 </div>
                 <input type="text" name="name" id="name" placeholder="Name">
                 <input type="email" name="email" id="Email" placeholder="Email" />

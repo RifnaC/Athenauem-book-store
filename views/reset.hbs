@@ -66,18 +66,20 @@
         .email-otp-input:focus {
             border-color: #15877C;
         }
-
-
-
     </style>
 </head>
+
 <body>
-    <main class="mt-auto pt-auto">
-        <div style="display: flex; justify-content: center; align-items: center; height: 100vh">
-            <form id="otp" action="/otp" method="POST" class="login"
-                onsubmit='return otpValidation()'>
-                <h2>Atheneuam</h2>
-                <P>Please enter verification code</P>
+    <main class="container">
+        <div  class="loginBox">
+            <form id="otp" action="/otp" method="POST" class="login" onsubmit='return otpValidation()'>
+                <div class="logoSection">
+                    <div class="d-flex justify-content-center " id="favLogo">
+                        <img src="/img/favicon.png" alt="" height="80" width="104">
+                    </div>
+                    <h2 class="gradient-text">Atheneuam</h2>
+                    <P>Please enter verification code sent to your email</P>
+                </div>
                 <div>
                     <input type="text" name="otp" id="otp" placeholder="OTP" value="" />
                     <input type="hidden" name="email" value="{{email}}">
