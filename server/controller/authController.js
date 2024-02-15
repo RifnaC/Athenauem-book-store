@@ -166,7 +166,6 @@ async function updatedEmail(existingEmail, email, otp) {
     return updateOtp;
 }
 
-
 async function sendEmail(email, otp) {
     const transporter = nodemailer.createTransport({
         service: 'Gmail',

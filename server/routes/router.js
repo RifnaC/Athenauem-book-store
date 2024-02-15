@@ -16,7 +16,7 @@ const pdf = require('../../assets/js/pdf');
  * @description Root Route
  * @method GET/
 */
-
+route.get('/',auth.authMiddleware, services.homeRoutes);
 route.get('/dashboard', auth.authMiddleware, services.homeRoutes);
 /** 
  * @description Admin Route
@@ -168,6 +168,6 @@ route.get('/itemsSales', auth.authMiddleware, order.itemSales);
 route.get('/error', services.error);
 
 // 404 page
-route.get('*', services.notFound);
+route.get('*', services.adminError);
 
 module.exports = route

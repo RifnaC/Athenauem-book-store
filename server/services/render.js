@@ -482,5 +482,8 @@ exports.updateOffer = async (req, res) => {
 }
 
 exports.notFound = (req, res) => {
-    res.redirect('/');
+    res.render('404');
+}
+exports.adminError = (req, res) => {
+    res.redirect('/dashboard');
 }
