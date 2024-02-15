@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Atheneuam - Book Colleciton</title>
@@ -8,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="/img/logo.jpg" rel="icon">
+    <link href="/img/favicon.png" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,12 +31,16 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
 </head>
-<body>
+
+<body style="min-height: 100vh">
     <main class="container d-flex justify-content-center loginBox">
         <div class="my-5 loginBox">
             <form action="/login" method="POST" class="login" id="login" name="loginForm"
                 onsubmit="return loginValidation()">
-                <h2>Atheneuam</h2>
+                <div class="d-flex justify-content-center" id="favLogo">
+                    <img src="/img/favicon.png" alt="" height="60" width="80">
+                </div>
+                <h2 class="gradient-text">Atheneuam</h2>
                 <p>Please login</p>
                 <div class="loginInputs">
                     <input type="email" name="email" id="Email" placeholder="Email" value="" />

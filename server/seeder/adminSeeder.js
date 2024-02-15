@@ -16,11 +16,8 @@ const superAdmin = async() => {
                 role:process.env.SEEDER_ROLE,
                 status: process.env.SEEDER_STATUS,
             })
-            console.log('Super Admin created successfully')
         }
-        console.log('Super Admin already exists');
         return;
     
 };
-superAdmin().then(() => {
-});
+superAdmin()
