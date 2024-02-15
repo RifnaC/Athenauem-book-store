@@ -66,8 +66,8 @@ userApp.use('/scss', express.static(path.resolve(__dirname,"assets/scss")))
 userApp.use('/lib', express.static(path.resolve(__dirname,"assets/lib")))
 
 // load routers
-adminApp.use('/',require('./server/routes/router'))
 adminApp.use('/',require('./server/routes/authRouter'));
+adminApp.use('/',require('./server/routes/router'))
 adminApp.use('/',require('./server/routes/couponRouter')); 
 
 userApp.use('/',require('./server/routes/authRouter'));
