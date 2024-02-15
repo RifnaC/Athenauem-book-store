@@ -203,9 +203,8 @@ exports.otp = async (req, res) => {
         res.status(404).send(notification("please check the OTP", "/password"));
     }
     else {
-        res.render('changepswd', { email: email, otp: otp });
+        res.render('changePswd', { email: email, otp: otp });
     }
-
 }
 
 exports.resetPswd = async (req, res) => {
