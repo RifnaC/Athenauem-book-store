@@ -106,14 +106,16 @@ exports.login = async (req, res) => {
             status: (user || admin).status,
         };
         const token = signToken((user || admin)._id, data);
-        res.cookie('token', token, { httpOnly: true, secure: true });
+        
         // req.session.token = token;
         if (data.role !== 'User') {
-            res.redirect('http://localhost:3000/dashboard');
+            res.cookie('token', token, { httpOnly: true, secure: true, domain:admin.athneneuam.shop });
+            res.redirect('http://admin.athneneuam.shop/dashboard');
         } else {
             if (user.status === 'Block') {
                 res.render('login', { Blocked: true });
             } else {
+                res.cookie('token', token, { httpOnly: true, secure: true, domain:athneneuam.shop });
                 res.redirect('/home');
             }
         }
