@@ -9,6 +9,7 @@ const wishlistController = require('../controller/wishlistController');
 const productController = require('../controller/productViewController')
 const cartQty = require('../middlewares/cartQuantity');
 // home page
+route.get('/',  services.homes);
 route.get('/home', auth.authMiddleware, cartQty.cartQty, services.userHome);
 
 // product view page
