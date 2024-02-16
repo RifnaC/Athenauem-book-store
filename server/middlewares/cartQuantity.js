@@ -9,6 +9,7 @@ exports.cartQty = async (req, res, next) => {
         console.log(cart)
 
         const length = !cart? cart.items.length : 0;
+        console.log(length)
         req.cart = cart;
         res.locals.length = length;  // Store cart length in res.locals
         next();
