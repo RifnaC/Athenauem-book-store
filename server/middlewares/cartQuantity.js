@@ -14,6 +14,6 @@ exports.cartQty = async (req, res, next) => {
     } catch (error) {
         // Handle error appropriately
         console.error(error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Internal Server Error' , error);
     }
 }
