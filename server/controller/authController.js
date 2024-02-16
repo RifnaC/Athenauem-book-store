@@ -109,7 +109,7 @@ exports.login = async (req, res) => {
         res.cookie('token', token, { httpOnly: true, secure: true });
         // req.session.token = token;
         if (data.role !== 'User') {
-            res.redirect('/dashboard');
+            res.redirect('http://localhost:3000/dashboard');
         } else {
             if (user.status === 'Block') {
                 res.render('login', { Blocked: true });
