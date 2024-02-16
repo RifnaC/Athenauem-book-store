@@ -109,13 +109,13 @@ exports.login = async (req, res) => {
         
         // req.session.token = token;
         if (data.role !== 'User') {
-            res.cookie('token', token, { httpOnly: true, secure: true, domain:admin.athneneuam.shop });
+            res.cookie('token', token, { httpOnly: true, secure: true, domain:"admin.athneneuam.shop" });
             res.redirect('http://admin.athneneuam.shop/dashboard');
         } else {
             if (user.status === 'Block') {
                 res.render('login', { Blocked: true });
             } else {
-                res.cookie('token', token, { httpOnly: true, secure: true, domain:athneneuam.shop });
+                res.cookie('token', token, { httpOnly: true, secure: true, domain:"athneneuam.shop" });
                 res.redirect('/home');
             }
         }
