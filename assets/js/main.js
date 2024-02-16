@@ -31,10 +31,16 @@
     return false;
   });
 
-  function SweetAlert(){
-    if(this.cond!){
-      icon
-    }
+  function SweetAlerts(text){
+    Swal.fire({
+      imageUrl: "/img/favicon.png",
+      title: "Atheneuam",        
+      imageWidth: 120,
+      imageHeight: 80,
+      imageAlt: "Atheneuam Logo",
+      text: text,        
+      confirmButtonColor: '#15877C',
+    });
   }
   //Admin alerts
   // Function to validate the add admin form
@@ -1207,59 +1213,35 @@
 
     // Check if  sign up form are not empty
     if (!name) {
-      Swal.fire({
-        title: 'Please enter your name!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Please enter your name!')
       return false;
     }
-    if (name.length < 4) {
-      Swal.fire({
-        title: 'The name should at least contain 4 characters!',
-        confirmButtonColor: '#15877C',
-      })
+    if (name.length <= 2 || name.length > 16) {
+      SweetAlerts('Please enter a valid name!')
       return false;
     }
     if (!email) {
-      Swal.fire({
-        title: 'Please enter your email!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Please enter your email!')
       return false;
     }
     if (!email.includes('.')) {
-      Swal.fire({
-        title: 'Please Enter a valid email address!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Please Enter a valid email address!')
       return false;
     }
     if (!pswd) {
-      Swal.fire({
-        title: 'Please enter password!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Please enter your password!')
       return false;
     }
     if (pswd.length < 6) {
-      Swal.fire({
-        title: 'Password should have at least six characters!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Password should have at least six characters!')
       return false;
     }
     if (!confirmPswd) {
-      Swal.fire({
-        title: 'Please enter confirm password!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Please enter confirm password!')
       return false;
     }
     if (confirmPswd !== pswd) {
-      Swal.fire({
-        title: 'Password and confirm password should be same!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Password and confirm password should be same!')
       return false;
     }
     return true;
@@ -1280,35 +1262,19 @@
 
     // Check if book details are not empty
     if (!email) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter your email!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Please enter your email!')
       return false;
     }
     if (!email.includes('.')) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please Enter a valid email address!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Please Enter a valid email address!')
       return false;
     }
     if (!pswd) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter password!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Please enter password!')
       return false;
     }
     if (pswd.length < 6) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Banner Name should have at least six characters!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Password should have at least six characters!')
       return false;
     }
     return true;
@@ -1322,22 +1288,15 @@
     }
   })
 
+  // forgotPassword
   function forgotPassword() {
     const email = document.forms["forgotPswd"]["email"].value;
     if (!email) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter your email!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Please enter your email!')
       return false;
     }
     if (!email.includes('.')) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please Enter a valid email address!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Please Enter a valid email address!')
       return false;
     }
     return true;
@@ -1350,17 +1309,12 @@
     }
   });
 
-
+// otp validation
   function otpValidation() {
     const otp6 = document.forms["otp"]["otp"].value;
     const email = document.forms["otp"]["email"].value;
-    // const otp = Number(otp1 + otp2 + otp3 + otp4 + otp5 + otp6);
-    if (!otp1 || !otp2 || !otp3 || !otp4 || !otp5 || !otp6) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter valid OTP!',
-        confirmButtonColor: '#15877C',
-      });
+    if (!otp6) {
+      SweetAlerts('Please enter valid OTP!');
       return false;
     }
     return true;
@@ -1374,45 +1328,32 @@
   });
 
 
-  function resetPswd() {
+  function resetPassword() {
     const password = document.forms["change_pswd"]["password"].value;
-    const confirmPswd = document.forms["change_pswd"]["confirmPassword"].value;
-    const email = document.forms["change_pswd"]["email"].value;
-    const otp = document.forms["change_pswd"]["otp"].value;
+    const confirmPswd = document.forms["change_pswd"]["confirmPswd"].value;
 
     if (!password || !confirmPswd) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter password!',
-        confirmButtonColor: '#15877C',
-      });
+      SweetAlerts('Please enter password!');
       return false;
     }
-    if (confirmPswd !== 6 || password !== 6) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter valid password!',
-        confirmButtonColor: '#15877C',
-      });
+    if (confirmPswd.length < 6 || password.length < 6) {
+      SweetAlerts('Please enter valid password!');
+      return false;
+    }
+    if(password !== confirmPswd) {
+      SweetAlerts('Password and confirm password should be same!');
       return false;
     }
     return true;
   }
 
   $("#change_pswd").submit(function (event) {
-    if (!resetPswd()) {
+    if (!resetPassword()) {
       event.preventDefault();
     } else {
-      swal.fire({
-        icon: 'success',
-        title: 'Atheneuam',
-        text: 'Password changed successfully!',
-        confirmButtonColor: '#15877C',
-      }).then(() => {
         window.location.href = '/login';
-      })
     }
-  })
+  });
   // pagination 
   $(document).ready(function () {
     $('#categoryTable').DataTable({

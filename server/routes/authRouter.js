@@ -12,7 +12,8 @@ route.post('/forgot-password', auth.forgotPassword);
 route.get('/reset', auth.reset)
 route.post('/otp', auth.otp)
 
-route.post('/resetPswd', auth.resetPswd);
+route.get('/change-passwod/:id', auth.changePswd);
+route.post('/resetPswd/:id', auth.resetPswd);
 
 
 route.get('/logout', auth.logout);

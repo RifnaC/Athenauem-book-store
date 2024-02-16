@@ -10,7 +10,7 @@ const { reset } = require('nodemon');
 
 // ***********************user Management********************************
 
-function notification(msg, links){
+function notification(msg, links) {
     return `<!DOCTYPE html>
     <html lang="en">
     
@@ -52,7 +52,7 @@ const signToken = (id, user) => {
 
 exports.register = async (req, res) => {
     if (!req.body) {
-        res.status(400).send(notification("Content can not be empty" , "/signup"));
+        res.status(400).send(notification("Content can not be empty", "/signup"));
         return;
     }
     try {
@@ -61,7 +61,7 @@ exports.register = async (req, res) => {
         const existingEmail = await adminCollection.findOne({ email: req.body.email });
         if (existingUser || existingEmail) {
             // Display an alert when email is already taken.
-            res.status(200).send(notification("Email already exists" , "/signup"));
+            res.status(200).send(notification("Email already exists", "/signup"));
             return;
         }
         // Hash the password
@@ -196,30 +196,35 @@ exports.reset = async (req, res) => {
 }
 
 exports.otp = async (req, res) => {
-    const otp = req.body.otp;
-    const email = req.body.email;
-    const user = await userCollection.findOne({ email: email, otp: otp, otpExpiry: { $gt: Date.now() } });
-    if (!user) {
-        res.status(404).send(notification("please check the OTP", "/password"));
-    }
-    else {
-        res.render('changePswd', { email: email, otp: otp });
-    }
-}
-
-exports.resetPswd = async (req, res) => {
     try {
         const otp = req.body.otp;
         const email = req.body.email;
-        const password = req.body.password;
         const user = await userCollection.findOne({ email: email, otp: otp, otpExpiry: { $gt: Date.now() } });
+        const id = user._id;
+        if (!user) {
+            res.status(404).send(notification("please check the OTP", "/password"));
+        }
+        else {
+            res.redirect('/change-passwod/' + id);
+        }
+    }catch (error) {
+        res.status(500).send(notification('The OTP has expired', '/password'));
+    }
+}
+exports.changePswd = async (req, res) => {
+    res.render('changePswd', { id: req.params.id })
+}
+exports.resetPswd = async (req, res) => {
+    try {
+        const password = req.body.password;
+        const user = await userCollection.findOne({ _id: req.params.id, otpExpiry: { $gt: Date.now() } });
         if (!user) {
             res.redirect('/password');
         }
-        user.password =  await bcrypt.hash(password, saltRounds) ;
+        user.password = await bcrypt.hash(password, saltRounds);
         await user.save()
         res.redirect('/login'); // Redirect to homepage or any other route
-    
+
     } catch (error) {
         res.status(500).send(notification('Error resetting password', '/password'));
     }
