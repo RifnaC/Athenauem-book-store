@@ -5,7 +5,7 @@ const auth = require('../middlewares/authMiddleware');
 exports.cartQty = async (req, res, next) => {
     try {
         const cart = await Cart.findOne({ userId: req.user.id });
-        const length = cart.items != null ? cart.items.length : 0;
+        const length = !cart.items  ? cart.items.length : 0;
         req.cart = cart;
         res.locals.length = length;  // Store cart length in res.locals
         next();
