@@ -460,7 +460,7 @@ exports.userHome = async (req, res) => {
 }
 
 exports.homes = (req, res) => {
-    res.redirect('/home');
+    res.redirect('/login');
 }
 
 exports.wishlist = (req, res) => {

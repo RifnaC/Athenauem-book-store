@@ -2,7 +2,7 @@ const express = require('express')
 const route = express.Router();
 const services = require('../services/render')
 const auth = require('../controller/authController');
-
+route.get('/',services.homes);
 route.get('/login', services.login);
 route.get('/signup', services.signup);
 
