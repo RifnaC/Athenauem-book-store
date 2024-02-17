@@ -7,7 +7,7 @@ const genre = require('../models/categoryModel')
 exports.productView = async (req, res) => {
   try {
     const id = req.params.id;
-    const cartCount = await cart.findOne({ userId: req.user.id });
+    const cartCount =!req.user ? 0 :await cart.findOne({ userId: req.user.id });
     const search = req.query.searchQuery || "";
     if (search !== "") {
       res.redirect('/shop-page')
@@ -32,7 +32,7 @@ exports.productView = async (req, res) => {
   }
 }
 exports.shopPage = async (req, res, next) => {
-  const cartCount = await cart.findOne({ userId: req.user.id });
+  const cartCount =!req.user ? 0 :await cart.findOne({ userId: req.user.id });
   const category = await genre.find({});
   
   const selectedGenre = req.query.genre;
@@ -121,7 +121,7 @@ exports.shopPageFilter = async (req, res, next) => {
 
 exports.category = async (req, res, next) => {
   const search = req.query.searchQuery || "";
-  const cartCount = await cart.findOne({ userId: req.user.id });
+  const cartCount =!req.user ? 0 :await cart.findOne({ userId: req.user.id });
   const fiction = await product.find({
     genre: "Fiction", $or: [
       { bookName: { $regex: new RegExp(search, 'i') } },
@@ -175,7 +175,7 @@ exports.category = async (req, res, next) => {
 
 exports.author = async (req, res, next) => {
   const search = req.query.searchQuery || "";
-  const cartCount = await cart.findOne({ userId: req.user.id });
+  const cartCount =!req.user ? 0 :await cart.findOne({ userId: req.user.id });
   const Robert = await product.find({
     author: 'Robert T. Kiyosaki ', $or: [
       { bookName: { $regex: new RegExp(search, 'i') } },

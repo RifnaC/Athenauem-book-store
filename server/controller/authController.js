@@ -77,7 +77,7 @@ exports.register = async (req, res) => {
         // save user in database
         const savedUser = await user.save();
         if (token) {
-            res.redirect('/home');
+            res.redirect('/');
         }
     } catch (err) {
         res.status(500).send(notification("Some error occured while creating a create operation", "/signup"));
@@ -116,7 +116,7 @@ exports.login = async (req, res) => {
                 res.render('login', { Blocked: true });
             } else {
                 
-                res.redirect('/home');
+                res.redirect('/');
             }
         }
     } catch (e) {

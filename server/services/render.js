@@ -10,8 +10,43 @@ const Cart = require('../models/cartModel');
 const Coupon = require('../models/couponModel');
 const Order = require('../models/orderModel');
 const { itemSales } = require('../controller/orderController');
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // ***********************Admin Management********************************
+function notification(msg) {
+    return `<!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Atheneuam - Book Colleciton</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+    
+        <!-- Favicon -->
+        <link href="img/book collection 0.png" rel="icon">
+    
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+    <script> 
+        Swal.fire({
+            icon: 'error',
+            title: 'Atheneuam',
+            text: "${msg}",
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#15877C',
+        }).then((result) => {
+            history.back();
+        })
+    </script>
+    </body>
+    <!-- JavaScript Libraries -->
+    
+    </html>`
+}
 exports.homeRoutes = async (req, res) => {
     if (!req.cookies.token) {
         return res.render('home')
@@ -419,7 +454,7 @@ exports.user = async (req, res) => {
 // logined user
 exports.userHome = async (req, res) => {
     try {
-        const cartCount = await Cart.findOne({ userId: req.user.id });
+        const cartCount =!req.user ? 0 :await Cart.findOne({ userId: req.user.id });
         const search = req.query.searchQuery || "";
         const latestImages = await bannerCollection
             .find({})
@@ -455,13 +490,10 @@ exports.userHome = async (req, res) => {
 
     } catch (err) {
         console.error(err);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send(notification('Internal Server Error'));
     }
 }
 
-exports.homes = async(req, res) => {
-    res.redirect('/home');
-}
 
 exports.wishlist = (req, res) => {
     res.render('wishlist');

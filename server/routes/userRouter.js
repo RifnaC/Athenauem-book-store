@@ -8,16 +8,28 @@ const checkout = require('../controller/checkoutController');
 const wishlistController = require('../controller/wishlistController');
 const productController = require('../controller/productViewController')
 const cartQty = require('../middlewares/cartQuantity');
+
+// Custom middleware to conditionally apply authentication middleware
+function conditionalAuthMiddleware(req, res, next) {
+    // Check if the token cookie exists
+    if (req.cookies.token) {
+        // If the token cookie exists, call the authentication middleware
+        return auth.authMiddleware(req, res, next);
+    } else {
+        // If the token cookie doesn't exist, proceed to the next middleware
+        next();
+    }
+}
+
 // home page
-route.get('/',  services.homes);
-route.get('/home', auth.authMiddleware, cartQty.cartQty, services.userHome);
+route.get('/', conditionalAuthMiddleware,cartQty.cartQty, services.userHome);
 
 // product view page
-route.get('/productView/:id', auth.authMiddleware, cartQty.cartQty, productController.productView);
-route.get('/shop-page', auth.authMiddleware, cartQty.cartQty, productController.shopPage);
-route.post('/shop-page', auth.authMiddleware, productController.shopPageFilter);
-route.get('/category', auth.authMiddleware, cartQty.cartQty, productController.category);
-route.get('/author', auth.authMiddleware, cartQty.cartQty, productController.author);
+route.get('/productView/:id',conditionalAuthMiddleware, cartQty.cartQty, productController.productView);
+route.get('/shop-page',conditionalAuthMiddleware, cartQty.cartQty, productController.shopPage);
+route.post('/shop-page',conditionalAuthMiddleware, productController.shopPageFilter);
+route.get('/category', conditionalAuthMiddleware, cartQty.cartQty, productController.category);
+route.get('/author', conditionalAuthMiddleware, cartQty.cartQty, productController.author);
 
 // wishlist Routes
 route.get("/wishlist", auth.authMiddleware, cartQty.cartQty, wishlistController.wishlist);

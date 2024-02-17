@@ -46,8 +46,8 @@
 }
 
 body {
-    margin: 0;
     font-family: "Open Sans", sans-serif;
+
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -678,7 +678,7 @@ progress {
     padding-right: var(--bs-gutter-x, .75rem);
     padding-left: var(--bs-gutter-x, .75rem);
     margin-right: auto;
-    margin-left: auto
+    margin-left: auto;
 }
 
 @media (min-width: 576px) {
@@ -4543,7 +4543,7 @@ fieldset:disabled .btn {
     font-size: 1.25rem;
     line-height: 1;
     color: #15877C;
-    background-color: transparent;
+    background-color: transparent!important;
     border: 1px solid #15877C;
     border-radius: 5px;
     transition: box-shadow 0.15s ease-in-out
@@ -4877,9 +4877,6 @@ fieldset:disabled .btn {
     border-color: #FFFFFF;
 }
 
-/* .navbar-dark .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
-} */
 
 .navbar-dark .navbar-text {
     color: #FFFFFF;
@@ -6632,7 +6629,7 @@ fieldset:disabled .btn {
     display: none;
     float: left;
     width: 100%;
-    margin-right: -100%;
+    /* margin-right: -100%; */
     backface-visibility: hidden;
     transition: transform .6s ease-in-out
 }

@@ -1,3 +1,9 @@
+
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
 :root {
     --primary: #15877C;
     --secondary: #FFFFFF;
@@ -282,7 +288,7 @@ body::-webkit-scrollbar-thumb {
 .bannerText p {
     display: flex;
     justify-content: flex-start;
-    top: 32%;
+    top: 36%;
     width: 40%;
     font-size: 20px !important;
     color: #fbfffe;
@@ -295,7 +301,6 @@ body::-webkit-scrollbar-thumb {
 
 .bannerDescription {
     font-family: 'Poppins', sans-serif;
-
     top: 160px;
 }
 
@@ -710,7 +715,7 @@ ul {
 
 .banner-button {
     position: absolute !important;
-    bottom: 0;
+    bottom: 20%;
     z-index: 22;
     left: 24px;
 }
@@ -767,15 +772,6 @@ ul {
     font-size: 20px;
 }
 
-.total-count {
-    background-color: #15877C;
-    color: #fff;
-    padding: 1px 3px;
-    border-radius: 50%;
-    font-size: 12px;
-    top: -16px !important;
-    margin-left: -12px !important;
-}
 
 .bi-arrow-right:hover {
     width: 32px;
@@ -988,23 +984,45 @@ button {
         width: 100%;
         margin-left: 0;
     }
+    
 }
-
+/* medium */
 @media (max-width: 991.98px) {
     .sidebar {
         margin-left: -250px;
     }
-
     .sidebar.open {
         margin-left: 0;
     }
-
     .content {
         width: 100%;
         margin-left: 0;
     }
+    .magnifier{
+        left:0px;
+    }
+    
+    .bannerText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 24px;
+    }
 
+    .bannerText h1 {
+        top: 30%;
+    }
+    .bannerText p {
+        top: 40%;
+        width: calc(100% - 32vw);
+        height: calc(100% - 32vh);
+    }
+    .banner-button {
+        bottom:calc(100% - 56vh);
+        left: auto;
+    }
 }
+
 
 .userStatusRadioBtn {
     margin-top: -8px;
@@ -1162,72 +1180,56 @@ button {
         transform: scale(1);
     }
 }
-
+/* phone media query */
 @media (max-width: 575.98px) {
     .content .navbar .navbar-nav .nav-link {
         margin-left: 15px;
     }
-
     .cardContainer {
         max-width: 90vw;
     }
-
     .slider {
         margin-top: -32px;
     }
-
     .slide-left {
         margin-left: 92%;
     }
-
     .slide-right {
         margin-top: -6.6%;
     }
-
     .login {
-        height: 93vh;
+        height: 100vh;
         margin: 0 0;
         overflow: hidden !important;
-
     }
-
     .loginBox {
-        height: 92vh;
+        height: 100vh;
         margin: 0 0;
-        padding-top: 0;
+        padding: 0 0;
         display: flex;
         justify-content: center;
         align-items: center;
         overflow: hidden !important;
     }
-
     .loginBox h2{
-     
         margin-top:-10px !important;
-        
     }
     .logoSection{
         padding-top: 70px!important;
     }
-
     .links {
         margin-top: 120px;
     }
-
     .signUpLinks {
         margin-top: 84px !important;
     }
-
     .login input {
         padding: 12px 12px;
         border-radius: 0;
-        ;
     }
-
     .loginInputs {
         margin-top: 60px !important;
     }
-
     .signUpInputs {
         margin-top: -60px !important;
     }
@@ -1238,7 +1240,20 @@ button {
         padding: 0 0;
         top: 0;
     }
-
+    .magnifier{
+        left:0px;
+    }
+    .bannerText h1 {
+        top: 24%;
+    }
+    .bannerText p {
+        top: 40%;
+        width: calc(100% - 40px);
+    }
+    .banner-button {
+        bottom:calc(100% - 76vh);
+        left: auto;
+    }
 }
 
 /* Ragnge Date Picker */
