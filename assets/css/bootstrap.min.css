@@ -4966,14 +4966,6 @@ fieldset:disabled .btn {
     border-radius: 4px 4px 0 0
 }
 
-/* .card-footer {
-    margin-bottom: -10 !important;
-    padding: .5rem 1rem;
-    margin: 0 auto !important;
-    display: flex;
-    justify-content: center;
-    border-top: 1px solid rgba(0, 0, 0, 0.125)
-} */
 
 .card-footer:last-child {
     border-radius: 0 0 4px 4px

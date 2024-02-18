@@ -118,7 +118,10 @@ exports.changeQuantity = async (req, res) => {
     count = Number(count);
     subTotal = Number(subTotal)
     await Cart.findOneAndUpdate(
-        {_id: new mongoose.Types.ObjectId(cartId),'items.productId':productId}, 
+        {_id: new mongoose.Types.ObjectId(cartId),
+            'items.productId':productId,
+            'items.quantity': { $lt: 10 }
+        }, 
         {
             $inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal}
         }

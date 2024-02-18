@@ -470,13 +470,24 @@ exports.userHome = async (req, res) => {
                     { author: { $regex: '.*' + search + '.*' } },
                 ]
             }).limit(10);
-        products.forEach(product => {
-            product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
-        });
         let availability;
         if (products.stock === "Out Of Stock") {
             availability = true;
         }
+        const cartItems = cartCount ? cartCount.items : null;
+        products.forEach(product => {
+            product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
+            if (cartItems) {
+                const cartItem = cartItems.find(item => item.productId.toString() === product._id.toString());
+                if (cartItem) {
+                    product.inCart = true;
+                    product.cartQty = cartItem.quantity;
+                }else{
+                    product.inCart = false;
+                }
+            }
+
+        });
         const data = {
             images: latestImages,
             category: categories,
@@ -484,7 +495,7 @@ exports.userHome = async (req, res) => {
             count: count,
             availability: availability,
             cartCount: cartCount,
-            cartItems: cartCount ? cartCount.items : null,
+            cartItems: cartItems,
 
         };
         res.render('home', data);

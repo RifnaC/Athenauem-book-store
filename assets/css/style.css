@@ -762,8 +762,7 @@ ul {
 }
 
 .home-qty {
-    width: 140px;
-    display: none !important;
+    width: 80px;
 }
 
 .dataTables_wrapper .dataTables_length select {
