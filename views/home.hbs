@@ -244,29 +244,19 @@
                                     onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
                                 </button>
                             </div>
+                            <a href="/wishlist/{{this._id}}" >
+                                <div class="icon-wishlist"></div>
+                            </a>
                             <script>
-                                function addToCartAndShowAlert(productId) {
-                                    Swal.fire({
-                                        position: 'top-end',
-                                        text: 'Successfully added to cart!',
-                                        showConfirmButton: false,
-                                        timer: 1000,
-                                    }).then(() => {
-        
-     
+                                const addToCartElement = document.getElementById('addToCart-{{this._id}}');
+                                const qtyContainerElement = document.getElementById('qty-{{this._id}}');
 
-                                let addToCartElement = document.getElementById('addToCart-{{this._id}}');
-                                let qtyContainerElement = document.getElementById('qty-{{this._id}}');
                                 if({{this.inCart}}){
                                     addToCartElement.style.display = 'none';
                                     qtyContainerElement.style.display = 'flex';
                                     document.getElementById('cartQty-{{this._id}}').value = {{this.cartQty}};
                                 }
-                            }
                             </script>
-                            <a href="/wishlist/{{this._id}}" >
-                                <div class="icon-wishlist"></div>
-                            </a>
                         </div>
                     </div>
                 </div>

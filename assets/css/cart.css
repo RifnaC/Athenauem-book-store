@@ -155,7 +155,7 @@ li.subtotal:before {
 }
 
 .qty-container {
-  display: flex;
+  display: flex ;
   justify-content: center;
 }
 
