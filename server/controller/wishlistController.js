@@ -27,7 +27,8 @@ exports.addToWishlist = async(req, res) => {
                 })
                 updateWishlist.save();
             }
-        }         
+        }    
+        res.redirect('back');     
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

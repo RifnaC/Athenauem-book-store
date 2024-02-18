@@ -24,7 +24,6 @@ function addToCartAndShowAlert(productId) {
     }).then(() => {
         const addToCartElement = document.getElementById('addToCart-' + productId);
         const qtyContainerElement = document.getElementById('qty-' + productId);
-
         if (addToCartElement) {
             addToCartElement.style.display = 'none';
         }
@@ -32,7 +31,8 @@ function addToCartAndShowAlert(productId) {
             qtyContainerElement.style.display = 'block ';
             qtyContainerElement.style.setProperty('display', 'flex', 'important');
         }
-        window.reload();
+        window.location.reload();
+    
     })
 }
 

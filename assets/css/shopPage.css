@@ -253,13 +253,6 @@ label {
     font-size: 0.82rem
 }
 
-.card-img img {
-    padding-top: 10px;
-    width: inherit;
-    height: 180px;
-    object-fit: contain;
-    display: block
-}
 
 .card-body .btn-group .btn {
     padding: 0;

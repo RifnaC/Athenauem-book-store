@@ -454,18 +454,14 @@ exports.user = async (req, res) => {
 // logined user
 exports.userHome = async (req, res) => {
     try {
-        const cartCount =!req.user ? 0 :await Cart.findOne({ userId: req.user.id });
+        const cartCount =!req.user ? null :await Cart.findOne({ userId: req.user.id });
         const search = req.query.searchQuery || "";
         const latestImages = await bannerCollection
             .find({})
             .sort({ _id: -1 })
             .limit(3);
         const categories = await categoryCollection.find({});
-        const genreLength = categories.length;
-        let count;
-        if (genreLength > 5) {
-            count = true;
-        }
+        const count=  categories.length;
         const products = await productCollection
             .find({
                 discount: { $gt: 0 },
@@ -477,16 +473,21 @@ exports.userHome = async (req, res) => {
         products.forEach(product => {
             product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
         });
-        let availibility;
+        let availability;
         if (products.stock === "Out Of Stock") {
-            availibility = true;
+            availability = true;
         }
-        if (cartCount !== null) {
-            const cartId = cartCount._id;
-            res.render('home', { images: latestImages, category: categories, product: products, count: count, cartId: cartId, availibility: availibility });
-        } else {
-            res.render('home', { images: latestImages, category: categories, product: products, count: count, availibility: availibility });
-        }
+        const data = {
+            images: latestImages,
+            category: categories,
+            product: products,
+            count: count,
+            availability: availability,
+            cartCount: cartCount,
+            cartItems: cartCount ? cartCount.items : null,
+
+        };
+        res.render('home', data);
 
     } catch (err) {
         console.error(err);

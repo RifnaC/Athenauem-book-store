@@ -64,6 +64,30 @@ exports.find = (req, res) => {
         })
     }
 }
+exports.findAll = (req, res) => {
+    if(req.query.id){
+        const id = req.query.id;
+        Admindb.findById(id)
+        .then(data => {
+            if(!data){
+                res.status(404).json({message:"Not found admin with id" + id})
+            }else{
+                res.json(data)
+            }
+        })
+        .catch(err => {
+            res.status(500).json({message:"Error in retrieving admin with id" + id})
+        })
+    }else{
+        Admindb.find()
+        .then(admin => {
+            res.send(admin)
+        })
+        .catch(err => {
+            res.status(500).send({message:err.message ||"Some error occured while retriving admin information" })
+        })
+    }
+}
 
 // Update a new identified admin by  admin id
 exports.update = (req, res) => {
@@ -91,6 +115,7 @@ exports.delete = (req, res) => {
         if(!data){
             res.status(404).send({message: `admin with ${id} is not found`})
         }else{
+            
             res.send({
                 message: "Admin is deleted successfully"
             })

@@ -1368,8 +1368,9 @@
     $(".cardCat").slice(0, 4).show();
 
     // Hide the "Load Less" button initially
-    $(".load-less").css('display', 'none');
+    $(".load-less").hide();
 
+    let originalWidth = $(".cards").width();
     // Handle the "Load More" button click
     $("body").on('click touchstart', '.load-more', function (e) {
       e.preventDefault();
@@ -1377,9 +1378,9 @@
 
       // Check if there are no hidden categories
       if ($(".cardCat:hidden").length === 0) {
-        $(".load-more").css('display', 'none');
-        $(".cards").css('width', '90vw');
-        $(".load-less").css('display', 'block');
+        $(".load-more").hide()
+        $(".cards").css('width', '100vw');
+        $(".load-less").show();
         $("#slide-right-container").css('display', 'none');
       }
 
@@ -1395,9 +1396,14 @@
       $(".cardCat:visible").slice(5).slideUp();
 
       // Show the "Load More" button
-      $(".load-less").css('display', 'none');
-      $(".load-more").css('display', 'block');
+      $(".load-less").hide();
+      $(".load-more").show();;
+      $(".cards").css('width', originalWidth);
       $("#slide-right-container").css('display', 'block');
+
+      $('html, body').animate({
+        scrollTop: $(this).offset().top
+    }, 1000);
     });
   });
 

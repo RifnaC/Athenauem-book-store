@@ -49,8 +49,7 @@
             <div class="container-fluid mx-lg-5">
                 <a class="navbar-brand " href="/">
                     <div class="d-flex justify-content-between align-items-center pe-5">
-                        <img src="/img/favicon.png" alt="logo"
-                            style="width: 80px; height: 40px; border-radius: 50%;">
+                        <img src="/img/favicon.png" alt="logo" style="width: 80px; height: 40px; border-radius: 50%;">
                         <h3 class="gradient-text mt-2"><span>Atheneuam</span></h3>
                     </div>
                 </a>
@@ -125,8 +124,9 @@
                     <div class="carousel-inner">
                         {{#each images}}
                         <div class="carousel-item {{#if @first}}active{{/if}}">
-                            <div class="bannerText ">
-                                <h1 class="position-absolute m-lg-5 py-5 bannerHeading text-uppercase">{{this.name}}</h1>
+                            <div class="bannerText">
+                                <h1 class="position-absolute m-lg-5 py-5 bannerHeading text-uppercase">{{this.name}}
+                                </h1>
                                 <p class="position-absolute m-lg-5 bannerDescription">{{this.description}}</p>
                                 <button class="banner-button twenty-one py-1 mx-lg-5 my-lg-5" type="button" id="shopNow"
                                     onclick="return bannerShopNow( '{{this.type}}','{{this.productId}}','{{this.categoryId}}')">
@@ -157,7 +157,7 @@
     <section class="mx-lg-4">
         <div class="m-5">
             <h1 class="text-primary">Featured Category</h1>
-            <div class="slider">
+            <div class="slider" id="categorySlider">
                 <div id="slide-left-container">
                     <div class="slide-left">
                     </div>
@@ -182,24 +182,25 @@
                     {{/each}}
                 </div>
             </div>
-            {{#if count}}
-            <a id="exploreMoreBtn" class="load-more">Explore More <i class="bi bi-arrow-right"></i></a>
-            <a id="exploreLessBtn" class="load-less">Explore Less </a>
-            {{/if}}
+            <div id="exploreBtns">
+                <a id="exploreMoreBtn" class="load-more">Explore More</a>
+                <a id="exploreLessBtn" class="load-less">Explore Less </a>
+            </div>
         </div>
     </section>
     <!-- Category Section End -->
-    
-{{!-- 
+
+
     <!-- product Section Start -->
     <section class="mx-lg-3">
-        <div class="container-fluid m-5 me-5">
+        <div class="container-fluid  m-0 m-md-5 m-lg-5 m-xl-5 ">
             <div class="m-0 mb-5">
-                <h1 class="text-primary">Popular Books</h1>
+                <h1 class="text-primary ">Popular Books</h1>
             </div>
-            <div class="row me-5 pe-4">
+            <div class="row mx-auto me-lg-5 pe-lg-4">
                 {{#each product}}
-                <div class="col col-lg-2 productCard m-3 mb-5">
+                <div
+                    class="col-12 col-sm-12 col-md-5 col-lg-2 col-xl-2 productCard m-lg-3 m-0 m-md-3 m-lg-3 m-xl-3 mb-5">
                     <div class="discount">
                         <div class="discount-text ">
                             <span>{{this.offerPercentage}} %</span>
@@ -218,38 +219,55 @@
                             &#8377 {{this.price}}
                         </div>
                     </div>
+                                            
+                        
                     <div class="d-flex justify-content-between mt-3">
-                        <div class="bg-danger text-center text-white my-2 py-1" id="outOfStock-{{this._id}}" style="display: none; width: 400px">
+                        
+                        
+                        <div class="card-footer">
+                            <div class="bg-danger text-center text-white  py-1" id="outOfStock-{{this._id}}"
+                            style="display: none; width: 70%;">
                             {{this.stock}}
                         </div>
-                        <a href="/carts/{{this._id}}" onclick='return addToCartAndShowAlert("{{this._id}}")'>
-                            <div class="card-button" id="addToCart-{{this._id}}">
-                                <b>Add to Cart</b>
+
+                            <a href="/carts/{{this._id}}" onclick='return addToCartAndShowAlert("{{this._id}}")'>
+                                <div class="card-button" id="addToCart-{{this._id}}">
+                                    <b>Add to Cart</b>
+                                </div>
+                            </a>
+
+                            <script>
+                                if ({{ this.quantity }} == 0 || "{{this.stock}}" == "Out Of Stock") {
+                                    document.getElementById(`outOfStock-{{this._id}}`).style.display = 'block';
+                                    document.getElementById("addToCart-{{this._id}}").style.display = 'none';
+                                }
+                                let cart =[
+                               
+                                ];
+                                console.log(cart);
+                                if (cart.some(item => item.productId === product._id)){
+                                    document.getElementById("addToCart-{{this._id}}").style.display = 'none';
+                                }
+                               
+                            </script>
+                            <div class="qty-container text-dark home-qty" id="qty-{{this._id}}">
+                                <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
+                                    onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
+                                </button>
+                                <input type="text" name="qty" value="1" class=" text-center w-100" readonly />
+                                <button class="qty-btn-plus btn-primary" type="button"
+                                    onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
+                                </button>
                             </div>
-                        </a>
-                        <script>
-                            if ({{ this.quantity }} == 0 || "{{this.stock}}" == "Out Of Stock") {
-                                document.getElementById(`outOfStock-{{this._id}}`).style.display = 'block';
-                                document.getElementById("addToCart-{{this._id}}").style.display = 'none';
-                            }
-                        </script>
-                        <div class="qty-container text-dark home-qty" id="qty-{{this._id}}">
-                            <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
-                                onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
-                            </button>
-                            <input type="text" name="qty" value="1" class=" text-center w-100" readonly />
-                            <button class="qty-btn-plus btn-primary" type="button"
-                                onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
-                            </button>
+                            <a href="/wishlist/{{this._id}}" >
+                                <div class="icon-wishlist"></div>
+                            </a>
                         </div>
-                        <a href="/wishlist/{{this._id}}" class="wrapper nav-link ms-4">
-                            <div class="icon-wishlist"></div>
-                        </a>
                     </div>
                 </div>
                 {{/each}}
-                <div class="d-flex justify-content-center">
-                    <a href="/shop-page" class="fs-4 fw-bold me-5 pe-5">Explore More <i
+                <div class="d-flex justify-content-center me-5">
+                    <a href="/shop-page" class="fs-4 fw-bold text-center">Explore More <i
                             class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
@@ -259,58 +277,53 @@
 
 
     <footer class="footer pt-5 ">
-        <div class="container row mx-5 ">
-            <a class="my-2" href="/home">
+        <div class="ms-4 ms-lg-5 row mx-auto">
+            <a class="my-2" href="/">
                 <div class="d-flex me-5 pe-5">
-                    <img src="/img/book collection 0.png" alt="logo"
+                    <img src="/img/favicon.png" alt="logo"
                         style="width: 40px; height: 40px; border-radius: 50%;">
                     <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
                 </div>
             </a>
-            <div class="footer-col pe-3">
+            <div class="footer-col">
                 <h4>Contact Us</h4>
                 <ul>
-                    <li>
-                        1998 Wall Street 707,
-                        Washington DC, USA</li>
-                    <li>athenauem@domain.com</li>
+                    <li>Hi lite Mall Kozhikode, USA</li>
+                    <li>athenauem@gmail.com</li>
                     <li>+91 97782458923</li>
 
                 </ul>
             </div>
-            <div class="footer-col pe-5">
+            <div class="footer-col ">
                 <h4>Information</h4>
                 <ul>
-                    <li><a href="/shop">Shop</a></li>
-                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/shop-page">Shop</a></li>
                     <li><a href="/category">Category</a></li>
                     <li><a href="/author">author</a></li>
                 </ul>
             </div>
-            <div class="footer-col pe-3">
+            <div class="footer-col ">
                 <h4>My Account</h4>
                 <ul>
                     <li><a href="/login">Sign In</a></li>
                     <li><a href="/cart">View Cart</a></li>
                     <li><a href="/wishlist">My Wishlist</a></li>
-                    <li><a href="/help">Help</a></li>
                 </ul>
             </div>
             <div class="footer-col ">
                 <h4>follow us</h4>
                 <div class="social-links">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
         </div>
         <hr>
-        <div class="text-center pt-4">
+        <div class="text-center">
             <small>&copy; 2023 athenauem.Inc.All rights reserved</small>
         </div>
-    </footer>  --}}
+    </footer>
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -331,6 +344,31 @@
     <script src="/js/slider.js"></script>
     <script src="/js/search.js"></script>
 
+    {{!-- category count --}}
+    <script>
+        function toggleCategorySlider() {
+            const count = {{ count }};
+        const categorySlider = document.getElementById("categorySlider");
+        const exploreBtns = document.getElementById("exploreBtns");
+        if (window.matchMedia("(max-width:  575.98px").matches && count > 1) {
+            categorySlider.style.display = "block";
+            exploreBtns.style.display = "block";
+        } else if (window.matchMedia("(min-width: 576px) and (max-width: 992px)").matches && count > 3) {
+            categorySlider.style.display = "block";
+            exploreBtns.style.display = "block";
+        } else if (window.matchMedia("(min-width: 1200px)").matches && count > 5) {
+            categorySlider.style.display = "block";
+            exploreBtns.style.display = "block";
+        }
+        else {
+            categorySlider.style.display = "none";
+            exploreMoreBtn.style.display = "none";
+        }            
+        }
+        // Call the function when the page loads and when the window is resized
+        window.onload = toggleCategorySlider;
+        window.onresize = toggleCategorySlider
+    </script>
 
 </body>
 

@@ -39,6 +39,7 @@ route.get("/editAdmin" ,auth.authMiddleware, services.edit_admin)
 // API
 route.post('/api/admins',auth.authMiddleware, controller.create);
 route.get('/api/admins',  controller.find);
+route.get('/api/v1/admins',  controller.findAll);
 route.put('/api/admins/:id',auth.authMiddleware, auth.isAdmin, controller.update);
 route.delete('/api/admins/:id',auth.authMiddleware,auth.isAdmin, controller.delete);
 
