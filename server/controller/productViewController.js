@@ -221,12 +221,26 @@ exports.category = async (req, res, next) => {
 exports.author = async (req, res, next) => {
   const search = req.query.searchQuery || "";
   const cartCount =!req.user ? 0 :await cart.findOne({ userId: req.user.id });
+  const cartItems = cartCount ? cartCount.items : null;
   const Robert = await product.find({
     author: 'Robert T. Kiyosaki ', $or: [
       { bookName: { $regex: new RegExp(search, 'i') } },
       { author: { $regex: new RegExp(search, 'i') } },
       { genre: { $regex: new RegExp(search, 'i') } }
     ]
+  });
+  Robert.forEach(product => {
+    product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
+    if (cartItems) {
+        const cartItem = cartItems.find(item => item.productId.toString() === product._id.toString());
+        if (cartItem) {
+            product.inCart = true;
+            product.cartQty = cartItem.quantity;
+        }else{
+            product.inCart = false;
+        }
+    }
+
   });
   const jay = await product.find({
     author: 'Jay Shetty ', $or: [
@@ -235,6 +249,19 @@ exports.author = async (req, res, next) => {
       { genre: { $regex: new RegExp(search, 'i') } }
     ]
   });
+  jay.forEach(product => {
+    product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
+    if (cartItems) {
+        const cartItem = cartItems.find(item => item.productId.toString() === product._id.toString());
+        if (cartItem) {
+            product.inCart = true;
+            product.cartQty = cartItem.quantity;
+        }else{
+            product.inCart = false;
+        }
+    }
+
+});
   const james = await product.find({
     author: 'James clear', $or: [
       { bookName: { $regex: new RegExp(search, 'i') } },
@@ -242,17 +269,22 @@ exports.author = async (req, res, next) => {
       { genre: { $regex: new RegExp(search, 'i') } }
     ]
   });
+  james.forEach(product => {
+    product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
+    if (cartItems) {
+        const cartItem = cartItems.find(item => item.productId.toString() === product._id.toString());
+        if (cartItem) {
+            product.inCart = true;
+            product.cartQty = cartItem.quantity;
+        }else{
+            product.inCart = false;
+        }
+    }
+
+});
   if(cartCount !== null){
     const cartId = cartCount._id
     res.render('author', { robert: Robert, jay: jay, james: james, cartId: cartId });
   }
   res.render('author', { robert: Robert, jay: jay, james: james,});
-}
-
-exports.contact = async (req, res, next) => {
-  const search = req.query.searchQuery || "";
-  if (search !== "") {
-    res.redirect("/shop-page");
-  }
-  res.render('contact')
 }

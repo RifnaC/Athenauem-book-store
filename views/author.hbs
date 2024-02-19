@@ -52,8 +52,7 @@
             <div class="container-fluid mx-lg-5">
                 <a class="navbar-brand " href="/">
                     <div class="d-flex justify-content-between align-items-center me-5 pe-5">
-                        <img src="/img/favicon.png" alt="logo"
-                            style="width: 40px; height: 40px; border-radius: 50%;">
+                        <img src="/img/favicon.png" alt="logo" style="width: 40px; height: 40px; border-radius: 50%;">
                         <h3 class="gradient-text"> <span>Atheneuam</span></h3>
                     </div>
                 </a>
@@ -86,7 +85,8 @@
                                     <div class="search-bar-container active">
                                         <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/magnifier-512.png"
                                             alt="magnifier" class="magnifier" />
-                                        <input  type="text" class="input" name="searchQuery" placeholder="Search ..." autocomplete="off">
+                                        <input type="text" class="input" name="searchQuery" placeholder="Search ..."
+                                            autocomplete="off">
                                     </div>
                                 </form>
                             </li>
@@ -127,7 +127,7 @@
                     <h3 class="title">Robert T. Kiyosaki </h3>
                 </div>
             </div>
-            <div class="row my-3" >
+            <div class="row my-3">
                 <div class="col-md-12 list-slider">
                     <div class=" row common_wd  owl-theme" id="recent_post">
                         {{#each robert}}
@@ -154,7 +154,8 @@
                                     {{this.stock}}
                                 </div>
                                 <a class="text-white btn btn-sm " href="/carts/{{this._id}}"
-                                    onclick='return addToCartAndShowAlert("{{this._id}}")' id="addToCart-{{this._id}}" style="border-radius: 0;">
+                                    onclick='return addToCartAndShowAlert("{{this._id}}")' id="addToCart-{{this._id}}"
+                                    style="border-radius: 0;">
                                     <i class="fa fa-shopping-cart"></i> Add to Cart
                                 </a>
                                 <script>
@@ -163,28 +164,36 @@
                                         document.getElementById("addToCart-{{this._id}}").style.display = 'none';
                                     }
                                 </script>
-                                    <div class="qty-container text-dark home-qty ms-5 ps-2"
-                                        id="qty-{{this._id}}">
-                                        <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
-                                            onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
-                                        </button>
-                                        <input type="text" name="qty" value="1" class=" text-center w-100" readonly />
-                                        <button class="qty-btn-plus btn-primary" type="button"
-                                            onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
+                                <div class="qty-container mx-auto text-dark home-qty" id="qty-{{this._id}}"
+                                    style="display: none;">
+                                    <button class="qty-btn-minus btn-primary px-1" type="button" id="decBtn"
+                                        onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
+                                    </button>
+                                    <input type="text" name="qty" value="1" id="cartQty-{{this._id}}"
+                                        class=" text-center w-100" readonly />
+                                    <button class="qty-btn-plus btn-primary px-1" type="button"
+                                        onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                                <script>
+                                    if ({{ this.inCart }}) {
+                                        document.getElementById('addToCart-{{this._id}}').style.display = 'none';
+                                        document.getElementById('qty-{{this._id}}').style.display = 'flex';
+                                        document.getElementById('cartQty-{{this._id}}').value = {{ this.cartQty }};
+                                    };
+                                </script>
                             </div>
                         </div>
                         {{/each}}
                     </div>
                 </div>
             </div>
-             <div class="row">
+            <div class="row">
                 <div class="col-sm-12 title_bx">
                     <h3 class="title">Jay Shetty</h3>
                 </div>
             </div>
-            <div class="row my-3" >
+            <div class="row my-3">
                 <div class="col-md-12 list-slider">
                     <div class=" row common_wd  owl-theme" id="recent_post">
                         {{#each jay}}
@@ -211,7 +220,8 @@
                                     {{this.stock}}
                                 </div>
                                 <a class="text-white btn btn-sm " href="/carts/{{this._id}}"
-                                    onclick='return addToCartAndShowAlert("{{this._id}}")' id="addToCart-{{this._id}}" style="border-radius: 0;">
+                                    onclick='return addToCartAndShowAlert("{{this._id}}")' id="addToCart-{{this._id}}"
+                                    style="border-radius: 0;">
                                     <i class="fa fa-shopping-cart"></i> Add to Cart
                                 </a>
                                 <script>
@@ -220,18 +230,25 @@
                                         document.getElementById("addToCart-{{this._id}}").style.display = 'none';
                                     }
                                 </script>
+                                <script>
+                                    if ({{ this.inCart }}) {
+                                        document.getElementById('addToCart-{{this._id}}').style.display = 'none';
+                                        document.getElementById('qty-{{this._id}}').style.display = 'flex';
+                                        document.getElementById('cartQty-{{this._id}}').value = {{ this.cartQty }};
+                                    };
+                                </script>
                             </div>
                         </div>
                         {{/each}}
                     </div>
                 </div>
             </div>
-              <div class="row">
+            <div class="row">
                 <div class="col-sm-12 title_bx">
                     <h3 class="title">James clear</h3>
                 </div>
             </div>
-            <div class="row my-3" >
+            <div class="row my-3">
                 <div class="col-md-12 list-slider ">
                     <div class=" row common_wd  owl-theme" id="recent_post">
                         {{#each james}}
@@ -258,7 +275,8 @@
                                     {{this.stock}}
                                 </div>
                                 <a class="text-white btn btn-sm " href="/carts/{{this._id}}"
-                                    onclick='return addToCartAndShowAlert("{{this._id}}")' id="addToCart-{{this._id}}" style="border-radius: 0;">
+                                    onclick='return addToCartAndShowAlert("{{this._id}}")' id="addToCart-{{this._id}}"
+                                    style="border-radius: 0;">
                                     <i class="fa fa-shopping-cart"></i> Add to Cart
                                 </a>
                                 <script>
@@ -266,6 +284,14 @@
                                         document.getElementById(`outOfStock-{{this._id}}`).style.display = 'block';
                                         document.getElementById("addToCart-{{this._id}}").style.display = 'none';
                                     }
+                                </script>
+                                </div>
+                                <script>
+                                    if ({{ this.inCart }}) {
+                                        document.getElementById('addToCart-{{this._id}}').style.display = 'none';
+                                        document.getElementById('qty-{{this._id}}').style.display = 'flex';
+                                        document.getElementById('cartQty-{{this._id}}').value = {{ this.cartQty }};
+                                    };
                                 </script>
                             </div>
                         </div>
@@ -275,59 +301,57 @@
             </div>
         </div>
     </section>
+
+    <!-- Footer Start -->
     <footer class="footer pt-5 ">
-        <div class="container row mx-5 ">
-            <a class="my-2" href="home">
+        <div class="ms-4 ms-lg-5 row mx-auto">
+            <a class="my-2" href="/">
                 <div class="d-flex me-5 pe-5">
-                    <img src="/img/book collection 0.png" alt="logo"
+                    <img src="/img/favicon.png" alt="logo"
                         style="width: 40px; height: 40px; border-radius: 50%;">
                     <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
                 </div>
             </a>
-            <div class="footer-col pe-3">
+            <div class="footer-col">
                 <h4>Contact Us</h4>
                 <ul>
-                    <li>
-                        1998 Wall Street 707,
-                        Washington DC, USA</li>
-                    <li>athenauem@domain.com</li>
+                    <li>Hi lite Mall Kozhikode, USA</li>
+                    <li>athenauem@gmail.com</li>
                     <li>+91 97782458923</li>
 
                 </ul>
             </div>
-            <div class="footer-col pe-5">
+            <div class="footer-col ">
                 <h4>Information</h4>
                 <ul>
-                    <li><a href="#">Shop</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">privacy policy</a></li>
-                    <li><a href="#">Blogs</a></li>
+                    <li><a href="/shop-page">Shop</a></li>
+                    <li><a href="/category">Category</a></li>
+                    <li><a href="/author">author</a></li>
                 </ul>
             </div>
-            <div class="footer-col pe-3">
+            <div class="footer-col ">
                 <h4>My Account</h4>
                 <ul>
-                    <li><a href="login">Sign In</a></li>
-                    <li><a href="cart">View Cart</a></li>
-                    <li><a href="wishlist">My Wishlist</a></li>
-                    <li><a href="help">Help</a></li>
+                    <li><a href="/login">Sign In</a></li>
+                    <li><a href="/cart">View Cart</a></li>
+                    <li><a href="/wishlist">My Wishlist</a></li>
                 </ul>
             </div>
             <div class="footer-col ">
                 <h4>follow us</h4>
                 <div class="social-links">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
         </div>
         <hr>
-        <div class="text-center pt-4">
+        <div class="text-center">
             <small>&copy; 2023 athenauem.Inc.All rights reserved</small>
         </div>
     </footer>
+    <!-- Footer End -->
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
