@@ -159,7 +159,7 @@ section {
 }
 
 ._boxzoom ._product-images .picZoomer img.my_img {
-    width: fit-content;
+    width: -webkit-fill-available;
 }
 
 .piclist li img {

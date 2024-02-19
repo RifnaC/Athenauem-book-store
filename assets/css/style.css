@@ -1029,6 +1029,9 @@ button {
         bottom:calc(100% - 56vh);
         left: auto;
     }
+    .sq_box{
+        padding: 24px !important;
+    }
 }
 
 
@@ -1260,6 +1263,13 @@ button {
     .banner-button {
         bottom:calc(100% - 76vh);
         left: auto;
+    }
+    ._product-detail-content{
+        margin: auto !important;
+        padding: 0 auto !important;
+    }
+    .sq_box{
+        padding: 24px !important;
     }
 }
 

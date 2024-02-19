@@ -221,8 +221,8 @@
                     </div>                                      
                     <div class="d-flex justify-content-between mt-3">
                         <div class="card-footer">
-                            <div class="bg-danger text-center text-white  py-1" id="outOfStock-{{this._id}}"
-                            style="display: none; width: 70%;">{{this.stock}}
+                            <div class="bg-danger text-center text-white py-1" id="outOfStock-{{this._id}}"
+                            style="display: none;">{{this.stock}}
                             </div>
                             <a href="/carts/{{this._id}}" onclick='return addToCartAndShowAlert("{{this._id}}")'>
                                 <div class="card-button" id="addToCart-{{this._id}}">
@@ -244,9 +244,6 @@
                                     onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
                                 </button>
                             </div>
-                            <a href="/wishlist/{{this._id}}" >
-                                <div class="icon-wishlist"></div>
-                            </a>
                             <script>
                                 if({{this.inCart}}){
                                     document.getElementById('addToCart-{{this._id}}').style.display = 'none';
@@ -254,6 +251,9 @@
                                     document.getElementById('cartQty-{{this._id}}').value = {{this.cartQty}};
                                 }
                             </script>
+                            <a href="/wishlist/{{this._id}}" >
+                                <div class="icon-wishlist"></div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -280,7 +280,7 @@
             <div class="footer-col">
                 <h4>Contact Us</h4>
                 <ul>
-                    <li>Hi lite Mall Kozhikode, USA</li>
+                    <li>Hi lite Mall Kozhikode, India</li>
                     <li>athenauem@gmail.com</li>
                     <li>+91 97782458923</li>
 

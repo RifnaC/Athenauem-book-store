@@ -123,12 +123,12 @@
             <div class="row row-sm">
                 <div class="col-md-4 _boxzoom">
                     <div class="_product-images">
-                        <div class="picZoomer ms-3 ps-5">
+                        <div class="picZoomer ms-3  mx-md-auto ps-5">
                             <img class="my_img" src="{{item.productImg}}" alt="{{item.bookName}}">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8 ms-0 pe-5">
+                <div class="col-md-8 ms-0 pe-0 pe-lg-5">
                     <div class="_product-detail-content pe-4 me-4">
                         <p class="h4 text-dark" id="bookName"> {{item.bookName}} </p>
                         <div class="p-list">
@@ -147,22 +147,37 @@
                             <p><span class="h6">Pages: </span> <span class="fs-bold" id="pages"></span></p>
                             <div class="_p-add-cart">
                                 <div class="_p-qty">
-                                    <div class="d-flex">
+                                    <div class="d-flex w-100">
                                         <div class="btn-box text-center bg-primary" id="addToCart-{{item._id}}">
                                             <a class="text-white btn btn-sm" href="/carts/{{item._id}}"
                                                 onclick='return addToCartAndShowAlert("{{item._id}}")'>
                                                 <i class="fa fa-shopping-cart"></i> Add to Cart </a>
                                         </div>
-                                        <div class="qty-container text-dark home-qty" id="qty-{{item._id}}">
-                                            <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
+                                        <div class="bg-danger text-center text-white  py-1" id="outOfStock-{{item._id}}" style="display: none; width: 50%;">{{item.stock}}</div>
+                                        <script>
+                                            if ({{ item.quantity }} == 0 || "{{item.stock}}" == "Out Of Stock") {
+                                                document.getElementById(`outOfStock-{{item._id}}`).style.display = 'block';
+                                                document.getElementById(`addToCart-{{item._id}}`).style.display = 'none';
+                                            }
+                                        </script>
+                                        <div class="qty-container mx-auto text-dark home-qty" id="qty-{{item._id}}"
+                                            style="display: none; ">
+                                            <button class="qty-btn-minus btn-primary px-1" type="button" id="decBtn"
                                                 onclick="decrementQuantity('{{item._id}}')"><i class="fa fa-minus"></i>
                                             </button>
-                                            <input type="text" name="qty" value="1" class=" text-center w-100"
-                                                readonly />
-                                            <button class="qty-btn-plus btn-primary" type="button"
+                                            <input type="text" name="qty" value="1" id="cartQty-{{item._id}}"
+                                                class=" text-center w-100" readonly />
+                                            <button class="qty-btn-plus btn-primary px-1" type="button"
                                                 onclick="incrementQuantity('{{item._id}}')"><i class="fa fa-plus"></i>
                                             </button>
                                         </div>
+                                        <script>
+                                            if ({{ item.inCart }}) {
+                                                document.getElementById('addToCart-{{item._id}}').style.display = 'none';
+                                                document.getElementById('qty-{{item._id}}').style.display = 'flex';
+                                                document.getElementById('cartQty-{{item._id}}').value = {{ item.cartQty }};
+                                            }
+                                        </script>
                                         <a href="/wishlist/{{item._id}}" class="wrapper nav-link ms-4">
                                             <div class="icon-wishlist"></div>
                                         </a>
@@ -192,11 +207,11 @@
                     <div class="owl-carousel common_wd  owl-theme" id="recent_post">
                         {{#each genre}}
                         <div class="item">
-                            <div class="sq_box shadow">
+                            <div class="sq_box" style="width: 260px;">
                                 <div class="pdis_img">
                                     <span class="wishlist singleWishlist">
                                         <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
-                                            <div class="icon-wishlist mt-0 ms-0 ps-0 pt-0"></div>
+                                            <div class="icon-wishlist "></div>
                                         </a>
                                     </span>
                                     <a href="/productView/{{this._id}}">
@@ -211,18 +226,27 @@
                                 </div>
                                 <div class="btn-box text-center bg-primary" id="addToCart-{{this._id}}">
                                     <a class="text-white btn btn-sm" href="/carts/{{this._id}}"
-                                        onclick='return addToCartAndShowAlert("{{this._id}}")'> 
+                                        onclick='return addToCartAndShowAlert("{{this._id}}")'>
                                         <i class="fa fa-shopping-cart"></i>Add to Cart </a>
                                 </div>
-                                <div class="qty-container text-dark home-qty ms-5" id="qty-{{this._id}}">
-                                    <button class="qty-btn-minus btn-primary" type="button" id="decBtn"
+                                <div class="qty-container mx-auto text-dark home-qty" id="qty-{{this._id}}"
+                                    style="display: none; ">
+                                    <button class="qty-btn-minus btn-primary px-1" type="button" id="decBtn"
                                         onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
                                     </button>
-                                    <input type="text" name="qty" value="1" class=" text-center " readonly />
-                                    <button class="qty-btn-plus btn-primary" type="button"
+                                    <input type="text" name="qty" value="1" id="cartQty-{{this._id}}"
+                                        class=" text-center w-100" readonly />
+                                    <button class="qty-btn-plus btn-primary px-1" type="button"
                                         onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
                                     </button>
                                 </div>
+                                <script>
+                                    if ({{ this.inCart }}) {
+                                        document.getElementById('addToCart-{{this._id}}').style.display = 'none';
+                                        document.getElementById('qty-{{this._id}}').style.display = 'flex';
+                                        document.getElementById('cartQty-{{this._id}}').value = {{ this.cartQty }};
+                                }
+                                </script>
                             </div>
                         </div>
                         {{/each}}
@@ -236,15 +260,14 @@
         <div class="ms-4 ms-lg-5 row mx-auto">
             <a class="my-2" href="/">
                 <div class="d-flex me-5 pe-5">
-                    <img src="/img/favicon.png" alt="logo"
-                        style="width: 40px; height: 40px; border-radius: 50%;">
+                    <img src="/img/favicon.png" alt="logo" style="width: 40px; height: 40px; border-radius: 50%;">
                     <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
                 </div>
             </a>
             <div class="footer-col">
                 <h4>Contact Us</h4>
                 <ul>
-                    <li>Hi lite Mall Kozhikode, USA</li>
+                    <li>Hi lite Mall Kozhikode, India</li>
                     <li>athenauem@gmail.com</li>
                     <li>+91 97782458923</li>
 
