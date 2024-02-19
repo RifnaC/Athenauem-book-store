@@ -475,6 +475,8 @@ input[type=range]::-webkit-slider-thumb {
     .pdis_img img {
         width: 100% !important;
         height: auto !important;
+        object-fit: cover;
+        object-position: center
     }
     #sort {
         background-color: inherit;
@@ -510,7 +512,7 @@ input[type=range]::-webkit-slider-thumb {
         width: 30%;
     }
     .pdis_img img {
-        width: auto !important;
+        aspect-ratio: 2/3;
     }
 }
 

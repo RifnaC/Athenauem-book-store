@@ -34,7 +34,6 @@ exports.productView = async (req, res) => {
 exports.shopPage = async (req, res, next) => {
   const cartCount =!req.user ? 0 :await cart.findOne({ userId: req.user.id });
   const category = await genre.find({});
-  
   const selectedGenre = req.query.genre;
   const selectedAuthor = req.query.author;
   const search = req.query.searchQuery || "";
@@ -97,7 +96,6 @@ exports.shopPage = async (req, res, next) => {
             book.inCart = false;
         }
     }
-
 });
   const authors =[...new Set(books.map(author => author.author))];
   let availibility;
@@ -135,12 +133,24 @@ exports.shopPageFilter = async (req, res, next) => {
 exports.category = async (req, res, next) => {
   const search = req.query.searchQuery || "";
   const cartCount =!req.user ? 0 :await cart.findOne({ userId: req.user.id });
+  const cartItems = cartCount ? cartCount.items : null;
   const fiction = await product.find({
     genre: "Fiction", $or: [
       { bookName: { $regex: new RegExp(search, 'i') } },
       { author: { $regex: new RegExp(search, 'i') } },
       { genre: { $regex: new RegExp(search, 'i') } }
     ]
+  });
+  fiction.forEach(book => {
+    if (cartItems) {
+        const cartItem = cartItems.find(item => item.productId.toString() === book._id.toString());
+        if (cartItem) {
+            book.inCart = true;
+            book.cartQty = cartItem.quantity;
+        }else{
+            book.inCart = false;
+        }
+    }
   });
   const biography = await product.find({
     genre: "Biography", $or: [
@@ -149,12 +159,34 @@ exports.category = async (req, res, next) => {
       { genre: { $regex: new RegExp(search, 'i') } }
     ]
   });
+  biography.forEach(book => {
+    if (cartItems) {
+        const cartItem = cartItems.find(item => item.productId.toString() === book._id.toString());
+        if (cartItem) {
+            book.inCart = true;
+            book.cartQty = cartItem.quantity;
+        }else{
+            book.inCart = false;
+        }
+    }
+  });
   const novels = await product.find({
     genre: "Novels", $or: [
       { bookName: { $regex: new RegExp(search, 'i') } },
       { author: { $regex: new RegExp(search, 'i') } },
       { genre: { $regex: new RegExp(search, 'i') } }
     ]
+  });
+  novels.forEach(book => {
+    if (cartItems) {
+        const cartItem = cartItems.find(item => item.productId.toString() === book._id.toString());
+        if (cartItem) {
+            book.inCart = true;
+            book.cartQty = cartItem.quantity;
+        }else{
+            book.inCart = false;
+        }
+    }
   });
   const horror = await product.find({
     genre: "Horror", $or: [
