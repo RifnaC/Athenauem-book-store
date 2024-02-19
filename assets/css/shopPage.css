@@ -20,7 +20,7 @@ button.btn.btn-hide {
 }
 
 
-.navbar {
+/* .navbar {
     display: inline-flex
 }
 
@@ -29,7 +29,7 @@ button.btn.btn-hide {
     border: none;
     width: 40px;
     text-align: center
-}
+} */
 
 .pagination .page-item.active .page-link {
     background-color: #fff;
@@ -62,7 +62,6 @@ select {
     width: 30%;
     background-color: #fff;
     border: 1px solid #ddd;
-
     float: left
 }
 
@@ -457,21 +456,26 @@ input[type=range]::-webkit-slider-thumb {
 
 @media(max-width: 991.5px) {
     .navbar-nav {
-        min-width: 290px;
-        position: absolute;
-        left: -168px;
-        bottom: -146px;
+        /* min-width: 290px; */
+        /* position: absolute; */
+        /* left: -168px;
+        bottom: -146px; */
         padding: 20px 10px;
         display: block;
         background-image: none;
-        z-index: 2;
-        background-color: #1d1c1cb2
+        /* z-index: 2; */
+        /* background-color: #1d1c1cb2 */
     }
 
     #filterbar {
-        width: 36%
+        width: 30%;
+        margin-left: 0;
     }
 
+    .pdis_img img {
+        width: 100% !important;
+        height: auto !important;
+    }
     #sort {
         background-color: inherit;
         color: #fff;
@@ -503,18 +507,24 @@ input[type=range]::-webkit-slider-thumb {
 
 @media(max-width: 767.5px) {
     #filterbar {
-        width: 50%
+        width: 30%;
+    }
+    .pdis_img img {
+        width: auto !important;
     }
 }
 
 @media(max-width: 525.5px) {
     #filterbar {
-        float: none;
+        float: inline-end;
         width: 100%;
         margin-bottom: 20px;
         border-radius: 5px
     }
-
+   
+    #content{
+        margin-left: 0px;
+    }
     #content.my-5 {
         margin-top: 20px !important;
         margin-bottom: 20px !important

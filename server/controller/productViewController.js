@@ -86,6 +86,19 @@ exports.shopPage = async (req, res, next) => {
   }
 
   const books = await product.find(query).limit(limit).skip(skip).exec();
+  const cartItems = cartCount ? cartCount.items : null;
+  books.forEach(book => {
+    if (cartItems) {
+        const cartItem = cartItems.find(item => item.productId.toString() === book._id.toString());
+        if (cartItem) {
+            book.inCart = true;
+            book.cartQty = cartItem.quantity;
+        }else{
+            book.inCart = false;
+        }
+    }
+
+});
   const authors =[...new Set(books.map(author => author.author))];
   let availibility;
   if(books.stock === "Out Of Stock"){

@@ -119,40 +119,32 @@
     </Header>
     <!-- Header End -->
 
-    <div class="container-fluid mt-5 pt-5 mx-0 ">
+    <div class="container-fluid mt-5 pt-5 mx-auto overflow-hidden">
         <!-- Filter Section Start -->
-        <div class="bg-white mt-5 mx-5 px-3  d-flex align-items-center justify-content-between" id="header">
+        <div class="bg-white mt-5 mx-auto mx-lg-5 px-3  d-flex align-items-center justify-content-between" id="header">
             <button class="btn btn-hide text-uppercase" type="button" data-toggle="collapse" data-target="#filterbar"
                 aria-expanded="false" aria-controls="filterbar" id="filter-btn" onclick="return changedBtnTxt()">
                 <span class="fas fa-angle-left" id="filter-angle"></span>
                 <span id="btn-txt">Hide filters</span>
             </button>
-            <nav class="navbar navbar-expand-lg navbar-light pl-lg-0 pl-auto">
-                <div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynav"
-                        aria-controls="mynav" aria-expanded="false" aria-label="Toggle navigation"
-                        onclick="return chnageIcon()" id="icon">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-            </nav>
             <div>
-                <a href="?page={{prev}}"><i class="fa-solid fa-arrow-right fa-rotate-180 me-2 text-primary"></i></a>
+                    <a href="?page={{prev}}"><i class="fa-solid fa-arrow-right fa-rotate-180 me-2 text-primary"></i></a>
                 {{#each pages}}
                 <a href="?page={{this}}" class="me-2 paginationBox p-1 px-2" style="text-decoration: none">{{this}}</a>
                 {{/each}}
                 <a href="?page={{next}}"><i class="fa-solid fa-arrow-right text-primary"></i></a>
-            </div>
+                </div>
+            
         </div>
-        <div id="content" class="my-5 ms-3 pe-0">
-            <div id="filterbar" class="collapse ">
+        <div id="content" class="my-5 mx-auto px-0 ms-lg-3 pe-0 ">
+            <div id="filterbar" class="collapse">
                 <div class="box border-bottom ">
                     <div class="form-group text-center">
                         <div class="btn-group" data-toggle="buttons">
-                            <button class="btn btn-success form-check-label" onclick="return  resetFilters()">
+                            <button class="btn btn-success form-check-label w-50" onclick="return  resetFilters()">
                                 Reset
                             </button>
-                            <button class="btn btn-success form-check-label active" onclick="return applyFilters()">
+                            <button class="btn btn-success form-check-label w-50 active" onclick="return applyFilters()">
                                 Apply
                             </button>
                         </div>
@@ -184,7 +176,7 @@
                             <span id="plus-icon1" class="fas fa-plus"></span>
                         </button>
                     </div>
-                    <div id="inner-box2" class="collapse mt-2 mr-1">
+                    <div id="inner-box2" class="collapse mt-2 mr-1 ">
                         {{#each authors}}
                         <div class="my-1">
                             <label class="tick">{{this}}
@@ -223,7 +215,7 @@
                 <div class="shop">
                     <div class="shopProduct overflow-hidden">
                         {{#each books}}
-                        <div class="item col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                        <div class="item col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 pe-2">
                             <div class="sq_box shadow">
                                 <div class="pdis_img">
                                     <a href="/productView/{{this._id}}">
@@ -249,7 +241,8 @@
                                     {{this.stock}}
                                 </div>
                                 <a class="text-white btn btn-sm " href="/carts/{{this._id}}"
-                                    onclick='return addToCartAndShowAlert("{{this._id}}")' id="addToCart-{{this._id}}" style="border-radius: 0;">
+                                    onclick='return addToCartAndShowAlert("{{this._id}}")' id="addToCart-{{this._id}}"
+                                    style="border-radius: 0;">
                                     <i class="fa fa-shopping-cart"></i> Add to Cart
                                 </a>
                                 <script>
@@ -258,16 +251,24 @@
                                         document.getElementById("addToCart-{{this._id}}").style.display = 'none';
                                     }
                                 </script>
-                            <div class="qty-container text-dark home-qty" id="qty-{{this._id}}" style="display: none;">
-                                <button class="qty-btn-minus btn-primary px-1" type="button" id="decBtn"
-                                    onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
-                                </button>
-                                <input type="text" name="qty" value="1" id="cartQty-{{this._id}}" class=" text-center w-100" readonly />
-                                <button class="qty-btn-plus btn-primary px-1" type="button"
-                                    onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-
+                                <div class="qty-container mx-auto text-dark home-qty" id="qty-{{this._id}}"
+                                    style="display: none;">
+                                    <button class="qty-btn-minus btn-primary px-1" type="button" id="decBtn"
+                                        onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
+                                    </button>
+                                    <input type="text" name="qty" value="1" id="cartQty-{{this._id}}"
+                                        class=" text-center w-100" readonly />
+                                    <button class="qty-btn-plus btn-primary px-1" type="button"
+                                        onclick="incrementQuantity('{{this._id}}')"><i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                                <script>
+                                    if({{this.inCart}}){
+                                        document.getElementById('addToCart-{{this._id}}').style.display = 'none';
+                                        document.getElementById('qty-{{this._id}}').style.display = 'flex';
+                                        document.getElementById('cartQty-{{this._id}}').value = {{this.cartQty}};
+                                    }
+                                </script>
                             </div>
                         </div>
                         {{/each}}
@@ -277,12 +278,11 @@
         </div>
     </div>
 
-<footer class="footer pt-5 ">
+    <footer class="footer pt-5 ">
         <div class="ms-4 ms-lg-5 row mx-auto">
             <a class="my-2" href="/">
                 <div class="d-flex me-5 pe-5">
-                    <img src="/img/favicon.png" alt="logo"
-                        style="width: 40px; height: 40px; border-radius: 50%;">
+                    <img src="/img/favicon.png" alt="logo" style="width: 40px; height: 40px; border-radius: 50%;">
                     <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
                 </div>
             </a>

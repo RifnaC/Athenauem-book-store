@@ -235,7 +235,7 @@
                                     document.getElementById(`addToCart-{{this._id}}`).style.display = 'none';
                                 }
                             </script>
-                            <div class="qty-container text-dark home-qty" id="qty-{{this._id}}" style="display: none;">
+                            <div class="qty-container mx-auto text-dark home-qty" id="qty-{{this._id}}" style="display: none; ">
                                 <button class="qty-btn-minus btn-primary px-1" type="button" id="decBtn"
                                     onclick="decrementQuantity('{{this._id}}')"><i class="fa fa-minus"></i>
                                 </button>
@@ -248,12 +248,9 @@
                                 <div class="icon-wishlist"></div>
                             </a>
                             <script>
-                                const addToCartElement = document.getElementById('addToCart-{{this._id}}');
-                                const qtyContainerElement = document.getElementById('qty-{{this._id}}');
-
                                 if({{this.inCart}}){
-                                    addToCartElement.style.display = 'none';
-                                    qtyContainerElement.style.display = 'flex';
+                                    document.getElementById('addToCart-{{this._id}}').style.display = 'none';
+                                    document.getElementById('qty-{{this._id}}').style.display = 'flex';
                                     document.getElementById('cartQty-{{this._id}}').value = {{this.cartQty}};
                                 }
                             </script>

@@ -51,7 +51,10 @@ exports.updateCart = async (req, res) => {
     const price = book[0].price;
     const subTotal = price * count;
     await Cart.findOneAndUpdate(
-        {_id: cartId,'items.productId':productId}, 
+        {   _id: cartId,
+            'items.productId':productId,
+            'items.quantity': { $lt: 10 },
+        }, 
         { $inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal},}
     )
     await Cart.updateMany(

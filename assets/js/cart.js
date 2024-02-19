@@ -1,4 +1,5 @@
 
+
 // cart quantity 
 function changeQty(cartId, productId, count, subTotal) {
     $.ajax({
@@ -40,10 +41,18 @@ function incrementQuantity(productId) {
     const quantityInput = document.querySelector(`#qty-${productId} input[name="qty"]`);
     let currentQuantity = parseInt(quantityInput.value, 10);
     if(currentQuantity < 10){
-        // currentQuantity++;
         quantityInput.value = currentQuantity++;
         // You may also want to update the cart state on the server here
         updateCart(productId, currentQuantity);
+    }else{
+        Swal.fire({
+            position: 'top-end',
+            text: 'Maximum quantity reached!',
+            showConfirmButton: false,
+            timer: 3000,
+        }).then(() => {
+            updateCart(productId, 10);
+        });
     }
 }
 

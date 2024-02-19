@@ -340,7 +340,7 @@ section {
 
 /*========box========*/
 .sq_box {
-    min-width: 260px !important;
+    min-width: 200px !important;
     padding-bottom: 5px;
     border-bottom: solid 2px #15877C;
     background-color: #fff;
@@ -396,7 +396,7 @@ section {
 }
 
 .pdis_img img {
-    aspect-ratio: .65 !important;
+    aspect-ratio: .65 ;
 }
 
 .sq_box .btn {
@@ -442,7 +442,7 @@ section {
 
 .singleWishlist a {
     margin-top: -8px;
-    margin-right: -60px;
+    margin-right: -40px;
 }
 
 
@@ -552,17 +552,8 @@ input[type="range"]::-moz-range-thumb {
     font-weight: bold;
 }
 
-.b-btn.paypal i {
-    color: blue;
-}
 
 .b-btn:hover {
     text-decoration: none;
     font-weight: bold;
-}
-
-.b-btn i {
-    font-size: 20px;
-    color: yellow;
-    margin-top: 2rem;
 }
