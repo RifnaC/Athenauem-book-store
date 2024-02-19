@@ -18,7 +18,26 @@ exports.productView = async (req, res) => {
     const vendorId = item.shopId;
     const shop = await shops.findById(vendorId);
     const off = Math.floor((item.discount * 100) / item.originalPrice)
+    const cartItems = cartCount ? cartCount.items : null;
+    if(cartItems){
+      const cartItem = cartItems.find(prdt => prdt.productId.toString() === item._id.toString());
+      item.inCart = true;
+      item.cartQty = cartItem.quantity;
+    }else{
+        item.inCart = false;
+    }
 
+    category.forEach(book => {
+      if (cartItems) {
+        const cartItem = cartItems.find(item => item.productId.toString() === book._id.toString());
+        if (cartItem) {
+          book.inCart = true;
+          book.cartQty = cartItem.quantity;
+        }else{
+          book.inCart = false;
+        }
+      }
+    });
     if(cartCount !== null){
       const  cartId = cartCount._id
       res.render('singleProductView', { item: item, off: off, shop: shop, genre: category,  cartId: cartId });

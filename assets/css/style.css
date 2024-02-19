@@ -1030,7 +1030,12 @@ button {
         left: auto;
     }
     .sq_box{
+        min-width: 200px !important;
         padding: 24px !important;
+    }
+    .sq_box1{
+        min-width: 200px !important;
+        padding: 0 auto !important;
     }
 }
 
@@ -1271,7 +1276,12 @@ button {
     .sq_box{
         padding: 24px !important;
     }
+    .sq_box1{
+        min-width: 160px !important;
+        padding: 24px !important;
+    }
 }
+
 
 /* Ragnge Date Picker */
 .date-range-report span {

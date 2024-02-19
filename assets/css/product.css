@@ -339,6 +339,16 @@ section {
 }
 
 /*========box========*/
+.sq_box1{
+    min-width: 260px;
+    padding-bottom: 5px;
+    border-bottom: solid 2px #15877C;
+    background-color: #fff;
+    text-align: center;
+    padding: 15px 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
 .sq_box {
     min-width: 200px !important;
     padding-bottom: 5px;
@@ -382,11 +392,11 @@ section {
     font-size: 20px;
 }
 
-.sq_box h4 {
-    font-size: 18px;
+.sq_box h4{
+    font-size: 18px !important;;
     text-align: center;
     font-weight: 500;
-    color: #343a40;
+    color: #343a40 ;
     margin-top: 10px;
     margin-bottom: 10px !important;
 }
@@ -420,7 +430,7 @@ section {
 }
 
 .sq_box .price-box span.offer-price {
-    color: #28a745;
+    color: #28a745 !important;
 }
 
 .paginationBox {
