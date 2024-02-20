@@ -14,7 +14,6 @@ const cookieParser= require('cookie-parser');
 
 const userApp = express();
 const adminApp = express();
-
 // port for admin and user
 const adminPort = process.env.ADMIN_PORT ;
 const userPort = process.env.USER_PORT;

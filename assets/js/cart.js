@@ -16,12 +16,15 @@ function changeQty(cartId, productId, count, subTotal) {
     })
 }
 function addToCartAndShowAlert(productId) {
-    Swal.fire({
-        position: 'top-end',
-        text: 'Successfully added to cart!',
-        showConfirmButton: false,
-        timer: 1000,
-    });
+    const token = document.cookie.split(';').some((item) => item.trim().startsWith('token='));
+    if(token){
+        Swal.fire({
+            position: 'top-end',
+            text: 'Successfully added to cart!',
+            showConfirmButton: false,
+            timer: 1000,
+        });
+    }
 }
 
 function incrementQuantity(productId) {

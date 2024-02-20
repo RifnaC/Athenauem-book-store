@@ -102,7 +102,6 @@ exports.update = async(req, res) => {
     if (!shop) {
       return res.status(404).json({ message: 'Shop not found' });
     }
-    // console.log(req.file)
     // Check if a new file is being uploaded
     if (req.file) {
       // Delete the old shop image from Cloudinary

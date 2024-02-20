@@ -103,8 +103,8 @@
                                 </div>
                             </li>
                         </ul>
+                    </div>
                 </div>
-            </div>
             </div>
         </nav>
     </Header>
@@ -203,28 +203,52 @@
                 <div class="modal-body mx-5">
                     <div class="row mt-2 profileEdit">
                         <form id="userProfile">
-                            <div class="col-md-6">
-                                <input type="hidden" name="id" value="{{user._id}}">
-                                <label class="labels" id="userName">Name</label>
-                                <input type="text" class="form-control" name="name" placeholder="Name"
-                                    value="{{user.name}}">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="labels" id="userEmail">Email</label>
-                                <input type="text" class="form-control" name="email" placeholder="Email "
-                                    value="{{user.email}}">
-                            </div>
-                            <div class="d-flex col-lg-6 mt-5 pt-2">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="male" value="Male">
-                                    <label class="form-check-label stockRadioBtn" for="Male">Male</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="hidden" name="id" value="{{user._id}}">
+                                    <label class="labels" id="userName">Name</label>
+                                    <input type="text" class="form-control" name="name" placeholder="Name"
+                                        value="{{user.name}}">
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="female"
-                                        value="Female">
-                                    <label class="form-check-label stockRadioBtn" for="Female">Female</label>
+                                <div class="col-md-6">
+                                    <label class="labels" id="userEmail">Email</label>
+                                    <input type="text" class="form-control" name="email" placeholder="Email "
+                                        value="{{user.email}}">
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="labels" id="oldPswd">Old Password</label>
+                                    <input type="text" class="form-control" name="oldPassword"
+                                        placeholder="Old Password" value="">
+                                        <input type="hidden" name="oldPswd"  value="{{user.password}}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="labels" id="newPswd">New Password</label>
+                                    <input type="text" class="form-control" name="password" placeholder="New Password"
+                                        value="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="labels" id="confirmPassword">Confirm Password</label>
+                                    <input type="text" class="form-control" name="confirmPassword"
+                                        placeholder="confirm Password" value="">
+                                </div>
+                                <div class="d-flex col-lg-6 mt-5 pt-2">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="male"
+                                            value="Male">
+                                        <label class="form-check-label stockRadioBtn" for="Male">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="female"
+                                            value="Female">
+                                        <label class="form-check-label stockRadioBtn" for="Female">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="mt-5 ">
                                 <button class="btn btn-primary profile-button" type="sumbit">Save
                                 </button>
@@ -238,7 +262,7 @@
     </div>
 
     <!-- footer Section Start -->
-        <footer class="footer pt-5 ">
+    <footer class="footer pt-5 ">
         <div class="ms-4 ms-lg-5 row mx-auto">
             <a class="my-2" href="/">
                 <div class="d-flex me-5 pe-5">

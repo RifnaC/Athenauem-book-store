@@ -106,7 +106,7 @@ exports.login = async (req, res) => {
             status: (user || admin).status,
         };
         const token = signToken((user || admin)._id, data);
-        res.cookie('token', token, { httpOnly: true, secure: true, });
+        res.cookie('token', token, { httpOnly: false, secure: true, });
         // req.session.token = token;
         if (data.role !== 'User') {
             // res.cookie('token', token, { httpOnly: true, secure: true,  });

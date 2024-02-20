@@ -32,14 +32,42 @@
   });
 
   function SweetAlerts(text){
-    Swal.fire({
-      imageUrl: "/img/favicon.png",
-      title: "Atheneuam",        
-      imageWidth: 120,
-      imageHeight: 80,
-      imageAlt: "Atheneuam Logo",
-      text: text,        
-      confirmButtonColor: '#15877C',
+      Swal.fire({
+        imageUrl: "/img/favicon.png",
+        title: "Atheneuam",        
+        imageWidth: 120,
+        imageHeight: 80,
+        imageAlt: "Atheneuam Logo",
+        text: text,        
+        confirmButtonColor: '#15877C',
+      });
+  }
+
+  function successAlerts(){
+    new Promise((resolve) => {
+      Swal.fire({
+        imageUrl: "/img/favicon.png",
+        title: "Atheneuam",        
+        imageWidth: 120,
+        imageHeight: 80,
+        imageAlt: "Atheneuam Logo",
+        text: 'Do you want to save the changes?',  
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,      
+        confirmButtonColor: '#15877C',
+      }).then((resolve) => {
+        if (resolve.isConfirmed) {
+          SweetAlerts('Changes are saved').then(() => {
+            window.location.reload();
+          });
+        } else if (resolve.isDenied) {
+          SweetAlerts('Changes are not saved').then(() => {
+            window.location.reload();
+        });
+        }
+      });
     });
   }
   //Admin alerts
@@ -136,28 +164,16 @@
     const adminId = data.id;
     // Validation: Check if the name and email fields are empty
     if (!data.name) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter the name!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Please enter the name!');
       return;
     }
     if (data.name.length < 4) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Name should be at least 4 characters',
-        confirmButtonColor: '#15877C',
-      });
+      SweetAlerts('Name should be at least 4 characters');
       return;
     }
     if (!data.email) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter the name!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      SweetAlerts('Please enter the email!');
+     
     }
 
     let request = {
@@ -1765,33 +1781,52 @@
 
     // Extract the user's ID from the form data
     const userId = data.id;
-
     // Validation: Check if the name and email fields are empty
     if (!data.name) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter the name!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Please Enter the name!');
       return;
     }
     if (data.name.length < 4) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Name should be at least 4 characters',
-        confirmButtonColor: '#15877C',
-      });
+      SweetAlerts('Name should be at least 4 characters');
       return;
     }
     if (!data.email) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter the name!',
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('Please Enter the email address!');
+      return false;
+    }
+    if (!data.email.includes('.')) {
+      SweetAlerts('Please Enter a valid email address!');
+      return false;
+    }
+    if(!data.oldPassword){
+      SweetAlerts('Please Enter a the old password!');
+      return false;
+    }
+    if(data.oldPassword < 6){
+      SweetAlerts('Please Enter valid old password!');
       return;
     }
-
+    if (!data.password){
+      SweetAlerts('Please Enter a the new password!');
+      return;
+    }
+    if(data.password < 6){
+      SweetAlerts('Please Enter valid old password!');
+      return;
+    }
+    if (!data.confirmPassword){
+      SweetAlerts('Please Enter a the new password!');
+      return;
+    }
+    if(data.confirmPassword < 6){
+      SweetAlerts('Please Enter valid old password!');
+      return;
+    }
+    if(data.password !== data.confirmPassword){
+      SweetAlerts('Passwords do not match!');
+      return;
+    }
+    
     let request = {
       "url": `http://localhost:8080/profiles/${userId}`,
       "method": "PUT",
@@ -1799,34 +1834,16 @@
     };
     // Send the PUT request
     $.ajax(request).done(function (response) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Do you want to save the changes?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        denyButtonText: `Don't save`,
-        confirmButtonColor: '#15877C'
-      })
-        .then((result) => {
+      successAlerts()
+      .then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Athenuam',
-              confirmButtonColor: '#15877C',
-              text: 'Data updated successfully',
-            }).then((result) => {
+            SweetAlerts('profile updated successfully').then((result) => {
               window.location.href = '/profile';
             })
           } else if (result.isDenied) {
-            Swal.fire({
-              icon: 'info',
-              title: 'Athenuam',
-              text: 'Changes are not saved',
-              confirmButtonColor: '#15877C',
-            })
-              .then((result) => {
+            SweetAlerts('Changes are not saved')
+            .then((result) => {
                 window.location.href = '/admin';
               })
           }

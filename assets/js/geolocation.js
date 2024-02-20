@@ -10,9 +10,14 @@ function getLocation() {
     navigator.geolocation.watchPosition(showPosition);
   } else { 
     swal.fire({
-        title: "Geolocation is not supported by this browser.",
-        confirmButtonColor: "#3085d6",
-    })
+      imageUrl: "/img/favicon.png",
+      title: "Atheneuam",        
+      imageWidth: 120,
+      imageHeight: 80,        
+      imageAlt: "Atheneuam Logo",
+      text: 'Geolocation is not supported by this browser.',       
+      confirmButtonColor: '#15877C',
+    });
   }
 }
 
@@ -31,17 +36,16 @@ function showPosition(position) {
         state.value = data.address.state;
         pincode.value = data.address.postcode;
       }
-       
-
-        // x.value = (data.address.shop || data.address.suburb || data.address.road) + ", " + data.address.city + ", " + data.address.state;
-        console.log(data)
     }).catch(() => {
       swal.fire({
-        title: "Error",
-        text: "Unable to fetch location!",
-        icon: "error",
-        confirmButtonColor: "#15877C",
-      })
+        imageUrl: "/img/favicon.png",
+        title: "Atheneuam",        
+        imageWidth: 120,
+        imageHeight: 80,        
+        imageAlt: "Atheneuam Logo",
+        text: "Unable to fetch location!",       
+        confirmButtonColor: '#15877C',
+      });
     })
 
 }
