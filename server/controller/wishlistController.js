@@ -40,6 +40,8 @@ exports.wishlist = async(req, res) => {
     const userId = req.user.id; 
     const cartCount = await Cart.findOne({userId: req.user.id});
     const search = req.query.searchQuery || "";
+    
+        
     if(search !== ""){
         res.redirect('/shop-page')
     }
@@ -72,6 +74,19 @@ exports.wishlist = async(req, res) => {
             }
         },
     ]);
+    
+    const cartItems = cartCount ? cartCount.items : null;
+    if(cartItems){
+        wishlistItems.forEach(item => {
+            const cartItem = cartItems.find(prdt => prdt.productId.toString() === item.wishlistItem._id.toString());
+            if (cartItem) {
+                item.wishlistItem.inCart = true;
+                item.wishlistItem.cartQty = cartItem.quantity;
+            }else{
+                item.wishlistItem.inCart = false;
+            }
+        })
+    }
     let emptyWishlist = false;
     if(wishlistItems.length === 0){
         emptyWishlist = true;

@@ -48,8 +48,7 @@
             <div class="container-fluid mx-lg-5">
                 <a class="navbar-brand " href="/">
                     <div class="d-flex justify-content-between align-items-center me-5 pe-5">
-                        <img src="/img/favicon.png" alt="logo"
-                            style="width: 40px; height: 40px; border-radius: 50%;">
+                        <img src="/img/favicon.png" alt="logo" style="width: 40px; height: 40px; border-radius: 50%;">
                         <h3 class="gradient-text"> <span>Atheneuam</span></h3>
                     </div>
                 </a>
@@ -137,7 +136,7 @@
                 <div class="row">
                     <div class="col-md-12 ">
                         <div class="shopping-cart">
-                            <div class="cart-header d-block  d-mb-block d-lg-block">
+                            <div class="cart-header d-none d-md-block d-lg-block d-xl-block">
                                 <div class="row bg-primary py-2 ">
                                     <div class="col-md-1">
                                         <h4></h4>
@@ -183,12 +182,38 @@
                                                     id="outOfStock-{{this.wishlistItem._id}}" style="display: none;">Out
                                                     of stock
                                                 </div>
-                                                <a href="/carts/{{this.wishlistItem._id}}"
-                                                    id="addtocartItems-{{this.wishlistItem._id}}">
-                                                    <div class="card-button">
+                                                
+                                                <a href="/carts/{{this.wishlistItem._id}}" onclick='return addToCartAndShowAlert("{{this.wishlistItem._id}}")'>
+                                                    <div class="card-button" id="addToCart-{{this.wishlistItem._id}}">
                                                         <b>Add to Cart</b>
                                                     </div>
                                                 </a>
+                                                <script>
+                                                    if ({{ this.wishlistItem.quantity }} == 0 || "{{this.wishlistItem.stock}}" == "Out Of Stock") {
+                                                        document.getElementById(`outOfStock-{{this.wishlistItem._id}}`).style.display = 'block';
+                                                        document.getElementById(`addToCart-{{this.wishlistItem._id}}`).style.display = 'none';
+                                                    }
+                                                </script>
+                                                <div class="qty-container mx-lg-auto text-dark home-qty"
+                                                    id="qty-{{this.wishlistItem._id}}" style="display: none; ">
+                                                    <button class="qty-btn-minus btn-primary px-1" type="button"
+                                                        id="decBtn" onclick="decrementQuantity('{{this.wishlistItem._id}}')"><i
+                                                            class="fa fa-minus"></i>
+                                                    </button>
+                                                    <input type="text" name="qty" value="1" id="cartQty-{{this.wishlistItem._id}}"
+                                                        class=" text-center w-100" readonly />
+                                                    <button class="qty-btn-plus btn-primary px-1" type="button"
+                                                        onclick="incrementQuantity('{{this.wishlistItem._id}}')"><i
+                                                            class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                                <script>
+                                                    if ({{ this.wishlistItem.inCart }}) {
+                                                        document.getElementById('addToCart-{{this.wishlistItem._id}}').style.display = 'none';
+                                                        document.getElementById('qty-{{this.wishlistItem._id}}').style.display = 'flex';
+                                                        document.getElementById('cartQty-{{this.wishlistItem._id}}').value = {{ this.wishlistItem.cartQty }};
+                                                    }
+                                                </script>
                                             </div>
                                         </div>
                                     </div>
@@ -217,58 +242,55 @@
         </div>
     </main>
 
+    <script>
 
+
+    </script>
 
     <footer class="footer pt-5 ">
-        <div class="container row mx-5 ">
-            <a class="my-2" href="home">
+        <div class="ms-4 ms-lg-5 row mx-auto">
+            <a class="my-2" href="/">
                 <div class="d-flex me-5 pe-5">
-                    <img src="/img/book collection 0.png" alt="logo"
-                        style="width: 40px; height: 40px; border-radius: 50%;">
+                    <img src="/img/favicon.png" alt="logo" style="width: 40px; height: 40px; border-radius: 50%;">
                     <h3 class="gradient-text p-1 px-2"> <span class="pt-5">Atheneuam</span></h3>
                 </div>
             </a>
-            <div class="footer-col pe-3">
+            <div class="footer-col">
                 <h4>Contact Us</h4>
                 <ul>
-                    <li>
-                        1998 Wall Street 707,
-                        Washington DC, USA</li>
-                    <li>athenauem@domain.com</li>
+                    <li>Hi lite Mall Kozhikode, India</li>
+                    <li>athenauem@gmail.com</li>
                     <li>+91 97782458923</li>
 
                 </ul>
             </div>
-            <div class="footer-col pe-5">
+            <div class="footer-col ">
                 <h4>Information</h4>
                 <ul>
-                    <li><a href="#">Shop</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">privacy policy</a></li>
-                    <li><a href="#">Blogs</a></li>
+                    <li><a href="/shop-page">Shop</a></li>
+                    <li><a href="/category">Category</a></li>
+                    <li><a href="/author">author</a></li>
                 </ul>
             </div>
-            <div class="footer-col pe-3">
+            <div class="footer-col ">
                 <h4>My Account</h4>
                 <ul>
-                    <li><a href="#">Sign In</a></li>
-                    <li><a href="#">View Cart</a></li>
-                    <li><a href="#">My Wishlist</a></li>
-                    <li><a href="#">Help</a></li>
+                    <li><a href="/login">Sign In</a></li>
+                    <li><a href="/cart">View Cart</a></li>
+                    <li><a href="/wishlist">My Wishlist</a></li>
                 </ul>
             </div>
             <div class="footer-col ">
                 <h4>follow us</h4>
                 <div class="social-links">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
         </div>
         <hr>
-        <div class="text-center pt-4">
+        <div class="text-center">
             <small>&copy; 2023 athenauem.Inc.All rights reserved</small>
         </div>
     </footer>
@@ -282,8 +304,8 @@
     <script src="/lib/tempusdominus/js/moment.min.js"></script>
     <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/3b161c540c.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>

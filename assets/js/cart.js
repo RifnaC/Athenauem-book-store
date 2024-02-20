@@ -1,5 +1,4 @@
 
-
 // cart quantity 
 function changeQty(cartId, productId, count, subTotal) {
     $.ajax({
@@ -13,7 +12,7 @@ function changeQty(cartId, productId, count, subTotal) {
         method: 'POST',
         success: (data) => {
             window.location.reload();
-        }
+        },
     })
 }
 function addToCartAndShowAlert(productId) {
@@ -22,19 +21,7 @@ function addToCartAndShowAlert(productId) {
         text: 'Successfully added to cart!',
         showConfirmButton: false,
         timer: 1000,
-    }).then(() => {
-        // const addToCartElement = document.getElementById('addToCart-' + productId);
-        // const qtyContainerElement = document.getElementById('qty-' + productId);
-        // if (addToCartElement) {
-        //     addToCartElement.style.display = 'none';
-        // }
-        // if (qtyContainerElement) {
-        //     qtyContainerElement.style.display = 'block ';
-        //     qtyContainerElement.style.setProperty('display', 'flex', 'important');
-        // }
-        window.location.reload();
-    
-    })
+    });
 }
 
 function incrementQuantity(productId) {
@@ -67,6 +54,15 @@ function decrementQuantity(productId) {
 
         // You may also want to update the cart state on the server here
         updateCart(productId, currentQuantity);
+    }else{
+        Swal.fire({
+            position: 'top-end',
+            text: 'Minimum quantity reached!',
+            showConfirmButton: false,
+            timer: 3000,
+        }).then(() => {
+            updateCart(productId, 1);
+        });
     }
 }
 
@@ -142,33 +138,40 @@ function clearWishlist() {
         method: 'PUT',
         success: (data) => {
             Swal.fire({
-                title: 'Atheneuam',
-                text: 'Do you really want to clear your wishlist?',
-                icon: 'warning',
+                imageUrl: "/img/favicon.png",
+                title: "Atheneuam",        
+                imageWidth: 120,
+                imageHeight: 80,
+                imageAlt: "Atheneuam Logo",
+                text: 'Do you really want to clear your wishlist?',       
+                confirmButtonColor: '#15877C',
                 showCancelButton: true,
                 confirmButtonText: 'Yes',
                 cancelButtonText: 'cancel',
-                confirmButtonColor: '#15877C',
             }).then((result) => {
                 if (result.isConfirmed) {
                     // The user clicked the "Yes, delete it" button
                     $.ajax(request).done(function (response) {
                         Swal.fire({
-                            icon: 'success',
-                            title: 'Atheneuam',
-                            confirmButtonColor: '#15877C',
+                            imageUrl: "/img/favicon.png",
+                            title: "Atheneuam",        
+                            imageWidth: 120,
+                            imageHeight: 80,
+                            imageAlt: "Atheneuam Logo",
                             text: 'Wishlist cleared Successfully',
-                        }).then(() => {
-                            window.location.href = ''
+                            confirmButtonColor: '#15877C',
                         });
                     });
                 } else {
                     // The user clicked the "cancel" button or closed the dialog
                     Swal.fire({
-                        icon: 'info',
-                        title: 'Atheneuam',
+                        imageUrl: "/img/favicon.png",
+                        title: "Atheneuam",        
+                        imageWidth: 120,
+                        imageHeight: 80,
+                        imageAlt: "Atheneuam Logo",
+                        text: 'Wishlist Items are not cleared',
                         confirmButtonColor: '#15877C',
-                        text: 'Action canceled',
                     });
                 }
             });

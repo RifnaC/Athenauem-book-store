@@ -33,7 +33,9 @@ exports.addToCart = async(req, res) => {
                     $push:{items: {productId: productId, quantity: quantity, subTotal: subTotal}},
                 })
                 await updateCart.save()
+
             }
+            res.redirect('back');
         }         
     } catch (error) {
         console.error(error);
