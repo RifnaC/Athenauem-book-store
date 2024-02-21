@@ -8,6 +8,12 @@ magnifierEl.addEventListener("click", () => {
   spaces.forEach((space) => space.classList.toggle("active"));
 });
 
+ // login or logout
+ if (document.cookie.split(';').some((item) => item.trim().startsWith('token='))) {
+  document.getElementById("logoutText").innerHTML = "Logout";
+} else {
+  document.getElementById("logoutText").innerHTML = "Login";
+}
 
 function bannerShopNow(type, product, genre) {
   if (type == "category") {

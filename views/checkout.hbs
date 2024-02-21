@@ -121,7 +121,7 @@
                     <h2 class="text-primary text-center">Checkout</h2>
                 </div>
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 col-xxl-8">
                         <div class="container">
                             <div class="row" id="addressArea">
                                 <a href="/address" class="btn btn-outline-secondary my-3" id="checkoutAddBtn">Add new
@@ -140,8 +140,9 @@
                                                 <span id="savedState" class="ps-1"> </span>
                                                 <span id="savedPin"></span>
                                             </p>
-                                            <a class="btn btn-outline-secondary adrChange" id="changeBtn">change
-                                            </a>
+                                            <div>
+                                            <a class="btn btn-outline-secondary adrChange" id="changeBtn">Change</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -158,9 +159,11 @@
                                                 <span class="ps-1">{{this.district}}</span>
                                                 <span class="ps-1">{{this.state}} - {{this.pincode}}</span>
                                             </p>
-                                            <a class="btn btn-outline-secondary adrSelection"
+                                            <div>
+                                                <a class="btn  btn-outline-secondary adrSelection"
                                                 data-address='{"fullName": "{{this.fullName}}", "phone": "{{this.phone}}", "address": "{{this.address}}", "city": "{{this.city}}", "district": "{{this.district}}", "state": "{{this.state}}", "pincode": "{{this.pincode}}", "_id":"{{this._id}}"}'>Select
                                             </a>
+                                            </div>
                                         </div>
                                     </div>
                                     {{/each}}
@@ -257,7 +260,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                         <div class="container bg-white">
                            <div class="off">
                              <form id="couponBtn" class=" py-3">
@@ -265,7 +268,7 @@
                                     <input type="text" class="form-control " placeholder="Coupon" aria-label="Coupon"
                                         aria-describedby="basic-addon2" id="coupon" name="couponCode">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary " type="submit">Apply</button>
+                                        <input class="btn btn-outline-secondary " type="submit" value="Apply">
                                     </div>
                                 </div>
                             </form>

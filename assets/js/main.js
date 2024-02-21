@@ -30,42 +30,35 @@
     $('.sidebar, .content').toggleClass("open");
     return false;
   });
-// login or logout
-  if(document.cookie.split(';').some((item) => item.trim().startsWith('token='))){
-    document.getElementById("logoutText").innerHTML = "Logout";
-  }else{
-    document.getElementById("logoutText").innerHTML = "Login";
-  }
+ 
 
-// sweet alerts
-  function SweetAlerts(text){
-      Swal.fire({
-        imageUrl: "/img/favicon.png",
-        title: "Atheneuam",        
-        imageWidth: 120,
-        imageHeight: 80,
-        imageAlt: "Atheneuam Logo",
-        text: text,        
-        confirmButtonColor: '#15877C',
-      }).then(() => {
-      window.location.reload();
+  // sweet alerts
+  function SweetAlerts(text) {
+    Swal.fire({
+      imageUrl: "/img/favicon.png",
+      title: "Atheneuam",
+      imageWidth: 120,
+      imageHeight: 80,
+      imageAlt: "Atheneuam Logo",
+      text: text,
+      confirmButtonColor: '#15877C',
     });
   }
 
   // success sweet alert
-  function successAlerts(){
+  function successAlerts() {
     new Promise((resolve) => {
       Swal.fire({
         imageUrl: "/img/favicon.png",
-        title: "Atheneuam",        
+        title: "Atheneuam",
         imageWidth: 120,
         imageHeight: 80,
         imageAlt: "Atheneuam Logo",
-        text: 'Do you want to save the changes?',  
+        text: 'Do you want to save the changes?',
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Save',
-        denyButtonText: `Don't save`,      
+        denyButtonText: `Don't save`,
         confirmButtonColor: '#15877C',
       }).then((resolve) => {
         if (resolve.isConfirmed) {
@@ -78,15 +71,15 @@
   }
 
   // delete sweet alert
-  function deleteAlerts(){
+  function deleteAlerts() {
     new Promise((resolve) => {
       Swal.fire({
         imageUrl: "/img/favicon.png",
-        title: "Atheneuam",        
+        title: "Atheneuam",
         imageWidth: 120,
         imageHeight: 80,
         imageAlt: "Atheneuam Logo",
-        text: 'Do you really want to delete this record?',  
+        text: 'Do you really want to delete this record?',
         showCancelButton: true,
         confirmButtonText: 'Yes, delete it',
         cancelButtonText: 'cancel',
@@ -100,6 +93,7 @@
       });
     });
   }
+
   //Admin alerts
   // Function to validate the add admin form
   function validateForm() {
@@ -203,7 +197,7 @@
     }
     if (!data.email) {
       SweetAlerts('Please enter the email!');
-     
+
     }
 
     let request = {
@@ -1355,7 +1349,7 @@
     }
   });
 
-// otp validation
+  // otp validation
   function otpValidation() {
     const otp6 = document.forms["otp"]["otp"].value;
     const email = document.forms["otp"]["email"].value;
@@ -1386,7 +1380,7 @@
       SweetAlerts('Please enter valid password!');
       return false;
     }
-    if(password !== confirmPswd) {
+    if (password !== confirmPswd) {
       SweetAlerts('Password and confirm password should be same!');
       return false;
     }
@@ -1397,7 +1391,7 @@
     if (!resetPassword()) {
       event.preventDefault();
     } else {
-        window.location.href = '/login';
+      window.location.href = '/login';
     }
   });
   // pagination 
@@ -1449,7 +1443,7 @@
 
       $('html, body').animate({
         scrollTop: $(this).offset().top
-    }, 1000);
+      }, 1000);
     });
   });
 
@@ -1800,30 +1794,30 @@
       SweetAlerts('Please Enter a valid email address!');
       return false;
     }
-    if(!data.oldPassword){
+    if (!data.oldPassword) {
       SweetAlerts('Please Enter a the old password!');
       return false;
     }
-    if(data.oldPassword < 6){
+    if (data.oldPassword < 6) {
       SweetAlerts('Please Enter valid old password!');
       return;
     }
-    if (!data.password){
+    if (!data.password) {
       SweetAlerts('Please Enter a the new password!');
       return;
     }
-    if(data.password < 6){
+    if (data.password < 6) {
       SweetAlerts('Please Enter valid old password!');
       return;
     }
-    if (!data.confirmPassword){
+    if (!data.confirmPassword) {
       SweetAlerts('Please Enter a the new password!');
       return;
     }
-    if(data.confirmPassword < 6){
+    if (data.confirmPassword < 6) {
       return SweetAlerts('Please Enter valid old password!');
     }
-    if(data.password !== data.confirmPassword){
+    if (data.password !== data.confirmPassword) {
       SweetAlerts('Passwords do not match!');
       return;
     }
@@ -1835,7 +1829,7 @@
     // Send the PUT request
     $.ajax(request).done(function (response) {
       successAlerts()
-      .then((result) => {
+        .then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
             SweetAlerts('profile updated successfully').then((result) => {
@@ -1843,7 +1837,7 @@
             })
           } else if (result.isDenied) {
             SweetAlerts('Changes are not saved')
-            .then((result) => {
+              .then((result) => {
                 window.location.href = '/profile';
               })
           }
@@ -1913,9 +1907,9 @@
     // Send the PUT request
     $.ajax(request).done(function (response) {
       SweetAlerts('New Address data is inserted Successfully')
-      .then((result) => {
-        window.location.href = '/profile';
-      })
+        .then((result) => {
+          window.location.href = '/profile';
+        })
     });
   });
 
@@ -1984,32 +1978,32 @@
       };
       $.ajax(request).done(function (response) {
         deleteAlerts();
-      }).fail(() =>{
+      }).fail(() => {
         SweetAlerts("You have orders from this address.So, this address cannot be deleted!")
       })
 
     })
   }
- // order Cancellation
- $("#cancelOrderForm").submit(function (event) {
-  event.preventDefault();
-  let unindexed_array = $(this).serializeArray();
-  let data = {};
-  $.map(unindexed_array, function (n, i) {
-    data[n['name']] = n['value'];
+  // order Cancellation
+  $("#cancelOrderForm").submit(function (event) {
+    event.preventDefault();
+    let unindexed_array = $(this).serializeArray();
+    let data = {};
+    $.map(unindexed_array, function (n, i) {
+      data[n['name']] = n['value'];
+    });
+    // Extract the user's ID from the form data
+    const orderId = data.id;
+    let request = {
+      "url": `http://${window.location.host}/order/${orderId}`,
+      "method": "PUT",
+      "data": data
+    };
+    // Send the PUT request
+    $.ajax(request).done(function (response) {
+      successAlerts();
+    });
   });
-  // Extract the user's ID from the form data
-  const orderId = data.id;
-  let request = {
-    "url": `http://${window.location.host}/order/${orderId}`,
-    "method": "PUT",
-    "data": data
-  };
-  // Send the PUT request
-  $.ajax(request).done(function (response) {
-    successAlerts();
-  });
-});
 
   // ***********************Wishlist Section*******************************
   $('.icon-wishlist').on('click', function () {
@@ -2042,86 +2036,45 @@
     const addressId = data._id;
     // Validation: Check if the name and email fields are empty
     if (!data.fullName) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter your name!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter the name!');
     }
     if (data.fullName.length < 3) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Name should have at least 3 characters!',
-        confirmButtonColor: '#15877C',
-      })
-      return
+      return SweetAlerts('Name should have at least 3 characters!');
     }
     if (!data.phone) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter your phone Number!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter the phone number!');
     }
     if (data.phone.length !== 10) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter Valid Phone Number!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter a valid phone number!');
     }
     if (!data.address) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter your  Address!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter the address!');
     }
     if (!data.city) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter your City!',
-        confirmButtonColor: '#15877C',
-      })
-      return
+      return SweetAlerts('Please enter the city!');
     }
     if (!data.state) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please select your State!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter the state!');
     }
     if (!data.pincode) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter your Pincode!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter the pincode!');
     }
     if (data.pincode.length !== 6) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter Valid Pincode!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter a valid pincode!');
     }
     let request = {
-      "url": `http://localhost:8080/checkout/${addressId}`,
+      "url": `http://${window.location.host}/checkout/${addressId}`,
       "method": "PUT",
       "data": data
     };
     // Send the PUT request
     $.ajax(request).done(function (response) {
       Swal.fire({
-        title: 'Athenuam',
+        imageUrl: "/img/favicon.png",
+        title: "Atheneuam",
+        imageWidth: 120,
+        imageHeight: 80,
+        imageAlt: "Atheneuam Logo",
         text: 'Do you want to save the changes?',
         showDenyButton: true,
         showCancelButton: true,
@@ -2129,46 +2082,52 @@
         denyButtonText: `Don't save`,
         confirmButtonColor: '#15877C'
       })
-        .then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Athenuam',
-              confirmButtonColor: '#15877C',
-              text: 'shipping address is updated successfully',
-            }).then((result) => {
-
-              $('#editShipping').css('display', 'none');
-              $('.adrSelection').css('display', 'none');
-              $('.adrChange').css('display', 'block');
-              $('.paymentSection').css('display', 'block');
-              $('#checkoutAddBtn').css('display', 'none');
-              $('#addressCard').css('display', 'none');
-              $('#updatedAddress').css('display', 'block');
-              $('#savedId').text(addressId);
-              $('#savedName').text(data.fullName);
-              $('#savedPhone').text(data.phone);
-              $('#savedAddress').text(data.address);
-              $('#savedCity').text(data.city);
-              $('#savedDistrict').text(data.district);
-              $('#savedState').text(data.state);
-              $('#savedPin').text(-data.pincode);
-            })
-          } else if (result.isDenied) {
-            Swal.fire({
-              icon: 'info',
-              title: 'Athenuam',
-              text: 'Changes are not saved',
-              confirmButtonColor: '#15877C',
-            })
-              .then((result) => {
-                window.location.href = '/checkout';
-              })
-          }
-        })
+      .then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire({
+            imageUrl: "/img/favicon.png",
+            title: "Atheneuam",
+            imageWidth: 120,
+            imageHeight: 80,
+            imageAlt: "Atheneuam Logo",
+            confirmButtonColor: '#15877C',
+            text: 'Shipping address is updated successfully',
+          }).then((result) => {
+            $('#editShipping').css('display', 'none');
+            $('.adrSelection').css('display', 'none');
+            $('.adrChange').css('display', 'block');
+            $('.paymentSection').css('display', 'block');
+            $('#checkoutAddBtn').css('display', 'none');
+            $('#addressCard').css('display', 'none');
+            $('#updatedAddress').css('display', 'block');
+            $('#savedId').text(addressId);
+            $('#savedName').text(data.fullName);
+            $('#savedPhone').text(data.phone);
+            $('#savedAddress').text(data.address);
+            $('#savedCity').text(data.city);
+            $('#savedDistrict').text(data.district);
+            $('#savedState').text(data.state);              
+            $('#savedPin').text(-data.pincode);
+          });
+        } else if (result.isDenied) {
+          Swal.fire({
+            imageUrl: "/img/favicon.png",
+            title: "Atheneuam",
+            imageWidth: 120,
+            imageHeight: 80,
+            imageAlt: "Atheneuam Logo",
+            text: 'Changes are not saved',
+            confirmButtonColor: '#15877C',
+          })
+          .then((result) => {
+            window.location.href = '/checkout';
+          });
+        }
+      });
     });
   });
+
 
   $("#changeBtn").click(function () {
     $('#editShipping').css('display', 'block');
@@ -2179,15 +2138,11 @@
     $('#updatedAddress').css('display', 'none');
   });
 
+  // coupon button
   $("#couponBtn").submit(function (event) {
     const coupon = $("#coupon").val();
     if (!coupon) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter coupon code!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter coupon code!');
     } else {
       $('.off').css('display', 'none');
     }
@@ -2201,14 +2156,8 @@
     const couponCode = $("input[name='couponCode']").val();
     const amount = Number(document.getElementById('total').innerText.split(" ")[1]);
 
-    if (paymentMethod === undefined) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please select a payment method',
-        showConfirmButton: true,
-        confirmButtonColor: '#15877C',
-      });
-      return false;
+    if (!paymentMethod) {
+      return SweetAlerts('Please select a payment method!');
     }
     try {
       if (paymentMethod === "Online Payment") {
@@ -2244,10 +2193,12 @@
                 }),
               });
               Swal.fire({
-                icon: 'success',
-                title: 'Athenuam',
+                imageUrl: "/img/favicon.png",
+                title: "Atheneuam",
+                imageWidth: 120,
+                imageHeight: 80,
+                imageAlt: "Atheneuam Logo",
                 text: 'New Order is Placed Successfully',
-                showConfirmButton: true,
                 confirmButtonColor: '#15877C',
               }).then(function (result) {
                 window.location.href = '/invoice';
@@ -2269,8 +2220,11 @@
               "ondismiss": function () {
                 rzp.close();
                 Swal.fire({
-                  icon: 'error',
-                  title: 'Athenuam',
+                  imageUrl: "/img/favicon.png",
+                  title: "Atheneuam",
+                  imageWidth: 120,
+                  imageHeight: 80,
+                  imageAlt: "Atheneuam Logo",
                   text: 'Payment Failed',
                   showConfirmButton: true,
                   confirmButtonColor: '#13877C',
@@ -2283,34 +2237,39 @@
           const rzp = new Razorpay(options);
           rzp.open();
         } else {
-          console.error('Error creating order:', createOrderResponse.statusText);
           Swal.fire({
-            icon: 'error',
-            title: 'Athenuam',
+            imageUrl: "/img/favicon.png",
+            title: "Atheneuam",
+            imageWidth: 120,
+            imageHeight: 80,
+            imageAlt: "Atheneuam Logo",
             text: 'Error creating order',
             showConfirmButton: true,
-            confirmButtonColor: '#FF0000',
+            confirmButtonColor: '#13877C',
           });
         }
       } else {
         // For non-online payment methods
         Swal.fire({
-          icon: 'success',
-          title: 'Athenuam',
+          imageUrl: "/img/favicon.png",
+          title: "Atheneuam",
+          imageWidth: 120,
+          imageHeight: 80,
+          imageAlt: "Atheneuam Logo",
           text: 'New Order is Placed Successfully',
-          showConfirmButton: true,
           confirmButtonColor: '#15877C',
         }).then(function (result) {
           window.location.href = '/invoice';
         });
       }
-
-
     } catch (error) {
       console.error('An unexpected error occurred:', error);
       Swal.fire({
-        icon: 'error',
-        title: 'Athenuam',
+        imageUrl: "/img/favicon.png",
+        title: "Atheneuam",
+        imageWidth: 120,
+        imageHeight: 80,
+        imageAlt: "Atheneuam Logo",
         text: 'An unexpected error occurred',
         showConfirmButton: true,
         confirmButtonColor: '#15877C',
@@ -2318,7 +2277,7 @@
     }
   });
 
- 
+
 
 
   let currentOrderId;

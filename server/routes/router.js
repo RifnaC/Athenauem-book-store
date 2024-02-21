@@ -16,7 +16,7 @@ const pdf = require('../../assets/js/pdf');
  * @description Root Route
  * @method GET/
 */
-route.get('/dashboard', auth.authMiddleware, services.homeRoutes);
+route.get('/', auth.authMiddleware, services.homeRoutes);
 /** 
  * @description Admin Route
  * @method GET/

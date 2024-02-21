@@ -108,7 +108,12 @@
                         <div class="card-footer ">
                             <div class="row">
                                 <div class="col-8">
-                                    <p><span class="fw-bolder">Order Date:</span> {{orderData.orderDate}}</p>
+                                    <p><span class="fw-bolder">Order Date:</span> <span id="orderDate"></span></p>
+                                    <script>
+                                        var orderData =  "{{orderData.orderDate}}"
+                                        var orderDate = orderData.split(" ").slice(1,4).join(" ");
+                                        document.getElementById("orderDate").innerHTML = orderDate
+                                    </script>
                                     <p> <span class="fw-bolder">Payment Mode:</span> {{orderData.paymentMethod}}</p>
                                     <p> <span class="fw-bolder">Payment status:</span> {{orderData.paymentStatus}}</p>
                                 </div>
