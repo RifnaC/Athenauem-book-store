@@ -4,7 +4,7 @@ const Order = require('../models/orderModel');
 const Book = require('../models/products');
 const bcrypt = require('bcrypt');
 
-function notification(msg, links) {
+function notification(msg) {
     return `<!DOCTYPE html>
     <html lang="en">
     
@@ -31,12 +31,10 @@ function notification(msg, links) {
             text: "${msg}",   
             confirmButtonText: 'Ok',     
             confirmButtonColor: '#15877C',
-            text: ,
         });
     </script>
     </body>
     <!-- JavaScript Libraries -->
-    
     </html>`
 }
 exports.profile = async (req, res) => {
@@ -47,78 +45,37 @@ exports.profile = async (req, res) => {
     if (search !== "") {
         res.redirect("/shop-page");
     }
-    res.render('profile', { user, userAddress, });
+    res.render('profile', { user, userAddress});
 }
 
 exports.updateProfile = async (req, res) => {
     const id = req.params.id;
     try {
         const user = await users.findById(id);
-    
+
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'user is not found' });
         } 
-    
-        const passwordMatch = await new Promise((resolve, reject) => {
-            bcrypt.compare(req.body.password, user.password, (err, result) => {
-                if (err) {
-                    reject(err); // Reject promise on error
-                } else {
-                    resolve(result); // Resolve promise with result
-                }
-            });
-        });
-    
-        if (passwordMatch) {
+        const ispswdValid = await bcrypt.compare(req.body.oldPassword, user.password);
+       
+        if (!ispswdValid) {
+            res.status(400).send({ message: 'password is not valid' });
+            return;
+        }else{
             user.name = req.body.name;
             user.email = req.body.email;
             user.password = await bcrypt.hash(req.body.password, 10);
             user.gender = req.body.gender;
-    
+
             // Save the updated user
-            const updatedUser = await user.save();
-            res.render('profile');
-        } else {
-            res.send(notification('Password is incorrect'));
+            await user.save().then(() => {
+                return res.status(200).render("profile");
+            });
         }
-    } catch (err) {
-        console.error(err);
+    }catch(err){
+        console.log(err);
         res.status(500).send('Internal Server Error');
     }
-    
-
-    //     if (!user) {
-    //         return res.status(404).json({ message: 'user is not found' });
-    //     } 
-    //     bcrypt.compare(req.body.password,user.password, function(err, result) {
-    //         if (err) {
-    //             // Handle error
-    //             console.error(err);
-    //         } else if (result) {
-    //             // Passwords match
-    //             user.name = req.body.name;
-    //             user.email = req.body.email;
-    //             user.password = await bcrypt.hash(req.body.password, 10);
-    //             user.gender = req.body.gender;
-    //             // Save the updated user
-    //             const updatedUser = await user.save().then(() => {
-    //                 res.render('profile');
-    //             }).catch(err => {
-    //                 console.log(err);
-    //             });
-    //         } else {
-    //             // Passwords don't match
-    //             res.send(notification('Password is incorrect'))
-    //             console.log();
-    //         }
-    //     });
-        
-        
-
-    // }catch(err){
-    //     console.log(err);
-    //     res.status(500).send('Internal Server Error');
-    // }
 }
 
 exports.address = async (req, res) => {
@@ -179,16 +136,22 @@ exports.updateAddress = async (req, res) => {
 exports.deleteAddress = async (req, res) => {
     const id = req.user.id;
     const addressId = req.params.id;
-    const newAddress = await users.findOneAndUpdate({ _id: id }, {
-        $pull: {
-            "addresses": {
-                _id: addressId
+    const orders = await Order.find({ userId: id, addressId: addressId});
+    if(orders ==[]){
+        const newAddress = await users.findOneAndUpdate({ _id: id }, {
+            $pull: {
+                "addresses": {
+                    _id: addressId
+                }
             }
-        }
-    });
-    await newAddress.save().then(() => {
-        res.render('profile');
-    })
+        });
+        await newAddress.save().then(() => {
+            res.render('profile');
+        })
+    }else{
+        return res.status(400).send("Address can't be deleted");
+    }
+    
 }
 
 exports.myOrder = async (req, res) => {
