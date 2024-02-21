@@ -31,7 +31,6 @@
     return false;
   });
  
-
   // sweet alerts
   function SweetAlerts(text) {
     Swal.fire({
@@ -44,7 +43,6 @@
       confirmButtonColor: '#15877C',
     });
   }
-
   // success sweet alert
   function successAlerts() {
     new Promise((resolve) => {
