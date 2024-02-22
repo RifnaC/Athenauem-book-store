@@ -1,6 +1,5 @@
 const { log } = require('handlebars');
 const userCollection = require('../models/userModel');
-const adminCollection = require('../models/model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
@@ -85,7 +84,6 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const user = await userCollection.findOne({ email: req.body.email });
-        console.log("user==================================================")
         if (!user) {
             res.status(404).send(notification("This email is not found.", "/login"));
             return;
