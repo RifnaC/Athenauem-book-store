@@ -101,61 +101,26 @@
     let confirmPassword = document.forms["uploadUser"]["confirmPassword"].value;
 
     // Check if name, email, password, and confirmPassword are not empty
-    if (name === "") {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter your name!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+    if (!name) {
+      return SweetAlerts('Please enter the name!');
     }
     if (name.length < 3) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Name should have at least 3 characters!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Name should have at least 3 characters!');
     }
-    if (email === "") {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter your email!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+    if (!email) {
+      return SweetAlerts('Please enter the email!');
     }
-    if (password === "") {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter your password!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+    if (!password) {
+      return SweetAlerts('Please enter the password!');
     }
-    if (confirmPassword === "") {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter your  confirm password!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+    if (!confirmPassword ) {
+      return SweetAlerts('Please enter the confirm password!');
     }
     if (password.length < 6) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Passwords should have at least 6 characters!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Password should have at least 6 characters!');
     }
     if (password !== confirmPassword) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Password and the confirm password should be same!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Password and the confirm password should be same!');
     }
     return true;
   }
@@ -164,13 +129,7 @@
     if (!validateForm()) {
       event.preventDefault();
     } else {
-      Swal.fire({
-        icon: 'success',
-        title: 'Athenuam',
-        text: 'New admin data is inserted Successfully',
-        showConfirmButton: true,
-        confirmButtonColor: '#15877C',
-      })
+      successAlerts();
     }
   })
   // update admin

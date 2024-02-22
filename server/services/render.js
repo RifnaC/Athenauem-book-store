@@ -48,9 +48,6 @@ function notification(msg) {
     </html>`
 }
 exports.homeRoutes = async (req, res) => {
-    if (!req.cookies.token) {
-        return res.render('home')
-    }
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];

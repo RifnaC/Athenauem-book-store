@@ -16,7 +16,8 @@ const instance = new Razorpay({
 exports.checkout = async (req, res) => {
   const id = req.user.id;
   const user = await Users.findById(id);
-  const addres = user.addresses;
+  const addres = user.addresses ;
+  
   const total = await Cart.aggregate([
     {
       $match: {

@@ -1,5 +1,3 @@
-const { log } = require('handlebars');
-const userCollection = require('../models/userModel');
 const adminCollection = require('../models/model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -46,7 +44,7 @@ function notification(msg, links) {
 // Register and save new user
 const signToken = (id, user) => {
     if (!user) return jwt.sign(id, JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
-    else return jwt.sign({ id, role: user.role }, JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
+    else return jwt.sign({ id, role: user.role, status: user.status }, JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
 }
 
 exports.register = async (req, res) => {
@@ -56,18 +54,19 @@ exports.register = async (req, res) => {
     }
     try {
         // Check if the email already exists in the database
-        const existingUser = await userCollection.findOne({ email: req.body.email });
-        if (existingUser) {
+        const existingEmail = await adminCollection.findOne({ email: req.body.email });
+        if (existingEmail) {
             // Display an alert when email is already taken.
             res.status(200).send(notification("Email already exists", "/signup"));
             return;
         }
         // Hash the password
         const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-        const user = new userCollection({
+        const user = new adminCollection({
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword,
+            role: 'vendor',
             status: req.body.status,
         });
         const token = signToken({ id: user._id, role: user.role });
@@ -84,28 +83,29 @@ exports.register = async (req, res) => {
 //login section
 exports.login = async (req, res) => {
     try {
-        const user = await userCollection.findOne({ email: req.body.email });
-        console.log("user==================================================")
-        if (!user) {
+        const admin = await adminCollection.findOne({ email: req.body.email });
+        if (!admin) {
             res.status(404).send(notification("This email is not found.", "/login"));
             return;
         }
-        const ispswdValid = await bcrypt.compare(req.body.password, user.password);
+        const ispswdValid = await bcrypt.compare(req.body.password,  admin.password);
         if (!ispswdValid) {
             res.status(401).send(notification("Invalid password.", "/login"));
             return;
         }
         const data = {
-            id: user.id,
-            email: user.email,
-            name: user.name,
-            status: user.status,
+            id:admin.id,
+            email: admin.email,
+            role: admin.role,
+            name: admin.name,
+            status: admin.status,
         };
-        const token = signToken(user._id, data);
+        const token = signToken(admin._id, data);
         res.cookie('token', token, { httpOnly: false, secure: true, });
-        if (user.status === 'Block') {
-            res.render('login', { Blocked: true });
-        } else {                
+        if (data.status !== 'Pending') {
+            // res.cookie('token', token, { httpOnly: true, secure: true,  });
+            notification('Thank you for choosing Atheneuam. Please wait for admin approval', '/login');
+        } else {
             res.redirect('/');
         }
     } catch (e) {
@@ -119,6 +119,7 @@ exports.logout = async (req, res) => {
     res.clearCookie('token');
     res.redirect('/login');
 };
+
 
 exports.forgotPassword = async (req, res) => {
     try {
@@ -145,12 +146,11 @@ function generateOTP() {
 }
 
 async function findExistingEmail(email) {
-    const existingUser = await userCollection.findOne({ email: email });
-    return existingUser;
+    const existingAdmin = await adminCollection.findOne({ email: email });
+    return existingAdmin;
 }
-
 async function updatedEmail(email, otp) {
-    const updateOtp = await userCollection.findOneAndUpdate({ email: email },
+    const updateOtp = await adminCollection.findOneAndUpdate({ email: email },
         { $set: { otp: otp, otpExpiry: Date.now() + 300000 } },
         { new: true });
     return updateOtp;
@@ -181,7 +181,6 @@ async function sendEmail(email, otp) {
         }
     })
 }
-
 exports.reset = async (req, res) => {
     res.render('reset')
 }
@@ -190,7 +189,7 @@ exports.otp = async (req, res) => {
     try {
         const otp = req.body.otp;
         const email = req.body.email;
-        const user = await userCollection.findOne({ email: email, otp: otp, otpExpiry: { $gt: Date.now() } });
+        const user = await adminCollection.findOne({ email: email, otp: otp, otpExpiry: { $gt: Date.now() } });
         const id = user._id;
         if (!user) {
             res.status(404).send(notification("please check the OTP", "/password"));
@@ -209,7 +208,7 @@ exports.changePswd = async (req, res) => {
 exports.resetPswd = async (req, res) => {
     try {
         const password = req.body.password;
-        const user = await userCollection.findOne({ _id: req.params.id, otpExpiry: { $gt: Date.now() } });
+        const user = await adminCollection.findOne({ _id: req.params.id, otpExpiry: { $gt: Date.now() } });
         if (!user) {
             res.redirect('/password');
         }
