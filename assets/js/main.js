@@ -156,7 +156,7 @@
     }
 
     let request = {
-      "url": `http://${window.location.host}/${adminId}`,
+      "url": `${window.location.host}/${adminId}`,
       "method": "PUT",
       "data": data
     };
@@ -172,7 +172,7 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `http://${window.location.host}/api/admins/${id}`,
+        "url": `${window.location.host}/api/admins/${id}`,
         "method": "DELETE"
       };
       deleteAlerts();
@@ -1706,7 +1706,7 @@
       return;
     }
     let request = {
-      "url": `http://${window.location.host}/profiles/${userId}`,
+      "url": `${window.location.host}/profiles/${userId}`,
       "method": "PUT",
       "data": data
     };
@@ -1784,7 +1784,7 @@
       return SweetAlerts('Please Enter a valid pincode!');
     }
     let request = {
-      "url": `http://${window.location.host}/address/${userId}`,
+      "url": `${window.location.host}/address/${userId}`,
       "method": "PUT",
       "data": data
     };
@@ -1841,7 +1841,7 @@
     }
 
     let request = {
-      "url": `http://${window.location.host}/addresses/${addressId}`,
+      "url": `${window.location.host}/addresses/${addressId}`,
       "method": "PUT",
       "data": data
     };
@@ -1857,7 +1857,7 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `http://${window.location.host}/profile/${id}`,
+        "url": `${window.location.host}/profile/${id}`,
         "method": "PUT"
       };
       $.ajax(request).done(function (response) {
@@ -1879,7 +1879,7 @@
     // Extract the user's ID from the form data
     const orderId = data.id;
     let request = {
-      "url": `http://${window.location.host}/order/${orderId}`,
+      "url": `${window.location.host}/order/${orderId}`,
       "method": "PUT",
       "data": data
     };
