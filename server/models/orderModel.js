@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const cron = require('node-cron');
+const moment = require('moment-timezone');
 
 const orderScheme = new mongoose.Schema({   
     userId:{
@@ -49,15 +50,13 @@ const orderScheme = new mongoose.Schema({
     },
     orderDate:{
         type: Date,
-        default: new Date().toLocaleDateString(),
+        default: moment().tz('Asia/Kolkata').toDate(),
     },
     deliveryDate :{
         type: Date,
         default: function() {
-        const orderDate = new Date(this.orderDate); 
-        const deliveryDate = new Date(orderDate);
-        deliveryDate.setDate(deliveryDate.getDate() + 5); 
-        return deliveryDate.toLocaleDateString();
+            const orderDate = moment(this.orderDate).tz('Asia/Kolkata'); 
+            return orderDate.add(5, 'days').toDate();
         }
     },
     cancelReason:{
@@ -86,6 +85,7 @@ async function updateOrderStatus(){
         console.error('Error updating delivered orders:', error);
     }
 }
+
 cron.schedule('0 0 * * *', async () => {
     console.log('Running task to update delivered orders...');
     await updateOrderStatus();

@@ -200,7 +200,7 @@ exports.getOrder = async (req, res) => {
         { new: true } 
       );
     }
-    await Cart.updateOne({ userId: id }, { $set: { items: [] } });
+  
     const {shippingId, paymentMethod, couponCode}  = req.body;
     const order = new Order({
       userId: id,
@@ -210,11 +210,12 @@ exports.getOrder = async (req, res) => {
       discount: discount,
       couponCode: couponCode,
       payableTotal: bill,
-      paymentStatus: paymentMethod=== "Online Payment" ? "Paid" : "Not Paid",
+      paymentStatus: paymentMethod === "Online Payment" ? "Paid" : "Not Paid",
       paymentMethod: paymentMethod,
     });
-    await order.save();
-
+    await order.save().then(async ()=>{
+      const result = await Cart.updateOne({ userId: id }, { $set: { items: [] } });
+    })
     res.redirect("/invoice");
   } catch (error) {
     console.error("Error placing order:", error);
@@ -237,14 +238,17 @@ exports.verifyPayment = (req,res) =>{
 
 exports.invoice = async (req, res) => {
   const id = req.user.id;
-  const order = await Order.find({ userId: id });
-  const lastestOrder = order.at(-1)
+  const order = await Order.find({ userId: id }).sort({ _id: -1 });
+  const lastestOrder = order[0];
+  // console.log(lastestOrder);
   const orderItems = lastestOrder.orderItems;
+  // console.log(orderItems);
   const orderAdrId = lastestOrder.addressId;
   const address = await Users.findOne({_id:id},
     {addresses:{$elemMatch:{_id: orderAdrId}}});
   const adr = address.addresses[0];
   const ids = orderItems.map(orderItem => orderItem.itemId)
   const products = await Product.find({ _id: { $in: ids } });
+  // console.log(products);
   res.render('invoice', {address:adr, orderData: lastestOrder, products: orderItems, items: products});
 }

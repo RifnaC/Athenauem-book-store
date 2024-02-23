@@ -6610,14 +6610,16 @@ fieldset:disabled .btn {
 
 .carousel-inner {
     position: relative;
-    width: 100%;
-    overflow: hidden
+    overflow: hidden;
+    background: #000;
+    backface-visibility: hidden;
 }
 
 .carousel-inner::after {
     display: block;
     clear: both;
-    content: ""
+    content: "";
+    backface-visibility: hidden;
 }
 
 .carousel-item {
@@ -6625,7 +6627,6 @@ fieldset:disabled .btn {
     display: none;
     float: left;
     width: 100%;
-    /* margin-right: -100%; */
     backface-visibility: hidden;
     transition: transform .6s ease-in-out
 }

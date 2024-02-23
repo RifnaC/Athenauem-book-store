@@ -2207,6 +2207,17 @@
         }
       } else {
         // For non-online payment methods
+        const checkoutResponse = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            shippingId: shippingId,
+            paymentMethod: paymentMethod,
+            couponCode: couponCode
+          }),
+        });
         Swal.fire({
           imageUrl: "/img/favicon.png",
           title: "Atheneuam",

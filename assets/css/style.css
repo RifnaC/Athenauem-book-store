@@ -1019,14 +1019,14 @@ button {
     }
 
     .bannerText h1 {
-        top: 30%;
+        top: 24%;
     }
     .bannerText p {
         top: 40%;
         width: calc(100% - 32vw);
     }
     .banner-button {
-        bottom:calc(100% - 56vh);
+        bottom:calc(100% - 64vh);
         left: auto;
     }
     .sq_box{
