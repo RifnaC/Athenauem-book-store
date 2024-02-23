@@ -100,7 +100,7 @@ exports.login = async (req, res) => {
             status: user.status,
         };
         const token = signToken(user._id, data);
-        res.cookie('token', token, { httpOnly: false, secure: true, });
+        res.cookie('token', token,{ httpOnly: false, secure: true, });
         if (user.status === 'Block') {
             res.render('login', { Blocked: true });
         } else {                
