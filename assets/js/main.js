@@ -1947,7 +1947,7 @@
       return SweetAlerts('Please enter a valid pincode!');
     }
     let request = {
-      "url": `${window.location.host}/checkout/${addressId}`,
+      "url": `https://${window.location.host}/checkout/${addressId}`,
       "method": "PUT",
       "data": data
     };
