@@ -132,6 +132,7 @@
       successAlerts();
     }
   })
+  
   // update admin
   $("#edit_admin").submit(function (event) {
     event.preventDefault();
@@ -145,57 +146,23 @@
     const adminId = data.id;
     // Validation: Check if the name and email fields are empty
     if (!data.name) {
-      SweetAlerts('Please enter the name!');
-      return;
+      return SweetAlerts('Please enter the name!');
     }
     if (data.name.length < 4) {
-      SweetAlerts('Name should be at least 4 characters');
-      return;
+      return SweetAlerts('Name should be at least 4 characters');
     }
     if (!data.email) {
-      SweetAlerts('Please enter the email!');
-
+      return SweetAlerts('Please enter the email!');
     }
 
     let request = {
-      "url": `http://localhost:3000/api/admins/${adminId}`,
+      "url": `http://${window.location.host}/${adminId}`,
       "method": "PUT",
       "data": data
     };
     // Send the PUT request
     $.ajax(request).done(function (response) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Do you want to save the changes?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        denyButtonText: `Don't save`,
-        confirmButtonColor: '#15877C'
-      })
-        .then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Athenuam',
-              confirmButtonColor: '#15877C',
-              text: 'Data updated successfully',
-            }).then((result) => {
-              window.location.href = '/admin';
-            })
-          } else if (result.isDenied) {
-            Swal.fire({
-              icon: 'info',
-              title: 'Athenuam',
-              text: 'Changes are not saved',
-              confirmButtonColor: '#15877C',
-            })
-              .then((result) => {
-                window.location.href = '/admin';
-              })
-          }
-        })
+      return successAlerts();
     });
   });
 
@@ -205,43 +172,13 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `http://localhost:3000/api/admins/${id}`,
+        "url": `http://${window.location.host}/api/admins/${id}`,
         "method": "DELETE"
       };
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Do you really want to delete this record?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it',
-        cancelButtonText: 'cancel',
-        confirmButtonColor: '#d33',
-      })
-        .then((result) => {
-          if (result.isConfirmed) {
-            // The user clicked the "Yes, delete it" button
-            $.ajax(request).done(function (response) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Atheneuam',
-                text: 'Data deleted Successfully',
-                confirmButtonColor: '#15877C'
-              }).then(() => {
-                location.reload();
-              });
-            });
-          } else {
-            // The user clicked the "cancel" button or closed the dialog
-            Swal.fire({
-              icon: 'info',
-              title: 'Atheneuam',
-              text: 'Action canceled',
-              confirmButtonColor: '#15877C'
-            });
-          }
-        });
-    })
+      deleteAlerts();
+    });
   }
+
   // shop alerts
   // Function to validate the shop form
   function shopValidation() {
@@ -252,20 +189,10 @@
     let shopImg = document.forms["add_shop"]["shopImg"].value;
     // Check if name, email, password, and confirmPassword are not empty
     if (name === "") {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter the shop name!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter the name!');
     }
     if (name.length < 3) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Shop name should have at least 3 characters!',
-        confirmButtonColor: '#15877C'
-      })
-      return false;
+      return SweetAlerts('Shop name should have at least 3 characters!');
     }
     if (address === "") {
       Swal.fire({
@@ -2020,7 +1947,7 @@
       return SweetAlerts('Please enter a valid pincode!');
     }
     let request = {
-      "url": `http://${window.location.host}/checkout/${addressId}`,
+      "url": `${window.location.host}/checkout/${addressId}`,
       "method": "PUT",
       "data": data
     };
