@@ -305,7 +305,7 @@
     }
     // Append the shopId to the URL
     const request = {
-      url: `http://localhost:3000/api/shops/${shopId}`,
+      url: `https://localhost:3000/api/shops/${shopId}`,
       method: 'PUT',
       data: formData,
       processData: false,
@@ -362,7 +362,7 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `http://localhost:3000/api/shops/${id}`,
+        "url": `https://localhost:3000/api/shops/${id}`,
         "method": "DELETE"
       };
       Swal.fire({
@@ -630,7 +630,7 @@
     }
     // Append the bookid to the URL
     const request = {
-      'url': `http://localhost:3000/api/products/${bookId}`,
+      'url': `https://localhost:3000/api/products/${bookId}`,
       'method': 'PUT',
       'data': formData,
       processData: false,
@@ -693,7 +693,7 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `http://localhost:3000/api/products/${id}`,
+        "url": `https://localhost:3000/api/products/${id}`,
         "method": "DELETE"
       };
       Swal.fire({
@@ -815,7 +815,7 @@
     }
 
     const request = {
-      url: `http://localhost:3000/api/categories/${genreId}`,
+      url: `https://localhost:3000/api/categories/${genreId}`,
       method: 'PUT',
       data: formData,
       processData: false,
@@ -855,7 +855,7 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `http://localhost:3000/api/categories/${id}`,
+        "url": `https://localhost:3000/api/categories/${id}`,
         "method": "DELETE"
       };
       Swal.fire({
@@ -1057,7 +1057,7 @@
     }
     // Construct the AJAX request object
     let request = {
-      "url": `http://localhost:3000/api/banner/${bannerId}`,
+      "url": `https://localhost:3000/api/banner/${bannerId}`,
       "method": "PUT",
       "data": formData,  // Use the modified FormData object
       processData: false,
@@ -1100,7 +1100,7 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `http://localhost:3000/api/banner/${id}`,
+        "url": `https://localhost:3000/api/banner/${id}`,
         "method": "DELETE"
       };
       Swal.fire({
@@ -1389,7 +1389,7 @@
     }
 
     let request = {
-      "url": `http://localhost:3000/users/${userId}`,
+      "url": `https://localhost:3000/users/${userId}`,
       "method": "PUT",
       "data": data
     };
@@ -1435,7 +1435,7 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `http://localhost:3000/users/${id}`,
+        "url": `https://localhost:3000/users/${id}`,
         "method": "DELETE"
       };
       Swal.fire({
@@ -1591,7 +1591,7 @@
     }
 
     let request = {
-      "url": `http://localhost:3000/coupon/${couponId}`,
+      "url": `https://localhost:3000/coupon/${couponId}`,
       "method": "PUT",
       "data": data
     };
@@ -1638,7 +1638,7 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `http://localhost:3000/coupon/${id}`,
+        "url": `https://localhost:3000/coupon/${id}`,
         "method": "DELETE",
       };
       // The user clicked the "Yes, delete it" button
@@ -2191,7 +2191,7 @@
     const orderId = currentOrderId;
     alert(orderId);
     let request = {
-      "url": `http://localhost:3000/order/${orderId}`,
+      "url": `https://localhost:3000/order/${orderId}`,
       "method": "PUT",
       "data": data
     };
