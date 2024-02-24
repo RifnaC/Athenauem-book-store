@@ -7,7 +7,6 @@ function generatePDF(name) {
         // Add the canvas content to the PDF
         const imgData = canvas.toDataURL('image/png');
         pdf.addImage(imgData, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
-
         // Save the PDF
         pdf.save(`${name}.pdf`);
     });

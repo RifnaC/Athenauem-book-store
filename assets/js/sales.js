@@ -38,10 +38,8 @@ $(document).ready(function () {
         }
     });
 
-
     const booknames = document.getElementById('booknames').value;
     const names = booknames.split(",");
-
     const amounts = document.getElementById('amount').value;
     const amount = amounts.split(",").map(Number);
     // Pie Chart

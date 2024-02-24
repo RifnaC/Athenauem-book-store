@@ -554,18 +554,10 @@
       }
     }
     if (!bannerImg.value || !imgUrl) {
-      Swal.fire({
-        title: 'Please provide the image of the book banner!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please select an image!');
     }
     if (!desc || desc.length < 4 || desc === null) {
-      Swal.fire({
-        title: 'Please provide the description of the book banner!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please provide the description of the book banner!');
     }
     return true;
   }
@@ -574,13 +566,9 @@
   $("#createBanner").submit(function (event) {
     if (!bannerValidation()) {
       event.preventDefault();
+      SweetAlerts('Please enter banner details!');
     } else {
-      Swal.fire({
-        icon: 'success',
-        title: 'New banner is created Successfully',
-        showConfirmButton: false,
-        timer: 6000
-      })
+      SweetAlerts('Banner created successfully!');
     }
   })
 
@@ -605,61 +593,33 @@
     const bannerId = formData.get('id');
     // Validation
     if (!formData.get('name')) {
-      Swal.fire({
-        title: 'Please enter the banner name',
-        confirmButtonColor: '#15877C'
-      })
-      return;
+      return SweetAlerts('Please enter banner name!');
     }
     if (formData.get('name').length < 4) {
-      Swal.fire({
-        title: 'The banner name should be at least 4 characters',
-        confirmButtonColor: '#15877C'
-      })
-      return;
+      return SweetAlerts('Banner name should have at least 4 characters!');
     }
     if (!formData.get('shop')) {
-      Swal.fire({
-        title: 'Please enter shop name!',
-        confirmButtonColor: '#15877C'
-      })
-      return;
+      return SweetAlerts('Please enter shop name!');
     }
     if (formData.get('shop').length < 4) {
-      Swal.fire({
-        title: 'The shop name should be at least 4 characters',
-        confirmButtonColor: '#15877C'
-      })
-      return;
+      return SweetAlerts('Shop name should have at least 4 characters!');
     }
 
     if (formData.get('type') === 'category') {
       if (!formData.get('categoryId') || formData.get('categoryId').length < 4) {
-        Swal.fire({
-          title: 'please enter the category ID with at least 4 characters!',
-          confirmButtonColor: '#15877C',
-        })
-        return false;
+        return SweetAlerts('Please enter the category ID with at least 4 characters!');
       }
     } else {
       if (!formData.get('productId') || formData.get('productId').length < 4) {
-        Swal.fire({
-          title: 'Please enter the product ID with at least 4 characters!',
-          confirmButtonColor: '#15877C',
-        })
-        return false;
+        return SweetAlerts('Please enter the product ID with at least 4 characters!');
       }
     }
     if (!formData.get('description') || formData.get('description').length < 4) {
-      Swal.fire({
-        title: 'Please enter the descriptin with at least 4 characters!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please provide the description of the banner!');
     }
     // Construct the AJAX request object
     let request = {
-      "url": `https://localhost:3000/api/banner/${bannerId}`,
+      "url": `https://${window.location.host}/api/banner/${bannerId}`,
       "method": "PUT",
       "data": formData,  // Use the modified FormData object
       processData: false,
@@ -669,30 +629,7 @@
     // Send the PUT request
     $.ajax(request).done(function (response) {
       // Display a confirmation SweetAlert
-      Swal.fire({
-        title: 'Do you want to save the changes?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        denyButtonText: `Don't save`,
-        confirmButtonColor: '#15877C'
-      })
-        .then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            // Success message and redirect if user confirms
-            Swal.fire('Saved!', 'Data updated successfully', 'success')
-              .then(() => {
-                window.location.href = '/banner';
-              })
-          } else if (result.isDenied) {
-            // Info message and redirect if user denies
-            Swal.fire('Changes are not saved', '', 'info')
-              .then(() => {
-                window.location.href = '/banner';
-              })
-          }
-        });
+      successAlerts();
     });
   });
 
@@ -702,31 +639,10 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `https://localhost:3000/api/banner/${id}`,
+        "url": `https://${window.location.host}/api/banner/${id}`,
         "method": "DELETE"
       };
-      Swal.fire({
-        title: 'Do you really want to delete this record?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it',
-        cancelButtonText: 'cancel',
-        confirmButtonColor: '#d33',
-      })
-        .then((result) => {
-          if (result.isConfirmed) {
-            // The user clicked the "Yes, delete it" button
-            $.ajax(request).done(function (response) {
-              Swal.fire('Data deleted Successfully', '', 'success')
-                .then(() => {
-                  location.reload();
-                });
-            });
-          } else {
-            // The user clicked the "cancel" button or closed the dialog
-            Swal.fire('Action cancelled', '', 'info');
-          }
-        });
+      deleteAlerts();
     })
   }
 
@@ -739,36 +655,28 @@
 
     // Check if  sign up form are not empty
     if (!name) {
-      SweetAlerts('Please enter your name!')
-      return false;
+      return SweetAlerts('Please enter your name!')
     }
     if (name.length <= 2 || name.length > 16) {
-      SweetAlerts('Please enter a valid name!')
-      return false;
+      return SweetAlerts('Please enter a valid name!')
     }
     if (!email) {
-      SweetAlerts('Please enter your email!')
-      return false;
+      return SweetAlerts('Please enter your email!')
     }
     if (!email.includes('.')) {
-      SweetAlerts('Please Enter a valid email address!')
-      return false;
+      return SweetAlerts('Please Enter a valid email address!');
     }
     if (!pswd) {
-      SweetAlerts('Please enter your password!')
-      return false;
+      return SweetAlerts('Please enter your password!');
     }
     if (pswd.length < 6) {
-      SweetAlerts('Password should have at least six characters!')
-      return false;
+      return SweetAlerts('Password should have at least six characters!');
     }
     if (!confirmPswd) {
-      SweetAlerts('Please enter confirm password!')
-      return false;
+      return SweetAlerts('Please enter confirm password!');
     }
     if (confirmPswd !== pswd) {
-      SweetAlerts('Password and confirm password should be same!')
-      return false;
+      return SweetAlerts('Password and confirm password should be same!');
     }
     return true;
   }
@@ -776,6 +684,7 @@
   $("#signup").submit(function (event) {
     if (!signupValidation()) {
       event.preventDefault();
+      SweetAlerts('Please enter sign up details!');
     } else {
       location.window.href = '/signup';
     }
@@ -788,20 +697,16 @@
 
     // Check if book details are not empty
     if (!email) {
-      SweetAlerts('Please enter your email!')
-      return false;
+      return SweetAlerts('Please enter your email!');
     }
     if (!email.includes('.')) {
-      SweetAlerts('Please Enter a valid email address!')
-      return false;
+      return SweetAlerts('Please Enter a valid email address!');
     }
     if (!pswd) {
-      SweetAlerts('Please enter password!')
-      return false;
+      return SweetAlerts('Please enter password!');
     }
     if (pswd.length < 6) {
-      SweetAlerts('Password should have at least six characters!')
-      return false;
+      return SweetAlerts('Password should have at least six characters!');
     }
     return true;
   }
@@ -809,6 +714,7 @@
   $("#login").submit(function (event) {
     if (!loginValidation()) {
       event.preventDefault();
+      SweetAlerts('Please enter login details!');
     } else {
       window.location.href = '/login';
     }
@@ -818,18 +724,18 @@
   function forgotPassword() {
     const email = document.forms["forgotPswd"]["email"].value;
     if (!email) {
-      SweetAlerts('Please enter your email!')
-      return false;
+      return SweetAlerts('Please enter your email!');
     }
     if (!email.includes('.')) {
-      SweetAlerts('Please Enter a valid email address!')
-      return false;
+      return SweetAlerts('Please Enter a valid email address!');
     }
     return true;
   }
+
   $("#forgotPswd").submit(function (event) {
     if (!forgotPassword()) {
       event.preventDefault();
+      SweetAlerts('Please enter email details!');
     } else {
       window.location.href = '/reset';
     }
@@ -840,35 +746,32 @@
     const otp6 = document.forms["otp"]["otp"].value;
     const email = document.forms["otp"]["email"].value;
     if (!otp6) {
-      SweetAlerts('Please enter valid OTP!');
-      return false;
+      return SweetAlerts('Please enter valid OTP!');
     }
     return true;
   }
+
   $("#otp").submit(function (event) {
     if (!otpValidation()) {
       event.preventDefault();
+      SweetAlerts('Please enter OTP!');
     } else {
       window.location.href = '/reset';
     }
   });
-
 
   function resetPassword() {
     const password = document.forms["change_pswd"]["password"].value;
     const confirmPswd = document.forms["change_pswd"]["confirmPswd"].value;
 
     if (!password || !confirmPswd) {
-      SweetAlerts('Please enter password!');
-      return false;
+      return SweetAlerts('Please enter password!');
     }
     if (confirmPswd.length < 6 || password.length < 6) {
-      SweetAlerts('Please enter valid password!');
-      return false;
+      return SweetAlerts('Please enter valid password!');
     }
     if (password !== confirmPswd) {
-      SweetAlerts('Password and confirm password should be same!');
-      return false;
+      return SweetAlerts('Password and confirm password should be same!');
     }
     return true;
   }
@@ -876,10 +779,12 @@
   $("#change_pswd").submit(function (event) {
     if (!resetPassword()) {
       event.preventDefault();
+      SweetAlerts('Please enter password details!');
     } else {
       window.location.href = '/login';
     }
   });
+
   // pagination 
   $(document).ready(function () {
     $('#categoryTable').DataTable({
@@ -887,7 +792,6 @@
       "pageLength": 10,
     });
   });
-
 
   $(function () {
     // Initially show the first 4 categories
@@ -956,7 +860,6 @@
           }
         }
         data[this.name] = selectedValues;
-
       } else {
         data[this.name] = this.value;
       }
@@ -966,68 +869,25 @@
     const userId = data.id;
     // Validation: Check if the name and email fields are empty
     if (!data.name) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter the name!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter the name!');
     }
     if (data.name.length < 3) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Name should be at least 3 characters',
-        confirmButtonColor: '#15877C',
-      });
-      return;
+      return SweetAlerts('Name should be at least 3 characters!');
     }
     if (!data.email) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter the name!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter the email!');
     }
 
     let request = {
-      "url": `https://localhost:3000/users/${userId}`,
+      "url": `https://${window.location.host}/api/users/${userId}`,
       "method": "PUT",
       "data": data
     };
     // Send the PUT request
     $.ajax(request).done(function (response) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Do you want to save the changes?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        denyButtonText: `Don't save`,
-        confirmButtonColor: '#15877C'
-      })
-        .then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Athenuam',
-              confirmButtonColor: '#15877C',
-              text: 'Data updated successfully',
-            }).then((result) => {
-              window.location.href = '/user';
-            })
-          } else if (result.isDenied) {
-            Swal.fire({
-              icon: 'info',
-              title: 'Athenuam',
-              text: 'Changes are not saved',
-            })
-              .then((result) => {
-                window.location.href = '/user';
-              })
-          }
-        })
+      successAlerts(); 
+    }).fail(function (response) {
+      SweetAlerts('Something went wrong! Please try again.');
     });
   });
 
@@ -1037,42 +897,11 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `https://localhost:3000/users/${id}`,
+        "url": `https://${window.location.host}/users/${id}`,
         "method": "DELETE"
       };
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Do you really want to delete this record?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it',
-        cancelButtonText: 'cancel',
-        confirmButtonColor: '#d33',
-      })
-        .then((result) => {
-          if (result.isConfirmed) {
-            // The user clicked the "Yes, delete it" button
-            $.ajax(request).done(function (response) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Atheneuam',
-                confirmButtonColor: '#15877C',
-                text: 'Data deleted Successfully',
-              }).then(() => {
-                location.reload();
-              });
-            });
-          } else {
-            // The user clicked the "cancel" button or closed the dialog
-            Swal.fire({
-              icon: 'info',
-              title: 'Atheneuam',
-              confirmButtonColor: '#15877C',
-              text: 'Action canceled',
-            });
-          }
-        });
-    })
+      deleteAlerts();
+    });
   }
 
   // ***********************Offer CRUD Section*******************************
@@ -1084,61 +913,33 @@
 
     // Check if couponCode, expireDate and discount are not empty
     if (!couponCode) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter your coupon code!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter coupon code!');
     }
     if (couponCode.length < 3) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Coupon Code should have at least 3 characters!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Coupon Code should have at least 3 characters!');
     }
     if (couponCode !== couponCode.toUpperCase()) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Coupon Code Capital letters!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Coupon Code Capital letters!');
     }
     if (!expireDate) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter expire date of the coupon!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter expire date!');
     }
     if (!discount) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter discount!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter discount!');
     }
     return true;
   }
+
   // Add new coupon
   $("#addCoupon").submit(function (event) {
     if (!offerValidation()) {
       event.preventDefault();
+      SweetAlerts('Please enter coupon details!');
     } else {
-      Swal.fire({
-        icon: 'success',
-        title: 'Athenuam',
-        text: 'New coupon is created Successfully',
-        showConfirmButton: true,
-        confirmButtonColor: '#15877C',
-      })
+      SweetAlerts('New coupon is created Successfully');
     }
   })
+
   // update admin
   $("#editCoupon").submit(function (event) {
     event.preventDefault();
@@ -1152,85 +953,29 @@
     const couponId = data.id;
     // Validation: Check if the coupon fields are empty
     if (!data.couponCode) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter your coupon code!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter coupon code!');
     }
     if (data.couponCode.length < 3) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Coupon Code should have at least 3 characters!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Coupon Code should have at least 3 characters!');
     }
     if (data.couponCode !== data.couponCode.toUpperCase()) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Coupon Code Capital letters!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Coupon Code Capital letters!');
     }
     if (!data.expireDate) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter expire date of the coupon!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter expire date!');
     }
     if (!data.discount) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter discount!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter discount!');
     }
 
     let request = {
-      "url": `https://localhost:3000/coupon/${couponId}`,
+      "url": `https://${window.location.host}/coupon/${couponId}`,
       "method": "PUT",
       "data": data
     };
     // Send the PUT request
     $.ajax(request).done(function (response) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Do you want to save the changes?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        denyButtonText: `Don't save`,
-        confirmButtonColor: '#15877C'
-      })
-        .then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Athenuam',
-              confirmButtonColor: '#15877C',
-              text: 'Data updated successfully',
-            }).then((result) => {
-              window.location.href = '/offer';
-            })
-          } else if (result.isDenied) {
-            Swal.fire({
-              icon: 'info',
-              title: 'Athenuam',
-              text: 'Changes are not saved',
-              confirmButtonColor: '#15877C',
-            })
-              .then((result) => {
-                window.location.href = '/offer';
-              })
-          }
-        })
+      successAlerts();
     });
   });
 
@@ -1240,12 +985,12 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `https://localhost:3000/coupon/${id}`,
+        "url": `https://${window.location.host}/coupon/${id}`,
         "method": "DELETE",
       };
       // The user clicked the "Yes, delete it" button
       $.ajax(request).done(function (response) {
-        deleteSuccess()
+        deleteSuccess();
       });
     })
   }
@@ -1265,47 +1010,37 @@
     const userId = data.id;
     // Validation: Check if the name and email fields are empty
     if (!data.name) {
-      SweetAlerts('Please Enter the name!');
-      return;
+      return SweetAlerts('Please Enter the name!');
     }
     if (data.name.length < 4) {
-      SweetAlerts('Name should be at least 4 characters');
-      return;
+      return SweetAlerts('Name should be at least 4 characters');
     }
     if (!data.email) {
-      SweetAlerts('Please Enter the email address!');
-      return false;
+      return SweetAlerts('Please Enter the email address!');
     }
     if (!data.email.includes('.')) {
-      SweetAlerts('Please Enter a valid email address!');
-      return false;
+      return SweetAlerts('Please Enter a valid email address!');
     }
     if (!data.oldPassword) {
-      SweetAlerts('Please Enter a the old password!');
-      return false;
+      return SweetAlerts('Please Enter a the old password!');
     }
     if (data.oldPassword < 6) {
-      SweetAlerts('Please Enter valid old password!');
-      return;
+      return SweetAlerts('Please Enter valid old password!');
     }
     if (!data.password) {
-      SweetAlerts('Please Enter a the new password!');
-      return;
+      return SweetAlerts('Please Enter a the new password!');
     }
     if (data.password < 6) {
-      SweetAlerts('Please Enter valid old password!');
-      return;
+      return SweetAlerts('Please Enter valid old password!');
     }
     if (!data.confirmPassword) {
-      SweetAlerts('Please Enter a the new password!');
-      return;
+      return SweetAlerts('Please Enter a the new password!');
     }
     if (data.confirmPassword < 6) {
       return SweetAlerts('Please Enter valid old password!');
     }
     if (data.password !== data.confirmPassword) {
-      SweetAlerts('Passwords do not match!');
-      return;
+      return SweetAlerts('Passwords do not match!');
     }
     let request = {
       "url": `https://${window.location.host}/profiles/${userId}`,
@@ -1488,7 +1223,9 @@
     // Send the PUT request
     $.ajax(request).done(function (response) {
       successAlerts();
-    });
+    }).fail(() => {
+      SweetAlerts('Something went wrong! Please try again.');
+    })
   });
 
   // ***********************Wishlist Section*******************************
@@ -1611,6 +1348,8 @@
           });
         }
       });
+    }).fail(function (response) {
+      SweetAlerts("Please Select the your existing shipping address" );
     });
   });
 
@@ -1723,16 +1462,7 @@
           const rzp = new Razorpay(options);
           rzp.open();
         } else {
-          Swal.fire({
-            imageUrl: "/img/favicon.png",
-            title: "Atheneuam",
-            imageWidth: 120,
-            imageHeight: 80,
-            imageAlt: "Atheneuam Logo",
-            text: 'Error creating order',
-            showConfirmButton: true,
-            confirmButtonColor: '#13877C',
-          });
+          SweetAlerts('Error creating order');
         }
       } else {
         // For non-online payment methods
@@ -1760,21 +1490,9 @@
         });
       }
     } catch (error) {
-      console.error('An unexpected error occurred:', error);
-      Swal.fire({
-        imageUrl: "/img/favicon.png",
-        title: "Atheneuam",
-        imageWidth: 120,
-        imageHeight: 80,
-        imageAlt: "Atheneuam Logo",
-        text: 'An unexpected error occurred',
-        showConfirmButton: true,
-        confirmButtonColor: '#15877C',
-      });
+      return SweetAlerts('An unexpected error occurred');
     }
   });
-
-
 
 
   let currentOrderId;
@@ -1791,51 +1509,18 @@
     });
     // Use the stored order ID
     const orderId = currentOrderId;
-    alert(orderId);
     let request = {
-      "url": `https://localhost:3000/order/${orderId}`,
+      "url": `https://${window.location.host}/order/${orderId}`,
       "method": "PUT",
       "data": data
     };
     // Send the PUT request
     $.ajax(request).done(function (response) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Do you want to save the changes?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        denyButtonText: `Don't save`,
-        confirmButtonColor: '#15877C'
-      })
-        .then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Athenuam',
-              confirmButtonColor: '#15877C',
-              text: 'Data updated successfully',
-            }).then((result) => {
-              window.location.reload();
-            })
-          } else if (result.isDenied) {
-            Swal.fire({
-              icon: 'info',
-              title: 'Athenuam',
-              text: 'Changes are not saved',
-              confirmButtonColor: '#15877C',
-            })
-              .then((result) => {
-                history.back();
-              })
-          }
-        })
-    });
+      successAlerts();
+    }).fail(function (response) {
+      SweetAlerts('Error editing order');
+    })
   });
-
-
-
 
   // ***********************Chart Section*******************************
   // Chart Global Color
@@ -2153,10 +1838,6 @@
       responsive: true
     }
   });
-
-
-
-
 
 })(jQuery);
 
