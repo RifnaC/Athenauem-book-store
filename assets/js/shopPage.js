@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     const filterBtn = document.getElementById('filter-btn');
     const btnTxt = document.getElementById('btn-txt');
@@ -34,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-   
     function chnageIcon() {
         count2++;
         if (count2 % 2 !== 0) {

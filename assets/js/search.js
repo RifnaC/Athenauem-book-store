@@ -8,9 +8,10 @@ magnifierEl.addEventListener("click", () => {
   spaces.forEach((space) => space.classList.toggle("active"));
 });
 
- // login or logout
- if (document.cookie.split(';').some((item) => item.trim().startsWith('token='))) {
+// login or logout
+if (document.cookie.split(';').some((item) => item.trim().startsWith('token='))) {
   document.getElementById("logoutText").innerHTML = "Logout";
+  
 } else {
   document.getElementById("logoutText").innerHTML = "Login";
 }
@@ -98,24 +99,24 @@ function applyFilters() {
       maxPrice: maxPrice,
     }),
   })
-  .then(response => response.json())
-  .then(data => {
-    updateUI(data);
-  })
-  .catch(error => {
+    .then(response => response.json())
+    .then(data => {
+      updateUI(data);
+    })
+    .catch(error => {
       console.error('Error applying filters:', error);
-  });
+    });
 }
 
 function updateUI(filteredData) {
   // Assuming there's a container element for displaying books
   const shopProductContainer = document.querySelector('.shopProduct');
   shopProductContainer.innerHTML = '';
-  
+
   filteredData.forEach(book => {
-      const bookElement = document.createElement('div');
-      bookElement.classList.add('item', 'col-12', 'col-sm-6', 'col-md-6', 'col-lg-4', 'col-xl-4');
-      bookElement.innerHTML = `
+    const bookElement = document.createElement('div');
+    bookElement.classList.add('item', 'col-12', 'col-sm-6', 'col-md-6', 'col-lg-4', 'col-xl-4');
+    bookElement.innerHTML = `
           <div class="sq_box shadow">
               <div class="pdis_img">
                   <a href="/productView/${book._id}">
@@ -150,7 +151,7 @@ function updateUI(filteredData) {
               </div>
           </div>
       `;
-      shopProductContainer.appendChild(bookElement);
+    shopProductContainer.appendChild(bookElement);
   });
 }
 
@@ -158,22 +159,22 @@ function updateUI(filteredData) {
 function resetFilters() {
   // Uncheck all checkboxes
   document.querySelectorAll('#inner-box input:checked').forEach(checkbox => {
-      checkbox.checked = false;
+    checkbox.checked = false;
   });
 
   document.querySelectorAll('#inner-box2 input:checked').forEach(checkbox => {
-      checkbox.checked = false;
+    checkbox.checked = false;
   });
 
-  fetch('/shop-page') 
-  .then(response => response.json())
-  .then(data => {
+  fetch('/shop-page')
+    .then(response => response.json())
+    .then(data => {
       // Update the UI with the original data
       updateUI(data);
-  })
-  .catch(error => {
+    })
+    .catch(error => {
       console.error('Error resetting filters:', error);
-  });
+    });
 }
 
 // Add this function to your Reset button click event
