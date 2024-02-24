@@ -128,6 +128,7 @@
   $("#uploadUser").submit(function (event) {
     if (!validateForm()) {
       event.preventDefault();
+      SweetAlerts('Please enter the details!');
     } else {
       successAlerts();
     }
@@ -163,7 +164,9 @@
     // Send the PUT request
     $.ajax(request).done(function (response) {
       return successAlerts();
-    });
+    }).fail(function (error) {
+      return SweetAlerts('Failed to update the admin!');
+    })
   });
 
   //delete admin
@@ -195,44 +198,19 @@
       return SweetAlerts('Shop name should have at least 3 characters!');
     }
     if (address === "") {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter the address of shop!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return ("Please enter the address of shop!");
     }
     if (openingTime === "") {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter opening time of the shop!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+    return ("Please enter opening time of the shop!");
     }
     if (closingTime === "") {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter closing time of the shop!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return ("Please enter closing time of the shop!");
     }
     if (openingTime === closingTime) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Opening time and closing time should not be same!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return ("Opening time and closing time should not be same!");
     }
     if (shopImg === "") {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please upload shop image!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return ("Please upload shop image!");
     }
     return true;
   }
@@ -240,20 +218,9 @@
   // add shop
   $("#add_shop").submit(function (event) {
     if (!shopValidation()) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Atheneuam',
-        text: 'Please check your inputs and try again.',
-        confirmButtonColor: '#15877C',
-      });
+      return SweetAlerts('Please enter the details!');
     } else {
-      Swal.fire({
-        icon: 'success',
-        title: 'Atheneuam',
-        text: 'New shop is added Successfully! ',
-        showConfirmButton: true,
-        confirmButtonColor: '#15877C'
-      })
+      SweetAlerts('New shop is added Successfully!');
     }
   })
 
@@ -264,48 +231,23 @@
     const shopId = formData.get('id');
 
     if (!formData.get('name')) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter the shop name!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter the Shop name!');
     }
     if (!formData.get('address')) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter the address of shop!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter the address of shop!');
     }
     if (!formData.get('openingTime') || !formData.get('closingTime')) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please enter opening time and closing time of the shop!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter opening time and closing time of the shop!');
     }
     if (formData.get('openingTime') === formData.get('closingTime')) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Opening time and closing time of the shop should not be same!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Opening time and closing time of the shop should not be same!');
     }
     if (!formData.get('shopImg')) {
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Please upload shop image!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please upload shop image!');
     }
     // Append the shopId to the URL
     const request = {
-      url: `https://localhost:3000/api/shops/${shopId}`,
+      url: `https://${window.location.host}/api/shops/${shopId}`,
       method: 'PUT',
       data: formData,
       processData: false,
@@ -314,45 +256,10 @@
 
     $.ajax(request)
       .done(function (response) {
-        Swal.fire({
-          title: 'Atheneuam',
-          text: 'Do you want to save the changes?',
-          showDenyButton: true,
-          showCancelButton: true,
-          confirmButtonText: 'Save',
-          denyButtonText: `Don't save`,
-          confirmButtonColor: '#15877C',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Atheneuam',
-              text: 'Shop is updated Successfully! ',
-              showConfirmButton: true,
-              confirmButtonColor: '#15877C',
-            }).then(() => {
-              window.location.href = '/shop';
-            });
-          } else if (result.isDenied) {
-            Swal.fire({
-              icon: 'info',
-              title: 'Atheneuam',
-              text: 'Changes are not saved! ',
-              showConfirmButton: true,
-              confirmButtonColor: '#15877C',
-            }).then(() => {
-              window.location.href = '/shop';
-            });
-          }
-        });
+        successAlerts();
       })
       .fail(function (error) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Failed to update data',
-          confirmButtonColor: '#15877C',
-        });
+        SweetAlerts('Failed to update shop!');
       });
   });
 
@@ -362,44 +269,11 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `https://localhost:3000/api/shops/${id}`,
+        "url": `https://${window.location.host}/api/shops/${id}`,
         "method": "DELETE"
       };
-      Swal.fire({
-        title: 'Atheneuam',
-        text: 'Do you really want to delete this record?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it',
-        cancelButtonText: 'cancel',
-        confirmButtonColor: '#d33',
-      })
-        .then((result) => {
-          if (result.isConfirmed) {
-            // The user clicked the "Yes, delete it" button
-            $.ajax(request).done(function (response) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Atheneuam',
-                text: 'Data deleted Successfully!',
-                showConfirmButton: true,
-                confirmButtonColor: '#15877C',
-              }).then(() => {
-                location.reload();
-              });
-            });
-          } else {
-            // The user clicked the "cancel" button or closed the dialog
-            Swal.fire({
-              icon: 'info',
-              title: 'Atheneuam',
-              text: 'Action canceled!',
-              showConfirmButton: true,
-              confirmButtonColor: '#15877C',
-            });
-          }
-        });
-    })
+      deleteAlerts();
+    });
   }
 
   // Validation for adding new book
@@ -417,100 +291,40 @@
 
     // Check if book details are not empty
     if (bookName === "") {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter book name!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter book name!');
     }
     if (bookName.length < 4) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Book Name should have at least 4 characters!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Book name should have at least 4 characters!');
     }
     if (productImg === " ") {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter the product image of the book!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter product image!');
     }
     if (author === "") {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter Author field!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter author!');
     }
     if (author.length < 4) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Author should have at least 4 characters!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Author should have at least 4 characters!');
     }
     if (description === "") {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please provide the decription of the book!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter description!');
     }
     if (description.length < 4) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Description should have at least 4 characters!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Description should have at least 4 characters!');
     }
     if (originalPrice === " ") {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter the original price of the book!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter the original price of the book!');
     }
     if (discount === " ") {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter the discount of the book!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter the discount of the book!');
     }
     if (price === "") {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter the price of the Book!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter the price of the book!');
     }
     if (stock === " ") {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter the stock of the book!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter the stock of the book!');
     }
     if (productImg === "") {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please provide the image of the book!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please provide the image of the book!');
     }
     return true;
   }
@@ -536,15 +350,12 @@
   $("#add_product").submit(function (event) {
     if (!productValidation()) {
       event.preventDefault();
+      SweetAlerts('Please enter book details!');
     } else {
-      Swal.fire({
-        icon: 'success',
-        title: 'Atheneaum',
-        text: 'New Book is added Successfully',
-        showConfirmColor: '#15877C',
-      })
+      SweetAlerts('New Book added successfully!');
     }
-  })
+  });
+
   // Update product
   $("#edit_product").submit(function (event) {
     event.preventDefault();
@@ -556,81 +367,35 @@
     const shopId = formData.get('shopId');
     // Validation
     if (!formData.get('bookName')) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter book name!',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Please enter book name!');
     }
     if (formData.get('bookName').length < 4) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: ' The book name should be at least 4 characters',
-        confirmButtonColor: '#15877C',
-      })
-      return;
+      return SweetAlerts('Book name should be at least 4 characters!');
     }
     if (!formData.get('author')) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'Please enter Author of the book!',
-        confirmButtonColor: '#15877C'
-      })
-      return;
+      return SweetAlerts('Please enter author of the book!');
     }
     if (formData.get('author').length < 3) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: 'The Author should be at least 3 characters',
-        confirmButtonColor: '#15877C'
-      })
-      return;
+      return SweetAlerts('Author should be at least 3 characters!');
     }
     if (!formData.get('description')) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: "Please enter the description of the book",
-        confirmButtonColor: '#15877C'
-      })
-      return;
+      return SweetAlerts('Please enter description of the book!');
     }
     if (!formData.get('originalPrice')) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: "Please enter the original price of the book",
-        confirmButtonColor: '#15877C'
-      })
-      return;
-
+      return SweetAlerts('Please enter the original price of the book!');
     }
     if (!formData.get('discount')) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: "Please enter the discount of the book",
-        confirmButtonColor: '#15877C'
-      })
-      return;
+      return SweetAlerts('Please enter the discount of the book!');
     }
     if (!formData.get('stock')) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: "Please enter the stock of the book",
-        confirmButtonColor: '#15877C'
-      })
-      return;
+      return SweetAlerts('Please enter the stock of the book!');
     }
     if (!formData.get('price')) {
-      Swal.fire({
-        title: 'Athenuam',
-        text: "Please enter the price of the book!",
-        confirmButtonColor: '#15877C'
-      })
-      return;
+      return SweetAlerts('Please enter the price of the book!');
     }
     // Append the bookid to the URL
     const request = {
-      'url': `https://localhost:3000/api/products/${bookId}`,
+      'url': `https://${window.location.host}/api/products/${bookId}`,
       'method': 'PUT',
       'data': formData,
       processData: false,
@@ -638,53 +403,10 @@
     };
     // // Send the PUT request        
     $.ajax(request).done(function (response) {
-      Swal.fire({
-        title: 'Do you want to save the changes?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        denyButtonText: `Don't save`,
-        confirmButtonColor: '#15877C'
-      })
-        .then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Atheneaum',
-              text: 'Data updated successfully',
-              confirmButtonColor: '#15877C'
-            })
-              .then(() => {
-                if (!shopId) {
-                  window.location.href = '/products';
-                } else {
-                  window.location.href = '/books?id=' + shopId;
-                }
-              })
-          } else if (result.isDenied) {
-            Swal.fire({
-              icon: 'info',
-              title: 'Atheneuam',
-              text: 'Changes are not saved',
-              confirmButtonColor: '#15877C'
-            })
-              .then(() => {
-                if (!shopId) {
-                  window.location.href = '/products';
-                } else {
-                  window.location.href = '/books?id=' + shopId;
-                }
-              })
-          }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-          console.error('AJAX request failed:', textStatus, errorThrown);
-          console.log('XHR status:', jqXHR.status);
-          console.log('XHR response text:', jqXHR.responseText);
-          Swal.fire('Error', 'Something Went Wrong.', 'error');
-        });
-
-    });
+      successAlerts();
+    }).fail(function (response) {
+      SweetAlerts('Something went wrong! Please try again.');
+    })
   });
   // *************************************ALERT MODIFICATION****************************************/
   // Delete the product
@@ -693,31 +415,13 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `https://localhost:3000/api/products/${id}`,
+        "url": `https://${window.location.host}/api/products/${id}`,
         "method": "DELETE"
       };
-      Swal.fire({
-        title: 'Do you really want to delete this record?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it',
-        cancelButtonText: 'cancel',
-        confirmButtonColor: '#d33',
-      })
-        .then((result) => {
-          if (result.isConfirmed) {
-            $.ajax(request).done(function (response) {
-              Swal.fire('Data deleted Successfully', '', 'success').then(() => {
-                location.reload();
-              });
-            });
-          } else {
-            // The user clicked the "cancel" button or closed the dialog
-            Swal.fire('Action canceled', '', 'info');
-          }
-        });
+      deleteAlerts();
     })
   }
+  
   // validation for category
   function categoryValidation() {
     let genre = document.forms["add_cat"]["genre"].value;
@@ -726,46 +430,22 @@
     let image = document.forms["add_cat"]["categoryImg"].value;
     // Check if name, email, password, and confirmPassword are not empty
     if (genre === "") {
-      Swal.fire({
-        title: "Please enter a the category ",
-        confirmButtonColor: '#15778C',
-      })
-      return false;
+      return SweetAlerts('Please enter a the category');
     }
     if (genre.length < 4) {
-      Swal.fire({
-        title: "Category should be at least 4 characters",
-        confirmButtonColor: '#15778C',
-      })
-      return false;
+      return SweetAlerts('Category should be at least 4 characters');
     }
     if (totalBooks === "") {
-      Swal.fire({
-        title: "please enter a total books",
-        confirmButtonColor: '#15778C',
-      })
-      return false;
+      return SweetAlerts('Please enter a total books');
     }
     if (description === "") {
-      Swal.fire({
-        title: "Please enter the description of the category",
-        confirmButtonColor: '#15778C'
-      })
-      return false;
+      return SweetAlerts('Please enter a description of the category');
     }
     if (description.length < 4) {
-      Swal.fire({
-        title: "The description must be at least 4 characters",
-        confirmButtonColor: '#15778C'
-      })
-      return false;
+      return SweetAlerts('Description should be at least 4 characters');
     }
     if (image === "") {
-      Swal.fire({
-        title: "Please select an image",
-        confirmButtonColor: '#15778C',
-      });
-      return false;
+      return SweetAlerts('Please select an image');
     }
     return true;
   }
@@ -773,13 +453,9 @@
   $("#add_cat").submit(function (event) {
     if (!categoryValidation()) {
       event.preventDefault();
+      SweetAlerts('Please enter category details!');
     } else {
-      Swal.fire({
-        icon: 'success',
-        title: 'Successfully added category',
-        showConfirmButton: false,
-        timer: 6000
-      })
+      SweetAlerts('Category added successfully!');
     }
   })
 
@@ -787,35 +463,23 @@
     event.preventDefault();
 
     const formData = new FormData(this);
-
     const genreId = formData.get('id');
 
     if (!formData.get('genre') || formData.get('genre').length < 4) {
-      Swal.fire({
-        title: 'Please enter a category with at least 4 characters',
-        confirmButtonColor: '#15778C',
-      });
-      return;
+      return SweetAlerts('Please enter a category with at least 4 characters!');
     }
 
     if (!formData.get('totalBooks')) {
-      Swal.fire({
-        title: 'Please enter the total number of books',
-        confirmButtonColor: '#15778c',
-      });
-      return;
+      return SweetAlerts('Please enter the total number of books!');
     }
 
     if (!formData.get('description') || formData.get('description').length < 4) {
-      Swal.fire({
-        title: 'Please enter a description with at least 4 characters',
-        confirmButtonColor: '#15778C',
-      });
-      return;
+      return SweetAlerts('Please enter a description with at least 4 characters!');
+
     }
 
     const request = {
-      url: `https://localhost:3000/api/categories/${genreId}`,
+      url: `https://${window.location.host}/api/categories/${genreId}`,
       method: 'PUT',
       data: formData,
       processData: false,
@@ -824,28 +488,10 @@
 
     $.ajax(request)
       .done(function (response) {
-        Swal.fire({
-          title: 'Do you want to save the changes?',
-          showDenyButton: true,
-          showCancelButton: true,
-          confirmButtonText: 'Save',
-          denyButtonText: `Don't save`,
-          confirmButtonColor: '#15877C',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire('Saved!', 'Data updated successfully', 'success').then(() => {
-              window.location.href = '/category';
-            });
-          } else if (result.isDenied) {
-            Swal.fire('Changes are not saved', '', 'info').then(() => {
-              window.location.href = '/category';
-            });
-          }
-        });
+        successAlerts();
       })
       .fail(function (jqXHR, textStatus, errorThrown) {
-        console.error('AJAX request failed:', textStatus, errorThrown);
-        Swal.fire('Error', 'Failed to update data. Check the console for details.', 'error');
+        SweetAlerts('Failed to update data');
       });
   });
 
@@ -855,30 +501,10 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const request = {
-        "url": `https://localhost:3000/api/categories/${id}`,
+        "url": `https://${window.location.host}/api/categories/${id}`,
         "method": "DELETE"
       };
-      Swal.fire({
-        title: 'Do you really want to delete this record?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it',
-        cancelButtonText: 'cancel',
-        confirmButtonColor: '#d33',
-      })
-        .then((result) => {
-          if (result.isConfirmed) {
-            // The user clicked the "Yes, delete it" button
-            $.ajax(request).done(function (response) {
-              Swal.fire('Data deleted Successfully', '', 'success').then(() => {
-                location.reload();
-              });
-            });
-          } else {
-            // The user clicked the "cancel" button or closed the dialog
-            Swal.fire('Action cancelled', '', 'info');
-          }
-        });
+      deleteAlerts();
     })
   }
 
@@ -906,49 +532,25 @@
 
     // Check if book details are not empty
     if (!name) {
-      Swal.fire({
-        title: 'Please enter banner name!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter banner name!');
     }
     if (name.length < 4) {
-      Swal.fire({
-        title: 'Banner Name should have at least 4 characters!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Banner name should have at least 4 characters!');
     }
     if (!shop) {
-      Swal.fire({
-        title: 'Please enter shop name!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Please enter shop name!');
     }
     if (shop.length < 4) {
-      Swal.fire({
-        title: 'Shop Name should have at least 4 characters!',
-        confirmButtonColor: '#15877C',
-      })
-      return false;
+      return SweetAlerts('Shop name should have at least 4 characters!');
     }
     if (type === 'category') {
       if (!categoryId || categoryId.length < 4) {
-        Swal.fire({
-          title: 'please enter the category ID with at least 4 characters!',
-          confirmButtonColor: '#15877C',
-        })
-        return false;
+        return SweetAlerts('Please enter the category ID with at least 4 characters!');
       }
     }
     if (type === 'product') {
       if (!productId || productId.length < 4) {
-        Swal.fire({
-          title: 'Please enter the product ID with at least 4 characters!',
-          confirmButtonColor: '#15877C',
-        })
-        return false;
+        return SweetAlerts('Please enter the product ID with at least 4 characters!');
       }
     }
     if (!bannerImg.value || !imgUrl) {
