@@ -11,9 +11,11 @@ magnifierEl.addEventListener("click", () => {
 // login or logout
 if (document.cookie.split(';').some((item) => item.trim().startsWith('token='))) {
   document.getElementById("logoutText").innerHTML = "Logout";
+  document.getElementById("loginedProfile").style.display = "block";
   
 } else {
   document.getElementById("logoutText").innerHTML = "Login";
+  document.getElementById("loginedProfile").style.display = "none";
 }
 
 function bannerShopNow(type, product, genre) {

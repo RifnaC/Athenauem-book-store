@@ -3,6 +3,37 @@ const shops = require('../models/shopModel');
 const cart = require('../models/cartModel');
 const genre = require('../models/categoryModel')
 
+function notification(msg) {
+  return `<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <title>Atheneuam - Book Colleciton</title>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      <meta content="" name="keywords">
+      <meta content="" name="description">
+      <!-- Favicon -->
+      <link href="img/favicon.png" rel="icon">
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+      <script> 
+        Swal.fire({
+          imageUrl: "/img/favicon.png",
+          title: "Atheneuam",
+          imageWidth: 120,
+          imageHeight: 80,
+          imageAlt: "Atheneuam Logo",
+          text: "${msg}",
+          confirmButtonColor: '#15877C',
+        }).then((result) => {
+          history.back();
+        });
+      </script>
+    </body>
+  <!-- JavaScript Libraries --> 
+  </html>`
+}
 
 exports.productView = async (req, res) => {
   try {
@@ -19,10 +50,12 @@ exports.productView = async (req, res) => {
     const shop = await shops.findById(vendorId);
     const off = Math.floor((item.discount * 100) / item.originalPrice)
     const cartItems = cartCount ? cartCount.items : null;
+
     if(cartItems){
       const cartItem = cartItems.find(prdt => prdt.productId.toString() === item._id.toString());
       item.inCart = true;
-      item.cartQty = cartItem.quantity;
+      item.cartQty = cartItems.quantity;
+    
     }else{
         item.inCart = false;
     }
@@ -47,7 +80,7 @@ exports.productView = async (req, res) => {
     
   } catch (err) {
     console.error(err);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send(notification('Oops, Something went wrong, please try again later'));
   }
 }
 exports.shopPage = async (req, res, next) => {

@@ -1,13 +1,8 @@
-const { log } = require('handlebars');
 const Shopdb = require('../models/shopModel')
 const Productdb = require('../models/products');
-const { product } = require('../services/render');
 const cloudinary = require('../services/cloudinary');
 const path = require('path')
 const multer = require('multer');
-const { response } = require('express');
-const { error } = require('console');
-const mongoose = require('mongoose');
 
 // access multer middleware storage
 const storage = multer.diskStorage({
