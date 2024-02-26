@@ -1,5 +1,6 @@
 // cart quantity 
-function changeQty(cartId, productId, count, subTotal) {
+function changeQty(cartId, productId, count, subTotal,quantity) {
+console.log(quantity);
     $.ajax({
         url: '/changeInQuantity',
         data: {

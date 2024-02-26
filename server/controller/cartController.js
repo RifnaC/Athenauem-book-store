@@ -49,9 +49,11 @@ exports.updateCart = async (req, res) => {
     const cartId = cart._id;
     const productId = req.body.productId;
     const count = Number(req.body.quantity);
+    console.log(count);
     const book = await Books.find({_id: productId});
     const price = book[0].price;
     const subTotal = price * count;
+    
     await Cart.findOneAndUpdate(
         {   _id: cartId,
             'items.productId':productId,
@@ -121,20 +123,43 @@ exports.cartView = async (req, res) => {
 exports.changeQuantity = async (req, res) => {
     let {cartId, productId, count, subTotal} = req.body;
     count = Number(count);
+    console.log(count);
     subTotal = Number(subTotal)
+    if (count === -1) {
+        await Cart.findOneAndUpdate(
+            {_id: new mongoose.Types.ObjectId(cartId),
+                'items.productId':productId,
+            }, 
+            {
+                $inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal}
+            }
+        );
+    }else{
+        await Cart.findOneAndUpdate(
+            {_id: new mongoose.Types.ObjectId(cartId),
+                'items.productId':productId,
+                'items.quantity': { $lt: 10 },
+            }, 
+            {
+                $inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal}
+            }
+        );
+        console.log('Positive');
+    }
     await Cart.findOneAndUpdate(
         {_id: new mongoose.Types.ObjectId(cartId),
             'items.productId':productId,
-            'items.quantity': { $lt: 10 }
         }, 
         {
             $inc: {'items.$.quantity': count, 'items.$.subTotal': subTotal}
         }
-    )
+    );
     await Cart.updateMany(
-        { _id: new mongoose.Types.ObjectId(cartId) },
+        { _id: new mongoose.Types.ObjectId(cartId),
+            'items.productId':productId
+        },
         { $pull: { items: { quantity: { $lt: 1 } } } },
-      );
+    );
     res.redirect('/cart')
 };
 
