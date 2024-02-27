@@ -16,11 +16,47 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+function notification(msg) {
+  return `<!DOCTYPE html>
+  <html lang="en">
+  
+  <head>
+      <meta charset="utf-8">
+      <title>Atheneuam - Book Colleciton</title>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      <meta content="" name="keywords">
+      <meta content="" name="description">
+  
+      <!-- Favicon -->
+      <link href="img/book collection 0.png" rel="icon">
+  
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+  <script> 
+      Swal.fire({
+        imageUrl: "/img/favicon.png",
+        title: "Atheneuam",
+        imageWidth: 120,
+        imageHeight: 80,
+        imageAlt: "Atheneuam Logo",
+        text: "${msg}",
+        confirmButtonColor: '#15877C',
+      }).then((result) => {
+        history.back();
+      })
+  </script>
+  </body>
+  <!-- JavaScript Libraries -->
+  
+  </html>`
+}
+
 // create and save new product
 exports.create = async (req, res) => {
   upload.single('productImg')(req, res, async(err) => {
     if (err) {
-      res.status(500).send({ message: err.message });
+      res.status(500).send(notification('Something went wrong, please try again later'));
       return;
     }
     if(!req.body){

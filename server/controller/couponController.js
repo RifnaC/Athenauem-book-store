@@ -3,9 +3,44 @@ const adminCollection = require('../models/model');
 const asyncHandler = require('express-async-handler');
 const cron = require('node-cron');
 
+function notification(msg) {
+    return `<!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Atheneuam - Book Colleciton</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+    
+        <!-- Favicon -->
+        <link href="img/book collection 0.png" rel="icon">
+    
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+    <script> 
+        Swal.fire({
+          imageUrl: "/img/favicon.png",
+          title: "Atheneuam",
+          imageWidth: 120,
+          imageHeight: 80,
+          imageAlt: "Atheneuam Logo",
+          text: "${msg}",
+          confirmButtonColor: '#15877C',
+        }).then((result) => {
+          history.back();
+        })
+    </script>
+    </body>
+    <!-- JavaScript Libraries -->
+    
+    </html>`
+}
 // create  coupon
 exports.createCoupon = asyncHandler(async (req, res) => {
-    try{
+    try {
         const { couponCode, expireDate, discount } = req.body;
         const coupon = new Coupon({
             couponCode,
@@ -14,7 +49,7 @@ exports.createCoupon = asyncHandler(async (req, res) => {
         });
         await coupon.save();
         res.status(200).redirect('/offer');
-    }catch(error){
+    } catch (error) {
         throw new Error(error);
     }
 })
@@ -26,7 +61,7 @@ exports.getAllCoupon = asyncHandler(async (req, res) => {
         const admin = await adminCollection.findById(id);
         const name = admin.name.split(" ")[0];
         const coupons = await Coupon.find();
-        res.render('offer', { offers: coupons, admin: name});
+        res.render('offer', { offers: coupons, admin: name });
     } catch (error) {
         throw new Error(error);
     }
@@ -34,30 +69,29 @@ exports.getAllCoupon = asyncHandler(async (req, res) => {
 
 // Edit coupon
 exports.updateCoupon = asyncHandler(async (req, res) => {
-    try{
+    try {
         const coupons = await Coupon.find();
         const { couponCode, expireDate, discount } = req.body;
         const coupon = await Coupon.findByIdAndUpdate(req.params.id, {
             couponCode,
             expireDate,
             discount
-        }).then(coupon =>{
-            res.status(200).render('offer', { offer:coupon});
+        }).then(coupon => {
+            res.status(200).render('offer', { offer: coupon });
         });
-        console.log(coupon)
-        
-    }catch(error){
+
+    } catch (error) {
         throw new Error(error);
     }
 })
 
 // Delete coupon
 exports.deleteCoupon = asyncHandler(async (req, res) => {
-    try{
+    try {
         await Coupon.findByIdAndDelete(req.params.id,);
         res.status(200).render('offer');
-        
-    }catch(error){
+
+    } catch (error) {
         throw new Error(error);
     }
 })
@@ -70,7 +104,7 @@ const deleteExpiredCoupons = async () => {
         console.log('Deleted Coupons:', result.deletedCount);
         console.log('Deleted Coupons Details:', result);
     } catch (error) {
-        console.error('Error deleting expired coupons:', error);
+        res.status(500).send(notification('Error deleting expired coupons'));
     }
 };
 // Schedule the function to run every day at midnight
