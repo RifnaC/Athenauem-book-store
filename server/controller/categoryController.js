@@ -16,26 +16,62 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+function notification(msg) {
+    return `<!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Atheneuam - Book Colleciton</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+    
+        <!-- Favicon -->
+        <link href="img/book collection 0.png" rel="icon">
+    
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+    <script> 
+        Swal.fire({
+          imageUrl: "/img/favicon.png",
+          title: "Atheneuam",
+          imageWidth: 120,
+          imageHeight: 80,
+          imageAlt: "Atheneuam Logo",
+          text: "${msg}",
+          confirmButtonColor: '#15877C',
+        }).then((result) => {
+          history.back();
+        })
+    </script>
+    </body>
+    <!-- JavaScript Libraries -->
+    
+    </html>`
+}
+
 // create and save new category
 exports.create = async (req, res) => {
     upload.single('categoryImg')(req, res, async (err) => {
         if (err) {
-            res.status(500).send({ message: err.message });
+            res.status(500).send(notification('category already exists'));
             return;
         }
         if (!req.body) {
-            res.status(400).send({ message: 'Content can not be empty' });
+            res.status(400).send(notification('Content can not be empty'));
             return;
         }
         const { genre, totalBooks, description } = req.body
         if (!req.file) {
-            res.status(400).send(`"<script>alert('Email already exists'); window.location.href ='/addCategory';</script>"`);
+            res.status(400).send(notification('Content can not be empty'));
             return;
         }
         const categoryImg = req.file.path;
         cloudinary.uploader.upload(categoryImg, (cloudinaryErr, result) => {
             if (cloudinaryErr) {
-                res.status(500).send({ message: cloudinaryErr.message });
+                res.status(500).send(notification('Error in uploading category image'));
                 return;
             }
             const category = new genreCollection({
@@ -50,7 +86,7 @@ exports.create = async (req, res) => {
                     res.redirect('/category')
                 })
                 .catch(saveError => {
-                    res.status(500).send({ message: saveError.message });
+                    res.status(500).send(notification('Cannot save category'));
                 })
         })
 
@@ -71,7 +107,7 @@ function createCategory(res, genre, totalBooks, description, imgUrl, cloudinaryI
             res.redirect('/category');
         })
         .catch(saveError => {
-            res.status(500).send({ message: saveError.message });
+            res.status(500).send(notification('Cannot save category'));
         });
 }
 
@@ -83,13 +119,13 @@ exports.find = (req, res) => {
         genreCollection.findById(id)
             .then(data => {
                 if (!data) {
-                    res.status(404).send({ message: "Not found category with id" + id })
+                    res.status(404).send(notification("Not found category with id" + id));
                 } else {
                     res.send(data)
                 }
             })
             .catch(err => {
-                res.status(500).send({ message: "Error in retrieving category with id" + id })
+                res.status(500).send(notification("Error in retrieving category with id" + id));
             })
     } else {
         genreCollection.find()
@@ -103,7 +139,7 @@ exports.find = (req, res) => {
                 }
             })
             .catch(err => {
-                res.status(500).send({ message: err.message || "Some error occurred while retrieving category information" });
+                res.status(500).send(notification("Some error occurred while retrieving category information"));
             });
     }
 }
@@ -112,14 +148,14 @@ exports.find = (req, res) => {
 exports.update = async (req, res) => {
     upload.single('categoryImg')(req, res, async (err) => {
         if (err) {
-            res.status(500).send({ message: err.message });
+            res.status(500).send(notification("Some error occurred while updating"));
             return;
         }
         try {
             const id = req.params.id;
             const genre = await genreCollection.findById(id);
             if (!genre) {
-                return res.status(404).json({ message: 'Category not found' });
+                return res.status(404).send(notification('Category not found'));
             }
             // Check if a new file is being uploaded
             if (req.file) {
@@ -132,7 +168,7 @@ exports.update = async (req, res) => {
                 // Update the category image URL and Cloudinary ID
                 genre.categoryImg = result.secure_url;
                 genre.cloudinaryId = result.public_id;
-            }else{
+            } else {
                 genre.categoryImg = null;
                 genre.cloudinaryId = null;
             }
@@ -141,48 +177,42 @@ exports.update = async (req, res) => {
             genre.genre = req.body.genre
             genre.totalBooks = req.body.totalBooks
             genre.description = req.body.description
-            
+
             // Save the category changes to the database
             const sg = await genre.save();
             // Return the updated category data
             return res.status(200).json(genre);
         } catch (error) {
-            return res.status(500).json({ message: 'An error occurred while updating the Category' });
+            return res.status(500).send(notification('An error occurred while updating the Category'));
         }
     })
 };
 
 // Delete a category
 exports.delete = (req, res) => {
-  const id = req.params.id;
-  genreCollection.findById(id)
-  .then(genre => {
-    if (!genre) {
-      res.status(404).send({ message: `Category with ${id} is not found` });
-    } else {
-      // Delete the category image from Cloudinary
-      cloudinary.uploader.destroy(genre.cloudinaryId, (cloudinaryErr, result) => {
-        if (cloudinaryErr) {
-          console.error('Error deleting image from Cloudinary:', cloudinaryErr);
-        }
-        // Regardless of Cloudinary deletion status, proceed to delete the category data
-        genreCollection.findByIdAndDelete(id)
-        .then(() => {
-          res.send({
-            message: "Category is deleted successfully"
-          });
+    const id = req.params.id;
+    genreCollection.findById(id)
+        .then(genre => {
+            if (!genre) {
+                res.status(404).send(notification(`Category with ${id} is not found`));
+            } else {
+                // Delete the category image from Cloudinary
+                cloudinary.uploader.destroy(genre.cloudinaryId, (cloudinaryErr, result) => {
+                    if (cloudinaryErr) {
+                        res.status(404).send(notification('Error deleting image from Cloudinary'));
+                    }
+                    // Regardless of Cloudinary deletion status, proceed to delete the category data
+                    genreCollection.findByIdAndDelete(id)
+                        .then(() => {
+                            res.status(400).send(notification("Category is deleted successfully"));
+                        })
+                        .catch(err => {
+                            res.status(500).send(notification("Could not delete category with id " + id));
+                        });
+                });
+            }
         })
         .catch(err => {
-          res.status(500).send({
-            message: "Could not delete category with id " + id
-          });
+            res.status(500).send(notification("Error finding category with id " + id));
         });
-      });
-    }
-  })
-  .catch(err => {
-    res.status(500).send({
-      message: "Error finding category with id " + id
-    });
-  });
 }

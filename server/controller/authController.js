@@ -27,10 +27,12 @@ function notification(msg, links) {
     <body>
     <script> 
         Swal.fire({
-            icon: 'error',
-            title: 'Atheneuam',
+            imageUrl: "/img/favicon.png",
+            title: "Atheneuam",
+            imageWidth: 120,
+            imageHeight: 80,
+            imageAlt: "Atheneuam Logo",
             text: "${msg}",
-            confirmButtonText: 'Ok',
             confirmButtonColor: '#15877C',
         }).then((result) => {
             window.location.href = "${links}";
@@ -137,6 +139,7 @@ exports.forgotPassword = async (req, res) => {
         res.status(500).send(notification('Internal Server Error', '/password'));
     }
 }
+
 //  otp generation
 function generateOTP() {
     return Math.floor(100000 + Math.random() * 900000);
@@ -200,6 +203,7 @@ exports.otp = async (req, res) => {
         res.status(500).send(notification('The OTP has expired', '/password'));
     }
 }
+
 exports.changePswd = async (req, res) => {
     res.render('changePswd', { id: req.params.id })
 }

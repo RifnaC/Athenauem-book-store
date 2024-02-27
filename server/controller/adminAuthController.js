@@ -26,10 +26,12 @@ function notification(msg, links) {
     <body>
     <script> 
         Swal.fire({
-            icon: 'error',
-            title: 'Atheneuam',
+            imageUrl: "/img/favicon.png",
+            title: "Atheneuam",
+            imageWidth: 120,
+            imageHeight: 80,
+            imageAlt: "Atheneuam Logo",
             text: "${msg}",
-            confirmButtonText: 'Ok',
             confirmButtonColor: '#15877C',
         }).then((result) => {
             window.location.href = "${links}";
@@ -176,12 +178,15 @@ async function sendEmail(email, otp) {
     };
     transporter.sendMail(mailOptions, (err, info) => {
         if (err) {
+            // notification('Cannot send email, please try again later', history.back());
             console.log(err);
         } else {
+            // notification('Sent email successfully',)
             console.log("Email sent: " + info.response);
         }
     })
 }
+
 exports.reset = async (req, res) => {
     res.render('reset')
 }
@@ -202,6 +207,7 @@ exports.otp = async (req, res) => {
         res.status(500).send(notification('The OTP has expired', '/password'));
     }
 }
+
 exports.changePswd = async (req, res) => {
     res.render('changePswd', { id: req.params.id })
 }
