@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now() + file.originalname.split('.').pop())
   },
-}); 
+});
 
 const upload = multer({ storage: storage });
 
@@ -54,92 +54,92 @@ function notification(msg) {
 
 // create and save new product
 exports.create = async (req, res) => {
-  upload.single('productImg')(req, res, async(err) => {
+  upload.single('productImg')(req, res, async (err) => {
     if (err) {
       res.status(500).send(notification('Something went wrong, please try again later'));
       return;
     }
-    if(!req.body){
-      res.status(400).send({ message:'Content can not be empty' });
+    if (!req.body) {
+      res.status(400).send(notification('Content can not be empty'));
       return;
     }
-    const {bookName, shopId, genre, author, price, quantity,description, originalPrice, discount, stock} = req.body;
+    const { bookName, shopId, genre, author, price, quantity, description, originalPrice, discount, stock } = req.body;
     const productImg = req.file.path;
-    cloudinary.uploader.upload(productImg,(cloudinaryErr, results) => {
-      if (cloudinaryErr){
-        res.status(500).send({ message: cloudinaryErr.message});
+    cloudinary.uploader.upload(productImg, (cloudinaryErr, results) => {
+      if (cloudinaryErr) {
+        res.status(500).send(notification('Cannot able upload product image in cloudinary'));
         return;
       }
       const product = new Productdb({
         bookName,
-        shopId, 
-        genre, 
-        author, 
-        originalPrice, 
+        shopId,
+        genre,
+        author,
+        originalPrice,
         discount,
         price: originalPrice - discount,
         quantity,
-        description, 
-        stock: quantity>0 ? "Availiable" : "Out of stock",
+        description,
+        stock: quantity > 0 ? "Availiable" : "Out of stock",
         productImg: results.secure_url,
         cloudinaryId: results.public_id,
       });
       product.save()
-      .then(savedProduct => {
-        if(!shopId) {
-          res.redirect('/products');
-        }
-        else{
-          res.redirect('/books?id='+shopId);
-        }
-      })
-      .catch(savedErr => {
-        res.status(500).send({ message: savedErr.message});
-      });
+        .then(savedProduct => {
+          if (!shopId) {
+            res.redirect('/products');
+          }
+          else {
+            res.redirect('/books?id=' + shopId);
+          }
+        })
+        .catch(savedErr => {
+          res.status(500).send(notification('Something went wrong, please try again later'));
+        });
     })
   })
 };
 
 // retrieve and return all product or  retrieve and return a single  product
 exports.find = (req, res) => {
-  if(req.query.id){
+  if (req.query.id) {
     const id = req.query.id;
     Productdb.findById(id)
-    .then(data => {
-      if(!data){
-        res.status(404).send({message:"Not found product with id" + id})
-      }else{
-        res.send(data)
-      }
-    })
-    .catch(err => {
-      res.status(500).send({message:"Error in retrieving product with id" + id})
-    })
-  }else{
+      .then(data => {
+        if (!data) {
+          res.status(404).send(notification("Not found product with id" + id));
+        } else {
+          res.send(data)
+        }
+      })
+      .catch(err => {
+        res.status(500).send(notification("Error in retrieving product with id" + id));
+      })
+  } else {
     Productdb.find()
-    .then(book => {
-      // If it's an API request, send JSON data
-      if (req.path === '/api/products') {
-        res.json(book);
-      } else {
-        // If it's a web request, render the "" page with the data
-        // console.log(books);
-        res.render('products', {books: book});
-      }
-    })
-    .catch(err => {
-      res.status(500).send({ message: err.message || "Some error occurred while retrieving product information" });
-    });
+      .then(book => {
+        // If it's an API request, send JSON data
+        if (req.path === '/api/products') {
+          res.json(book);
+        } else {
+          // If it's a web request, render the "" page with the data
+          // console.log(books);
+          res.render('products', { books: book });
+        }
+      })
+      .catch(err => {
+        res.status(500).send(notification("Some error occurred while retrieving product information"));
+      });
   }
 }
-  
+
 // Update a new identified book by book id
 exports.update = async (req, res) => {
   // Middleware for handling file uploads 
-  upload.single("productImg")(req, res, async(err) => {
+  upload.single("productImg")(req, res, async (err) => {
     if (err) {
       console.log(err);
-      return res.status(500).send({ message: err.message });
+      return res.status(500).send(notification('Cannot upload product image'));
     }
     try {
       const bookId = req.params.id;
@@ -147,7 +147,7 @@ exports.update = async (req, res) => {
       console.log(book);
 
       if (!book) {
-        return res.status(404).json({ message: 'Book not found' });
+        return res.status(404).json(notification('Book not found'));
       }
 
       if (req.file) {
@@ -173,13 +173,13 @@ exports.update = async (req, res) => {
       book.originalPrice = req.body.originalPrice || book.originalPrice;
       book.discount = req.body.discount || book.discount;
       book.stock = book.quantity > 0 ? "availiable" : "out of stock";
-      
+
       // Save the updated book to the database
       await book.save()
       return res.status(200).json(book);
     } catch (err) {
       console.error(err);
-      return res.status(500).json({ message: 'An error occurred while updating the book' });
+      return res.status(500).send(notification('An error occurred while updating the book'));
     }
   });
 }
@@ -188,27 +188,25 @@ exports.update = async (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
   Productdb.findById(id)
-  .then(book => {
-      if(!book){
-        res.status(404).send({message: `Book with id ${id} not found`});
-      }else{
+    .then(book => {
+      if (!book) {
+        res.status(404).send(notification(`Book with id ${id} not found`));
+      } else {
         cloudinary.uploader.destroy(book.cloudinaryId, (cloudinaryErr, result) => {
-          if(cloudinaryErr){
-            console.error('Error deleting book from cloudinary', cloudinaryErr);
+          if (cloudinaryErr) {
+            res.send(notification('Error deleting book from cloudinary'));
           }
           Productdb.findByIdAndDelete(id)
-          .then(() => { 
-            res.send({message: 'Book deleted successfully'});
-          })
-          .catch(err => {
-            res.status(500).send({message: `Could not delete book with id ${id}`});
-          })
+            .then(() => {
+              res.send(notification('Book deleted successfully'));
+            })
+            .catch(err => {
+              res.status(500).send(notification(`Could not delete book with id ${id}`));
+            })
         });
       }
-  })
-  .catch(err => {
-    res.status(500).send({
-      message:"Error finding book with id "+ id
-    });
-  })
+    })
+    .catch(err => {
+      res.status(500).send(notification("Error finding book with id " + id));
+    })
 }

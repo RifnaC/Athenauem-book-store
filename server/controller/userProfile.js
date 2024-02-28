@@ -38,14 +38,18 @@ function notification(msg) {
     </html>`
 }
 exports.profile = async (req, res) => {
-    const id = req.user.id;
-    const user = await users.findById(id);
-    const userAddress = user.addresses;
-    const search = req.query.searchQuery || "";
-    if (search !== "") {
-        res.redirect("/shop-page");
+    try {
+        const id = req.user.id;
+        const user = await users.findById(id);
+        const userAddress = user.addresses;
+        const search = req.query.searchQuery || "";
+        if (search !== "") {
+            res.redirect("/shop-page");
+        }
+        res.render('profile', { user, userAddress });
+    } catch (error) {
+        res.status(500).send(notification('something went wrong, please try again later'));
     }
-    res.render('profile', { user, userAddress});
 }
 
 exports.updateProfile = async (req, res) => {
@@ -54,14 +58,14 @@ exports.updateProfile = async (req, res) => {
         const user = await users.findById(id);
 
         if (!user) {
-            return res.status(404).json({ message: 'user is not found' });
-        } 
+            return res.status(404).send(notification('user is not found'));
+        }
         const ispswdValid = await bcrypt.compare(req.body.oldPassword, user.password);
-       
+
         if (!ispswdValid) {
-            res.status(400).send({ message: 'password is not valid' });
+            res.status(400).send(notification('password is not valid'));
             return;
-        }else{
+        } else {
             user.name = req.body.name;
             user.email = req.body.email;
             user.password = await bcrypt.hash(req.body.password, 10);
@@ -72,16 +76,20 @@ exports.updateProfile = async (req, res) => {
                 return res.status(200).render("profile");
             });
         }
-    }catch(err){
+    } catch (err) {
         console.log(err);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send(notification("Something went wrong, please try again later"));
     }
 }
 
 exports.address = async (req, res) => {
-    const id = req.user.id;
-    const user = await users.findById(id);
-    res.render('address', { user });
+    try {
+        const id = req.user.id;
+        const user = await users.findById(id);
+        res.render('address', { user });
+    } catch (error) {
+        res.status(500).send(notification("Something went wrong, please try again later"));
+    }
 }
 
 exports.addAddress = async (req, res) => {
@@ -103,41 +111,50 @@ exports.addAddress = async (req, res) => {
         res.render('profile');
     }).catch(err => {
         console.log(err);
+        res.status(500).send(notification('Something went wrong, please try again later'));
     })
 }
 
 exports.editAddress = async (req, res) => {
-    const id = req.user.id;
-    const addressId = req.query.id;
-    const user = await users.findById(id);
-    const userAddress = user.addresses.find(address => address._id == addressId);
-    res.render('addresses', { user, userAddress, });
+    try {
+        const id = req.user.id;
+        const addressId = req.query.id;
+        const user = await users.findById(id);
+        const userAddress = user.addresses.find(address => address._id == addressId);
+        res.render('addresses', { user, userAddress, });
+    } catch (error) {
+        res.status(500).send(notification('Something went wrong, please try again later'));
+    }
 }
 
 exports.updateAddress = async (req, res) => {
-    const id = req.user.id;
-    const addressId = req.params.id;
-    const newAddress = await users.findOneAndUpdate({ _id: id, "addresses._id": addressId }, {
-        $set: {
-            "addresses.$.fullName": req.body.fullName,
-            "addresses.$.phone": req.body.phone,
-            "addresses.$.address": req.body.address,
-            "addresses.$.city": req.body.city,
-            "addresses.$.district": req.body.district,
-            "addresses.$.state": req.body.state,
-            "addresses.$.pincode": req.body.pincode
-        }
-    })
-    await newAddress.save().then(() => {
-        res.render('profile');
-    })
+    try {
+        const id = req.user.id;
+        const addressId = req.params.id;
+        const newAddress = await users.findOneAndUpdate({ _id: id, "addresses._id": addressId }, {
+            $set: {
+                "addresses.$.fullName": req.body.fullName,
+                "addresses.$.phone": req.body.phone,
+                "addresses.$.address": req.body.address,
+                "addresses.$.city": req.body.city,
+                "addresses.$.district": req.body.district,
+                "addresses.$.state": req.body.state,
+                "addresses.$.pincode": req.body.pincode
+            }
+        })
+        await newAddress.save().then(() => {
+            res.render('profile');
+        })
+    } catch (error) {
+        res.status(500).send(notification('Something went wrong, please try again later'));
+    }
 }
 
 exports.deleteAddress = async (req, res) => {
     const id = req.user.id;
     const addressId = req.params.id;
-    const orders = await Order.find({ userId: id, addressId: addressId});
-    if(orders ==[]){
+    const orders = await Order.find({ userId: id, addressId: addressId });
+    if (orders == []) {
         const newAddress = await users.findOneAndUpdate({ _id: id }, {
             $pull: {
                 "addresses": {
@@ -148,53 +165,59 @@ exports.deleteAddress = async (req, res) => {
         await newAddress.save().then(() => {
             res.render('profile');
         })
-    }else{
-        return res.status(400).send("Address can't be deleted");
+    } else {
+        return res.status(400).send(notification("Address can't be deleted"));
     }
-    
+
 }
 
 exports.myOrder = async (req, res) => {
-    const id = req.user.id;
-    const user = await users.findById(id);
-    const orders = await Order.find({ userId: id }).sort({ orderDate: -1 });
-    const orderDatas = [];
-    for (let order of orders) {
-        for (let item of order.orderItems) {
-            const itemDetails = await Book.findOne({ _id: item.itemId });
-            const total = itemDetails.price * item.quantity
-            const status = order.orderStatus
-            const quantity = item.quantity
-            orderDatas.push({ itemDetails, total, status, quantity, order })
+    try {
+        const id = req.user.id;
+        const user = await users.findById(id);
+        const orders = await Order.find({ userId: id }).sort({ orderDate: -1 });
+        const orderDatas = [];
+        for (let order of orders) {
+            for (let item of order.orderItems) {
+                const itemDetails = await Book.findOne({ _id: item.itemId });
+                const total = itemDetails.price * item.quantity
+                const status = order.orderStatus
+                const quantity = item.quantity
+                orderDatas.push({ itemDetails, total, status, quantity, order })
+            }
         }
+        res.render('myOrder', { user, orderDatas, orders });
+    } catch (error) {
+        res.status(500).send(notification('Something went wrong, please try again later'));
     }
-    res.render('myOrder', { user, orderDatas, orders });
 }
 
 exports.orderSummary = async (req, res, next) => {
-    const id = req.params.id;
-    const userId = req.user.id;
-    const user = await users.findById(userId);
-    const order = await Order.findOne({ _id: id });
-    const addressDetails = await users.aggregate([{ $unwind: "$addresses" }, { $match: { "addresses._id": order.addressId } }]);
-    const address = addressDetails[0].addresses;
-    const orderData = [];
-    let total = 0;
-    for (let item of order.orderItems) {
-        const orderItem = await Book.findOne({ _id: item.itemId });
-        const quantity = item.quantity;
-        total += orderItem.price * quantity;
-        orderData.push({ orderItem, quantity, total });
+    try {
+        const id = req.params.id;
+        const userId = req.user.id;
+        const user = await users.findById(userId);
+        const order = await Order.findOne({ _id: id });
+        const addressDetails = await users.aggregate([{ $unwind: "$addresses" }, { $match: { "addresses._id": order.addressId } }]);
+        const address = addressDetails[0].addresses;
+        const orderData = [];
+        let total = 0;
+        for (let item of order.orderItems) {
+            const orderItem = await Book.findOne({ _id: item.itemId });
+            const quantity = item.quantity;
+            total += orderItem.price * quantity;
+            orderData.push({ orderItem, quantity, total });
+        }
+        const dateObject = new Date(order.orderDate);
+        const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
+
+        const dateObject1 = new Date(order.deliveryDate);
+        const deliveryDate = dateObject1.toISOString().split('T')[0].split('-').reverse().join('-');
+
+        res.render('orderDetails', { user, address, order, orderData, orderDate, deliveryDate });
+    } catch (error) {
+        res.status(500).send(notification('Something went wrong, please try again later'));
     }
-    const dateObject = new Date(order.orderDate);
-    const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
-
-    const dateObject1 = new Date(order.deliveryDate);
-    const deliveryDate = dateObject1.toISOString().split('T')[0].split('-').reverse().join('-');
-
-
-
-    res.render('orderDetails', { user, address, order, orderData, orderDate, deliveryDate });
 }
 
 
@@ -204,7 +227,7 @@ exports.cancelOrder = async (req, res, next) => {
         const reason = req.body.reason;
         const order = await Order.findById(id);
         if (!order) {
-            return res.status(404).json({ error: 'Order not found' });
+            return res.status(404).send(notification('Order not found'));
         }
         for (const orderItem of order.orderItems) {
             const itemId = orderItem.itemId;
@@ -219,11 +242,11 @@ exports.cancelOrder = async (req, res, next) => {
         if (updatedOrder) {
             res.json(updatedOrder);
         } else {
-            res.status(500).json({ error: "Failed to update order" });
+            res.status(500).send(notification("Failed to update order"));
         }
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).send(notification("Something went wrong, please try again later"));
     }
 }
 

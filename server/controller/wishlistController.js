@@ -31,12 +31,13 @@ exports.addToWishlist = async(req, res) => {
         res.redirect('back');     
     } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send(notification('Something went wrong, please try again later'));
     }
 }
 
 // view wishlist
 exports.wishlist = async(req, res) => {
+   try {
     const userId = req.user.id; 
     const cartCount = await Cart.findOne({userId: req.user.id});
     const search = req.query.searchQuery || "";
@@ -95,6 +96,9 @@ exports.wishlist = async(req, res) => {
         res.render('wishlist', {wishlistItems, emptyWishlist: emptyWishlist});
     }
     res.render('wishlist', {wishlistItems, emptyWishlist: emptyWishlist});
+   } catch (error) {
+    res.status(500).send(notification('Something went wrong, please try again later'));
+   }
 }
 
 // delete wishlist item
