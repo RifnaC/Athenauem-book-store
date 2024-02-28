@@ -7,6 +7,7 @@ const multer = require('multer');
 const { request } = require('http');
 const { response } = require('express');
 const mongoose = require('mongoose');
+const { error } = require('console');
 
 // access multer middleware storage
 const storage = multer.diskStorage({
@@ -131,7 +132,9 @@ exports.update = async (req, res) => {
     try {
       const shopId = req.params.id;
       const shop = await Shopdb.findById(shopId);
+      console.log(shop);
       if (!shop) {
+        console.log("dddd",error);
         return res.status(404).send(notification('Shop not found'));
       }
       // Check if a new file is being uploaded

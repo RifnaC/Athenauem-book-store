@@ -60,6 +60,7 @@ exports.editUser = async (req, res) => {
         const userData = await userCollection.findById(req.query.id);
         res.render('editUser', { user: userData, admin: name });
     } catch (error) {
+        console.log(error);
         res.status(500).send(notification("Something went wrong, please try again later"));
     }
 }

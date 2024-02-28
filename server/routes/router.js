@@ -9,7 +9,6 @@ const bannerController = require('../controller/bannerController');
 const auth = require('../middlewares/authMiddleware')
 const user = require('../controller/userController');
 const order = require('../controller/orderController');
-const pdf = require('../../assets/js/pdf');
 
 // ***********************Admin Management********************************
 /** 
@@ -21,13 +20,13 @@ route.get('/', auth.authMiddleware, services.homeRoutes);
  * @description Admin Route
  * @method GET/
 */
-route.get("/admin" , auth.authMiddleware, auth.isAdmin, services.admin)
+route.get("/admin" , auth.authMiddleware, services.admin)
 
 /** 
  * @description Add Admin
  * @method GET/
 */
-route.get("/addAdmin" ,auth.authMiddleware, auth.isAdmin, services.addedAdmin)
+route.get("/addAdmin" ,auth.authMiddleware, services.addedAdmin)
 
 /** 
  * @description Update Admin
@@ -40,8 +39,8 @@ route.get("/editAdmin" ,auth.authMiddleware, services.edit_admin)
 route.post('/api/admins',auth.authMiddleware, controller.create);
 route.get('/api/admins',  controller.find);
 route.get('/api/v1/admins',  controller.findAll);
-route.put('/api/admins/:id',auth.authMiddleware, auth.isAdmin, controller.update);
-route.delete('/api/admins/:id',auth.authMiddleware,auth.isAdmin, controller.delete);
+route.put('/api/admins/:id',auth.authMiddleware, controller.update);
+route.delete('/api/admins/:id',auth.authMiddleware, controller.delete);
 
 // ***********************Shop Management********************************
 /** 
@@ -54,20 +53,20 @@ route.get('/shop',auth.authMiddleware, services.shop)
  * @description Add shop
  * @method GET/
 */
-route.get("/addShop",auth.authMiddleware, auth.isVendor, services.add_Shop)
+route.get("/addShop",auth.authMiddleware, services.add_Shop)
 
 /** 
  * @description Edit shop
  * @method GET/
 */
-route.get("/editShop",auth.authMiddleware, auth.isVendor, services.edit_Shop)
+route.get("/editShop",auth.authMiddleware, services.edit_Shop)
 
 // API
-route.post('/api/shops', auth.authMiddleware, auth.isVendor, shopController.create);
+route.post('/api/shops', auth.authMiddleware, shopController.create);
 route.get('/api/shops', shopController.find);
 route.get ('/books', auth.authMiddleware, services.shopDetails);
-route.put('/api/shops/:id',auth.authMiddleware, auth.isVendor, shopController.update);
-route.delete('/api/shops/:id',auth.authMiddleware, auth.isAdmin,shopController.delete)
+route.put('/api/shops/:id',auth.authMiddleware, shopController.update);
+route.delete('/api/shops/:id',auth.authMiddleware, shopController.delete)
 
 
 // ***********************Product Management********************************
@@ -76,25 +75,25 @@ route.delete('/api/shops/:id',auth.authMiddleware, auth.isAdmin,shopController.d
  * @method GET/
 */
 
-route.get('/products',auth.authMiddleware, auth.isAdmin, services.product)
+route.get('/products',auth.authMiddleware, services.product)
 
 // /** 
 //  * @description Add product 
 //  * @method GET/
 // */
-route.get("/addProduct",auth.authMiddleware, auth.isVendor, services.add_product)
+route.get("/addProduct",auth.authMiddleware, services.add_product)
 
 // /** 
 //  * @description Edit product 
 //  * @method GET/
 // */
-route.get("/editProduct", auth.authMiddleware, auth.isVendor, services.edit_product)
+route.get("/editProduct", auth.authMiddleware, services.edit_product)
 
 // API
-route.post('/api/products', auth.authMiddleware, auth.isVendor, productController.create);
+route.post('/api/products', auth.authMiddleware, productController.create);
 route.get('/api/products',productController.find);
-route.put('/api/products/:id', auth.authMiddleware, auth.isVendor, productController.update);
-route.delete('/api/products/:id', auth.authMiddleware, auth.isVendor, productController.delete)
+route.put('/api/products/:id', auth.authMiddleware,  productController.update);
+route.delete('/api/products/:id', auth.authMiddleware, productController.delete)
 
 
 // ***********************Category Management********************************
@@ -114,13 +113,13 @@ route.get("/addCategory",auth.authMiddleware, services.add_category)
  * @description Edit category 
  * @method GET/
 */
-route.get("/editCategory",auth.authMiddleware, auth.isAdmin, services.edit_category)
+route.get("/editCategory",auth.authMiddleware, services.edit_category)
 
 // API
 route.post('/api/categories',auth.authMiddleware, categoryController.create);
 route.get('/api/categories', categoryController.find);
-route.put('/api/categories/:id', auth.authMiddleware, auth.isAdmin, categoryController.update);
-route.delete('/api/categories/:id', auth.authMiddleware, auth.isAdmin, categoryController.delete)
+route.put('/api/categories/:id', auth.authMiddleware, categoryController.update);
+route.delete('/api/categories/:id', auth.authMiddleware, categoryController.delete)
 
 // ***********************banner Management********************************
 /**
@@ -133,7 +132,7 @@ route.get("/banner",auth.authMiddleware, services.banner);
  * @description add  banner
  * @method GET/
 */
-route.get("/bannerPage",auth.authMiddleware,  services.createBanner)
+route.get("/bannerPage",auth.authMiddleware, services.createBanner)
 
 /** 
  * @description Edit banner 
@@ -148,11 +147,11 @@ route.put('/api/banner/:id',auth.authMiddleware, bannerController.update);
 route.delete('/api/banner/:id',auth.authMiddleware,  bannerController.delete);
 
 // ***********************user Management********************************
-route.get('/user',auth.authMiddleware, auth.isAdmin, services.user)
-route.get("/editUser" ,auth.authMiddleware, auth.isAdmin, user.editUser);
-route.put('/users/:id', auth.authMiddleware, auth.isAdmin,  user.update);
-route.delete('/users/:id', auth.authMiddleware, auth.isAdmin, user.delete);
-route.get('/userDetails', auth.authMiddleware, auth.isAdmin, user.userDetails);
+route.get('/user',auth.authMiddleware, services.user)
+route.get("/editUser" ,auth.authMiddleware, user.editUser);
+route.put('/users/:id', auth.authMiddleware,  user.update);
+route.delete('/users/:id', auth.authMiddleware, user.delete);
+route.get('/userDetails', auth.authMiddleware, user.userDetails);
 
 // order Management
 route.get('/order', auth.authMiddleware, order.allOrderDetails);

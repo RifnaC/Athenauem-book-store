@@ -6,6 +6,40 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Cart = require('../models/cartModel');
 
+function notification(msg) {
+    return `<!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Atheneuam - Book Colleciton</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+    
+        <!-- Favicon -->
+        <link href="img/book collection 0.png" rel="icon">
+    
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+    <script> 
+        Swal.fire({
+            imageUrl: "/img/favicon.png",
+            title: "Atheneuam",        
+            imageWidth: 120,
+            imageHeight: 80,
+            imageAlt: "Atheneuam Logo",
+            text: "${msg}",   
+            confirmButtonText: 'Ok',     
+            confirmButtonColor: '#15877C',
+        });
+    </script>
+    </body>
+    <!-- JavaScript Libraries -->
+    </html>`
+}
+
 // add to wishlist 
 exports.addToWishlist = async(req, res) => {
     const userId = req.user.id; 
@@ -114,7 +148,7 @@ exports.deleteWishlistItem = async (req, res) => {
         });
     }catch (error) {
         console.error(error);
-        res.status(500).json({ success: false, error: 'Internal Server Error' });
+        res.status(500).send(notification('Something went wrong, please try again later'));
     }
 }
 // add all items to cart
@@ -134,7 +168,6 @@ exports.addAllToCart = async(req, res) => {
                     }]
                 }]
             });
-            console.log(products)
             const cart = await Cart.findOne({ userId });
             if (!cart) {
                 const newCart = new Cart({
@@ -163,11 +196,11 @@ exports.addAllToCart = async(req, res) => {
             await wishlist.save();
             res.status(200).render('wishlist');
             } else {
-                res.status(404).json({ error: 'Wishlist not found' });
+                res.status(404).send(notification('Wishlist not found'));
             }
         } catch (error) {
           console.error(error);
-          res.status(500).json({ error: 'Internal server error' });
+          res.status(500).send(notification('Something went wrong, please try again later'));
         }
 }
 
@@ -182,11 +215,11 @@ exports.clearWishlist = async (req, res) => {
   
         res.status(200).render('wishlist');
       } else {
-        res.status(404).json({success: false});
+        res.status(404).send(notification('Sorry, no wishlist found'))
       }
     } catch (error) {
       console.error(error);
-      res.status(500).json({success: false});
+      res.status(500).send(notification('Something went wrong , please try again later'));
     }
 };
   
