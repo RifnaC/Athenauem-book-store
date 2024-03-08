@@ -247,11 +247,9 @@
     }
     // Append the shopId to the URL
     const request = {
-      url: `https://${window.location.host}/api/shops/${shopId}`,
+      url: `http://${window.location.host}/api/shops/${shopId}`,
       method: 'PUT',
       data: formData,
-      processData: false,
-      contentType: false,
     };
 
     $.ajax(request)
@@ -272,7 +270,7 @@
         "url": `https://${window.location.host}/api/shops/${id}`,
         "method": "DELETE"
       };
-      deleteAlerts();
+      deleteAlerts()
     });
   }
 
