@@ -235,21 +235,20 @@ exports.addedAdmin = async (req, res) => {
     if (req.user.role === 'admin') {
         const admin = await adminCollection.findById(id);
         const name = admin.name.split(" ")[0];
-        res.render('addAdmin', { isAdmin: true, admin: name })
+        res.render('addAdmin', { admin: name })
     }
 };
 
 exports.edit_admin = async (req, res) => {
-    const id = req.user.id;
-    const admin = await adminCollection.findById(id);
-    const name = admin.name.split(" ")[0];
-    axios.get(`http://${req.headers.host}/api/admins`, { params: { id: req.query.id } })
-        .then(function (AdminData) {
-            res.render('editAdmin', { admins: AdminData.data, admin: name });
-        })
-        .catch(err => {
-            res.send(err);
-        })
+    try {
+        const id = req.user.id;
+        const admin = await adminCollection.findById(id);
+        const name = admin.name.split(" ")[0];
+        const admins = await adminCollection.findById(req.query.id);
+        res.render('editAdmin', { admins: admins, admin: name });
+    } catch (error) {
+        res.status(500).send(notification("Unable to edit!, please try again later!"));
+    }
 }
 
 // ***********************Shop Management********************************
