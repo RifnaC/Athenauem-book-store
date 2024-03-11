@@ -278,7 +278,7 @@
     $(document).on("click", ".shopCard a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
-      const url = `https://${window.location.host}/api/shops/${id}`;
+      const url = `http://${window.location.host}/api/shops/${id}`;
   
       // Send DELETE request using AJAX
       $.ajax({
@@ -286,13 +286,11 @@
         method: "DELETE",
         success: function (response) {
           // Handle success response
-          console.log("Item deleted successfully");
           deleteAlerts(); // Call deleteAlerts function if needed
         },
         error: function (xhr, status, error) {
           // Handle error response
-          console.error("Error deleting item:", error);
-          
+          SweetAlerts('Failed to delete shop!');
           // Handle error or show error alert
         }
       });
