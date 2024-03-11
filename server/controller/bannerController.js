@@ -5,7 +5,7 @@ const cloudinary = require('../services/cloudinary');
 const path = require('path')
 const multer = require('multer');
 const { banner } = require('../services/render');
-const { request } = require('http');
+const { request } = require('https');
 const { response } = require('express');
 
 function notification(msg) {
