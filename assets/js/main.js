@@ -262,18 +262,6 @@
   });
 
   // Delete the shop
-  // if (window.location.pathname === "/shop") {
-  //   $(document).on("click", ".shopCard a.delete", function (event) {
-  //     event.preventDefault();
-  //     const id = $(this).attr('data-id');
-  //     const request = {
-  //       "url": `https://${window.location.host}/api/shops/${id}`,
-  //       "method": "DELETE"
-  //     };
-  //     deleteAlerts()
-  //   });
-  // }
-
   if (window.location.pathname === "/shop") {
     $(document).on("click", ".shopCard a.delete", function (event) {
       event.preventDefault();
@@ -286,13 +274,10 @@
         method: "DELETE",
         success: function (response) {
           // Handle success response
-          deleteAlerts(); // Call deleteAlerts function if needed
+          deleteAlerts();
         },
         error: function (xhr, status, error) {
-          // Handle error response
-          console.log(error);
           SweetAlerts('Failed to delete shop!');
-          // Handle error or show error alert
         }
       });
     });

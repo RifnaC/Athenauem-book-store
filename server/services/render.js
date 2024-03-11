@@ -48,6 +48,7 @@ function notification(msg) {
     </html>`
 }
 exports.homeRoutes = async (req, res) => {
+   try {
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
@@ -208,6 +209,9 @@ exports.homeRoutes = async (req, res) => {
         dailyOrders: counts,
         cartCounts: cartCounts,
     });
+   } catch (error) {
+        res.status(500).send(notification("Something went wrong!, please try again later!"));
+   }
 }
 
 exports.admin = async (req, res) => {
@@ -262,28 +266,34 @@ exports.shop = async (req, res) => {
             res.render('shop', { shops: shop, admin: name });
         })
         .catch(error => {
-            res.status(500).send("<script>alert('Something Went Wrong'); window.location.href ='/addShop';</script>");
+            res.status(500).send(notification("Something went wrong!, please try again later!"));
         });
 }
 
 exports.add_Shop = async (req, res) => {
-    const id = req.user.id;
-    const admin = await adminCollection.findById(id);
-    const name = admin.name.split(" ")[0];
-    res.render('addShop', { admin: name });
+    try {
+        const id = req.user.id;
+        const admin = await adminCollection.findById(id);
+        const name = admin.name.split(" ")[0];
+        res.render('addShop', { admin: name });
+    } catch (error) {
+        res.status(500).send(notification("Something went wrong!, please try again later!"));
+    }
 }
 
 exports.edit_Shop = async (req, res) => {
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
-    axios.get(`http://${req.headers.host}/api/shops`, { params: { id: req.query.id } })
+    const shop = await shops.findById(req.query.id);
+    console.log(shop);
+    axios.get(`https://${req.headers.host}/api/shops`, { params: { id: req.query.id } })
         .then(function (shopData) {
-            res.render('editShop', { shop: shopData.data, admin: name });
+            res.render('editShop', { shop: shop, admin: name });
         })
         .catch(err => {
             console.error(err);
-            res.send(err);
+            res.status(500).send(notification("Something went wrong!, please try again later!"));
         })
 }
 
