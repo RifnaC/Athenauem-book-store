@@ -250,6 +250,8 @@
       url: `https://${window.location.host}/api/shops/${shopId}`,
       method: 'PUT',
       data: formData,
+      contentType: false, // Required when sending FormData
+      processData: false 
     };
 
     $.ajax(request)
