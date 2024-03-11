@@ -913,11 +913,17 @@
     $(document).on("click", ".table tbody td a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
-      const request = {
-        "url": `https://${window.location.host}/users/${id}`,
-        "method": "DELETE"
-      };
-      deleteAlerts();
+      $.ajax({
+        url: `https://${window.location.host}/users/${id}`,
+        method: "DELETE",
+        success: function (response) {
+          // Handle success response
+          deleteAlerts();
+        },
+        error: function (xhr, status, error) {
+          SweetAlerts('Failed to delete customer!');
+        }
+      });
     });
   }
 

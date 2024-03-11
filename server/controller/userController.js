@@ -1,6 +1,7 @@
 const { log } = require('handlebars');
 const userCollection = require('../models/userModel');
 const adminCollection = require('../models/model');
+const orderCollection = require('../models/orderModel');
 const axios = require('axios');
 
 function notification(msg) {
@@ -86,8 +87,8 @@ exports.userDetails = async (req, res) => {
         const admin = await adminCollection.findById(id);
         const name = admin.name.split(" ")[0];
         const userData = await userCollection.findById(req.query.id);
-        console.log(userData);
-        res.render('userDetails', { user: userData, admin: name });
+        const order = await orderCollection.find({ userId: { $eq: req.query.id } });
+        res.render('userDetails', { user: userData, admin: name, orderProduct: order });
     } catch (error) {
         res.status(500).send(notification('Something went wrong, please try again later'));
     }

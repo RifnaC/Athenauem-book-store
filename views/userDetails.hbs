@@ -139,21 +139,19 @@
 
                                 </div>
                                 <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 col-xxl-7 ">
-                                    <div class="bg-light">
-
+                                    {{#each orderProduct}}
+                                    <div class="bg-light my-3">
                                         <div class="text-center py-3">
                                             <img src="" alt="" width="100px"><br>
-                                            <h5 style="font-weight: bolder;">{{orderProduct.name}}</h5>
-                                            <p style="color: black;font-weight:800">Rs:{{orderProduct.price}}/-
+                                            <h5 style="font-weight: bolder;">{{this._id}}</h5>
+                                            <p style="color: black;font-weight:800">Rs:{{this.payableTotal}}/-
                                             </p>
-                                            <p class="text-danger">{{orderDetail.paymentMethod}}</p>
-                                            <p style="color: green;">{{orderDetail.status}} <span style="color: black;">
+                                            <p class="text-danger">{{this.paymentMethod}}</p>
+                                            <p style="color: green;">{{this.orderStatus}} <span style="color: black;">
                                             </p>
-
-
-                                        </div>
+                                        </div>                                        
                                     </div>
-
+                                {{/each}}
                                 </div>
                             </div>
                         </div>

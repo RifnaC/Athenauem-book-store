@@ -353,15 +353,6 @@ exports.edit_product = async (req, res) => {
     } catch (error) {
         res.status(500).send(notification("Something went wrong!, please try again later!"));
     }
-    // axios.get(`http://${req.headers.host}/api/products`, { params: { id: req.query.id } })
-    //     .then(function (bookData) {
-    //         console.log(bookData.data);
-
-    //         res.render('editProduct', { book: bookData.data, admin: name, category });
-    //     })
-    //     .catch(err => {
-    //         res.send(err);
-    //     })
 }
 
 // ***********************Category Management********************************
