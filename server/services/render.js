@@ -381,16 +381,15 @@ exports.add_category = async (req, res) => {
 }
 
 exports.edit_category = async (req, res) => {
-    const id = req.user.id;
+    try {
+        const id = req.user.id;
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
-    axios.get(`http://${req.headers.host}/api/categories`, { params: { id: req.query.id } })
-        .then(function (genreData) {
-            res.render('editCategory', { category: genreData.data, admin: name });
-        })
-        .catch(err => {
-            res.send(err);
-        })
+    const category = await categoryCollection.findById(req.query.id);
+    res.render('editCategory', { category: category, admin: name });
+    } catch (error) {
+        res.status(500).send(notification("Unable to edit!, please try again later!"));
+    }
 }
 
 // ***********************banner Management********************************

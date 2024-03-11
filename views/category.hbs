@@ -122,9 +122,9 @@
                       <th>Categories </th>
                       <th>Total Books</th>
                       <th>Description</th>
-                      {{#if isAdmin}}
+                      {{!-- {{#if isAdmin}} --}}
                       <th>Action</th>
-                      {{/if}}
+                      {{!-- {{/if}} --}}
                     </tr>
                   </thead>
                   <tbody>
@@ -134,12 +134,12 @@
                       <td class="text-dark">{{this.genre}}</td>
                       <td class="text-dark">{{this.totalBooks}}</td>
                       <td class="text-dark">{{this.description}}</td>
-                      {{#if isAdmin}}
+                      {{!-- {{#if isAdmin}} --}}
                       <td class="text-dark">
                         <a href="editCategory?id={{_id}}"><i class="bi bi-pencil-square mx-3"></i></a>
                         <a href="" class="delete" data-id={{_id}}><i class="bi bi-trash-fill text-danger"></i></a>
                       </td>
-                      {{/if}}
+                      {{!-- {{/if}} --}}
                     </tr>
                     {{/each}}
                   </tbody>

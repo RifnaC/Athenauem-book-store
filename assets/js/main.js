@@ -41,7 +41,7 @@
       imageAlt: "Atheneuam Logo",
       text: text,
       confirmButtonColor: '#15877C',
-    });
+    })
   }
   // success sweet alert
   function successAlerts() {
@@ -84,7 +84,11 @@
         confirmButtonColor: '#15877C',
       }).then((resolve) => {
         if (resolve.isConfirmed) {
-          SweetAlerts('Data deleted successfully');
+          new Promise((resolve) => {
+            SweetAlerts('Data deleted successfully')
+          }).then((resolve) => {
+            window.location.reload();
+          });
         } else if (resolve.isDenied) {
           SweetAlerts('Data not deleted');
         }
@@ -358,7 +362,7 @@
 
   // Add new book
   $("#add_product").submit(function (event) {
-    if (!productValidation()) {
+    if (!productValidation() || !idFromURL) {
       event.preventDefault();
       SweetAlerts('Please enter book details!');
     } else {
@@ -517,11 +521,17 @@
     $(document).on("click", ".table tbody td a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
-      const request = {
-        "url": `https://${window.location.host}/api/categories/${id}`,
-        "method": "DELETE"
-      };
-      deleteAlerts();
+      $.ajax({
+        url: `https://${window.location.host}/api/categories/${id}`,
+        method: "DELETE",
+        success: function (response) {
+          // Handle success response
+          deleteAlerts();
+        },
+        error: function (xhr, status, error) {
+          SweetAlerts('Failed to delete category!');
+        }
+      });
     })
   }
 
