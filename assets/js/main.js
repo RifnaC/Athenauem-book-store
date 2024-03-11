@@ -84,11 +84,7 @@
         confirmButtonColor: '#15877C',
       }).then((resolve) => {
         if (resolve.isConfirmed) {
-          new Promise((resolve) => {
-            SweetAlerts('Data deleted successfully')
-          }).then((resolve) => {
-            window.location.reload();
-          });
+          SweetAlerts('Data deleted successfully');
         } else if (resolve.isDenied) {
           SweetAlerts('Data not deleted');
         }
@@ -521,6 +517,7 @@
     $(document).on("click", ".table tbody td a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
+      alert(id);
       $.ajax({
         url: `https://${window.location.host}/api/categories/${id}`,
         method: "DELETE",
