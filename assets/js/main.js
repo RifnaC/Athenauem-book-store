@@ -278,7 +278,7 @@
     $(document).on("click", ".shopCard a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
-      const url = `http://${window.location.host}/api/shops/${id}`;
+      const url = `https://${window.location.host}/api/shops/${id}`;
   
       // Send DELETE request using AJAX
       $.ajax({
