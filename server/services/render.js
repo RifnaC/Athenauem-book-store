@@ -281,21 +281,36 @@ exports.add_Shop = async (req, res) => {
     }
 }
 
+// exports.edit_Shop = async (req, res) => {
+//     const id = req.user.id;
+//     const admin = await adminCollection.findById(id);
+//     const name = admin.name.split(" ")[0];
+//     const shop = await shops.findById(req.query.id);
+//     axios.get(`https://${req.headers.host}/api/shops`, { params: { id: req.query.id } })
+//         .then(function (shopData) {
+//             res.render('editShop', { shop: shop, admin: name });
+//         })
+//         .catch(err => {
+//             console.error(err);
+//             res.status(500).send(notification("Something went wrong!, please try again later!"));
+//         })
+// }
+
 exports.edit_Shop = async (req, res) => {
-    const id = req.user.id;
-    const admin = await adminCollection.findById(id);
-    const name = admin.name.split(" ")[0];
-    const shop = await shops.findById(req.query.id);
-    console.log(shop);
-    axios.get(`https://${req.headers.host}/api/shops`, { params: { id: req.query.id } })
-        .then(function (shopData) {
-            res.render('editShop', { shop: shop, admin: name });
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).send(notification("Something went wrong!, please try again later!"));
-        })
+    try {
+        const id = req.user.id;
+        const admin = await adminCollection.findById(id);
+        const name = admin.name.split(" ")[0];
+        // Fetch shop data from MongoDB
+        const shop = await shops.findById(req.query.id);
+        // Render the 'editShop' view with shop data and admin name
+        res.render('editShop', { shop: shop, admin: name });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(notification("Something went wrong!, please try again later!"));
+    }
 }
+
 
 exports.shopDetails = async (req, res) => {
     try {
