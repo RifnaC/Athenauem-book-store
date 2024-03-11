@@ -28,7 +28,7 @@ function notification(msg) {
         <!-- Favicon -->
         <link href="img/book collection 0.png" rel="icon">
     
-        <script src="http://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body>
     <script> 
@@ -254,7 +254,7 @@ exports.shop = async (req, res) => {
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
     const shop = await shops.find()
-    axios.get(`http://${req.headers.host}/api/shops`)
+    axios.get(`https://${req.headers.host}/api/shops`)
         .then(function (response) {
             if (req.user.role === 'vendor') {
                 res.render('shop', { isVendor: true, shops: response.data, admin: name });
@@ -277,7 +277,7 @@ exports.edit_Shop = async (req, res) => {
     const id = req.user.id;
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
-    axios.get(`http://${req.headers.host}/api/shops`, { params: { id: req.query.id } })
+    axios.get(`https://${req.headers.host}/api/shops`, { params: { id: req.query.id } })
         .then(function (shopData) {
             res.render('editShop', { shop: shopData.data, admin: name });
         })
@@ -294,7 +294,7 @@ exports.shopDetails = async (req, res) => {
         const name = admin.name.split(" ")[0];
         const shopId = req.query.id;
         const books = await productCollection.find({ shopId: { $eq: shopId } });
-        axios.get(`http://${req.headers.host}/api/shops`, { params: { id: req.query.id } })
+        axios.get(`https://${req.headers.host}/api/shops`, { params: { id: req.query.id } })
             .then(function (shopData) {
                 if (req.user.role === 'vendor') {
                     res.render('books', { isVendor: true, shop: shopData.data, admin: name, books });

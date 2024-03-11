@@ -262,17 +262,43 @@
   });
 
   // Delete the shop
+  // if (window.location.pathname === "/shop") {
+  //   $(document).on("click", ".shopCard a.delete", function (event) {
+  //     event.preventDefault();
+  //     const id = $(this).attr('data-id');
+  //     const request = {
+  //       "url": `https://${window.location.host}/api/shops/${id}`,
+  //       "method": "DELETE"
+  //     };
+  //     deleteAlerts()
+  //   });
+  // }
+
   if (window.location.pathname === "/shop") {
     $(document).on("click", ".shopCard a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
-      const request = {
-        "url": `https://${window.location.host}/api/shops/${id}`,
-        "method": "DELETE"
-      };
-      deleteAlerts()
+      const url = `https://${window.location.host}/api/shops/${id}`;
+  
+      // Send DELETE request using AJAX
+      $.ajax({
+        url: url,
+        method: "DELETE",
+        success: function (response) {
+          // Handle success response
+          console.log("Item deleted successfully");
+          deleteAlerts(); // Call deleteAlerts function if needed
+        },
+        error: function (xhr, status, error) {
+          // Handle error response
+          console.error("Error deleting item:", error);
+          
+          // Handle error or show error alert
+        }
+      });
     });
   }
+  
 
   // Validation for adding new book
   function productValidation() {
