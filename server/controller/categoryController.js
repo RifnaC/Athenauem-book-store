@@ -204,7 +204,7 @@ exports.delete = (req, res) => {
                     // Regardless of Cloudinary deletion status, proceed to delete the category data
                     genreCollection.findByIdAndDelete(id)
                         .then(() => {
-                            res.status(400).send(notification("Category is deleted successfully"));
+                            res.status(200).send(notification("Category is deleted successfully"));
                         })
                         .catch(err => {
                             res.status(500).send(notification("Could not delete category with id " + id));
