@@ -328,7 +328,7 @@ exports.product = async (req, res) => {
             res.render('products', { books: response.data, admin: name });
         })
         .catch(error => {
-            res.status(500).send("<script>alert('Something Went Wrong'); window.location.href ='/addProduct';</script>");
+            res.status(500).send(notification("Something went wrong!, please try again later!"));
         });
 }
 
@@ -337,23 +337,31 @@ exports.add_product = async (req, res) => {
     const admin = await adminCollection.findById(id);
     const name = admin.name.split(" ")[0];
     const category = await categoryCollection.find();
-    if (req.user.role !== 'vendor') {
+    // if (req.user.role !== 'vendor') {
         res.render('addProduct', { admin: name, category });
-    }
+    // }
 }
 
 exports.edit_product = async (req, res) => {
-    const id = req.user.id;
-    const admin = await adminCollection.findById(id);
-    const category = await categoryCollection.find();
-    const name = admin.name.split(" ")[0];
-    axios.get(`http://${req.headers.host}/api/products`, { params: { id: req.query.id } })
-        .then(function (bookData) {
-            res.render('editproduct', { book: bookData.data, admin: name, category });
-        })
-        .catch(err => {
-            res.send(err);
-        })
+    try {
+        const id = req.user.id;
+        const admin = await adminCollection.findById(id);
+        const category = await categoryCollection.find();
+        const name = admin.name.split(" ")[0];
+        const book = await productCollection.findById(req.query.id);
+        res.render('editProduct', { book: book, admin: name, category });
+    } catch (error) {
+        res.status(500).send(notification("Something went wrong!, please try again later!"));
+    }
+    // axios.get(`http://${req.headers.host}/api/products`, { params: { id: req.query.id } })
+    //     .then(function (bookData) {
+    //         console.log(bookData.data);
+
+    //         res.render('editProduct', { book: bookData.data, admin: name, category });
+    //     })
+    //     .catch(err => {
+    //         res.send(err);
+    //     })
 }
 
 // ***********************Category Management********************************
