@@ -383,10 +383,10 @@ exports.add_category = async (req, res) => {
 exports.edit_category = async (req, res) => {
     try {
         const id = req.user.id;
-    const admin = await adminCollection.findById(id);
-    const name = admin.name.split(" ")[0];
-    const category = await categoryCollection.findById(req.query.id);
-    res.render('editCategory', { category: category, admin: name });
+        const admin = await adminCollection.findById(id);
+        const name = admin.name.split(" ")[0];
+        const category = await categoryCollection.findById(req.query.id);
+        res.render('editCategory', { category: category, admin: name });
     } catch (error) {
         res.status(500).send(notification("Unable to edit!, please try again later!"));
     }

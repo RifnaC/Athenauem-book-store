@@ -525,7 +525,8 @@
           deleteAlerts();
         },
         error: function (xhr, status, error) {
-          console.log(error);
+          console.log("XHR status:", xhr.status);
+    console.log("Error:", error);
           SweetAlerts('Failed to delete category!');
         }
       });
