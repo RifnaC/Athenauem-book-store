@@ -30,7 +30,7 @@
     $('.sidebar, .content').toggleClass("open");
     return false;
   });
- 
+
   // sweet alerts
   function SweetAlerts(text) {
     Swal.fire({
@@ -113,7 +113,7 @@
     if (!password) {
       return SweetAlerts('Please enter the password!');
     }
-    if (!confirmPassword ) {
+    if (!confirmPassword) {
       return SweetAlerts('Please enter the confirm password!');
     }
     if (password.length < 6) {
@@ -133,7 +133,7 @@
       successAlerts();
     }
   })
-  
+
   // update admin
   $("#edit_admin").submit(function (event) {
     event.preventDefault();
@@ -201,7 +201,7 @@
       return ("Please enter the address of shop!");
     }
     if (openingTime === "") {
-    return ("Please enter opening time of the shop!");
+      return ("Please enter opening time of the shop!");
     }
     if (closingTime === "") {
       return ("Please enter closing time of the shop!");
@@ -251,7 +251,7 @@
       method: 'PUT',
       data: formData,
       contentType: false, // Required when sending FormData
-      processData: false 
+      processData: false
     };
 
     $.ajax(request)
@@ -269,7 +269,7 @@
       event.preventDefault();
       const id = $(this).attr('data-id');
       const url = `https://${window.location.host}/api/shops/${id}`;
-  
+
       // Send DELETE request using AJAX
       $.ajax({
         url: url,
@@ -284,7 +284,7 @@
       });
     });
   }
-  
+
 
   // Validation for adding new book
   function productValidation() {
@@ -424,14 +424,21 @@
     $(document).on("click", ".table tbody td a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
-      const request = {
-        "url": `https://${window.location.host}/api/products/${id}`,
-        "method": "DELETE"
-      };
-      deleteAlerts();
-    })
+      // Send DELETE request using AJAX
+      $.ajax({
+        url: `https://${window.location.host}/api/products/${id}`,
+        method: "DELETE",
+        success: function (response) {
+          // Handle success response
+          deleteAlerts();
+        },
+        error: function (xhr, status, error) {
+          SweetAlerts('Failed to delete book!');
+        }
+      });
+    });
   }
-  
+
   // validation for category
   function categoryValidation() {
     let genre = document.forms["add_cat"]["genre"].value;
@@ -895,7 +902,7 @@
     };
     // Send the PUT request
     $.ajax(request).done(function (response) {
-      successAlerts(); 
+      successAlerts();
     }).fail(function (response) {
       SweetAlerts('Something went wrong! Please try again.');
     });
@@ -1315,51 +1322,51 @@
         denyButtonText: `Don't save`,
         confirmButtonColor: '#15877C'
       })
-      .then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire({
-            imageUrl: "/img/favicon.png",
-            title: "Atheneuam",
-            imageWidth: 120,
-            imageHeight: 80,
-            imageAlt: "Atheneuam Logo",
-            confirmButtonColor: '#15877C',
-            text: 'Shipping address is updated successfully',
-          }).then((result) => {
-            $('#editShipping').css('display', 'none');
-            $('.adrSelection').css('display', 'none');
-            $('.adrChange').css('display', 'block');
-            $('.paymentSection').css('display', 'block');
-            $('#checkoutAddBtn').css('display', 'none');
-            $('#addressCard').css('display', 'none');
-            $('#updatedAddress').css('display', 'block');
-            $('#savedId').text(addressId);
-            $('#savedName').text(data.fullName);
-            $('#savedPhone').text(data.phone);
-            $('#savedAddress').text(data.address);
-            $('#savedCity').text(data.city);
-            $('#savedDistrict').text(data.district);
-            $('#savedState').text(data.state);              
-            $('#savedPin').text(-data.pincode);
-          });
-        } else if (result.isDenied) {
-          Swal.fire({
-            imageUrl: "/img/favicon.png",
-            title: "Atheneuam",
-            imageWidth: 120,
-            imageHeight: 80,
-            imageAlt: "Atheneuam Logo",
-            text: 'Changes are not saved',
-            confirmButtonColor: '#15877C',
-          })
-          .then((result) => {
-            window.location.href = '/checkout';
-          });
-        }
-      });
+        .then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            Swal.fire({
+              imageUrl: "/img/favicon.png",
+              title: "Atheneuam",
+              imageWidth: 120,
+              imageHeight: 80,
+              imageAlt: "Atheneuam Logo",
+              confirmButtonColor: '#15877C',
+              text: 'Shipping address is updated successfully',
+            }).then((result) => {
+              $('#editShipping').css('display', 'none');
+              $('.adrSelection').css('display', 'none');
+              $('.adrChange').css('display', 'block');
+              $('.paymentSection').css('display', 'block');
+              $('#checkoutAddBtn').css('display', 'none');
+              $('#addressCard').css('display', 'none');
+              $('#updatedAddress').css('display', 'block');
+              $('#savedId').text(addressId);
+              $('#savedName').text(data.fullName);
+              $('#savedPhone').text(data.phone);
+              $('#savedAddress').text(data.address);
+              $('#savedCity').text(data.city);
+              $('#savedDistrict').text(data.district);
+              $('#savedState').text(data.state);
+              $('#savedPin').text(-data.pincode);
+            });
+          } else if (result.isDenied) {
+            Swal.fire({
+              imageUrl: "/img/favicon.png",
+              title: "Atheneuam",
+              imageWidth: 120,
+              imageHeight: 80,
+              imageAlt: "Atheneuam Logo",
+              text: 'Changes are not saved',
+              confirmButtonColor: '#15877C',
+            })
+              .then((result) => {
+                window.location.href = '/checkout';
+              });
+          }
+        });
     }).fail(function (response) {
-      SweetAlerts("Please Select the your existing shipping address" );
+      SweetAlerts("Please Select the your existing shipping address");
     });
   });
 

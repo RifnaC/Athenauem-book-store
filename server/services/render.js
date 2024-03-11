@@ -296,34 +296,6 @@ exports.edit_Shop = async (req, res) => {
     }
 }
 
-
-// exports.shopDetails = async (req, res) => {
-//     try {
-//         const id = req.user.id;
-//         const admin = await adminCollection.findById(id);
-//         const name = admin.name.split(" ")[0];
-//         const shopId = req.query.id;
-//         const books = await productCollection.find({ shopId: { $eq: shopId } });
-//         // Fetch shop data from MongoDB
-//         const shop = await shops.findById(shopId);
-//         console.log(shop);
-//         axios.get(`http://${req.headers.host}/api/shops`, { params: { id: shopId } })
-//             .then(function (shopData) {
-//                 console.log();
-//                 // if (req.user.role === 'vendor') {
-//                     // res.render('books', { isVendor: true, shop: shopData.data, admin: name, books });
-//                 // }
-//                 res.render('books', { shop: shop, admin: name, books });
-//             })
-//             .catch(err => {
-//                 res.send(notification("Something went wrong!, please try again later!"));
-//             });
-//     } catch (error) {
-//         console.error('Error in shopDetails:', error);
-//         res.status(500).send(notification("Something went wrong!, please try again later!"));
-//     }
-// };
-
 exports.shopDetails = async (req, res) => {
     try {
         const id = req.user.id;
@@ -333,10 +305,8 @@ exports.shopDetails = async (req, res) => {
         
         // Fetch shop data from MongoDB
         const shop = await shops.findById(shopId);
-        
         // Fetch books associated with the shop
         const books = await productCollection.find({ shopId: { $eq: shopId } });
-
         res.render('books', { shop: shop, admin: name, books });
     } catch (error) {
         console.error('Error in shopDetails:', error);
