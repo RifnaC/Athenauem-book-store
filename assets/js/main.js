@@ -290,6 +290,7 @@
         },
         error: function (xhr, status, error) {
           // Handle error response
+          console.log(error);
           SweetAlerts('Failed to delete shop!');
           // Handle error or show error alert
         }
