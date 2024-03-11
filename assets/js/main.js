@@ -517,7 +517,6 @@
     $(document).on("click", ".table tbody td a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
-      alert(id);
       $.ajax({
         url: `https://${window.location.host}/api/categories/${id}`,
         method: "DELETE",
@@ -526,6 +525,7 @@
           deleteAlerts();
         },
         error: function (xhr, status, error) {
+          console.log(error);
           SweetAlerts('Failed to delete category!');
         }
       });
