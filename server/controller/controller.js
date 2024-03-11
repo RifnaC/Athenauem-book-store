@@ -128,11 +128,12 @@ exports.update = (req, res) => {
         return res.status(400).send(notification("Data to update can not be empty"));
     }
     const id = req.params.id;
-    Admindb.findByIdAndUpdate(id, req.body, { useFindAndModify: false }).then(data => {
+    Admindb.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then(data => {
         if (!data) {
             return res.status(404).send(notification(`User with ${id} is not found`));
         } else {
-            res.send(data);
+            res.status(200).send(data);
         }
     })
         .catch(err => {

@@ -158,7 +158,7 @@
     }
 
     let request = {
-      "url": `https://${window.location.host}/${adminId}`,
+      "url": `https://${window.location.host}/api/admins/${adminId}`,
       "method": "PUT",
       "data": data
     };
