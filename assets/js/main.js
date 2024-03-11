@@ -418,7 +418,7 @@
       SweetAlerts('Something went wrong! Please try again.');
     })
   });
-  // *************************************ALERT MODIFICATION****************************************/
+
   // Delete the product
   if (window.location.pathname === "/products" || window.location.pathname === "/books") {
     $(document).on("click", ".table tbody td a.delete", function (event) {
@@ -674,7 +674,7 @@
     if (!name) {
       return SweetAlerts('Please enter your name!')
     }
-    if (name.length <= 2 || name.length > 16) {
+    if (name.length < 3 || name.length > 16) {
       return SweetAlerts('Please enter a valid name!')
     }
     if (!email) {
@@ -894,11 +894,10 @@
     if (!data.email) {
       return SweetAlerts('Please enter the email!');
     }
-
     let request = {
-      "url": `https://${window.location.host}/api/users/${userId}`,
+      "url": `https://${window.location.host}/users/${userId}`,
       "method": "PUT",
-      "data": data
+      "data": data,
     };
     // Send the PUT request
     $.ajax(request).done(function (response) {
