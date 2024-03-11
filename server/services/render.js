@@ -260,9 +260,9 @@ exports.shop = async (req, res) => {
     const shop = await shops.find()
     axios.get(`http://${req.headers.host}/api/shops`)
         .then(function (response) {
-            if (req.user.role === 'vendor') {
-                res.render('shop', { isVendor: true, shops: response.data, admin: name });
-            }
+            // if (req.user.role === 'vendor') {
+            //     res.render('shop', { isVendor: true, shops: response.data, admin: name });
+            // }
             res.render('shop', { shops: shop, admin: name });
         })
         .catch(error => {
@@ -281,21 +281,6 @@ exports.add_Shop = async (req, res) => {
     }
 }
 
-// exports.edit_Shop = async (req, res) => {
-//     const id = req.user.id;
-//     const admin = await adminCollection.findById(id);
-//     const name = admin.name.split(" ")[0];
-//     const shop = await shops.findById(req.query.id);
-//     axios.get(`https://${req.headers.host}/api/shops`, { params: { id: req.query.id } })
-//         .then(function (shopData) {
-//             res.render('editShop', { shop: shop, admin: name });
-//         })
-//         .catch(err => {
-//             console.error(err);
-//             res.status(500).send(notification("Something went wrong!, please try again later!"));
-//         })
-// }
-
 exports.edit_Shop = async (req, res) => {
     try {
         const id = req.user.id;
@@ -312,28 +297,53 @@ exports.edit_Shop = async (req, res) => {
 }
 
 
+// exports.shopDetails = async (req, res) => {
+//     try {
+//         const id = req.user.id;
+//         const admin = await adminCollection.findById(id);
+//         const name = admin.name.split(" ")[0];
+//         const shopId = req.query.id;
+//         const books = await productCollection.find({ shopId: { $eq: shopId } });
+//         // Fetch shop data from MongoDB
+//         const shop = await shops.findById(shopId);
+//         console.log(shop);
+//         axios.get(`http://${req.headers.host}/api/shops`, { params: { id: shopId } })
+//             .then(function (shopData) {
+//                 console.log();
+//                 // if (req.user.role === 'vendor') {
+//                     // res.render('books', { isVendor: true, shop: shopData.data, admin: name, books });
+//                 // }
+//                 res.render('books', { shop: shop, admin: name, books });
+//             })
+//             .catch(err => {
+//                 res.send(notification("Something went wrong!, please try again later!"));
+//             });
+//     } catch (error) {
+//         console.error('Error in shopDetails:', error);
+//         res.status(500).send(notification("Something went wrong!, please try again later!"));
+//     }
+// };
+
 exports.shopDetails = async (req, res) => {
     try {
         const id = req.user.id;
         const admin = await adminCollection.findById(id);
         const name = admin.name.split(" ")[0];
         const shopId = req.query.id;
+        
+        // Fetch shop data from MongoDB
+        const shop = await shops.findById(shopId);
+        
+        // Fetch books associated with the shop
         const books = await productCollection.find({ shopId: { $eq: shopId } });
-        axios.get(`http://${req.headers.host}/api/shops`, { params: { id: req.query.id } })
-            .then(function (shopData) {
-                if (req.user.role === 'vendor') {
-                    res.render('books', { isVendor: true, shop: shopData.data, admin: name, books });
-                }
-                res.render('books', { shop: shopData.data, admin: name, books });
-            })
-            .catch(err => {
-                res.send(err);
-            });
+
+        res.render('books', { shop: shop, admin: name, books });
     } catch (error) {
         console.error('Error in shopDetails:', error);
-        res.status(500).send({ message: 'Internal Server Error' });
+        res.status(500).send(notification("Something went wrong!, please try again later!"));
     }
 };
+
 
 // ***********************Product Management********************************
 exports.product = async (req, res) => {
@@ -342,9 +352,9 @@ exports.product = async (req, res) => {
     const name = admin.name.split(" ")[0];
     axios.get(`http://${req.headers.host}/api/products`)
         .then(function (response) {
-            if (req.user.role !== 'admin') {
-                res.render('products', { isVendor: true, books: response.data, admin: name });
-            }
+            // if (req.user.role !== 'admin') {
+            //     res.render('products', { isVendor: true, books: response.data, admin: name });
+            // }
             res.render('products', { books: response.data, admin: name });
         })
         .catch(error => {
@@ -458,13 +468,16 @@ exports.editBanner = async (req, res) => {
 exports.login = (req, res) => {
     res.render('login');
 }
+
 exports.signup = (req, res) => {
     res.render('signUp');
 }
 
+
 exports.forgotPswd = (req, res) => {
     res.render('forgotPswd');
 }
+
 // ***********************Customer CRUD Section*******************************
 exports.user = async (req, res) => {
     const id = req.user.id;
