@@ -41,7 +41,7 @@
       imageAlt: "Atheneuam Logo",
       text: text,
       confirmButtonColor: '#15877C',
-    })
+    });
   }
   // success sweet alert
   function successAlerts() {
@@ -85,7 +85,6 @@
       }).then((resolve) => {
         if (resolve.isConfirmed) {
           SweetAlerts('Data deleted successfully');
-          window.location.reload();
         } else if (resolve.isDenied) {
           SweetAlerts('Data not deleted');
         }
@@ -975,7 +974,7 @@
     } else {
       SweetAlerts('New coupon is created Successfully');
     }
-  })
+  });
 
   // update admin
   $("#editCoupon").submit(function (event) {

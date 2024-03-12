@@ -48,7 +48,6 @@ exports.createCoupon = asyncHandler(async (req, res) => {
             discount
         });
         await coupon.save();
-        res.status(200).redirect('/offer');
     } catch (error) {
         throw new Error(error);
     }
@@ -77,7 +76,7 @@ exports.updateCoupon = asyncHandler(async (req, res) => {
             expireDate,
             discount
         }).then(coupon => {
-            res.status(200).render('offer', { offer: coupon });
+            res.status(200).redirect('back');
         });
 
     } catch (error) {
@@ -89,7 +88,7 @@ exports.updateCoupon = asyncHandler(async (req, res) => {
 exports.deleteCoupon = asyncHandler(async (req, res) => {
     try {
         await Coupon.findByIdAndDelete(req.params.id,);
-        res.status(200).render('offer');
+        res.status(200).redirect('/offer');
 
     } catch (error) {
         throw new Error(error);
