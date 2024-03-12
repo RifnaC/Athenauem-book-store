@@ -47,7 +47,9 @@ exports.createCoupon = asyncHandler(async (req, res) => {
             expireDate,
             discount
         });
-        await coupon.save();
+        await coupon.save().then((result) => {
+            res.status(200).redirect('back');
+        });
     } catch (error) {
         throw new Error(error);
     }
