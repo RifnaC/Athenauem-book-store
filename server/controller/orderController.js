@@ -40,12 +40,48 @@ function notification(msg) {
     </html>`
 }
 
+// exports.allOrderDetails = async (req, res, next) => {
+//     try {
+//         const id = req.user.id;
+//         const admin = await Admin.findById(id);
+//         const name = admin.name.split(" ")[0];
+//         const orders = await Order.find({}).sort({ orderDate: -1 });
+//         let orderData = [];
+//         for (let order of orders) {
+//             const user = await User.findOne({ _id: order.userId });
+//             const userName = user.name.split(" ")[0];
+//             const dateObject = new Date(order.orderDate);
+//             const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
+//             orderData.push({ order, userName, orderDate })
+//         }
+//         res.render('orders', { admin: name, orderData: orderData });
+//     } catch (error) {
+//         res.status(404).send(notification('Something went wrong, please try again later'));
+//     }
+// }
+
 exports.allOrderDetails = async (req, res, next) => {
     try {
         const id = req.user.id;
         const admin = await Admin.findById(id);
         const name = admin.name.split(" ")[0];
-        const orders = await Order.find().sort({ orderDate: -1 }).exec();
+        
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
+        const pageSize = 10; // Number of orders per page
+
+        // Count total number of orders
+        const totalOrders = await Order.countDocuments();
+
+        // Calculate skip value based on page number
+        const skip = (page - 1) * pageSize;
+
+        // Fetch orders for the current page
+        const orders = await Order.find({})
+                                  .sort({ orderDate: -1 })
+                                  .skip(skip)
+                                  .limit(pageSize);
+
         let orderData = [];
         for (let order of orders) {
             const user = await User.findOne({ _id: order.userId });
@@ -54,9 +90,21 @@ exports.allOrderDetails = async (req, res, next) => {
             const orderDate = dateObject.toISOString().split('T')[0].split('-').reverse().join('-');
             orderData.push({ order, userName, orderDate })
         }
-        res.render('orders', { admin: name, orders: orders, orderData: orderData });
+
+        // Calculate total number of pages
+        const totalPages = Math.ceil(totalOrders / pageSize);
+        let prev=1;
+        if(page>1){
+            prev=page-1
+        }
+        let next=page;
+        if(page<totalPages){
+            console.log(page + " pages" + totalPages)
+            next++;
+        }
+        res.render('orders', { admin: name, orderData: orderData, totalPages: totalPages, currentPage: page, prev: prev, next: next });
     } catch (error) {
-        res.status(404).send(notification('Something went wrong, please try again later'));
+        res.status(500).send(notification('Something went wrong, please try again later'));
     }
 }
 
@@ -110,7 +158,6 @@ exports.editOrder = async (req, res, next) => {
                 { new: true }
             );
         }
-        console.log(updatedOrder);
         if (updatedOrder) {
             res.json(updatedOrder);
         } else {
