@@ -15,5 +15,7 @@ route.post("/coupon", auth.authMiddleware, coupon.createCoupon);
 route.put("/coupon/:id", auth.authMiddleware, coupon.updateCoupon);
 route.delete("/coupon/:id", auth.authMiddleware, coupon.deleteCoupon);
 
+// 404 page
+route.get('*', services.adminError);
 
 module.exports = route

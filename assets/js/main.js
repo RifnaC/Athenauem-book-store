@@ -1021,13 +1021,16 @@
     $(document).on("click", ".table tbody td a.delete", function (event) {
       event.preventDefault();
       const id = $(this).attr('data-id');
-      const request = {
-        "url": `https://${window.location.host}/coupon/${id}`,
-        "method": "DELETE",
-      };
-      // The user clicked the "Yes, delete it" button
-      $.ajax(request).done(function (response) {
-        deleteSuccess();
+      $.ajax({
+        url: `https://${window.location.host}/coupon/${id}`,
+        method: "DELETE",
+        success: function (response) {
+          // Handle success response
+          deleteAlerts();
+        },
+        error: function (xhr, status, error) {
+          SweetAlerts('Failed to delete coupon!');
+        }
       });
     })
   }
