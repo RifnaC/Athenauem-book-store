@@ -1007,11 +1007,17 @@
     let request = {
       "url": `https://${window.location.host}/coupon/${couponId}`,
       "method": "PUT",
-      "data": data
+      "data": data,
+      processData: false,
+      contentType: false,
+
     };
     // Send the PUT request
     $.ajax(request).done(function (response) {
       successAlerts();
+    }).fail(function (response,error) {
+      console.log(error)
+      SweetAlerts('Failed to update coupon!');
     });
   });
 
@@ -1028,6 +1034,7 @@
           deleteAlerts();
         },
         error: function (xhr, status, error) {
+          console.log(error);
           SweetAlerts('Failed to delete coupon!');
         }
       });
@@ -1162,7 +1169,9 @@
     let request = {
       "url": `https://${window.location.host}/address/${userId}`,
       "method": "PUT",
-      "data": data
+      "data": data,
+      processData: false,
+      contentType: false,
     };
     // Send the PUT request
     $.ajax(request).done(function (response) {
