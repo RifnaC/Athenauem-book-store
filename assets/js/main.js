@@ -33,7 +33,7 @@
 
   // sweet alerts
   function SweetAlerts(text) {
-    Swal.fire({
+    return Swal.fire({
       imageUrl: "/img/favicon.png",
       title: "Atheneuam",
       imageWidth: 120,
@@ -45,8 +45,7 @@
   }
   // success sweet alert
   function successAlerts() {
-    new Promise((resolve) => {
-      Swal.fire({
+    return Swal.fire({
         imageUrl: "/img/favicon.png",
         title: "Atheneuam",
         imageWidth: 120,
@@ -60,18 +59,24 @@
         confirmButtonColor: '#15877C',
       }).then((resolve) => {
         if (resolve.isConfirmed) {
-          SweetAlerts('Changes are saved');
+          return SweetAlerts('Data saved successfully').then((result) => {
+            if (result.isConfirmed) {
+              history.back();
+            }
+          });
         } else if (resolve.isDenied) {
-          SweetAlerts('Changes are not saved');
+          return SweetAlerts('Changes are not saved').then((result) => {
+            if (result.isConfirmed) {
+              history.back();
+            }
+          })
         }
       });
-    });
   }
 
   // delete sweet alert
   function deleteAlerts() {
-    new Promise((resolve) => {
-      Swal.fire({
+    return Swal.fire({
         imageUrl: "/img/favicon.png",
         title: "Atheneuam",
         imageWidth: 120,
@@ -84,12 +89,15 @@
         confirmButtonColor: '#15877C',
       }).then((resolve) => {
         if (resolve.isConfirmed) {
-          SweetAlerts('Data deleted successfully');
+          return SweetAlerts('Data deleted successfully').then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });     
         } else if (resolve.isDenied) {
           SweetAlerts('Data not deleted');
         }
       });
-    });
   }
 
   //Admin alerts
@@ -987,6 +995,7 @@
     });
     // Extract the coupon id from the form data
     const couponId = data.id;
+    console.log(couponId)
     // Validation: Check if the coupon fields are empty
     if (!data.couponCode) {
       return SweetAlerts('Please enter coupon code!');
@@ -1008,15 +1017,11 @@
       "url": `https://${window.location.host}/coupon/${couponId}`,
       "method": "PUT",
       "data": data,
-      processData: false,
-      contentType: false,
-
     };
     // Send the PUT request
     $.ajax(request).done(function (response) {
       successAlerts();
-    }).fail(function (response,error) {
-      console.log(error)
+    }).fail(function (response,status,error) {
       SweetAlerts('Failed to update coupon!');
     });
   });

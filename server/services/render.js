@@ -525,11 +525,15 @@ exports.offers = (req, res) => {
 }
 
 exports.updateOffer = async (req, res) => {
-    const id = req.user.id;
-    const admin = await adminCollection.findById(id);
-    const name = admin.name.split(" ")[0];
-    const coupon = await Coupon.findById(req.query.id);
-    res.render('coupon', { offer: coupon, admin: name });
+    try {  
+        const id = req.user.id;
+        const admin = await adminCollection.findById(id);
+        const name = admin.name.split(" ")[0];
+        const coupon = await Coupon.findById(req.query.id);
+        res.render('coupon', { offer: coupon, admin: name });
+    } catch (error) {
+        res.status(500).send(notification('Internal Server Error, Please try again later')); 
+    }
 }
 
 exports.notFound = (req, res) => {

@@ -69,16 +69,15 @@ exports.getAllCoupon = asyncHandler(async (req, res) => {
 // Edit coupon
 exports.updateCoupon = asyncHandler(async (req, res) => {
     try {
+        const id = req.params.id;
         const coupons = await Coupon.find();
         const { couponCode, expireDate, discount } = req.body;
-        const coupon = await Coupon.findByIdAndUpdate(req.params.id, {
+        const coupon = await Coupon.findByIdAndUpdate(id, {
             couponCode,
             expireDate,
             discount
-        }).then(coupon => {
-            res.status(200).redirect('back');
-        });
-
+        },{ new: true });
+        res.status(200).send({ coupon: coupon });
     } catch (error) {
         throw new Error(error);
     }
