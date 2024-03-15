@@ -62,14 +62,12 @@
           return SweetAlerts('Data saved successfully').then((result) => {
             if (result.isConfirmed) {
               history.back();
-              window.location.reload();
             }
           });
         } else if (resolve.isDenied) {
           return SweetAlerts('Changes are not saved').then((result) => {
             if (result.isConfirmed) {
               history.back();
-              window.location.reload();
             }
           })
         }
