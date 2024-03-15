@@ -46,8 +46,7 @@ exports.authMiddleware = async(req, res, next) => {
     jwt.verify(token, JWT_SECRET, (err, user) => {
         if (err) {
             console.error('Token Verification Error:', err);
-            
-            return res.send(notification("Token Expired"));
+            return res.send(notification("Your Token has been Expired, please login again!"));
         }
         req.user = user;
         next();

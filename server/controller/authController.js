@@ -71,13 +71,15 @@ exports.register = async (req, res) => {
             password: hashedPassword,
             status: req.body.status,
         });
-        const token = signToken({ id: user._id, role: user.role });
+        const token = signToken({ id: user._id, role: user.role, user});
+        res.cookie('token', token,{ httpOnly: false, secure: true, })
         // save user in database
         const savedUser = await user.save();
         if (token) {
             res.redirect('/');
         }
     } catch (err) {
+        console.log(err);
         res.status(500).send(notification("Some error occured while creating a create operation", "/signup"));
     }
 };
