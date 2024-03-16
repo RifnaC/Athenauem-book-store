@@ -180,7 +180,7 @@
                                         <div class="col-sm-2 col-md-2 col-7 my-auto d-flex">
                                             <div class="qty-container justify-content-start">
                                                 <button class="qty-btn-minus btn-primary px-1"
-                                                    onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',-1, -{{this.cartItem.price}})"
+                                                    onclick="return changeQty('{{this._id}}', '{{this.cartItem._id}}',-1, -{{this.cartItem.price}}, {{this.quantity}})"
                                                     type="button" id="decBtn"><i class="fa fa-minus"></i>
                                                 </button>
                                                 <input type="text" name="qty" value="{{this.quantity}}"

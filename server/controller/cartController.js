@@ -88,21 +88,17 @@ exports.updateCart = async (req, res) => {
         const book = await Books.find({ _id: productId });
         const price = book[0].price;
         const subTotal = price * count;
-
         await Cart.findOneAndUpdate(
             {
                 _id: cartId,
                 'items.productId': productId,
-                'items.quantity': { $lt: 10 },
             },
-            { $inc: { 'items.$.quantity': count, 'items.$.subTotal': subTotal }, }
-        )
+            { $set: { 'items.$.quantity': count, 'items.$.subTotal': subTotal }, }
+        );
         await Cart.updateMany(
             { _id: new mongoose.Types.ObjectId(cartId) },
             { $pull: { items: { quantity: { $lt: 1 } } } },
         );
-
-        // Send a response back to the client
         res.json({ success: true });
     }
     catch (error) {
@@ -186,7 +182,7 @@ exports.changeQuantity = async (req, res) => {
                 {
                     _id: new mongoose.Types.ObjectId(cartId),
                     'items.productId': productId,
-                    'items.quantity': { $lt: 10 },
+                    // 'items.quantity': { $gte: count },
                 },
                 {
                     $inc: { 'items.$.quantity': count, 'items.$.subTotal': subTotal }

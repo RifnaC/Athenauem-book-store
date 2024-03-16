@@ -8,6 +8,7 @@ const shops = require('../models/shopModel');
 const User = require('../models/userModel');
 const Cart = require('../models/cartModel');
 const Coupon = require('../models/couponModel');
+const Wishlist = require('../models/wishlistModel');
 const Order = require('../models/orderModel');
 const { itemSales } = require('../controller/orderController');
 const jwt = require('jsonwebtoken');
@@ -479,6 +480,8 @@ exports.userHome = async (req, res) => {
             availability = true;
         }
         const cartItems = cartCount ? cartCount.items : null;
+        const wishlist = await Wishlist.findOne({ userId: req.user.id });
+        const wishlistItems = wishlist ? wishlist.items : [];
         products.forEach(product => {
             product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));
             if (cartItems) {
@@ -490,8 +493,17 @@ exports.userHome = async (req, res) => {
                     product.inCart = false;
                 }
             }
-
+            if (wishlistItems) {
+                const wishlistItem = wishlistItems.find(item => item.productId.toString() === product._id.toString());
+                if(wishlistItem) {
+                    product.inWishlist = true;
+                }else{
+                    product.inWishlist = false;
+                }
+            }
         });
+        
+        console.log(products);
         const data = {
             images: latestImages,
             category: categories,

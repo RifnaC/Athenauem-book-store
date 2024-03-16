@@ -1,19 +1,28 @@
 // cart quantity 
-function changeQty(cartId, productId, count, subTotal,quantity) {
-console.log(quantity);
-    $.ajax({
-        url: '/changeInQuantity',
-        data: {
-            cartId: cartId,
-            productId: productId,
-            count: count,
-            subTotal: subTotal,
-        },
-        method: 'POST',
-        success: (data) => {
-            window.location.reload();
-        },
-    })
+function changeQty(cartId, productId, count, subTotal, quantity) {
+    if(quantity >= 10 && count ==1){
+        Swal.fire({
+            position: 'top-end',
+            text: 'Maximum quantity reached!',
+            showConfirmButton: false,
+            timer: 3000,
+        })
+    } else {
+        $.ajax({
+            url: '/changeInQuantity',
+            data: {
+                cartId: cartId,
+                productId: productId,
+                count: count,
+                subTotal: subTotal,
+            },
+            method: 'POST',
+            success: (data) => {
+                window.location.reload();
+            },
+        })
+    }
+    
 }
 function addToCartAndShowAlert(productId) {
     const token = document.cookie.split(';').some((item) => item.trim().startsWith('token='));
@@ -70,7 +79,7 @@ function decrementQuantity(productId) {
     }
 }
 
-function updateCart(productId, quantity,) {
+function updateCart(productId, quantity) {
     // Make an AJAX request to the server to update the cart
     $.ajax({
         type: 'POST',
@@ -78,14 +87,15 @@ function updateCart(productId, quantity,) {
         data: {
             productId: productId,
             quantity: quantity,
+            
         },
+        
         success: function (response) {
-            console.log('Cart updated successfully');
-            // Handle success, if needed
+
+            console.log('Cart updated successfully', );
         },
         error: function (error) {
             console.error('Error updating cart:', error);
-            // Handle error, if needed
         }
     });
 }
