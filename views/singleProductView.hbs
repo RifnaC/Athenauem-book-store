@@ -149,12 +149,13 @@
                             <div class="_p-add-cart">
                                 <div class="_p-qty">
                                     <div class="d-flex w-100">
-                                        <div class="btn-box text-center bg-primary" id="addToCart-{{item._id}}">
+                                        <div class="btn-box text-center bg-primary h-25" id="addToCart-{{item._id}}">
                                             <a class="text-white btn btn-sm" href="/carts/{{item._id}}"
                                                 onclick='return addToCartAndShowAlert("{{item._id}}")'>
                                                 <i class="fa fa-shopping-cart"></i> Add to Cart </a>
                                         </div>
-                                        <div class="bg-danger text-center text-white  py-1" id="outOfStock-{{item._id}}" style="display: none; width: 50%;">{{item.stock}}</div>
+                                        <div class="bg-danger text-center text-white  py-1" id="outOfStock-{{item._id}}" style="display: none; width: 50%;">{{item.stock}}
+                                        </div>
                                         <script>
                                             if ({{ item.quantity }} == 0 || "{{item.stock}}" == "Out Of Stock") {
                                                 document.getElementById(`outOfStock-{{item._id}}`).style.display = 'block';
@@ -179,9 +180,20 @@
                                                 document.getElementById('cartQty-{{item._id}}').value = {{ item.cartQty }};
                                             }
                                         </script>
-                                        <a href="/wishlist/{{item._id}}" class="wrapper nav-link ms-4">
-                                            <div class="icon-wishlist"></div>
-                                        </a>
+                                        <div style="height: 24px;">
+                                            <a href="/wishlist/{{item._id}}" class="wrapper nav-link ms-4">
+                                                <div class="icon-wishlist" id="wishlist-{{item._id}}" style="margin-top: -20px; margin-left: -24px"></div>
+                                                <script>
+                                                    if ({{ item.inWishlist }}) {
+                                                        document.getElementById('wishlist-{{item._id}}').style.background = "url('data:image/svg+xml,%3Csvg id=\"heart-svg\" viewBox=\"467 392 58 57\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg id=\"Group\" fill=\"none\" fill-rule=\"evenodd\" transform=\"translate(467 392)\"%3E%3Cpath id=\"heart\" d=\"M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z\" fill=\"%2315877C\"/%3E%3C/g%3E%3C/svg%3E')";
+                                                        document.getElementById('wishlist-{{item._id}}').style.height = "48px";
+                                                        document.getElementById('wishlist-{{item._id}}').style.width =  "48px";
+                                                        document.getElementById('wishlist-{{item._id}}').style.opacity = "1";
+
+                                                    }
+                                                </script>
+                                            </a>
+                                        </div>
                                     </div>
                                     <hr>
                                 </div>
@@ -211,9 +223,20 @@
                         <div class="item col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
                             <div class="sq_box1 shadow">
                                 <div class="pdis_img">
-                                    <span class="wishlist singleWishlist">
+                                    <span class="wishlist singleWishlist my-0">
                                         <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
-                                            <div class="icon-wishlist "></div>
+                                            <div class="icon-wishlist " id="wishlist-{{this._id}}"></div>
+                                            <script>
+                                                if ({{ this.inWishlist }}) {
+                                                    document.getElementById('wishlist-{{this._id}}').style.background = "url('data:image/svg+xml,%3Csvg id=\"heart-svg\" viewBox=\"467 392 58 57\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg id=\"Group\" fill=\"none\" fill-rule=\"evenodd\" transform=\"translate(467 392)\"%3E%3Cpath id=\"heart\" d=\"M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z\" fill=\"%2315877C\"/%3E%3C/g%3E%3C/svg%3E')";
+                                                    document.getElementById('wishlist-{{this._id}}').style.height = "48px";
+                                                    document.getElementById('wishlist-{{this._id}}').style.width = "48px";
+                                                    document.getElementById('wishlist-{{this._id}}').style.opacity = "1";
+                                                    document.getElementById('wishlist-{{this._id}}').style.marginTop = "-16px";
+                                                    document.getElementById('wishlist-{{this._id}}').style.marginBottom = "-8px";
+                                                    document.getElementById('wishlist-{{this._id}}').style.marginLeft = "-16px";
+                                                }
+                                            </script>
                                         </a>
                                     </span>
                                     <a href="/productView/{{this._id}}">
@@ -226,12 +249,10 @@
                                     <span class="offer-price " style="color: #28a745 "> Offer Price <i class="fa fa-inr"></i> {{this.price}}
                                     </span>
                                 </div>
-                                {{!-- <div class="btn-box " id="addToCart-{{this._id}}"> --}}
                                     <a class="text-white btn btn-sm text-center bg-primary" href="/carts/{{this._id}}"
                                         onclick='return addToCartAndShowAlert("{{this._id}}")' id="addToCart-{{this._id}}" style="border-radius: 0;">
                                         <i class="fa fa-shopping-cart"></i>Add to Cart </a>
                                     </a>
-                                {{!-- </div> --}}
                                 <div class="qty-container mx-auto text-dark home-qty" id="qty-{{this._id}}"
                                     style="display: none; ">
                                     <button class="qty-btn-minus btn-primary px-1" type="button" id="decBtn"
@@ -248,7 +269,7 @@
                                         document.getElementById('addToCart-{{this._id}}').style.display = 'none';
                                         document.getElementById('qty-{{this._id}}').style.display = 'flex';
                                         document.getElementById('cartQty-{{this._id}}').value = {{ this.cartQty }};
-                                }
+                                    }
                                 </script>
                             </div>
                         </div>

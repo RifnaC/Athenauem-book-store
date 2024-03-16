@@ -2,6 +2,7 @@ const product = require('../models/products');
 const shops = require('../models/shopModel');
 const cart = require('../models/cartModel');
 const genre = require('../models/categoryModel')
+const Wishlist = require('../models/wishlistModel');
 
 function notification(msg) {
   return `<!DOCTYPE html>
@@ -50,6 +51,8 @@ exports.productView = async (req, res) => {
     const shop = await shops.findById(vendorId);
     const off = Math.floor((item.discount * 100) / item.originalPrice)
     const cartItems = cartCount ? cartCount.items : null;
+    const wishlist = await Wishlist.findOne({ userId: req.user.id });
+    const wishlistItems = wishlist ? wishlist.items : [];
 
     if (cartItems) {
       const cartItem = cartItems.find(prdt => prdt.productId.toString() === item._id.toString());
@@ -58,6 +61,14 @@ exports.productView = async (req, res) => {
 
     } else {
       item.inCart = false;
+    }
+    if (wishlistItems) {
+      const wishlistItem = wishlistItems.find(prdt => prdt.productId.toString() === item._id.toString());
+      if (wishlistItem) {
+        item.inWishlist = true;
+      } else {
+        item.inWishlist = false;
+      }
     }
 
     category.forEach(book => {
@@ -70,6 +81,15 @@ exports.productView = async (req, res) => {
           book.inCart = false;
         }
       }
+      if (wishlistItems) {
+        const wishlistItem = wishlistItems.find(prdt => prdt.productId.toString() === book._id.toString());
+        if (wishlistItem) {
+          book.inWishlist = true;
+        } else {
+          book.inWishlist = false;
+        }
+      }
+     
     });
     if (cartCount !== null) {
       const cartId = cartCount._id
@@ -83,6 +103,7 @@ exports.productView = async (req, res) => {
     res.status(500).send(notification('Oops, Something went wrong, please try again later'));
   }
 }
+
 exports.shopPage = async (req, res, next) => {
   try {
     const cartCount = !req.user ? 0 : await cart.findOne({ userId: req.user.id });
@@ -92,7 +113,8 @@ exports.shopPage = async (req, res, next) => {
     const search = req.query.searchQuery || "";
     const limit = 9;
     let page = 1;
-
+    const wishlist = await Wishlist.findOne({ userId: req.user.id });
+    const wishlistItems = wishlist ? wishlist.items : [];
     if (req.query.page) {
       page = Number(req.query.page);
     }
@@ -149,6 +171,14 @@ exports.shopPage = async (req, res, next) => {
           book.inCart = false;
         }
       }
+      if (wishlistItems) {
+        const wishlistItem = wishlistItems.find(item => item.productId.toString() === book._id.toString());
+        if (wishlistItem) {
+          book.inWishlist = true;
+        } else {
+          book.inWishlist = false;
+        }
+      }
     });
     const authors = [...new Set(books.map(author => author.author))];
     let availibility;
@@ -195,6 +225,8 @@ exports.category = async (req, res, next) => {
     const search = req.query.searchQuery || "";
     const cartCount = !req.user ? 0 : await cart.findOne({ userId: req.user.id });
     const cartItems = cartCount ? cartCount.items : null;
+    const wishlist = await Wishlist.findOne({ userId: req.user.id });
+    const wishlistItems = wishlist ? wishlist.items : [];
     const fiction = await product.find({
       genre: "Fiction", $or: [
         { bookName: { $regex: new RegExp(search, 'i') } },
@@ -210,6 +242,14 @@ exports.category = async (req, res, next) => {
           book.cartQty = cartItem.quantity;
         } else {
           book.inCart = false;
+        }
+      }
+      if (wishlistItems) {
+        const wishlistItem = wishlistItems.find(item => item.productId.toString() === book._id.toString());
+        if (wishlistItem) {
+          book.inWishlist = true;
+        } else {
+          book.inWishlist = false;
         }
       }
     });
@@ -230,6 +270,14 @@ exports.category = async (req, res, next) => {
           book.inCart = false;
         }
       }
+      if (wishlistItems) {
+        const wishlistItem = wishlistItems.find(item => item.productId.toString() === book._id.toString());
+        if (wishlistItem) {
+          book.inWishlist = true;
+        } else {
+          book.inWishlist = false;
+        }
+      }
     });
     const novels = await product.find({
       genre: "Novels", $or: [
@@ -246,6 +294,14 @@ exports.category = async (req, res, next) => {
           book.cartQty = cartItem.quantity;
         } else {
           book.inCart = false;
+        }
+      }
+      if (wishlistItems) {
+        const wishlistItem = wishlistItems.find(item => item.productId.toString() === book._id.toString());
+        if (wishlistItem) {
+          book.inWishlist = true;
+        } else {
+          book.inWishlist = false;
         }
       }
     });
@@ -287,6 +343,8 @@ exports.author = async (req, res, next) => {
     const search = req.query.searchQuery || "";
     const cartCount = !req.user ? 0 : await cart.findOne({ userId: req.user.id });
     const cartItems = cartCount ? cartCount.items : null;
+    const wishlist = await Wishlist.findOne({ userId: req.user.id });
+    const wishlistItems = wishlist ? wishlist.items : [];
     const Robert = await product.find({
       author: 'Robert T. Kiyosaki ', $or: [
         { bookName: { $regex: new RegExp(search, 'i') } },
@@ -303,6 +361,14 @@ exports.author = async (req, res, next) => {
           product.cartQty = cartItem.quantity;
         } else {
           product.inCart = false;
+        }
+      }
+      if (wishlistItems) {
+        const wishlistItem = wishlistItems.find(item => item.productId.toString() === product._id.toString());
+        if (wishlistItem) {
+          product.inWishlist = true;
+        } else {
+          product.inWishlist = false;
         }
       }
 
@@ -325,6 +391,14 @@ exports.author = async (req, res, next) => {
           product.inCart = false;
         }
       }
+      if (wishlistItems) {
+        const wishlistItem = wishlistItems.find(item => item.productId.toString() === product._id.toString());
+        if (wishlistItem) {
+          product.inWishlist = true;
+        } else {
+          product.inWishlist = false;
+        }
+      }
 
     });
     const james = await product.find({
@@ -343,6 +417,14 @@ exports.author = async (req, res, next) => {
           product.cartQty = cartItem.quantity;
         } else {
           product.inCart = false;
+        }
+      }
+      if (wishlistItems) {
+        const wishlistItem = wishlistItems.find(item => item.productId.toString() === product._id.toString());
+        if (wishlistItem) {
+          product.inWishlist = true;
+        } else {
+          product.inWishlist = false;
         }
       }
 

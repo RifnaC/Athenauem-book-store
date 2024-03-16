@@ -128,13 +128,13 @@
                 <span id="btn-txt">Hide filters</span>
             </button>
             <div>
-                    <a href="?page={{prev}}"><i class="fa-solid fa-arrow-right fa-rotate-180 me-2 text-primary"></i></a>
+                <a href="?page={{prev}}"><i class="fa-solid fa-arrow-right fa-rotate-180 me-2 text-primary"></i></a>
                 {{#each pages}}
                 <a href="?page={{this}}" class="me-2 paginationBox p-1 px-2" style="text-decoration: none">{{this}}</a>
                 {{/each}}
                 <a href="?page={{next}}"><i class="fa-solid fa-arrow-right text-primary"></i></a>
-                </div>
-            
+            </div>
+
         </div>
         <div id="content" class="my-5 mx-auto px-0 ms-lg-3 pe-0 ">
             <div id="filterbar" class="collapse">
@@ -144,7 +144,8 @@
                             <button class="btn btn-success form-check-label w-50" onclick="return  resetFilters()">
                                 Reset
                             </button>
-                            <button class="btn btn-success form-check-label w-50 active" onclick="return applyFilters()">
+                            <button class="btn btn-success form-check-label w-50 active"
+                                onclick="return applyFilters()">
                                 Apply
                             </button>
                         </div>
@@ -230,9 +231,19 @@
                                     </span>
                                 </div>
                                 <div class="btn-box text-center bg-primary ">
-                                    <span class="wishlist singleWishlist">
+                                    <span class="wishlist singleWishlist" id="singleWishlist-{{this._id}}">
                                         <a href="/wishlist/{{this._id}}" class="wrapper nav-link ">
-                                            <div class="icon-wishlist "></div>
+                                            <div class="icon-wishlist" id="wishlist-{{this._id}}"></div>
+                                            <script>
+                                                if ({{ this.inWishlist }}) {
+                                                    document.getElementById('wishlist-{{this._id}}').style.background = "url('data:image/svg+xml,%3Csvg id=\"heart-svg\" viewBox=\"467 392 58 57\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg id=\"Group\" fill=\"none\" fill-rule=\"evenodd\" transform=\"translate(467 392)\"%3E%3Cpath id=\"heart\" d=\"M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z\" fill=\"%2315877C\"/%3E%3C/g%3E%3C/svg%3E')";
+                                                    document.getElementById('wishlist-{{this._id}}').style.height = "48px";
+                                                    document.getElementById('wishlist-{{this._id}}').style.width = "48px";
+                                                    document.getElementById('wishlist-{{this._id}}').style.opacity = "1";
+                                                    document.getElementById('singleWishlist-{{this._id}}').style.marginTop = "-16px";
+                                                    document.getElementById('singleWishlist-{{this._id}}').style.marginRight = "20px";
+                                                }
+                                            </script>
                                         </a>
                                     </span>
                                 </div>
@@ -263,10 +274,10 @@
                                     </button>
                                 </div>
                                 <script>
-                                    if({{this.inCart}}){
+                                    if ({{ this.inCart }}) {
                                         document.getElementById('addToCart-{{this._id}}').style.display = 'none';
                                         document.getElementById('qty-{{this._id}}').style.display = 'flex';
-                                        document.getElementById('cartQty-{{this._id}}').value = {{this.cartQty}};
+                                        document.getElementById('cartQty-{{this._id}}').value = {{ this.cartQty }};
                                     }
                                 </script>
                             </div>
