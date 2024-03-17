@@ -108,7 +108,9 @@ exports.addAddress = async (req, res) => {
             }
         }
     });
-    user.save();
+    await user.save().then(() => {
+        res.status(200).render("profile");
+    })
     } catch (error) {
         res.status(500).send(notification('Something went wrong, please try again later'));
     }
