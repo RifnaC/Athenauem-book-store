@@ -42,7 +42,6 @@ exports.profile = async (req, res) => {
         const id = req.user.id;
         const user = await users.findById(id);
         const userAddress = user.addresses;
-        console.log(userAddress);
         const search = req.query.searchQuery || "";
         if (search !== "") {
             res.redirect("/shop-page");
@@ -109,7 +108,7 @@ exports.addAddress = async (req, res) => {
         }
     });
     user.save().then(() => {
-        res.render('profile');
+        res.status(200).json({user: user});
     }).catch(err => {
         console.log(err);
         res.status(500).send(notification('Something went wrong, please try again later'));
