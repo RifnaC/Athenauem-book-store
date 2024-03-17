@@ -1180,17 +1180,17 @@
     let request = {
       "url": `https://${window.location.host}/address/${userId}`,
       "method": "PUT",
-      "data": data,
-      processData: false,
-      contentType: false,
+      "data": JSON.stringify(data),
+      contentType: 'application/json',
     };
     // Send the PUT request
     $.ajax(request).done(function (response) {
-      SweetAlerts('New Address data is inserted Successfully')
-        .then((result) => {
-          window.location.href = '/profile';
-        })
-    });
+      return SweetAlerts('New Address data is inserted Successfully').then(()=>{
+        window.location.href = '/profile';
+      });
+    }).fail(() => {
+      SweetAlerts("Failed to add new address");
+    })
   });
 
   // updating address
@@ -1259,7 +1259,7 @@
       $.ajax(request).done(function (response) {
         deleteAlerts();
       }).fail(() => {
-        SweetAlerts("You have orders from this address.So, this address cannot be deleted!")
+        SweetAlerts("You have orders from this address. So, this address cannot be deleted!");
       })
 
     })

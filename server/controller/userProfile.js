@@ -92,29 +92,59 @@ exports.address = async (req, res) => {
     }
 }
 
+// exports.addAddress = async (req, res) => {
+//     try {
+//         const id = req.user.id;
+//         const user = await users.findByIdAndUpdate({ _id: id }, {
+//         $push: {
+//             "addresses": {
+//                 fullName: req.body.fullName,
+//                 phone: req.body.phone,
+//                 address: req.body.address,
+//                 city: req.body.city,
+//                 district: req.body.district,
+//                 state: req.body.state,
+//                 pincode: req.body.pincode,
+//             }
+//         }
+//         }, { new: true });
+//     await user.save().then(() => {
+//         console.log(user);
+//         res.status(200).redirect('/profile')
+//     })
+    
+//     } catch (error) {
+//         res.status(500).send(notification('Something went wrong, please try again later'));
+//     }
+// }
+
 exports.addAddress = async (req, res) => {
     try {
         const id = req.user.id;
-        const user = await users.findByIdAndUpdate({ _id: id }, {
-        $push: {
-            "addresses": {
-                fullName: req.body.fullName,
-                phone: req.body.phone,
-                address: req.body.address,
-                city: req.body.city,
-                district: req.body.district,
-                state: req.body.state,
-                pincode: req.body.pincode,
-            }
+        const newAddress = {
+            fullName: req.body.fullName,
+            phone: req.body.phone,
+            address: req.body.address,
+            city: req.body.city,
+            district: req.body.district,
+            state: req.body.state,
+            pincode: req.body.pincode,
+        };
+        const updatedUser = await users.findByIdAndUpdate(
+            { _id: id },
+            { $push: { addresses: newAddress } },
+            { new: true }
+        );
+        if (!updatedUser) {
+            return res.status(404).send(notification('User not found'));
         }
-    });
-    await user.save().then(() => {
-        res.status(200).render("profile");
-    })
+        res.status(200).json({updatedUser: updatedUser});
     } catch (error) {
+        console.error(error);
         res.status(500).send(notification('Something went wrong, please try again later'));
     }
-}
+};
+
 
 exports.editAddress = async (req, res) => {
     try {
@@ -155,7 +185,8 @@ exports.deleteAddress = async (req, res) => {
     const id = req.user.id;
     const addressId = req.params.id;
     const orders = await Order.find({ userId: id, addressId: addressId });
-    if (orders == []) {
+    console.log(orders)
+    if (orders == [] || orders.length == 0) {
         const newAddress = await users.findOneAndUpdate({ _id: id }, {
             $pull: {
                 "addresses": {
