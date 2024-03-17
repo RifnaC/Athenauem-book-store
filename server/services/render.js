@@ -480,7 +480,7 @@ exports.userHome = async (req, res) => {
             availability = true;
         }
         const cartItems = cartCount ? cartCount.items : null;
-        const wishlist = await Wishlist.findOne({ userId: req.user.id });
+        const wishlist = !req.user ? null : await Wishlist.findOne({ userId: req.user.id });
         const wishlistItems = wishlist ? wishlist.items : [];
         products.forEach(product => {
             product.offerPercentage = (Math.round(((product.originalPrice - product.price) * 100) / product.originalPrice));

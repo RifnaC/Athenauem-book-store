@@ -51,7 +51,7 @@ exports.productView = async (req, res) => {
     const shop = await shops.findById(vendorId);
     const off = Math.floor((item.discount * 100) / item.originalPrice)
     const cartItems = cartCount ? cartCount.items : null;
-    const wishlist = await Wishlist.findOne({ userId: req.user.id });
+    const wishlist = !req.user ? null : await Wishlist.findOne({ userId: req.user.id });
     const wishlistItems = wishlist ? wishlist.items : [];
 
     if (cartItems) {
@@ -113,7 +113,7 @@ exports.shopPage = async (req, res, next) => {
     const search = req.query.searchQuery || "";
     const limit = 9;
     let page = 1;
-    const wishlist = await Wishlist.findOne({ userId: req.user.id });
+    const wishlist =!req.user ? null : await Wishlist.findOne({ userId: req.user.id });
     const wishlistItems = wishlist ? wishlist.items : [];
     if (req.query.page) {
       page = Number(req.query.page);
@@ -225,7 +225,7 @@ exports.category = async (req, res, next) => {
     const search = req.query.searchQuery || "";
     const cartCount = !req.user ? 0 : await cart.findOne({ userId: req.user.id });
     const cartItems = cartCount ? cartCount.items : null;
-    const wishlist = await Wishlist.findOne({ userId: req.user.id });
+    const wishlist = !req.user ? null : await Wishlist.findOne({ userId: req.user.id });
     const wishlistItems = wishlist ? wishlist.items : [];
     const fiction = await product.find({
       genre: "Fiction", $or: [
@@ -343,7 +343,7 @@ exports.author = async (req, res, next) => {
     const search = req.query.searchQuery || "";
     const cartCount = !req.user ? 0 : await cart.findOne({ userId: req.user.id });
     const cartItems = cartCount ? cartCount.items : null;
-    const wishlist = await Wishlist.findOne({ userId: req.user.id });
+    const wishlist = !req.user ? null : await Wishlist.findOne({ userId: req.user.id });
     const wishlistItems = wishlist ? wishlist.items : [];
     const Robert = await product.find({
       author: 'Robert T. Kiyosaki ', $or: [
