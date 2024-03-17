@@ -1180,8 +1180,7 @@
     let request = {
       "url": `https://${window.location.host}/address/${userId}`,
       "method": "PUT",
-      "data": JSON.stringify(data),
-      contentType: 'application/json',
+      "data": data,
     };
     // Send the PUT request
     $.ajax(request).done(function (response) {
