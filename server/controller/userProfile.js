@@ -93,8 +93,9 @@ exports.address = async (req, res) => {
 }
 
 exports.addAddress = async (req, res) => {
-    const id = req.user.id;
-    const user = await users.findByIdAndUpdate({ _id: id }, {
+    try {
+        const id = req.user.id;
+        const user = await users.findByIdAndUpdate({ _id: id }, {
         $push: {
             "addresses": {
                 fullName: req.body.fullName,
@@ -107,12 +108,10 @@ exports.addAddress = async (req, res) => {
             }
         }
     });
-    user.save().then(() => {
-        res.status(200).json({user: user});
-    }).catch(err => {
-        console.log(err);
+    user.save();
+    } catch (error) {
         res.status(500).send(notification('Something went wrong, please try again later'));
-    })
+    }
 }
 
 exports.editAddress = async (req, res) => {
