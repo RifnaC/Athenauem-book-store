@@ -42,6 +42,7 @@ exports.profile = async (req, res) => {
         const id = req.user.id;
         const user = await users.findById(id);
         const userAddress = user.addresses;
+        console.log(userAddress);
         const search = req.query.searchQuery || "";
         if (search !== "") {
             res.redirect("/shop-page");
