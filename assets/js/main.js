@@ -1410,8 +1410,23 @@
       SweetAlerts("Please Select the your existing shipping address");
     });
   });
-
-
+// function selectAddress(addressId,fullName,phone,address,city,district,state,pincode) {
+//   $('#editShipping').css('display', 'none');
+//   $('.adrSelection').css('display', 'none');
+//   $('.adrChange').css('display', 'block');
+//   $('.paymentSection').css('display', 'block');
+//   $('#checkoutAddBtn').css('display', 'none');
+//   $('#addressCard').css('display', 'none');
+//   $('#updatedAddress').css('display', 'block');
+//   $('#savedId').text(addressId);
+//   $('#savedName').text(fullName);
+//   $('#savedPhone').text(phone);
+//   $('#savedAddress').text(address);
+//   $('#savedCity').text(city);
+//   $('#savedDistrict').text(district);
+//   $('#savedState').text(state);
+//   $('#savedPin').text(-pincode);
+// }
   $("#changeBtn").click(function () {
     $('#editShipping').css('display', 'block');
     $('.adrSelection').css('display', 'block');

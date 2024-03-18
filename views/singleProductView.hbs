@@ -154,7 +154,7 @@
                                                 onclick='return addToCartAndShowAlert("{{item._id}}")'>
                                                 <i class="fa fa-shopping-cart"></i> Add to Cart </a>
                                         </div>
-                                        <div class="bg-danger text-center text-white  py-1" id="outOfStock-{{item._id}}" style="display: none; width: 50%;">{{item.stock}}
+                                        <div class="bg-danger text-center text-white  py-1" id="outOfStock-{{item._id}}" style="display: none; width: 50%;">Out of Stock
                                         </div>
                                         <script>
                                             if ({{ item.quantity }} == 0 || "{{item.stock}}" == "Out Of Stock") {
@@ -256,8 +256,7 @@
                                     </a>
                                 </div>
                                 <div class="bg-danger text-center text-white py-1" id="outOfStock-{{this._id}}"
-                                    style="display: none;">
-                                    {{this.stock}}
+                                    style="display: none;">Out of Stock
                                 </div>
                                 <script>
                                     if ({{ this.quantity }} == 0 || "{{ this.stock }}" == "Out Of Stock") {
