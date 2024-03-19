@@ -160,16 +160,14 @@
                                                 <span class="ps-1">{{this.state}} - {{this.pincode}}</span>
                                             </p>
                                             <div>
-                                                <a class="btn  btn-outline-secondary adrSelection"
-                                                data-address='{"fullName": "{{this.fullName}}", "phone": "{{this.phone}}", "address": "{{this.address}}", "city": "{{this.city}}", "district": "{{this.district}}", "state": "{{this.state}}", "pincode": "{{this.pincode}}", "_id":"{{this._id}}"}'>Select
-                                            </a>
-                                            {{!-- <a class="btn  btn-outline-secondary adrSelection" onclick="return selectAddress({{this._id}}, '{{this.fullName}}', {{this.phone}}, '{{this.address}}', '{{this.city}}', '{{this.district}}', '{{this.state}}', {{this.pincode}})">Select</a> --}}
+                                            <button class="btn btn-outline-secondary adrSelection" data-address='{"fullName": "{{this.fullName}}", "phone": "{{this.phone}}", "address": "{{this.address}}", "city": "{{this.city}}", "district": "{{this.district}}", "state": "{{this.state}}", "pincode": "{{this.pincode}}", "_id":"{{this._id}}"}' id='selectedAddress'>Select</button>
+
                                             </div>
                                         </div>
                                     </div>
                                     {{/each}}
                                 </div>
-                                <div id="editShipping">
+                                {{!-- <div id="editShipping">
                                     <p class="fs-5 text-primary ms-3">Shipping Address</p>
                                     <div class="col-12 ">
                                         <div class="border p-3">
@@ -178,7 +176,7 @@
                                                     <div class="d-flex flex-column form-group col-6">
                                                         <label for="name"> <i class="fa fa-user"></i><span
                                                                 class="ps-2">Name</span></label>
-                                                        <input type="hidden" id="shippingId" name="_id" value="">
+                                                        
                                                         <input type="text" id="fname" name="fullName"
                                                             class="form-control" placeholder="Name" value="">
                                                     </div>
@@ -231,7 +229,7 @@
                                             </form>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <form id="paymentSection" class="paymentSection">
                                 <div>
