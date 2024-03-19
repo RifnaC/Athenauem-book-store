@@ -217,18 +217,11 @@ exports.homeRoutes = async (req, res) => {
 
 exports.admin = async (req, res) => {
     const id = req.user.id;
-    if (req.user.role === 'admin') {
-        const admin = await adminCollection.findById(id);
-        const name = admin.name.split(" ")[0];
-        const admins = await adminCollection.find({ role: { $ne: 'admin' } });
-        axios.get(`http://${req.headers.host}/api/admins`)
-            .then(function () {
-                res.render('admin', { admins: admins, admin: name });
-            })
-            .catch(err => {
-                res.send(err);
-            })
-    }
+    const admin = await adminCollection.findById(id);
+    const name = admin.name.split(" ")[0];        
+    const admins = await adminCollection.find({ role: { $ne: 'admin' } });
+    res.render('admin', { admins: admins, admin: name });
+
 }
 
 exports.addedAdmin = async (req, res) => {

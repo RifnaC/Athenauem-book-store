@@ -63,7 +63,6 @@ route.put('/order/:id', auth.authMiddleware, user.cancelOrder);
 
 // checkout Routes
 route.get("/checkout", auth.authMiddleware, cartQty.cartQty, checkout.checkout);
-route.put("/checkout/:id", auth.authMiddleware, checkout.changeAddress);
 route.post("/createOrder", auth.authMiddleware, checkout.proceedToPayment);
 route.post("/api/checkout", auth.authMiddleware, checkout.getOrder);
 route.post("/api/payment/verify", auth.authMiddleware, checkout.verifyPayment);

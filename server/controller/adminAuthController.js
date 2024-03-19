@@ -69,7 +69,7 @@ exports.register = async (req, res) => {
             email: req.body.email,
             password: hashedPassword,
             role: 'vendor',
-            status: req.body.status,
+            status: "Pending",
         });
         const token = signToken({ id: user._id, role: user.role });
         // save user in database
@@ -77,7 +77,7 @@ exports.register = async (req, res) => {
         if (token && savedUser.status === 'Active') {
             res.redirect('/');
         }else{
-            res.status(500).send(notification("Thank you for choosing Atheneuam. Please wait for admin approval","/signup"));
+            res.status(300).send(notification("Thank you for choosing Atheneuam. Please wait for admin approval","/signup"));
         }
     } catch (err) {
         res.status(500).send(notification("Some error occured while creating a create operation", "/signup"));
@@ -106,8 +106,9 @@ exports.login = async (req, res) => {
         };
         const token = signToken(admin._id, data);
         res.cookie('token', token, { httpOnly: false, secure: true, });
+        
         if (data.status !== 'Active') {
-            notification('Thank you for choosing Atheneuam. Please wait for admin approval', '/login');
+            return res.status(401).send(notification('Thank you for choosing Atheneuam. Please wait for admin approval', '/login'))
         } else {
             res.redirect('/');
         }

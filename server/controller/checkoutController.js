@@ -113,43 +113,6 @@ exports.checkout = async (req, res) => {
   }
 }
 
-exports.changeAddress = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const userId = req.user.id;
-    const existingAddress = await Users.findOne({
-      _id: userId,
-      'addresses': {
-        $elemMatch: {
-          _id: id,
-        }
-      }
-    });
-    if (!existingAddress) {
-      return res.status(404).send(notification('Address not found'));
-    }
-    const updatedUser = await Users.aggregate([
-      {
-        "$unwind": "$addresses"
-      },
-      {
-        "$match": {
-          "addresses._id": new mongoose.Types.ObjectId(id)
-        }
-      },
-      {
-        "$project": {
-          "addresses": 1,
-        }
-      }
-    ]);
-    res.status(200).json({ address: updatedUser[0].addresses });
-  } catch (error) {
-    res.status(500).send(notification('Something went wrong, please try again later'));
-  }
-}
-
-
 exports.proceedToPayment = async (req, res) => {
   const options = {
     amount: req.body.amount * 100,
