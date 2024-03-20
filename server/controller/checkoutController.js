@@ -184,6 +184,7 @@ exports.getOrder = async (req, res) => {
       name: item.bookName,
       price: item.price,
       quantity: quantities[index],
+      orderDate: Date.now(),
     }));
     for (const item of orderItems) {
       const productId = item.itemId;
